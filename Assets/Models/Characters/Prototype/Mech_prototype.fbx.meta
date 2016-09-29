@@ -1,0 +1,415 @@
+fileFormatVersion: 2
+guid: 1d4cde8c95bb4794998b0eae98e3de1d
+timeCreated: 1474815692
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Mech_Arm_l
+    100002: Mech_Arm_r
+    100004: Mech_geo
+    100006: Mech_geo_grp
+    100008: Mech_joint10
+    100010: Mech_joint12
+    100012: Mech_joint13
+    100014: Mech_joint17
+    100016: Mech_joint18
+    100018: Mech_joint20
+    100020: Mech_joint21
+    100022: Mech_joint23
+    100024: Mech_joint24
+    100026: Mech_joint25
+    100028: Mech_joint26
+    100030: Mech_joint27
+    100032: Mech_joint28
+    100034: Mech_joint4
+    100036: Mech_joint6
+    100038: Mech_joint7
+    100040: Mech_joint9
+    100042: Mech_Leg_l
+    100044: Mech_Leg_r
+    100046: Mech_Neck
+    100048: //RootNode
+    100050: Mech_Skel_grp
+    100052: Mech_Torso
+    400000: Mech_Arm_l
+    400002: Mech_Arm_r
+    400004: Mech_geo
+    400006: Mech_geo_grp
+    400008: Mech_joint10
+    400010: Mech_joint12
+    400012: Mech_joint13
+    400014: Mech_joint17
+    400016: Mech_joint18
+    400018: Mech_joint20
+    400020: Mech_joint21
+    400022: Mech_joint23
+    400024: Mech_joint24
+    400026: Mech_joint25
+    400028: Mech_joint26
+    400030: Mech_joint27
+    400032: Mech_joint28
+    400034: Mech_joint4
+    400036: Mech_joint6
+    400038: Mech_joint7
+    400040: Mech_joint9
+    400042: Mech_Leg_l
+    400044: Mech_Leg_r
+    400046: Mech_Neck
+    400048: //RootNode
+    400050: Mech_Skel_grp
+    400052: Mech_Torso
+    4300000: Mech_geo
+    9500000: //RootNode
+    13700000: Mech_geo
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human:
+    - boneName: Mech_Skel_grp
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_Leg_l
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_Leg_r
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint9
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint12
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint10
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint13
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint24
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_Torso
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint17
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint18
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_Neck
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_Arm_r
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint6
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint20
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint7
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint21
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint28
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Mech_joint26
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Mech_prototype(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Mech_geo_grp
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Mech_geo
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Mech_Skel_grp
+      position: {x: 0.3481176, y: 0.15906014, z: 0}
+      rotation: {x: 0.118024275, y: -0.9918868, z: -0.040401805, w: -0.024464713}
+      scale: {x: 11.189778, y: 11.189778, z: 11.189778}
+      transformModified: 1
+    - name: Mech_Leg_r
+      position: {x: -0.024834394, y: 0.13278216, z: 0.015}
+      rotation: {x: -0.0057699056, y: -0.06666596, z: 0.056737088, w: 0.99614424}
+      scale: {x: 1, y: 0.9999999, z: 1.0000001}
+      transformModified: 1
+    - name: Mech_joint12
+      position: {x: 0.0022717686, y: -0.06673542, z: 0.007834325}
+      rotation: {x: 0.08204133, y: -0.0011293069, z: -0.019646373, w: 0.9964346}
+      scale: {x: 1.0000001, y: 0.9999998, z: 0.9999998}
+      transformModified: 1
+    - name: Mech_joint13
+      position: {x: -0.0013018327, y: -0.07227862, z: -0.0072227055}
+      rotation: {x: 0.13006458, y: -0.9656434, z: -0.16230047, w: 0.15580322}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1.0000001}
+      transformModified: 1
+    - name: Mech_joint25
+      position: {x: 0.0022839312, y: -0.0044807387, z: 0.012438422}
+      rotation: {x: 0.12320154, y: 0.089427456, z: -0.008690752, w: 0.9883059}
+      scale: {x: 1, y: 0.9999998, z: 0.99999994}
+      transformModified: 1
+    - name: Mech_joint26
+      position: {x: 4.440892e-18, y: -0.0003914776, z: 0.015004275}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Mech_Leg_l
+      position: {x: 0.025567016, y: 0.13268353, z: 0.015}
+      rotation: {x: 0.20207752, y: -0.018563058, z: 0.082969196, w: 0.9756722}
+      scale: {x: 1, y: 0.9999998, z: 1}
+      transformModified: 1
+    - name: Mech_joint9
+      position: {x: -0.0013063446, y: -0.066623576, z: 0.007834325}
+      rotation: {x: -0.1266289, y: 0.0025294886, z: 0.008162222, w: 0.9919134}
+      scale: {x: 0.9999999, y: 1, z: 1.0000001}
+      transformModified: 1
+    - name: Mech_joint10
+      position: {x: -0.0013098485, y: -0.0722244, z: -0.007217829}
+      rotation: {x: 0.16373126, y: -0.9608709, z: 0.17165476, w: 0.1430173}
+      scale: {x: 1, y: 0.99999994, z: 1.0000004}
+      transformModified: 1
+    - name: Mech_joint27
+      position: {x: -0.000053078074, y: -0.0066306386, z: 0.01073817}
+      rotation: {x: -0.20608318, y: 0.006519855, z: -0.00089777313, w: 0.97851235}
+      scale: {x: 1.0000004, y: 1, z: 1.0000002}
+      transformModified: 1
+    - name: Mech_joint28
+      position: {x: 7.105427e-17, y: 0.00087731925, z: 0.015004275}
+      rotation: {x: -0.000000014901159, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+      transformModified: 1
+    - name: Mech_joint4
+      position: {x: -0.0011315473, y: 0.17320123, z: 0.015}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Mech_joint24
+      position: {x: 0.00014769229, y: 0.032941047, z: -0.005}
+      rotation: {x: 0.061048545, y: -0, z: -0, w: 0.99813485}
+      scale: {x: 1, y: 0.99999976, z: 0.99999976}
+      transformModified: 1
+    - name: Mech_joint23
+      position: {x: 0.000073874995, y: 0.027980484, z: -1.7801298e-20}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 0.9999998, z: 0.9999998}
+      transformModified: 1
+    - name: Mech_Torso
+      position: {x: 0.0007320272, y: 0.027989652, z: 4.440892e-18}
+      rotation: {x: 0.051270224, y: 0.042874895, z: 0.90800625, w: 0.41359147}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999999}
+      transformModified: 1
+    - name: Mech_Neck
+      position: {x: 0.0030412986, y: 0.045619242, z: -1.3322676e-17}
+      rotation: {x: 0.1433557, y: -0.0054075774, z: 0.93425864, w: 0.32646695}
+      scale: {x: 1, y: 0.99999976, z: 0.99999976}
+      transformModified: 1
+    - name: Mech_joint6
+      position: {x: 0.0007731769, y: 0.020496769, z: -2.2203038e-20}
+      rotation: {x: 0.0061240895, y: 0.00029720282, z: 0.023818612, w: 0.9996975}
+      scale: {x: 1.0000001, y: 0.9999999, z: 0.9999999}
+      transformModified: 1
+    - name: Mech_joint7
+      position: {x: -0.0014726615, y: 0.030344985, z: -0.0000000011941514}
+      rotation: {x: -0.052335963, y: -0, z: -0, w: 0.99862957}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000001}
+      transformModified: 1
+    - name: Mech_Arm_l
+      position: {x: 0.047039565, y: 0.0039785025, z: -8.881784e-18}
+      rotation: {x: -0, y: 0.0000000037252903, z: -0.63607824, w: 0.7716246}
+      scale: {x: 1.0000001, y: 1.0000004, z: 0.99999976}
+      transformModified: 1
+    - name: Mech_joint17
+      position: {x: 0.08165654, y: 0.00094949437, z: 6.8718614e-10}
+      rotation: {x: -0.028034566, y: -0.053707566, z: 0.20804529, w: 0.9762412}
+      scale: {x: 1.0000005, y: 1.0000001, z: 0.99999976}
+      transformModified: 1
+    - name: Mech_joint18
+      position: {x: 0.089848265, y: 0.0009494997, z: 8.881784e-18}
+      rotation: {x: 4.6566123e-10, y: -0, z: 0.000000003870809, w: 1}
+      scale: {x: 1.0000006, y: 1.0000001, z: 0.9999999}
+      transformModified: 1
+    - name: Mech_Arm_r
+      position: {x: -0.04736467, y: 0.005877495, z: -2.2927774e-10}
+      rotation: {x: -0.25382054, y: 0.47519705, z: 0.75972515, w: -0.36411637}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000002}
+      transformModified: 1
+    - name: Mech_joint20
+      position: {x: -0.07975755, y: 0.0009494947, z: 9.421994e-10}
+      rotation: {x: 0.018958628, y: 0.085145965, z: 0.0592122, w: 0.99442685}
+      scale: {x: 1.0000006, y: 1.0000006, z: 0.99999994}
+      transformModified: 1
+    - name: Mech_joint21
+      position: {x: -0.09969694, y: -0.00094949466, z: 0}
+      rotation: {x: -0, y: -0, z: -7.566995e-10, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000001}
+      transformModified: 1
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
