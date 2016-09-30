@@ -1,47 +1,44 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 
-public class Mech : NetworkBehaviour
+public class Mech : MonoBehaviour
 {
-	[SerializeField]
-	private Transform m_spawnPosEngineer;
-	[SerializeField]
-	private Transform m_spawnPosPilot;
-	[SerializeField]
-	private Transform m_spawnPosArms;
-
 	Animator anim;
 	float walkMovement;
+	Rigidbody rb;
+	[SerializeField]
+	float walkSpeed = 10f;
+	[SerializeField]
+	float accelerationSpeed = 1f;
 
-	public Transform SpawnPosEngineer { get { return m_spawnPosEngineer; } }
-	public Transform SpawnPosPilot { get { return m_spawnPosPilot; } }
-	public Transform SpawnPosEArms { get { return m_spawnPosArms; } }
+	float acceleration;
 
 	void Start ()
 	{
 		anim = GetComponent<Animator>();
-	}
-
-	[ClientRpc]
-	public void RpcWalkTest(float axis)
-	{
-		WalkTest(axis);
-	}
-
-	public void WalkTest(float axis)
-	{
-		walkMovement = Mathf.MoveTowards(walkMovement, axis, Time.deltaTime * 4f);
-		anim.SetFloat("WalkSpeed", walkMovement);
-		transform.Translate(Vector3.forward * axis * Time.deltaTime);
-	}
-
-	public void ChangeColorTest(Color newColor)
-	{
-		transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color = newColor;
+		rb = GetComponent<Rigidbody>();
 	}
 	
-	void Update ()
+	void FixedUpdate ()
 	{
-		
+		//Movement ultra prototype
+		Vector3 inputVec = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+
+		if (inputVec.z > 0.1f)
+		{
+			acceleration += accelerationSpeed;
+		}
+		else
+		{
+			acceleration -= accelerationSpeed;
+		}
+
+		acceleration = Mathf.Clamp(acceleration, 0f, 1f);
+
+
+
+		print(acceleration);
+
+		Vector3 moveVec = transform.forward * acceleration;
+		transform.Translate(moveVec * walkSpeed * Time.deltaTime);
 	}
 }
