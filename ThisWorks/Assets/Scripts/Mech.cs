@@ -13,6 +13,7 @@ public class Mech : MonoBehaviour
 	float accelerationSpeed = 0.01f;
 
 	float accelerationZ;
+	Vector3 acceleration;
 
 	[SerializeField]
 	Transform head;
@@ -34,27 +35,40 @@ public class Mech : MonoBehaviour
 		accelerationZ = Mathf.MoveTowards(accelerationZ, inputVec.z, Time.deltaTime * accelerationSpeed);
 		accelerationZ = Mathf.Clamp(accelerationZ, -1f, 1f);
 
+		acceleration = Vector3.MoveTowards(acceleration, inputVec, Time.deltaTime * accelerationSpeed);
+		acceleration = Vector3.ClampMagnitude(acceleration, 1f);
+
 		//Looking around
 		aimBase.position = head.position;
 		aimBase.Rotate(Vector3.up, Input.GetAxis("Mouse X"));
+		//aimBase.Rotate(head.right, -Input.GetAxis("Mouse Y"));
 
 		//Which way to walk
-		Vector3 dirToWalk = head.forward;
-		dirToWalk.y = transform.position.y;
+		Vector3 headForward = head.forward;
+		headForward.y = transform.position.y;
+
+		Vector3 headRight = head.right;
+		headRight.y = transform.position.y;
 
 		if (Mathf.Abs(inputVec.z) > 0.1f)
 		{
-			transform.forward = Vector3.Lerp(transform.forward, dirToWalk, Time.deltaTime * 2f);
+			transform.forward = Vector3.Lerp(transform.forward, headForward, Time.deltaTime * 2f);
 		}
+
+		if (Mathf.Abs(inputVec.x) > 0.1f)
+		{
+			transform.right = Vector3.Lerp(transform.right, headRight, Time.deltaTime * 2f);
+		}
+
 		Debug.DrawRay(head.position, head.forward, Color.red);
 		Debug.DrawRay(head.position, transform.forward, Color.white * 2f);
 
+		
+		transform.Translate(transform.forward * acceleration.z * Time.deltaTime, Space.World);
+		transform.Translate(transform.right * acceleration.x * Time.deltaTime, Space.World);
 
-		Vector3 moveVec = transform.forward * accelerationZ;
-		transform.Translate(transform.forward * accelerationZ * Time.deltaTime, Space.World);
-		transform.Translate(transform.right * inputVec.x * Time.deltaTime, Space.World);
-
-		anim.SetFloat("Movement", accelerationZ);
-		anim.SetFloat("MoveSpeed", Mathf.Abs(accelerationZ));
+		anim.SetFloat("ForwardMovement", acceleration.z);
+		anim.SetFloat("SideMovement", acceleration.x);
+		anim.SetFloat("MoveSpeed", Mathf.Abs(acceleration.magnitude));
 	}
 }
