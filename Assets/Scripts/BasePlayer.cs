@@ -1,14 +1,12 @@
 ﻿//using System.Collections;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class BasePlayer : NetworkBehaviour
+public class BasePlayer : MonoBehaviour
 {
-	protected NetworkIdentity netIdentity;
 
 	void Start()
 	{
-		netIdentity = GetComponent<NetworkIdentity>();
+
 	}
 	
 	void Update()

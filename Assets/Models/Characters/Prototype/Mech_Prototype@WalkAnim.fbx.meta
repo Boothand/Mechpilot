@@ -60,7 +60,7 @@ ModelImporter:
     400050: Mech_upperarm_l
     400052: Mech_upperarm_r
     4300000: Mech_geo
-    7400000: Take 001
+    7400000: WalkAnim
     9500000: //RootNode
     13700000: Mech_geo
   materials:
@@ -72,7 +72,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: Mech_Skel_grp
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar to
@@ -88,7 +88,89 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: WalkAnim
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 48
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Mech_geo_grp
+        weight: 0
+      - path: Mech_geo_grp/Mech_geo
+        weight: 0
+      - path: Mech_Skel_grp
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1/Mech_chest
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1/Mech_chest/Mech_neckbone1
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1/Mech_chest/Mech_neckbone1/Mech_neckbone2
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1/Mech_chest/Mech_neckbone1/Mech_neckbone2/Mech_head
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1/Mech_chest/Mech_upperarm_l
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1/Mech_chest/Mech_upperarm_l/Mech_forearm_l
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1/Mech_chest/Mech_upperarm_l/Mech_forearm_l/Mech_hand_l
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1/Mech_chest/Mech_upperarm_r
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1/Mech_chest/Mech_upperarm_r/Mech_forearm_r
+        weight: 1
+      - path: Mech_Skel_grp/Mech_spine3/Mech_spine2/Mech_spine_1/Mech_chest/Mech_upperarm_r/Mech_forearm_r/Mech_hand_r
+        weight: 1
+      - path: Mech_Skel_grp/Mech_thigh_l
+        weight: 1
+      - path: Mech_Skel_grp/Mech_thigh_l/Mech_shin_l
+        weight: 1
+      - path: Mech_Skel_grp/Mech_thigh_l/Mech_shin_l/Mech_foot_l
+        weight: 1
+      - path: Mech_Skel_grp/Mech_thigh_l/Mech_shin_l/Mech_foot_l/Mech_toeball_l
+        weight: 1
+      - path: Mech_Skel_grp/Mech_thigh_l/Mech_shin_l/Mech_foot_l/Mech_toeball_l/Mech_toe_l
+        weight: 0
+      - path: Mech_Skel_grp/Mech_thigh_r
+        weight: 1
+      - path: Mech_Skel_grp/Mech_thigh_r/Mech_shin_r
+        weight: 1
+      - path: Mech_Skel_grp/Mech_thigh_r/Mech_shin_r/Mech_foot_r
+        weight: 1
+      - path: Mech_Skel_grp/Mech_thigh_r/Mech_shin_r/Mech_foot_r/Mech_toeball_r
+        weight: 1
+      - path: Mech_Skel_grp/Mech_thigh_r/Mech_shin_r/Mech_foot_r/Mech_toeball_r/Mech_toe_r
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -114,7 +196,6 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
     human:
     - boneName: Mech_Skel_grp
       humanName: Hips
@@ -278,140 +359,140 @@ ModelImporter:
         modified: 0
     skeleton:
     - name: Mech_Prototype@WalkAnim(Clone)
-      parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_geo_grp
-      parentName: Mech_Prototype@WalkAnim(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_geo
-      parentName: Mech_geo_grp
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_Skel_grp
-      parentName: Mech_Prototype@WalkAnim(Clone)
       position: {x: 0, y: 0.069891, z: 0}
       rotation: {x: -0, y: -0.9999998, z: 0, w: -0.00061280397}
       scale: {x: 5, y: 5, z: 5}
+      transformModified: 0
     - name: Mech_thigh_r
-      parentName: Mech_Skel_grp
       position: {x: -0.024834394, y: 0.13278216, z: 0.015}
       rotation: {x: -0.057242684, y: -0.09210842, z: -0.011661623, w: 0.99403393}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_shin_r
-      parentName: Mech_thigh_r
       position: {x: 0.0022717686, y: -0.06673542, z: 0.007834325}
       rotation: {x: 0.09304624, y: -0.0015274899, z: -0.022273853, w: 0.99541146}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_foot_r
-      parentName: Mech_shin_r
       position: {x: -0.0013018327, y: -0.07227862, z: -0.0072227055}
       rotation: {x: -0.0071171336, y: -0.9895577, z: -0.06976648, w: 0.1259269}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_toeball_r
-      parentName: Mech_foot_r
       position: {x: 0.0026903164, y: -0.004340476, z: 0.014133101}
       rotation: {x: 0.112030834, y: 0.09004078, z: -0.007140347, w: 0.98959124}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_toe_r
-      parentName: Mech_toeball_r
       position: {x: 4.440892e-18, y: -0.0003914776, z: 0.015004275}
       rotation: {x: 0, y: 3.611926e-17, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_thigh_l
-      parentName: Mech_Skel_grp
       position: {x: 0.025567016, y: 0.13268353, z: 0.015}
       rotation: {x: 0.1746021, y: -0.005222772, z: 0.019489346, w: 0.98443234}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_shin_l
-      parentName: Mech_thigh_l
       position: {x: -0.0013063446, y: -0.066623576, z: 0.007834325}
       rotation: {x: -0.1345937, y: 0.0026229164, z: 0.0016777031, w: 0.99089605}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_foot_l
-      parentName: Mech_shin_l
       position: {x: -0.0013098485, y: -0.0722244, z: -0.007217829}
       rotation: {x: 0.0379515, y: 0.96266407, z: -0.24641326, w: 0.10544211}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_toeball_l
-      parentName: Mech_foot_l
       position: {x: -0.000053078074, y: -0.0066306386, z: 0.01073817}
       rotation: {x: -0.20608316, y: 0.006519854, z: -0.00089777313, w: 0.97851235}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_toe_l
-      parentName: Mech_toeball_l
       position: {x: 7.115839e-17, y: 0.00087731925, z: 0.015004275}
       rotation: {x: -5.904753e-17, y: -8.67377e-19, z: -4.573978e-19, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_spine3
-      parentName: Mech_Skel_grp
       position: {x: -0.0011315473, y: 0.17320123, z: 0.015}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_spine2
-      parentName: Mech_spine3
       position: {x: 0.00014769229, y: 0.032941047, z: -0.005}
       rotation: {x: 0.061048545, y: -0, z: -0, w: 0.99813485}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_spine_1
-      parentName: Mech_spine2
       position: {x: 0.000073874995, y: 0.027980484, z: 7.588131e-19}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_chest
-      parentName: Mech_spine_1
       position: {x: 0.0007320272, y: 0.027989652, z: 5.6061955e-18}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_neckbone1
-      parentName: Mech_chest
       position: {x: 0.0030412986, y: 0.045619242, z: -1.3322676e-17}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_neckbone2
-      parentName: Mech_neckbone1
       position: {x: 0.0007731769, y: 0.020496769, z: 1.4000459e-18}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_head
-      parentName: Mech_neckbone2
       position: {x: -0.0014726615, y: 0.030344985, z: -0.0000000011941514}
       rotation: {x: -0.052335955, y: 0, z: -0, w: 0.9986295}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_upperarm_l
-      parentName: Mech_chest
       position: {x: 0.047039565, y: 0.0039785025, z: -8.881784e-18}
       rotation: {x: 0.00048618758, y: 0.00060393475, z: -0.015345541, w: 0.999882}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_forearm_l
-      parentName: Mech_upperarm_l
       position: {x: 0.08165654, y: 0.00094949437, z: 6.8718614e-10}
       rotation: {x: -0.0057740943, y: -0.033580273, z: -0.007866343, w: 0.99938846}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_hand_l
-      parentName: Mech_forearm_l
       position: {x: 0.089848265, y: 0.0009494997, z: 8.891667e-18}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_upperarm_r
-      parentName: Mech_chest
       position: {x: -0.04736467, y: 0.005877495, z: -2.2927771e-10}
       rotation: {x: -0.10140245, y: 0.0025855554, z: 0.015126935, w: 0.9947272}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_forearm_r
-      parentName: Mech_upperarm_r
       position: {x: -0.07975755, y: 0.0009494947, z: 9.421994e-10}
       rotation: {x: 0.0018199456, y: 0.03254643, z: -0.019613206, w: 0.99927616}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     - name: Mech_hand_r
-      parentName: Mech_forearm_r
       position: {x: -0.09969694, y: -0.00094949466, z: -3.564573e-17}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 0
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -420,10 +501,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
-    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 7108515961fb62e45a3048d8e5b5c538,
     type: 3}
   animationType: 3
