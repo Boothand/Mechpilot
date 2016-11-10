@@ -6,38 +6,51 @@ public class MovementControl : MonoBehaviour
 	Animator anim;
 	Mech mech;
 
-	[SerializeField]
-	float walkSpeed = 5f;
-
-	[SerializeField]
-	float accelerationSpeed = 1f;
-
-	Vector3 acceleration;
-
+	[Header("References")]
 	[SerializeField]
 	Transform head;
 
 	[SerializeField]
 	Transform aimBase;
 
-	void Start ()
+	[Header("Values")]
+	[SerializeField]
+	float walkSpeed = 5f;
+
+	[SerializeField]
+	float accelerationSpeed = 1f;
+
+	[SerializeField]
+	string lookX = "Mouse X";
+	[SerializeField]
+	string lookY = "Mouse Y";
+
+	[SerializeField]
+	string moveXStr = "Horizontal";
+	[SerializeField]
+	string moveYStr = "Vertical";
+
+	Vector3 acceleration;
+
+
+	void Awake ()
 	{
-		anim = GetComponent<Animator>();
+		anim = GetComponent<Animator>();		
 		mech = GetComponent<Mech>();
 	}
 	
 	void Update ()
 	{
 		//Accelerating up and down
-		Vector3 inputVec = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+		Vector3 inputVec = new Vector3(Input.GetAxisRaw(moveXStr), 0f, Input.GetAxisRaw(moveYStr));
 
 		acceleration = Vector3.MoveTowards(acceleration, inputVec, Time.deltaTime * accelerationSpeed);
 		acceleration = Vector3.ClampMagnitude(acceleration, 1f);
 
 		//Looking around
 		aimBase.position = head.position;
-		aimBase.Rotate(Vector3.up, Input.GetAxis("Mouse X"));
-		aimBase.Rotate(head.right, -Input.GetAxis("Mouse Y"), Space.World);
+		aimBase.Rotate(Vector3.up, Input.GetAxis(lookX));
+		aimBase.Rotate(head.right, -Input.GetAxis(lookY), Space.World);
 
 		//Which way to walk
 		Vector3 headForward = head.forward;
@@ -58,7 +71,6 @@ public class MovementControl : MonoBehaviour
 
 		Debug.DrawRay(head.position, head.forward, Color.red);
 		Debug.DrawRay(head.position, transform.forward, Color.white * 2f);
-
 
 		transform.Translate(transform.forward * acceleration.z * walkSpeed * Time.deltaTime, Space.World);
 		transform.Translate(transform.right * acceleration.x * walkSpeed * Time.deltaTime, Space.World);
