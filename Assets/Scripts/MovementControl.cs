@@ -54,10 +54,10 @@ public class MovementControl : MonoBehaviour
 
 		//Which way to walk
 		Vector3 headForward = head.forward;
-		headForward.y = transform.position.y;
+		headForward.y = head.localPosition.y;
 
 		Vector3 headRight = head.right;
-		headRight.y = transform.position.y;
+		headRight.y = head.localPosition.y;
 
 		if (Mathf.Abs(inputVec.z) > 0.1f)
 		{
@@ -69,7 +69,7 @@ public class MovementControl : MonoBehaviour
 			transform.right = Vector3.Lerp(transform.right, headRight, Time.deltaTime * 2f);
 		}
 
-		Debug.DrawRay(head.position, head.forward, Color.red);
+		Debug.DrawRay(head.position, headForward, Color.red);
 		Debug.DrawRay(head.position, transform.forward, Color.white * 2f);
 
 		transform.Translate(transform.forward * acceleration.z * walkSpeed * Time.deltaTime, Space.World);
