@@ -1,23 +1,36 @@
 ﻿using UnityEngine;
 
-public class PlayerInput : BaseInput
+public class PlayerInput : AbstractInput
 {
-	[SerializeField] private string m_horzString = "Horizontal";
-	[SerializeField] private string m_vertString = "Vertical";
-	[SerializeField] private string m_crouchString = "Crouch";
-	[SerializeField] private string m_fireString = "Fire";
+	[SerializeField] string moveHorzString = "Horizontal";
+	[SerializeField] string moveVertString = "Vertical";
+
+	[SerializeField] string lArmHorzString = "LeftArmHorz";
+	[SerializeField] string lArmVertString = "LeftArmVert";
+	[SerializeField] string rArmHorzString = "RightArmHorz";
+	[SerializeField] string rArmVertString = "RightArmVert";
+
+	[SerializeField] string lookHorzString = "Mouse X";
+	[SerializeField] string lookVertString = "Mouse Y";
+
+	[SerializeField] string crouchString = "Crouch";
+	[SerializeField] string attackString = "Fire1";
 	
 	void Update ()
 	{
-		m_horz = Input.GetAxis(m_horzString);
-		m_horzRaw = Input.GetAxisRaw(m_horzString);
-		m_vert = Input.GetAxis(m_vertString);
-		m_vertRaw = Input.GetAxisRaw(m_vertString);
+		moveHorz = Input.GetAxisRaw(moveHorzString);
+		moveVert = Input.GetAxisRaw(moveVertString);
 
-		m_crouch = Input.GetAxis(m_crouchString);
-		m_crouchRaw = Input.GetAxisRaw(m_crouchString);
+		//lArmHorz = Input.GetAxis(lArmHorzString);
+		//lArmVert = Input.GetAxis(lArmVertString);
+		//rArmHorz = Input.GetAxis(rArmHorzString);
+		//rArmVert = Input.GetAxis(rArmVertString);
 
-		m_fire = Input.GetButtonDown(m_fireString);
-		m_fireHold = Input.GetButton(m_fireString);
+		lookHorz = Input.GetAxis(lookHorzString);
+		lookVert = Input.GetAxis(lookVertString);
+
+		crouch = Input.GetButtonDown(crouchString);
+
+		attack = Input.GetButtonDown(attackString);
 	}
 }
