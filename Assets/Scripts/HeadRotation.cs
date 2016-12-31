@@ -20,8 +20,8 @@ public class HeadRotation : MechComponent
 
 	void LimitHeadRotation()
 	{
-		float angleX = Mathf.DeltaAngle(transform.eulerAngles.y, aimBaseX.eulerAngles.y);
-		float angleY = Mathf.DeltaAngle(transform.eulerAngles.x, aimBaseY.eulerAngles.x);
+		float angleX = Mathf.DeltaAngle(mech.transform.eulerAngles.y, aimBaseX.eulerAngles.y);
+		float angleY = Mathf.DeltaAngle(mech.transform.eulerAngles.x, aimBaseY.eulerAngles.x);
 		float xLimit = 70f;
 		float yLimit = 87f;
 

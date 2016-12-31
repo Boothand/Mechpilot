@@ -74,7 +74,7 @@ public class MechMovement : MechComponent
 		float blendSpeed = 2f;
 
 		//Transform world velocity to local space, to map forward and side values in animator
-		Vector3 animationVector = transform.InverseTransformDirection(rb.velocity);
+		Vector3 animationVector = mech.transform.InverseTransformDirection(velocity);
 		//Normalize, so blend tree is mapped correctly
 		animationVector.Normalize();
 
@@ -82,6 +82,7 @@ public class MechMovement : MechComponent
 		animForward = Mathf.MoveTowards(animForward, animationVector.z, Time.deltaTime * blendSpeed);
 		animSide = Mathf.MoveTowards(animSide, animationVector.x, Time.deltaTime * blendSpeed);
 
+		
 		animator.SetFloat("ForwardMovement", animForward);
 		animator.SetFloat("SideMovement", animSide);
 
@@ -114,7 +115,6 @@ public class MechMovement : MechComponent
 		//moving = rb.velocity.magnitude > 0.001f;
 		moving = velocity.magnitude > 0.001f;
 
-		print(velocity.ToString("0.000"));
 
 		//Prevent unwanted sliding by switching out the physic material
 		capsuleCol.material = GetAppropriatePhysicMaterial();
@@ -125,7 +125,7 @@ public class MechMovement : MechComponent
 		//Gradually tween mech's forward direction towards head's aim direction
 		if (moving)
 		{
-			mech.transform.forward = Vector3.Lerp(transform.forward, helm.headRotation.lookDir, Time.deltaTime * 2f);
+			mech.transform.forward = Vector3.Lerp(mech.transform.forward, helm.headRotation.lookDir, Time.deltaTime * 2f);
 		}
 	}
 }
