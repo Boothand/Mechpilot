@@ -11,7 +11,7 @@ public class Engineer : MechComponent
 	{
 		base.OnAwake();
 
-		legsEnergy = 1f;
+		legsEnergy = 0.5f;
 		armsEnergy = 1f;
 		engineerEnergy = 1f;
 	}

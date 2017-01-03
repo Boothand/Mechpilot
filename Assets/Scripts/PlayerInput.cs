@@ -18,8 +18,8 @@ public class PlayerInput : AbstractInput
 	
 	void Update ()
 	{
-		moveHorz = Input.GetAxisRaw(moveHorzString);
-		moveVert = Input.GetAxisRaw(moveVertString);
+		moveHorz = Input.GetAxis(moveHorzString);
+		moveVert = Input.GetAxis(moveVertString);
 
 		//lArmHorz = Input.GetAxis(lArmHorzString);
 		//lArmVert = Input.GetAxis(lArmVertString);

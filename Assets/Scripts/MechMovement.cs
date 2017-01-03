@@ -36,16 +36,33 @@ public class MechMovement : MechComponent
 
 	Vector3 BuildVelocity() //Return value just for increased readability in the Update-loop
 	{
-		inputVec = new Vector3(input.moveHorz, 0f, input.moveVert);
+		float minimumInputSpeed = 0.2f;
+		float moveHorz = input.moveHorz;
+		float moveVert = input.moveVert;
+
+		if (Mathf.Abs(input.moveHorz) > 0.001f &&
+			Mathf.Abs(input.moveHorz) < minimumInputSpeed)
+		{
+			moveHorz = Mathf.Sign(moveHorz) * minimumInputSpeed;
+		}
+
+		if (Mathf.Abs(input.moveVert) > 0.001f &&
+			Mathf.Abs(input.moveVert) < minimumInputSpeed)
+		{
+			moveHorz = Mathf.Sign(moveVert) * minimumInputSpeed;
+		}
+		
+		inputVec = new Vector3(moveHorz, 0f, moveVert);
+
 
 		//Transform direction from 'input' space to world space, relative to head's orientation.
 		worldMoveDir = hierarchy.head.TransformDirection(inputVec);
 
-		//Keep the vector straight regardless of looking up/ down
+		//Keep the vector straight regardless of looking up/down
 		worldMoveDir.y = 0f;
 
 		//Don't go faster diagonally
-		if (worldMoveDir.magnitude > 0.001f)
+		if (worldMoveDir.magnitude > 1f)
 		{
 			worldMoveDir.Normalize();
 		}
