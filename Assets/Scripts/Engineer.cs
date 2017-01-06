@@ -14,6 +14,7 @@ public class Engineer : MechComponent
 	public int weaponsIndex = (int)EnergyComponents.Weapons;
 	public int engineerIndex = (int)EnergyComponents.Engineer;
 
+	public float energySum;
 
 	public float[] energies;
 
@@ -27,14 +28,15 @@ public class Engineer : MechComponent
 		energies[engineerIndex] = 0f;
 	}
 
-	//0.5  +	0.02 =		0.52
-	//0.5 - 	0.01 =		0.49
-	//0 -		0.01 =		-0.01
+	public void AddEnergy(EnergyComponents component, float amount)
+	{
+		int targetIndex = (int)component;
 
-	//0 -		0.02 =		-0.02
-	//0.5  +	0.01 =		0.51
-	//0.5 + 	0.01 =		0.51
+		energies[targetIndex] += amount;
+	}
 
+	//Old function:
+	/*
 	public void AddEnergy(EnergyComponents component, float amount)
 	{
 		int targetIndex = (int)component;
@@ -43,9 +45,9 @@ public class Engineer : MechComponent
 		{
 			float sum = energies[helmIndex] + energies[weaponsIndex] + energies[engineerIndex];
 
-			if (i == targetIndex/* && //The component to add to
-				energies[targetIndex] + amount > 0f &&	//Don't exceed 0 - 1
-				energies[targetIndex] + amount < 1f*/)
+			if (i == targetIndex)// && //The component to add to
+				//energies[targetIndex] + amount > 0f &&	//Don't exceed 0 - 1
+				//energies[targetIndex] + amount < 1f)
 			{
 				energies[targetIndex] += amount;
 
@@ -74,6 +76,7 @@ public class Engineer : MechComponent
 			energies[i] = Mathf.Clamp01(energies[i]);
 		}
 	}
+	*/
 
 	void Update()
 	{
@@ -85,8 +88,7 @@ public class Engineer : MechComponent
 		{
 			AddEnergy(EnergyComponents.Weapons, 0.02f);
 		}
-
-		float sum = energies[0] + energies[1] + energies[2];
-		//print(sum);
+		
+		energySum = energies[helmIndex] + energies[weaponsIndex] + energies[engineerIndex];
 	}
 }

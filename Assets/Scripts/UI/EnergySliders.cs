@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class EnergySliders : MechComponent
 {
 	[SerializeField]
-	Slider helmSlider, armsSlider, engineerSlider;
+	Slider[] sliders = new Slider[3];
+	[SerializeField] Transform energyIndicator;
 
 	protected override void OnAwake()
 	{
@@ -14,22 +15,20 @@ public class EnergySliders : MechComponent
 
 	public void SetEnergy(int index)
 	{
-		Slider sliderToUse = helmSlider;
-
-		if (index == 1)
-			sliderToUse = armsSlider;
-		if (index == 2)
-			sliderToUse = engineerSlider;
-
 		Engineer.EnergyComponents energyIndex = (Engineer.EnergyComponents)index;
-		float amount = sliderToUse.value - engineer.energies[index];
+		float amount = sliders[index].value - engineer.energies[index];
 		engineer.AddEnergy(energyIndex, amount);
 	}
 
 	void Update()
 	{
-		helmSlider.value = engineer.energies[0];
-		armsSlider.value = engineer.energies[1];
-		engineerSlider.value = engineer.energies[2];
+		for (int i = 0; i < sliders.Length; i++)
+		{
+			sliders[i].value = engineer.energies[i];
+		}
+
+		Vector3 uiScale = energyIndicator.localScale;
+		uiScale.x = Mathf.Lerp(uiScale.x, engineer.energySum, Time.deltaTime * 5f);
+		energyIndicator.localScale = uiScale;
 	}
 }
