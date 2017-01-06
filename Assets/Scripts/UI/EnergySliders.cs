@@ -23,7 +23,6 @@ public class EnergySliders : MechComponent
 
 		Engineer.EnergyComponents energyIndex = (Engineer.EnergyComponents)index;
 		float amount = sliderToUse.value - engineer.energies[index];
-
 		engineer.AddEnergy(energyIndex, amount);
 	}
 
