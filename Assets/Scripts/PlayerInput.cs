@@ -6,20 +6,9 @@ public class PlayerInput : AbstractInput
 	protected Player helmPlayer;
 	protected Player armsPlayer;
 	protected Player engineerPlayer;
-	[SerializeField] int helmID = 0;
-	[SerializeField] int armsID = 1;
-	[SerializeField] int engineerID = 2;
-
-	[SerializeField] string lArmHorzString = "LeftArmHorz";
-	[SerializeField] string lArmVertString = "LeftArmVert";
-	[SerializeField] string rArmHorzString = "RightArmHorz";
-	[SerializeField] string rArmVertString = "RightArmVert";
-
-	[SerializeField] string crouchString = "Crouch";
-	[SerializeField] string attackString = "Fire1";
-
-	[SerializeField] string engineerHorzString = "EngineerHorz";
-	[SerializeField] string engineerVertString = "EngineerVert";
+	int helmID = 0;
+	int armsID = 1;
+	int engineerID = 2;
 
 	void Awake()
 	{
@@ -31,8 +20,8 @@ public class PlayerInput : AbstractInput
 	
 	void Update ()
 	{
-		moveHorz = helmPlayer.GetAxis(0);
-		moveVert = helmPlayer.GetAxis(1);
+		moveHorz = helmPlayer.GetAxis("Move Horizontal");
+		moveVert = helmPlayer.GetAxis("Move Vertical");
 
 		//lArmHorz = Input.GetAxis(lArmHorzString);
 		//lArmVert = Input.GetAxis(lArmVertString);
