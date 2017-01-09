@@ -7,8 +7,8 @@ public class PlayerInput : AbstractInput
 	protected Player armsPlayer;
 	protected Player engineerPlayer;
 	int helmID = 0;
-	int armsID = 1;
-	int engineerID = 2;
+	int armsID = 2;
+	int engineerID = 1;
 
 	void Awake()
 	{
