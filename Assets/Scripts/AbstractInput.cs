@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
+using Rewired;
 
 //This class is used to provide 'abstract' input to any class - player or AI controlled.
 //Each field corresponds to an input that can be bound to anything on the controller.
 public class AbstractInput : MonoBehaviour
 {
+	protected Player rewiredPlayer;
+	[SerializeField] int playerID;
+
 	//---------- Axes ----------
 	//Leg movement
 	[HideInInspector] public float moveHorz;
@@ -28,7 +32,12 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public bool dodge;
 	[HideInInspector] public bool dash;
 
-	void Start()
+
+	public float engineerHorz;
+	public float engineerVert;
+
+	void Awake()
 	{
+		rewiredPlayer = ReInput.players.GetPlayer(playerID);
 	}
 }

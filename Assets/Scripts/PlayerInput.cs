@@ -2,35 +2,42 @@
 
 public class PlayerInput : AbstractInput
 {
-	[SerializeField] string moveHorzString = "Horizontal";
-	[SerializeField] string moveVertString = "Vertical";
+	[SerializeField] string moveHorzString = "Move Horizontal";
+	[SerializeField] string moveVertString = "Move Vertical";
 
 	[SerializeField] string lArmHorzString = "LeftArmHorz";
 	[SerializeField] string lArmVertString = "LeftArmVert";
 	[SerializeField] string rArmHorzString = "RightArmHorz";
 	[SerializeField] string rArmVertString = "RightArmVert";
 
-	[SerializeField] string lookHorzString = "Mouse X";
-	[SerializeField] string lookVertString = "Mouse Y";
+	[SerializeField] string lookHorzString = "Look Horizontal";
+	[SerializeField] string lookVertString = "Look Vertical";
 
 	[SerializeField] string crouchString = "Crouch";
 	[SerializeField] string attackString = "Fire1";
+
+	[SerializeField] string engineerHorzString = "EngineerHorz";
+	[SerializeField] string engineerVertString = "EngineerVert";
+
 	
 	void Update ()
 	{
-		moveHorz = Input.GetAxis(moveHorzString);
-		moveVert = Input.GetAxis(moveVertString);
+		moveHorz = rewiredPlayer.GetAxis(moveHorzString);
+		moveVert = rewiredPlayer.GetAxis(moveVertString);
 
 		//lArmHorz = Input.GetAxis(lArmHorzString);
 		//lArmVert = Input.GetAxis(lArmVertString);
 		//rArmHorz = Input.GetAxis(rArmHorzString);
 		//rArmVert = Input.GetAxis(rArmVertString);
 
-		lookHorz = Input.GetAxis(lookHorzString);
-		lookVert = Input.GetAxis(lookVertString);
+		lookHorz = rewiredPlayer.GetAxis(lookHorzString);
+		lookVert = rewiredPlayer.GetAxis(lookVertString);
 
-		crouch = Input.GetButtonDown(crouchString);
+		/*crouch = rewiredPlayer.GetButtonDown(crouchString);
 
-		attack = Input.GetButtonDown(attackString);
+		attack = rewiredPlayer.GetButtonDown(attackString);
+
+		engineerHorz = rewiredPlayer.GetAxis(engineerHorzString);
+		engineerVert = rewiredPlayer.GetAxis(engineerVertString);*/
 	}
 }
