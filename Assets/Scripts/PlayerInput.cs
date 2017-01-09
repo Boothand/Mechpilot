@@ -22,14 +22,15 @@ public class PlayerInput : AbstractInput
 	{
 		moveHorz = helmPlayer.GetAxis("Move Horizontal");
 		moveVert = helmPlayer.GetAxis("Move Vertical");
-
-		//lArmHorz = Input.GetAxis(lArmHorzString);
-		//lArmVert = Input.GetAxis(lArmVertString);
-		//rArmHorz = Input.GetAxis(rArmHorzString);
-		//rArmVert = Input.GetAxis(rArmVertString);
-
 		lookHorz = helmPlayer.GetAxis("Look Horizontal");
 		lookVert = helmPlayer.GetAxis("Look Vertical");
+
+		lArmHorz = armsPlayer.GetAxis("Move Left Arm X");
+		lArmVert = armsPlayer.GetAxis("Move Left Arm Y");
+		rArmHorz = armsPlayer.GetAxis("Move Right Arm X");
+		rArmVert = armsPlayer.GetAxis("Move Right Arm Y");
+
+		
 
 		/*crouch = rewiredPlayer.GetButtonDown(crouchString);
 
