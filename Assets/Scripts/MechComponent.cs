@@ -13,6 +13,10 @@ public class MechComponent : ManagedMechBehaviour
 	protected Engineer engineer;
 	protected WeaponsOfficer arms;
 
+	protected const int HELM_INDEX = 0;
+	protected const int ARMS_INDEX = 1;
+	protected const int ENGINEER_INDEX = 2;
+
 	protected override void OnAwake()
 	{
 		animator = mech.GetComponent<Animator>();
