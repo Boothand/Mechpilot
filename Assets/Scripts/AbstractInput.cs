@@ -34,6 +34,6 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public bool dash;
 
 
-	public float engineerHorz;
-	public float engineerVert;
+	[HideInInspector] public float engineerHorz;
+	[HideInInspector] public float engineerVert;
 }

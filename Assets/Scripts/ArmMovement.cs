@@ -13,6 +13,7 @@ public class ArmMovement : MechComponent
 	[SerializeField] float armReach = 1f;
 
 	Vector3 rArmPos, lArmPos;
+	Vector3 rTargetPos, lTargetPos;
 
 	protected override void OnAwake()
 	{
@@ -28,7 +29,7 @@ public class ArmMovement : MechComponent
 		Vector3 localInputDir = mech.transform.TransformDirection(input);
 
 		//Add input values to XY position
-		armPos += localInputDir * Time.deltaTime * engineer.energies[engineer.weaponsIndex];
+		armPos += localInputDir * Time.deltaTime * engineer.energies[ARMS_INDEX];
 
 		//Limit arm's reach on local XY axis
 		armPos = Vector3.ClampMagnitude(armPos, armReach);
@@ -48,7 +49,9 @@ public class ArmMovement : MechComponent
 		Vector3 rInput = new Vector3(input.rArmHorz, input.rArmVert);
 		Vector3 lInput = new Vector3(input.lArmHorz, input.lArmVert);
 
-		rHandIKTarget.position = SetArmPos(rInput, ref rArmPos, hierarchy.rShoulder);
-		lHandIKTarget.position = SetArmPos(lInput, ref lArmPos, hierarchy.lShoulder);
+		rTargetPos = SetArmPos(rInput, ref rArmPos, hierarchy.rShoulder);
+		lTargetPos = SetArmPos(lInput, ref lArmPos, hierarchy.lShoulder);
+		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * 5f);
+		lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * 5f);
 	}
 }
