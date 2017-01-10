@@ -4,6 +4,8 @@
 //Each field corresponds to an input that can be bound to anything on the controller.
 public class AbstractInput : MonoBehaviour
 {
+	
+
 	//---------- Axes ----------
 	//Leg movement
 	[HideInInspector] public float moveHorz;
@@ -21,6 +23,9 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public float rArmHorz;
 	[HideInInspector] public float rArmVert;
 
+	//Right arm rotation
+	[HideInInspector] public float rArmRot;
+
 
 	//---------- Mech Actions ----------
 	[HideInInspector] public bool crouch;
@@ -28,7 +33,7 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public bool dodge;
 	[HideInInspector] public bool dash;
 
-	void Start()
-	{
-	}
+
+	public float engineerHorz;
+	public float engineerVert;
 }

@@ -56,8 +56,8 @@ public class HeadRotation : MechComponent
 		float lookVertInput = Mathf.Clamp(input.lookVert, -maxTurnSpeed, maxTurnSpeed);
 
 		//Feed input values into the X and Y rotation of the aim base
-		headRotation.x += lookHorzInput * engineer.legsEnergy * Time.deltaTime * 100f;
-		headRotation.y += lookVertInput * engineer.legsEnergy * Time.deltaTime * 100f;
+		headRotation.x += lookHorzInput * engineer.energies[engineer.helmIndex] * Time.deltaTime * 100f;
+		headRotation.y += lookVertInput * engineer.energies[engineer.helmIndex] * Time.deltaTime * 100f;
 
 		//Apply the values to the rotation
 		aimBaseX.localRotation = Quaternion.Euler(0f, headRotation.x, 0f);

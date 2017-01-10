@@ -19,9 +19,9 @@ public class MechComponent : ManagedMechBehaviour
 		hierarchy = mech.GetComponent<BodyHierarchy>();
 		rb = mech.GetComponent<Rigidbody>();
 		input = mech.GetComponent<AbstractInput>();
-		helm = transform.root.GetComponentInChildren<Helm>();
-		engineer = transform.root.GetComponentInChildren<Engineer>();
-		arms = transform.root.GetComponentInChildren<WeaponsOfficer>();
+		helm = mech.transform.root.GetComponentInChildren<Helm>();
+		engineer = mech.transform.root.GetComponentInChildren<Engineer>();
+		arms = mech.transform.root.GetComponentInChildren<WeaponsOfficer>();
 
 		base.OnAwake();
 	}

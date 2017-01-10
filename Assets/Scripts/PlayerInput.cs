@@ -1,36 +1,41 @@
 ﻿using UnityEngine;
+using Rewired;
 
 public class PlayerInput : AbstractInput
 {
-	[SerializeField] string moveHorzString = "Horizontal";
-	[SerializeField] string moveVertString = "Vertical";
+	protected Player helmPlayer;
+	protected Player armsPlayer;
+	protected Player engineerPlayer;
+	int helmID = 0;
+	int armsID = 1;
+	int engineerID = 2;
 
-	[SerializeField] string lArmHorzString = "LeftArmHorz";
-	[SerializeField] string lArmVertString = "LeftArmVert";
-	[SerializeField] string rArmHorzString = "RightArmHorz";
-	[SerializeField] string rArmVertString = "RightArmVert";
-
-	[SerializeField] string lookHorzString = "Mouse X";
-	[SerializeField] string lookVertString = "Mouse Y";
-
-	[SerializeField] string crouchString = "Crouch";
-	[SerializeField] string attackString = "Fire1";
+	void Awake()
+	{
+		helmPlayer = ReInput.players.GetPlayer(helmID);
+		armsPlayer = ReInput.players.GetPlayer(armsID);
+		engineerPlayer = ReInput.players.GetPlayer(engineerID);
+	}
 	
 	void Update ()
 	{
-		moveHorz = Input.GetAxis(moveHorzString);
-		moveVert = Input.GetAxis(moveVertString);
+		moveHorz = helmPlayer.GetAxis("Move Horizontal");
+		moveVert = helmPlayer.GetAxis("Move Vertical");
+		lookHorz = helmPlayer.GetAxis("Look Horizontal");
+		lookVert = helmPlayer.GetAxis("Look Vertical");
 
-		//lArmHorz = Input.GetAxis(lArmHorzString);
-		//lArmVert = Input.GetAxis(lArmVertString);
-		//rArmHorz = Input.GetAxis(rArmHorzString);
-		//rArmVert = Input.GetAxis(rArmVertString);
+		lArmHorz = armsPlayer.GetAxis("Move Left Arm X");
+		lArmVert = armsPlayer.GetAxis("Move Left Arm Y");
+		rArmHorz = armsPlayer.GetAxis("Move Right Arm X");
+		rArmVert = armsPlayer.GetAxis("Move Right Arm Y");
 
-		lookHorz = Input.GetAxis(lookHorzString);
-		lookVert = Input.GetAxis(lookVertString);
+		rArmRot = armsPlayer.GetAxis("Rotate Hand");
 
-		crouch = Input.GetButtonDown(crouchString);
+		/*crouch = rewiredPlayer.GetButtonDown(crouchString);
 
-		attack = Input.GetButtonDown(attackString);
+		attack = rewiredPlayer.GetButtonDown(attackString);
+
+		engineerHorz = rewiredPlayer.GetAxis(engineerHorzString);
+		engineerVert = rewiredPlayer.GetAxis(engineerVertString);*/
 	}
 }
