@@ -7,15 +7,14 @@ public class PlayerInput : AbstractInput
 	protected Player armsPlayer;
 	protected Player engineerPlayer;
 	int helmID = 0;
-	int armsID = 2;
-	int engineerID = 1;
+	int armsID = 1;
+	int engineerID = 2;
 
 	void Awake()
 	{
 		helmPlayer = ReInput.players.GetPlayer(helmID);
 		armsPlayer = ReInput.players.GetPlayer(armsID);
 		engineerPlayer = ReInput.players.GetPlayer(engineerID);
-		print(helmPlayer.descriptiveName);
 	}
 	
 	void Update ()

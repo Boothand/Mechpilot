@@ -28,7 +28,7 @@ public class ArmMovement : MechComponent
 		Vector3 localInputDir = mech.transform.TransformDirection(input);
 
 		//Add input values to XY position
-		armPos += localInputDir * Time.deltaTime;
+		armPos += localInputDir * Time.deltaTime * engineer.energies[engineer.weaponsIndex];
 
 		//Limit arm's reach on local XY axis
 		armPos = Vector3.ClampMagnitude(armPos, armReach);
