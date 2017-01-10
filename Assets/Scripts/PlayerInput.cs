@@ -30,7 +30,7 @@ public class PlayerInput : AbstractInput
 		rArmHorz = armsPlayer.GetAxis("Move Right Arm X");
 		rArmVert = armsPlayer.GetAxis("Move Right Arm Y");
 
-		
+		rArmRot = armsPlayer.GetAxis("Rotate Hand");
 
 		/*crouch = rewiredPlayer.GetButtonDown(crouchString);
 

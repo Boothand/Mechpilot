@@ -23,6 +23,9 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public float rArmHorz;
 	[HideInInspector] public float rArmVert;
 
+	//Right arm rotation
+	[HideInInspector] public float rArmRot;
+
 
 	//---------- Mech Actions ----------
 	[HideInInspector] public bool crouch;
