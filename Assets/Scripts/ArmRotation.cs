@@ -5,8 +5,9 @@ public class ArmRotation : MechComponent
 {
 	[SerializeField] Transform ikTarget;
 	[SerializeField] float maxRotationSpeed = 200f;
+	float targetRot;
 	float handRotation;
-	
+
 
 	protected override void OnAwake()
 	{
@@ -18,7 +19,8 @@ public class ArmRotation : MechComponent
 		float rotationInput = input.rArmRot;
 		rotationInput = Mathf.Clamp(rotationInput, -1f, 1f);
 
-		handRotation += rotationInput * Time.deltaTime * maxRotationSpeed * engineer.energies[ARMS_INDEX];
+		targetRot += rotationInput * Time.deltaTime * maxRotationSpeed * engineer.energies[ARMS_INDEX];
+		handRotation = Mathf.Lerp(handRotation, targetRot, Time.deltaTime * 5f);
 	}
 
 	void LateUpdate()

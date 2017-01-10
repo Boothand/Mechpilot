@@ -13,6 +13,7 @@ public class HeadRotation : MechComponent
 	public Vector3 lookDir { get { return aimBaseX.forward; } }
 
 	Vector2 headRotation;
+	Vector2 targetRotation;
 
 
 	protected override void OnAwake()
@@ -56,8 +57,11 @@ public class HeadRotation : MechComponent
 		float lookVertInput = Mathf.Clamp(input.lookVert, -maxTurnSpeed, maxTurnSpeed);
 
 		//Feed input values into the X and Y rotation of the aim base
-		headRotation.x += lookHorzInput * engineer.energies[HELM_INDEX] * Time.deltaTime * 100f;
-		headRotation.y += lookVertInput * engineer.energies[HELM_INDEX] * Time.deltaTime * 100f;
+		targetRotation.x += lookHorzInput * engineer.energies[HELM_INDEX] * Time.deltaTime * 100f;
+		targetRotation.y += lookVertInput * engineer.energies[HELM_INDEX] * Time.deltaTime * 100f;
+
+		headRotation.x = Mathf.Lerp(headRotation.x, targetRotation.x, Time.deltaTime * 5f);
+		headRotation.y = Mathf.Lerp(headRotation.y, targetRotation.y, Time.deltaTime * 5f);
 
 		//Apply the values to the rotation
 		aimBaseX.localRotation = Quaternion.Euler(0f, headRotation.x, 0f);
