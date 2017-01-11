@@ -26,22 +26,32 @@ public class HeadRotation : MechComponent
 		float angleX = Mathf.DeltaAngle(mech.transform.eulerAngles.y, aimBaseX.eulerAngles.y);
 		float angleY = Mathf.DeltaAngle(mech.transform.eulerAngles.x, aimBaseY.eulerAngles.x);
 		float xLimit = 70f;
-		float yLimit = 87f;
+		float yLimit = 50f;
 
 		if (angleX > xLimit)
+		{
 			headRotation.x -= angleX - xLimit;
-
+			targetRotation = headRotation;
+		}
 		if (angleX < -xLimit)
+		{
 			headRotation.x -= angleX + xLimit;
-
+			targetRotation = headRotation;
+		}
 		if (angleY > yLimit)
+		{
 			headRotation.y += angleY - yLimit;
+			targetRotation = headRotation;
+		}
 
 		if (angleY < -yLimit)
+		{
 			headRotation.y += angleY + yLimit;
+			targetRotation = headRotation;
+		}
 
 
-		//Set the rotation after correcting headRotation
+			//Set the rotation after correcting headRotation
 		aimBaseX.localRotation = Quaternion.Euler(0f, headRotation.x, 0f);
 		aimBaseY.localRotation = Quaternion.Euler(-headRotation.y, 0f, 0f);
 	}
