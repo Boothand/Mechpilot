@@ -31,23 +31,23 @@ public class HeadRotation : MechComponent
 		if (angleX > xLimit)
 		{
 			headRotation.x -= angleX - xLimit;
-			targetRotation = headRotation;
+			targetRotation.x = headRotation.x;
 		}
 		if (angleX < -xLimit)
 		{
 			headRotation.x -= angleX + xLimit;
-			targetRotation = headRotation;
+			targetRotation.x = headRotation.x;
 		}
 		if (angleY > yLimit)
 		{
 			headRotation.y += angleY - yLimit;
-			targetRotation = headRotation;
+			targetRotation.y = headRotation.y;
 		}
 
 		if (angleY < -yLimit)
 		{
 			headRotation.y += angleY + yLimit;
-			targetRotation = headRotation;
+			targetRotation.y = headRotation.y;
 		}
 
 
