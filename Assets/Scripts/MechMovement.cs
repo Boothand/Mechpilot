@@ -49,7 +49,7 @@ public class MechMovement : MechComponent
 		if (Mathf.Abs(input.moveVert) > 0.001f &&
 			Mathf.Abs(input.moveVert) < minimumInputSpeed)
 		{
-			moveHorz = Mathf.Sign(moveVert) * minimumInputSpeed;
+			moveVert = Mathf.Sign(moveVert) * minimumInputSpeed;
 		}
 		
 		inputVec = new Vector3(moveHorz, 0f, moveVert);
@@ -62,10 +62,11 @@ public class MechMovement : MechComponent
 		worldMoveDir.y = 0f;
 
 		//Don't go faster diagonally
-		if (worldMoveDir.magnitude > 1f)
-		{
+		//if (worldMoveDir.magnitude > 1f)
+		//{
 			worldMoveDir.Normalize();
-		}
+		worldMoveDir *= inputVec.magnitude;
+		//}
 		Debug.DrawRay(hierarchy.head.position, worldMoveDir);
 
 		//Move velocity towards the desired direction, with a set acceleration

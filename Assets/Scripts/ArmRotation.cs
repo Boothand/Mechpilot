@@ -20,7 +20,14 @@ public class ArmRotation : MechComponent
 		rotationInput = Mathf.Clamp(rotationInput, -1f, 1f);
 
 		targetRot += rotationInput * Time.deltaTime * maxRotationSpeed * engineer.energies[ARMS_INDEX];
-		handRotation = Mathf.Lerp(handRotation, targetRot, Time.deltaTime * 5f);
+
+		if (targetRot > 360)
+			targetRot -= 360f;
+
+		if (targetRot < -360)
+			targetRot += 360f;
+
+		handRotation = Mathf.LerpAngle(handRotation, targetRot, Time.deltaTime * 5f);
 	}
 
 	void LateUpdate()

@@ -37,5 +37,11 @@ public class PlayerInput : AbstractInput
 
 		engineerHorz = rewiredPlayer.GetAxis(engineerHorzString);
 		engineerVert = rewiredPlayer.GetAxis(engineerVertString);*/
+
+
+		droneSide = armsPlayer.GetAxis("Scout Drone Horizontal");
+		droneForward = armsPlayer.GetAxis("Scout Drone Vertical");
+		droneDrive = armsPlayer.GetAxis("Scout Drone Drive");
+		dronePowerslide = armsPlayer.GetButton("Scout Drone Powerslide");
 	}
 }
