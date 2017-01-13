@@ -21,6 +21,8 @@ ModelImporter:
     100026: Cliff_rock12_geo1
     100028: Cliff_rock12_geo2
     100030: Cliff_rock9_geo1
+    100032: Cliff_rocks_grp
+    100034: directionalLight1
     400000: Cliff_rock11_geo
     400002: Cliff_rock12_geo
     400004: Cliff_rock1_geo
@@ -37,6 +39,8 @@ ModelImporter:
     400026: Cliff_rock12_geo1
     400028: Cliff_rock12_geo2
     400030: Cliff_rock9_geo1
+    400032: Cliff_rocks_grp
+    400034: directionalLight1
     2300000: Cliff_rock11_geo
     2300002: Cliff_rock12_geo
     2300004: Cliff_rock1_geo
