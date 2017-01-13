@@ -22,6 +22,7 @@ public class MechMovement : MechComponent
 	[Header("Values")]
 	[SerializeField] float moveSpeed = 50f;
 	[SerializeField] float accelerationSpeed = 0.5f;
+	[SerializeField] float animationSpeedFactor = 0.8f;
 
 	//Flags
 	public bool moving { get; private set; }
@@ -105,7 +106,7 @@ public class MechMovement : MechComponent
 		animator.SetFloat("SideMovement", animSide);
 
 		//Animation speed follows actual mech speed
-		animator.SetFloat("MoveSpeed", rb.velocity.magnitude / scaleFactor);
+		animator.SetFloat("MoveSpeed", rb.velocity.magnitude / scaleFactor * animationSpeedFactor);
 	}
 
 	public void RunComponentFixed()
