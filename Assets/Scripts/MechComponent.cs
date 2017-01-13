@@ -17,6 +17,8 @@ public class MechComponent : ManagedMechBehaviour
 	protected const int ARMS_INDEX = 1;
 	protected const int ENGINEER_INDEX = 2;
 
+	protected float scaleFactor { get; private set; }
+
 	protected override void OnAwake()
 	{
 		animator = mech.GetComponent<Animator>();
@@ -27,6 +29,7 @@ public class MechComponent : ManagedMechBehaviour
 		engineer = mech.transform.root.GetComponentInChildren<Engineer>();
 		arms = mech.transform.root.GetComponentInChildren<WeaponsOfficer>();
 
+		scaleFactor = transform.localScale.y;
 		base.OnAwake();
 	}
 }

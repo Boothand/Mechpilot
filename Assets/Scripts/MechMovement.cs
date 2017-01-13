@@ -67,7 +67,7 @@ public class MechMovement : MechComponent
 			worldMoveDir.Normalize();
 		worldMoveDir *= inputVec.magnitude;
 		//}
-		Debug.DrawRay(hierarchy.head.position, worldMoveDir * transform.root.localScale.y);
+		Debug.DrawRay(hierarchy.head.position, worldMoveDir * scaleFactor);
 
 		//Move velocity towards the desired direction, with a set acceleration
 		Vector3 vel = Vector3.MoveTowards(velocity, worldMoveDir, Time.deltaTime * accelerationSpeed);
@@ -105,7 +105,7 @@ public class MechMovement : MechComponent
 		animator.SetFloat("SideMovement", animSide);
 
 		//Animation speed follows actual mech speed
-		animator.SetFloat("MoveSpeed", rb.velocity.magnitude / transform.root.localScale.y);
+		animator.SetFloat("MoveSpeed", rb.velocity.magnitude / scaleFactor);
 	}
 
 	public void RunComponentFixed()
@@ -116,7 +116,7 @@ public class MechMovement : MechComponent
 		Vector3 gravityVector = Vector3.up * rb.velocity.y;
 
 		//Depending on base move speed and available energy
-		Vector3 moveVectorXZ = velocity * moveSpeed * engineer.energies[HELM_INDEX] * transform.root.localScale.y * Time.deltaTime;
+		Vector3 moveVectorXZ = velocity * moveSpeed * engineer.energies[HELM_INDEX] * scaleFactor * Time.deltaTime;
 		moveVectorXZ.y = 0f;
 
 		rb.velocity = moveVectorXZ + gravityVector;

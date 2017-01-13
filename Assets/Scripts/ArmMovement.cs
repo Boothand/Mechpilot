@@ -12,6 +12,9 @@ public class ArmMovement : MechComponent
 	[SerializeField] float maxArmSpeed = 0.85f;
 	[SerializeField] float armReach = 1f;
 
+	[Range(0, 20)]
+	[SerializeField] float sloppiness = 15f;
+
 	Vector3 rArmPos, lArmPos;
 	Vector3 rTargetPos, lTargetPos;
 
@@ -26,19 +29,19 @@ public class ArmMovement : MechComponent
 		input = Vector3.ClampMagnitude(input, maxArmSpeed);
 
 		//Transform input direction to local space
-		Vector3 localInputDir = mech.transform.TransformDirection(input);
+		Vector3 worldInputDir = mech.transform.TransformDirection(input);
 
 		//Add input values to XY position
-		armPos += localInputDir * Time.deltaTime * engineer.energies[ARMS_INDEX] * transform.root.localScale.y;
+		armPos += worldInputDir * Time.deltaTime * engineer.energies[ARMS_INDEX] * scaleFactor;
 
 		//Limit arm's reach on local XY axis
-		armPos = Vector3.ClampMagnitude(armPos, armReach * transform.root.localScale.y);
+		armPos = Vector3.ClampMagnitude(armPos, armReach * scaleFactor);
 
 		//The center of the circular area used for the arm movement
-		Vector3 handCentralPos = shoulder.position + Vector3.up * armHeight * transform.root.localScale.y;
+		Vector3 handCentralPos = shoulder.position + Vector3.up * armHeight * scaleFactor;
 
 		//Set hand position on local Z axis
-		handCentralPos += mech.transform.forward * armDistance * transform.root.localScale.y;
+		handCentralPos += mech.transform.forward * armDistance * scaleFactor;
 
 		//Final position
 		return handCentralPos + armPos;
@@ -49,10 +52,24 @@ public class ArmMovement : MechComponent
 		Vector3 rInput = new Vector3(input.rArmHorz, input.rArmVert);
 		Vector3 lInput = new Vector3(input.lArmHorz, input.lArmVert);
 
-		//NOTE: When falling, hands don't interpolate quickly enough, and will hang behind
+		//NOTE: When falling, hands don't interpolate quickly enough, and will hang behind, may look buggy
 		rTargetPos = SetArmPos(rInput, ref rArmPos, hierarchy.rShoulder);
-		lTargetPos = SetArmPos(lInput, ref lArmPos, hierarchy.lShoulder);
-		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * 5f);
-		lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * 5f);
+		lTargetPos = SetArmPos(lInput, ref lArmPos, hierarchy.lShoulder);		
+
+		//Interpolate on all axes
+		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * (20f - sloppiness));
+		lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * (20f - sloppiness));
+
+		//Lock the position on the local Z axis, so it doesn't interpolate.
+		Vector3 rHIKLocal = rHandIKTarget.localPosition;
+		Vector3 lHIKLocal = lHandIKTarget.localPosition;
+
+		Vector3 rTargetLocal = mech.transform.InverseTransformPoint(rTargetPos);
+		Vector3 lTargetLocal = mech.transform.InverseTransformPoint(lTargetPos);
+
+		rHIKLocal.z = rTargetLocal.z;
+		lHIKLocal.z = lTargetLocal.z;
+		rHandIKTarget.localPosition = rHIKLocal;
+		lHandIKTarget.localPosition = lHIKLocal;
 	}
 }
