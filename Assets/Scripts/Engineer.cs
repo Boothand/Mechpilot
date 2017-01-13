@@ -23,8 +23,8 @@ public class Engineer : MechComponent
 		base.OnAwake();
 		energies = new float[3];
 
-		energies[helmIndex] = 0.5f;
-		energies[weaponsIndex] = 0.5f;
+		energies[helmIndex] = 1f;
+		energies[weaponsIndex] = 1f;
 		energies[engineerIndex] = 0f;
 	}
 
