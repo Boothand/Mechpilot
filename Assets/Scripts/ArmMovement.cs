@@ -6,10 +6,17 @@ public class ArmMovement : MechComponent
 	[SerializeField] Transform rHandIKTarget;
 	[SerializeField] Transform lHandIKTarget;
 
+	public Transform rHandIK { get { return rHandIKTarget; } }
+	public Transform lHandIK { get { return rHandIKTarget; } }
+
 	[Header("Values")]
+	[Range(-1f, 1f)]
 	[SerializeField] float armHeight = -0.3f;
+
+	[Range(0.2f, 1f)]
 	[SerializeField] float armDistance = 0.3f;
-	[SerializeField] float maxArmSpeed = 0.85f;
+
+	[Range(0.2f, 2f)]
 	[SerializeField] float armReach = 1f;
 
 	[Range(0, 20)]
@@ -17,6 +24,15 @@ public class ArmMovement : MechComponent
 
 	Vector3 rArmPos, lArmPos;
 	Vector3 rTargetPos, lTargetPos;
+	Vector3 handCentralPos;
+
+	public Vector3 rHandCenterPos
+	{
+		get
+		{
+			return hierarchy.rShoulder.position + Vector3.up * armHeight * scaleFactor;
+		}
+	}
 
 	protected override void OnAwake()
 	{
@@ -26,7 +42,7 @@ public class ArmMovement : MechComponent
 	Vector3 SetArmPos(Vector3 input, ref Vector3 armPos, Transform shoulder)
 	{
 		//Limit max input delta
-		input = Vector3.ClampMagnitude(input, maxArmSpeed);
+		input = Vector3.ClampMagnitude(input, 1f);
 
 		//Transform input direction to local space
 		Vector3 worldInputDir = mech.transform.TransformDirection(input);

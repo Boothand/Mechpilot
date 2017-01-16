@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ArmRotation : MechComponent
 {
-	[SerializeField] Transform ikTarget;
 	[SerializeField] float maxRotationSpeed = 200f;
 	float targetRot;
 	float handRotation;

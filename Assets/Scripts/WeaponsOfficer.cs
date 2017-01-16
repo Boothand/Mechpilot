@@ -3,8 +3,9 @@ using System.Collections;
 
 public class WeaponsOfficer : MechComponent
 {
-	ArmMovement armMovement;
-	ArmRotation armRotation;
+	public ArmMovement armMovement { get; private set; }
+	public ArmRotation armRotation { get; private set; }
+	public WeaponControl weaponControl { get; private set; }
 
 	protected override void OnAwake()
 	{
@@ -12,6 +13,7 @@ public class WeaponsOfficer : MechComponent
 
 		armMovement = GetComponent<ArmMovement>();
 		armRotation = GetComponent<ArmRotation>();
+		weaponControl = GetComponent<WeaponControl>();
 	}
 	
 	void Update ()
@@ -21,5 +23,7 @@ public class WeaponsOfficer : MechComponent
 
 		//Rotate right hand
 		armRotation.RunComponent();
+
+		//Run attack animations, manage attacking states and gameplay
 	}
 }
