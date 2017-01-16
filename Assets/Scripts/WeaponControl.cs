@@ -102,10 +102,15 @@ public class WeaponControl : MechComponent
 					float inputY = input.rArmVert;
 
 					Vector3 inputVec = new Vector3(inputX, inputY);
+					inputVec.Normalize();
+
+					animator.SetFloat("Hand Pos Y", inputVec.y);
+					print(inputVec.y);
+
 
 					//If you hold your stick close enough to a corner to warrant an attack
-					if (Mathf.Abs(inputX) > 0.7f ||
-						Mathf.Abs(inputY) > 0.7)
+					if (false)//Mathf.Abs(inputX) > 0.7f ||
+						//Mathf.Abs(inputY) > 0.7)
 					{
 						//FIXME: Circle instead of square check.
 						Vector2 targetCorner = GetCorner(inputVec, 0.5f, 0.5f);
