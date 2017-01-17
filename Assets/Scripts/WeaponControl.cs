@@ -12,52 +12,45 @@ public class WeaponControl : MechComponent
 	}
 
 	State state = State.Defend;
-
-	Vector2 windupCorner;
-	float attackHeight;
+	
+	[SerializeField] float rotationSpeed = 200f;
+	Quaternion handRotation;
 	float attackTimer;
-	float windupTimer;
+	float idleTargetRot;
+	float idleHandRotation;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 	}
 
-	Vector2 GetCorner(Vector3 value, float xThreshold, float yThreshold)
+	Quaternion IdleArmRotation()
 	{
-		int x = (int)Mathf.Sign(value.x);
-		int y = 0;
+		float rotationInput = Mathf.Clamp(input.rArmRot, -1f, 1f);
 
-		//Upper or bottom corners
-		if (Mathf.Abs(value.y) > yThreshold)
-		{
-			y = (int)Mathf.Sign(value.y);
-		}
+		//Add input values to the target rotation
+		idleTargetRot += rotationInput * Time.deltaTime * rotationSpeed * engineer.energies[ARMS_INDEX];
 
-		//Top neutral
-		if (y != 0 && Mathf.Abs(value.x) < xThreshold)
-		{
-			x = 0;
-		}
+		//Wrap
+		if (idleTargetRot > 360)
+			idleTargetRot -= 360f;
 
-		Vector2 corner = new Vector2(x, y);
-		//print(corner.ToString("0"));
+		if (idleTargetRot < -360)
+			idleTargetRot += 360f;
 
-		return corner;
-	}
+		//Limit target rotation
+		float limit = 140;
+		idleTargetRot = Mathf.Clamp(idleTargetRot, -limit, limit);
 
-	Vector2 GetCornerFromHandPos()
-	{
-		Vector3 center = mech.transform.InverseTransformPoint(arms.armMovement.rHandCenterPos);
-		Vector3 rHandPos = mech.transform.InverseTransformPoint(arms.armMovement.rHandIK.position);
+		//Smoothly interpolate hand rotation
+		idleHandRotation = Mathf.LerpAngle(idleHandRotation, idleTargetRot, Time.deltaTime * 5f);
 
-		//Difference between central hand position and current hand position
-		Vector3 diff = rHandPos - center;
+		//Limit hand rotation
+		idleHandRotation = Mathf.Clamp(idleHandRotation, -limit, limit);
 
-		float yThreshold = 0.035f / 2;
-		float xThreshold = 0.035f / 2;
-
-		return GetCorner(diff, xThreshold, yThreshold);
+		//Return the rotation
+		Quaternion localRotation = Quaternion.Euler(70, 0, 0) * Quaternion.Euler(0, -idleHandRotation, 0);
+		return localRotation;
 	}
 
 	void Update()
@@ -69,11 +62,12 @@ public class WeaponControl : MechComponent
 				break;
 
 			case State.Defend:
+
+				handRotation = IdleArmRotation();
+
 				if (input.attack)
 				{
-
-
-					state = State.WindUp;
+					state = State.Attack;
 				}
 
 				break;
@@ -85,14 +79,15 @@ public class WeaponControl : MechComponent
 				if (!input.attack)
 				{
 					state = State.Defend;
-					windupTimer = 0f;
 				}
 
 				break;
 
 			case State.Attack:
 
-				//After the attack, when animation or hand pos is in the right place, set state to WindUp
+				Quaternion attackTargetRot = handRotation * Quaternion.Euler(0, 90, 0);
+
+
 				float attackDuration = 1f;
 
 				attackTimer += Time.deltaTime;
@@ -111,5 +106,9 @@ public class WeaponControl : MechComponent
 
 				break;
 		}
+
+		//Apply the rotation
+		Transform rHandIk = arms.armMovement.rHandIK;
+		rHandIk.localRotation = handRotation;
 	}
 }

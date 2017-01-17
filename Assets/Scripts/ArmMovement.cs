@@ -14,7 +14,10 @@ public class ArmMovement : MechComponent
 	[SerializeField] float armHeight = -0.3f;
 
 	[Range(0.05f, 1f)]
-	[SerializeField] float armDistance = 0.3f;
+	[SerializeField] float rArmDistance = 0.3f;
+
+	[Range(0.05f, 1f)]
+	[SerializeField] float lArmDistance = 0.3f;
 
 	[Range(0.2f, 2f)]
 	[SerializeField] float armReach = 1f;
@@ -55,6 +58,14 @@ public class ArmMovement : MechComponent
 
 		//The center of the circular area used for the arm movement
 		Vector3 handCentralPos = shoulder.position + Vector3.up * armHeight * scaleFactor;
+
+		//Dirty check to see which shoulder is used, and what arm distance to use.
+		float armDistance = rArmDistance;
+
+		if (shoulder == hierarchy.lShoulder)
+		{
+			armDistance = lArmDistance;
+		}
 
 		//Set hand position on local Z axis
 		handCentralPos += mech.transform.forward * armDistance * scaleFactor;
