@@ -13,7 +13,7 @@ public class ArmMovement : MechComponent
 	[Range(-1f, 1f)]
 	[SerializeField] float armHeight = -0.3f;
 
-	[Range(0.2f, 1f)]
+	[Range(0.05f, 1f)]
 	[SerializeField] float armDistance = 0.3f;
 
 	[Range(0.2f, 2f)]

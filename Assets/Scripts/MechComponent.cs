@@ -29,7 +29,7 @@ public class MechComponent : ManagedMechBehaviour
 		engineer = mech.transform.root.GetComponentInChildren<Engineer>();
 		arms = mech.transform.root.GetComponentInChildren<WeaponsOfficer>();
 
-		scaleFactor = transform.localScale.y;
+		scaleFactor = transform.root.localScale.y;
 		base.OnAwake();
 	}
 }

@@ -14,6 +14,7 @@ public class WeaponControl : MechComponent
 	State state = State.Defend;
 
 	Vector2 windupCorner;
+	float attackHeight;
 	float attackTimer;
 	float windupTimer;
 
@@ -70,20 +71,7 @@ public class WeaponControl : MechComponent
 			case State.Defend:
 				if (input.attack)
 				{
-					//Detect which 'corner' the hand is closest to.
-					windupCorner = GetCornerFromHandPos();
 
-					//Special cases.
-					if (windupCorner == new Vector2(0, -1))
-					{
-						windupCorner = new Vector2(1, -1);
-					}
-
-					//Activate corresponding animation
-					animator.SetInteger("RHand X", (int)windupCorner.x);
-					animator.SetInteger("RHand Y", (int)windupCorner.y);
-
-					animator.SetTrigger("WindUp");
 
 					state = State.WindUp;
 				}
@@ -92,42 +80,7 @@ public class WeaponControl : MechComponent
 
 			case State.WindUp:
 
-				float windupDuration = 0.5f;
-				windupTimer += Time.deltaTime;				
-
-				//Wait until hand is in the pose (probably around 0.5 secs)
-				if (windupTimer > windupDuration)
-				{
-					float inputX = input.rArmHorz;
-					float inputY = input.rArmVert;
-
-					Vector3 inputVec = new Vector3(inputX, inputY);
-					inputVec.Normalize();
-
-					animator.SetFloat("Hand Pos Y", inputVec.y);
-					print(inputVec.y);
-
-
-					//If you hold your stick close enough to a corner to warrant an attack
-					if (false)//Mathf.Abs(inputX) > 0.7f ||
-						//Mathf.Abs(inputY) > 0.7)
-					{
-						//FIXME: Circle instead of square check.
-						Vector2 targetCorner = GetCorner(inputVec, 0.5f, 0.5f);
-						//print("Diff: " + (targetCorner - windupCorner).magnitude.ToString("0.00") );
-
-						//If targetcorner is not the same corner as the one you're winding up from
-						if ((targetCorner - windupCorner).magnitude > 1f)
-						{
-							//Set state to attack.
-							state = State.Attack;
-							animator.SetInteger("RHand X", (int)targetCorner.x);
-							animator.SetInteger("RHand Y", (int)targetCorner.y);
-							animator.SetTrigger("Attack");
-							windupTimer = 0f;
-						}
-					}
-				}
+				
 
 				if (!input.attack)
 				{
