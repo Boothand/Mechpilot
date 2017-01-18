@@ -91,6 +91,7 @@ ModelImporter:
     2300042: Tree_branch7
     2300044: Tree_branch8
     2300046: Tree_branch9
+    2300048: //RootNode
     3300000: Tree_base
     3300002: Tree_branch1
     3300004: Tree_branch10
@@ -115,6 +116,7 @@ ModelImporter:
     3300042: Tree_branch7
     3300044: Tree_branch8
     3300046: Tree_branch9
+    3300048: //RootNode
     4300000: Tree_base
     4300002: Tree_branch11
     4300004: Tree_branch12
@@ -139,6 +141,7 @@ ModelImporter:
     4300042: Tree_branch24
     4300044: Tree_branch25
     4300046: Tree_branch26
+    4300048: Tree_geo
     6400000: Tree_base
     6400002: Tree_branch1
     6400004: Tree_branch10
@@ -163,6 +166,7 @@ ModelImporter:
     6400042: Tree_branch7
     6400044: Tree_branch8
     6400046: Tree_branch9
+    6400048: //RootNode
     9500000: //RootNode
   materials:
     importMaterials: 1
