@@ -1,4 +1,4 @@
-﻿//using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class WeaponControl : MechComponent
@@ -11,17 +11,23 @@ public class WeaponControl : MechComponent
 		Attack
 	}
 
-	State state = State.Defend;
+	public State state { get; private set; }
 	
 	[SerializeField] float rotationSpeed = 200f;
+	[SerializeField] float attackSpeed = 10f;
+	Quaternion finalRotation;
+	Quaternion fromRotation;
+	Quaternion targetRotation;
+	Quaternion targetWindupRotation;
+	Quaternion targetAttackRotation;
 	Quaternion handRotation;
-	float attackTimer;
+	float rotationTimer;
 	float idleTargetRot;
-	float idleHandRotation;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
+		state = State.Defend;
 	}
 
 	Quaternion IdleArmRotation()
@@ -42,73 +48,84 @@ public class WeaponControl : MechComponent
 		float limit = 140;
 		idleTargetRot = Mathf.Clamp(idleTargetRot, -limit, limit);
 
-		//Smoothly interpolate hand rotation
-		idleHandRotation = Mathf.LerpAngle(idleHandRotation, idleTargetRot, Time.deltaTime * 5f);
-
-		//Limit hand rotation
-		idleHandRotation = Mathf.Clamp(idleHandRotation, -limit, limit);
-
 		//Return the rotation
-		Quaternion localRotation = Quaternion.Euler(70, 0, 0) * Quaternion.Euler(0, -idleHandRotation, 0);
+		Quaternion localRotation = Quaternion.Euler(90, 0, 0) * Quaternion.Euler(0, -idleTargetRot, 0);
 		return localRotation;
+	}
+
+	IEnumerator SwingRoutine()
+	{
+		float windupSpeed = 2f;
+		float attackSpeed = 2f;
+		rotationTimer = 0f;
+
+		//Winding up
+		while (rotationTimer < 1f)
+		{
+			fromRotation = handRotation;
+			targetRotation = targetWindupRotation;
+			rotationTimer += Time.deltaTime * windupSpeed;
+			yield return null;
+		}
+
+		rotationTimer = 0f;
+
+		while (input.attack)
+		{
+			fromRotation = targetWindupRotation;
+			targetRotation = targetAttackRotation;
+			yield return null;
+		}
+
+		fromRotation = targetWindupRotation;
+		targetRotation = targetAttackRotation;
+		print("Got here");
+
+		//Attack
+		state = State.Attack;
+		while (rotationTimer < 1f)
+		{
+			rotationTimer += Time.deltaTime * attackSpeed * 1.5f;
+			yield return null;
+		}
+
+		yield return new WaitForSeconds(0.5f);
+
+		//Retract
+		while (rotationTimer > 0f)
+		{
+			fromRotation = handRotation;
+			targetRotation = targetAttackRotation;
+			rotationTimer -= Time.deltaTime * attackSpeed * 1.3f;
+			yield return null;
+		}
+
+		state = State.Defend;
 	}
 
 	void Update()
 	{
-		switch (state)
+		handRotation = IdleArmRotation();
+		targetWindupRotation = handRotation * Quaternion.Euler(-35, 0, 0);
+		targetAttackRotation = handRotation * Quaternion.Euler(90, 0, 0);
+
+		if (state == State.Defend)
 		{
-			case State.Idle:
+			fromRotation = handRotation;
+			targetRotation = targetWindupRotation;
 
-				break;
-
-			case State.Defend:
-
-				handRotation = IdleArmRotation();
-
-				if (input.attack)
-				{
-					state = State.Attack;
-				}
-
-				break;
-
-			case State.WindUp:
-
-				
-
-				if (!input.attack)
-				{
-					state = State.Defend;
-				}
-
-				break;
-
-			case State.Attack:
-
-				Quaternion attackTargetRot = handRotation * Quaternion.Euler(0, 90, 0);
-
-
-				float attackDuration = 1f;
-
-				attackTimer += Time.deltaTime;
-
-				if (attackTimer > attackDuration)
-				{
-					attackTimer = 0f;
-					state = State.Defend;
-				}
-
-				if (!input.attack)
-				{
-					state = State.Defend;
-					attackTimer = 0f;
-				}
-
-				break;
+			if (input.attack)
+			{
+				state = State.WindUp;
+				StartCoroutine(SwingRoutine());
+			}
 		}
+		
+		Quaternion finalTargetRotation = Quaternion.Lerp(fromRotation, targetRotation, rotationTimer);
+		finalRotation = Quaternion.Lerp(finalRotation, finalTargetRotation, Time.deltaTime * 5f);
 
 		//Apply the rotation
 		Transform rHandIk = arms.armMovement.rHandIK;
-		rHandIk.localRotation = handRotation;
+		rHandIk.localRotation = finalRotation;
 	}
 }

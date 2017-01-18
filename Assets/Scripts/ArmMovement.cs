@@ -25,6 +25,8 @@ public class ArmMovement : MechComponent
 	[Range(0, 20)]
 	[SerializeField] float sloppiness = 15f;
 
+	[SerializeField] float tiss = 7f;
+
 	Vector3 rArmPos, lArmPos;
 	Vector3 rTargetPos, lTargetPos;
 	Vector3 handCentralPos;
@@ -78,25 +80,45 @@ public class ArmMovement : MechComponent
 	{
 		Vector3 rInput = new Vector3(input.rArmHorz, input.rArmVert);
 		Vector3 lInput = new Vector3(input.lArmHorz, input.lArmVert);
-
-		//NOTE: When falling, hands don't interpolate quickly enough, and will hang behind, may look buggy
+		
 		rTargetPos = SetArmPos(rInput, ref rArmPos, hierarchy.rShoulder);
-		lTargetPos = SetArmPos(lInput, ref lArmPos, hierarchy.lShoulder);		
+		lTargetPos = SetArmPos(lInput, ref lArmPos, hierarchy.lShoulder);
+
+		float blendTime = 20f - sloppiness;
+		switch (arms.weaponControl.state)
+		{
+			case WeaponControl.State.Defend:
+				rTargetPos.z = mech.transform.TransformPoint(Vector3.one * rArmDistance).z;
+				break;
+
+			case WeaponControl.State.WindUp:
+
+				Vector3 normalizedPos = (rTargetPos - rHandCenterPos);
+				rTargetPos.z = mech.transform.TransformPoint(Vector3.one * 0.2f).z;
+				normalizedPos.z = rTargetPos.z;
+				normalizedPos.Normalize();
+
+				Vector3 dir = rTargetPos - rHandCenterPos;
+				dir.z = 0;
+				dir = dir.normalized * tiss;
+				Vector3 armPos = rHandCenterPos + dir;
+
+				Debug.DrawRay(rHandCenterPos, dir, Color.red);
+				rTargetPos.x = armPos.x;
+				rTargetPos.y = armPos.y;
+				//rTargetPos.x = normalizedPos.x;
+				//rTargetPos.y = normalizedPos.y;
+				break;
+
+			case WeaponControl.State.Attack:
+				rTargetPos.z = mech.transform.TransformPoint(Vector3.one * 1f).z;
+				//rTargetPos = rHandCenterPos + mech.transform.forward * 18f;
+				blendTime = 2f;
+				break;
+		}
 
 		//Interpolate on all axes
-		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * (20f - sloppiness));
-		lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * (20f - sloppiness));
-
-		//Lock the position on the local Z axis, so it doesn't interpolate.
-		Vector3 rHIKLocal = rHandIKTarget.localPosition;
-		Vector3 lHIKLocal = lHandIKTarget.localPosition;
-
-		Vector3 rTargetLocal = mech.transform.InverseTransformPoint(rTargetPos);
-		Vector3 lTargetLocal = mech.transform.InverseTransformPoint(lTargetPos);
-
-		rHIKLocal.z = rTargetLocal.z;
-		lHIKLocal.z = lTargetLocal.z;
-		rHandIKTarget.localPosition = rHIKLocal;
-		lHandIKTarget.localPosition = lHIKLocal;
+		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * blendTime);
+		lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * blendTime);
 	}
 }
