@@ -22,7 +22,7 @@ public class MechMovement : MechComponent
 	[Header("Values")]
 	[SerializeField] float moveSpeed = 50f;
 	[SerializeField] float accelerationSpeed = 0.5f;
-	[SerializeField] float animationSpeedFactor = 0.8f;
+	[SerializeField] float animationSpeedFactor = 0.4f;
 
 	//Flags
 	public bool moving { get; private set; }

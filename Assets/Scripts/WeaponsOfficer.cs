@@ -3,15 +3,15 @@ using System.Collections;
 
 public class WeaponsOfficer : MechComponent
 {
-	ArmMovement armMovement;
-	ArmRotation armRotation;
+	public ArmMovement armMovement { get; private set; }
+	public WeaponControl weaponControl { get; private set; }
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 
 		armMovement = GetComponent<ArmMovement>();
-		armRotation = GetComponent<ArmRotation>();
+		weaponControl = GetComponent<WeaponControl>();
 	}
 	
 	void Update ()
@@ -19,7 +19,6 @@ public class WeaponsOfficer : MechComponent
 		//Move IK targets horizontally and vertically
 		armMovement.RunComponent();
 
-		//Rotate right hand
-		armRotation.RunComponent();
+		//Run attack animations, manage attacking states and gameplay
 	}
 }

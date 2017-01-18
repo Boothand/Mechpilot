@@ -31,9 +31,9 @@ public class PlayerInput : AbstractInput
 
 		rArmRot = armsPlayer.GetAxis("Rotate Hand");
 
+		attack = armsPlayer.GetButton("Wind Up Attack");
 		/*crouch = rewiredPlayer.GetButtonDown(crouchString);
 
-		attack = rewiredPlayer.GetButtonDown(attackString);
 
 		engineerHorz = rewiredPlayer.GetAxis(engineerHorzString);
 		engineerVert = rewiredPlayer.GetAxis(engineerVertString);*/
