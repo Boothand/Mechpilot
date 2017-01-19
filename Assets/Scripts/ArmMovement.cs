@@ -96,15 +96,13 @@ public class ArmMovement : MechComponent
 		switch (arms.weaponControl.state)
 		{
 			case WeaponControl.State.Defend:
-				rTargetPos.z = mech.transform.TransformPoint(Vector3.one * rArmDistance).z;
+				//rTargetPos += mech.transform.TransformPoint(new Vector3(0, 0, rArmDistance));
 				break;
 
 			case WeaponControl.State.WindUp:
 
-				Vector3 normalizedPos = (rTargetPos - rHandCenterPos);
-				rTargetPos.z = mech.transform.TransformPoint(Vector3.one * 0.2f).z;
-				normalizedPos.z = rTargetPos.z;
-				normalizedPos.Normalize();
+				rTargetPos -= mech.transform.forward * 5.8f;
+				//rTargetPos.z = mech.transform.TransformPoint(Vector3.one * 0.2f).z;
 
 				Vector3 dir = rTargetPos - rHandCenterPos;
 				dir.z = 0;
@@ -114,8 +112,6 @@ public class ArmMovement : MechComponent
 				Debug.DrawRay(rHandCenterPos, dir, Color.red);
 				rTargetPos.x = armPos.x;
 				rTargetPos.y = armPos.y;
-				//rTargetPos.x = normalizedPos.x;
-				//rTargetPos.y = normalizedPos.y;
 				break;
 
 			case WeaponControl.State.Attack:
