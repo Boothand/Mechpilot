@@ -27,16 +27,20 @@ public class ArmMovement : MechComponent
 
 	[SerializeField] float tiss = 7f;
 
+	float speed = 1f;
+
 	Vector3 rArmPos, lArmPos;
 	Vector3 rTargetPos, lTargetPos;
 	Vector3 handCentralPos;
 
 	public Vector3 rHandCenterPos
 	{
-		get
-		{
-			return hierarchy.rShoulder.position + Vector3.up * armHeight * scaleFactor;
-		}
+		get { return hierarchy.rShoulder.position + Vector3.up * armHeight * scaleFactor; }
+	}
+
+	public Vector3 handCenterPos
+	{
+		get { return (hierarchy.rShoulder.position + hierarchy.lShoulder.position) / 2 + Vector3.up * armHeight * scaleFactor; }
 	}
 
 	protected override void OnAwake()
@@ -52,8 +56,12 @@ public class ArmMovement : MechComponent
 		//Transform input direction to local space
 		Vector3 worldInputDir = mech.transform.TransformDirection(input);
 
+		float speedToUse = speed;
+		if (arms.weaponControl.state == WeaponControl.State.Attack)
+			speedToUse *= 40f;
+
 		//Add input values to XY position
-		armPos += worldInputDir * Time.deltaTime * engineer.energies[ARMS_INDEX] * scaleFactor;
+		armPos += worldInputDir * speedToUse * Time.deltaTime * engineer.energies[ARMS_INDEX] * scaleFactor;
 
 		//Limit arm's reach on local XY axis
 		armPos = Vector3.ClampMagnitude(armPos, armReach * scaleFactor);
@@ -111,14 +119,19 @@ public class ArmMovement : MechComponent
 				break;
 
 			case WeaponControl.State.Attack:
-				rTargetPos.z = mech.transform.TransformPoint(Vector3.one * 1f).z;
+				rTargetPos.z = mech.transform.TransformPoint(Vector3.one * 0.85f).z;
 				//rTargetPos = rHandCenterPos + mech.transform.forward * 18f;
+				
 				blendTime = 2f;
 				break;
 		}
 
 		//Interpolate on all axes
+		if (arms.weaponControl.state == WeaponControl.State.Attack)
+			blendTime *= 2f;
+
 		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * blendTime);
-		lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * blendTime);
+		//lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * blendTime);
+		lHandIKTarget.position = rHandIKTarget.position;
 	}
 }

@@ -79,7 +79,6 @@ public class WeaponControl : MechComponent
 
 		fromRotation = targetWindupRotation;
 		targetRotation = targetAttackRotation;
-		print("Got here");
 
 		//Attack
 		state = State.Attack;
@@ -89,7 +88,7 @@ public class WeaponControl : MechComponent
 			yield return null;
 		}
 
-		yield return new WaitForSeconds(0.5f);
+		//yield return new WaitForSeconds(0.5f);
 
 		//Retract
 		while (rotationTimer > 0f)
@@ -103,11 +102,24 @@ public class WeaponControl : MechComponent
 		state = State.Defend;
 	}
 
+	Quaternion WindUpRotation()
+	{
+		Vector3 handCenterPos = arms.armMovement.handCenterPos;
+		Transform rHand = arms.armMovement.rHandIK;
+		Vector3 dir = rHand.position - handCenterPos;
+		//Debug.DrawLine(arms.armMovement.rHandIK.position, handCenterPos, Color.green);
+		Quaternion verticalAngle = Quaternion.Euler(-75, 0, 0);
+
+		return Quaternion.LookRotation(-dir, Vector3.forward) * verticalAngle;
+	}
+
 	void Update()
 	{
 		handRotation = IdleArmRotation();
-		targetWindupRotation = handRotation * Quaternion.Euler(-35, 0, 0);
-		targetAttackRotation = handRotation * Quaternion.Euler(90, 0, 0);
+
+		targetWindupRotation = WindUpRotation();
+		Quaternion swingAngle = Quaternion.Euler(120, 0, 0);
+		targetAttackRotation = targetWindupRotation * swingAngle;
 
 		if (state == State.Defend)
 		{
