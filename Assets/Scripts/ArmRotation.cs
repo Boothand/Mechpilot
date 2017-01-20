@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class WeaponControl : MechComponent
+public class ArmRotation : MechComponent
 {
 	public enum State
 	{
@@ -13,16 +13,31 @@ public class WeaponControl : MechComponent
 
 	public State state { get; private set; }
 	
+	[Header("Idle/Blocking")]
 	[SerializeField] float rotationSpeed = 200f;
-	[SerializeField] float attackSpeed = 10f;
+	[SerializeField] float idleRotationLimit = 140f;
+	float idleTargetAngle;
+	Quaternion idleHandRotation;
+
+	[Header("Wind-Up")]
+	[SerializeField] float rotateBackAmount = 75;
+	[SerializeField] float windupSpeed = 2f;
+	Quaternion targetWindupRotation;
+
+	[Header("Attack")]
+	[SerializeField] float attackSpeed = 3f;
+	[SerializeField] float swingAmount = 120f;
+	Quaternion targetAttackRotation;
+
+	[Header("All")]
+	[SerializeField] float blendSpeed = 5f;
+
 	Quaternion finalRotation;
 	Quaternion fromRotation;
-	Quaternion targetRotation;
-	Quaternion targetWindupRotation;
-	Quaternion targetAttackRotation;
-	Quaternion handRotation;
+	Quaternion toRotation;
 	float rotationTimer;
-	float idleTargetRot;
+
+
 
 	protected override void OnAwake()
 	{
@@ -35,35 +50,32 @@ public class WeaponControl : MechComponent
 		float rotationInput = Mathf.Clamp(input.rArmRot, -1f, 1f);
 
 		//Add input values to the target rotation
-		idleTargetRot += rotationInput * Time.deltaTime * rotationSpeed * engineer.energies[ARMS_INDEX];
+		idleTargetAngle += rotationInput * Time.deltaTime * rotationSpeed * engineer.energies[ARMS_INDEX];
 
 		//Wrap
-		if (idleTargetRot > 360)
-			idleTargetRot -= 360f;
+		if (idleTargetAngle > 360)
+			idleTargetAngle -= 360f;
 
-		if (idleTargetRot < -360)
-			idleTargetRot += 360f;
+		if (idleTargetAngle < -360)
+			idleTargetAngle += 360f;
 
 		//Limit target rotation
-		float limit = 140;
-		idleTargetRot = Mathf.Clamp(idleTargetRot, -limit, limit);
+		idleTargetAngle = Mathf.Clamp(idleTargetAngle, -idleRotationLimit, idleRotationLimit);
 
 		//Return the rotation
-		Quaternion localRotation = Quaternion.Euler(90, 0, 0) * Quaternion.Euler(0, -idleTargetRot, 0);
+		Quaternion localRotation = Quaternion.Euler(90, 0, 0) * Quaternion.Euler(0, -idleTargetAngle, 0);
 		return localRotation;
 	}
 
 	IEnumerator SwingRoutine()
 	{
-		float windupSpeed = 2f;
-		float attackSpeed = 2f;
 		rotationTimer = 0f;
 
 		//Winding up
 		while (rotationTimer < 1f)
 		{
-			fromRotation = handRotation;
-			targetRotation = targetWindupRotation;
+			fromRotation = idleHandRotation;
+			toRotation = targetWindupRotation;
 			rotationTimer += Time.deltaTime * windupSpeed;
 			yield return null;
 		}
@@ -73,18 +85,18 @@ public class WeaponControl : MechComponent
 		while (input.attack)
 		{
 			fromRotation = targetWindupRotation;
-			targetRotation = targetAttackRotation;
+			toRotation = targetAttackRotation;
 			yield return null;
 		}
 
 		fromRotation = targetWindupRotation;
-		targetRotation = targetAttackRotation;
+		toRotation = targetAttackRotation;
 
 		//Attack
 		state = State.Attack;
 		while (rotationTimer < 1f)
 		{
-			rotationTimer += Time.deltaTime * attackSpeed * 1.5f;
+			rotationTimer += Time.deltaTime * attackSpeed;
 			yield return null;
 		}
 
@@ -93,8 +105,8 @@ public class WeaponControl : MechComponent
 		//Retract
 		while (rotationTimer > 0f)
 		{
-			fromRotation = handRotation;
-			targetRotation = targetAttackRotation;
+			fromRotation = idleHandRotation;
+			toRotation = targetAttackRotation;
 			rotationTimer -= Time.deltaTime * attackSpeed * 1.3f;
 			yield return null;
 		}
@@ -117,23 +129,23 @@ public class WeaponControl : MechComponent
 		Quaternion towardsMiddleRotation = Quaternion.LookRotation(mechAngle * -middleToHandDir, Vector3.forward);
 
 		//The extra angle to rotate the sword back
-		Quaternion verticalAngle = Quaternion.Euler(-75, 0, 0);
+		Quaternion verticalAngle = Quaternion.Euler(-rotateBackAmount, 0, 0);
 
 		return towardsMiddleRotation * verticalAngle;
 	}
 
 	void Update()
 	{
-		handRotation = IdleArmRotation();
+		idleHandRotation = IdleArmRotation();
 
 		targetWindupRotation = WindUpRotation();
-		Quaternion swingAngle = Quaternion.Euler(120, 0, 0);
+		Quaternion swingAngle = Quaternion.Euler(swingAmount, 0, 0);
 		targetAttackRotation = targetWindupRotation * swingAngle;
 
 		if (state == State.Defend)
 		{
-			fromRotation = handRotation;
-			targetRotation = targetWindupRotation;
+			fromRotation = idleHandRotation;
+			toRotation = targetWindupRotation;
 
 			if (input.attack)
 			{
@@ -141,9 +153,9 @@ public class WeaponControl : MechComponent
 				StartCoroutine(SwingRoutine());
 			}
 		}
-		
-		Quaternion finalTargetRotation = Quaternion.Lerp(fromRotation, targetRotation, rotationTimer);
-		finalRotation = Quaternion.Lerp(finalRotation, finalTargetRotation, Time.deltaTime * 5f);
+
+		Quaternion finalTargetRotation = Quaternion.Lerp(fromRotation, toRotation, rotationTimer);
+		finalRotation = Quaternion.Lerp(finalRotation, finalTargetRotation, Time.deltaTime * blendSpeed);
 
 		//Apply the rotation
 		Transform rHandIk = arms.armMovement.rHandIK;

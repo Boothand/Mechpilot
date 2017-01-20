@@ -9,25 +9,25 @@ public class ArmMovement : MechComponent
 	public Transform rHandIK { get { return rHandIKTarget; } }
 	public Transform lHandIK { get { return rHandIKTarget; } }
 
-	[Header("Values")]
-	[Range(-1f, 1f)]
-	[SerializeField] float armHeight = -0.3f;
+	[Header("Idle/Blocking")]
+	[SerializeField] float idleMoveSpeed = 1f;
+	[Range(-1f, 1f)] [SerializeField] float armHeight = -0.3f;
+	[Range(0.05f, 1f)] [SerializeField] float rArmDistance = 0.3f;
+	[Range(0.05f, 1f)] [SerializeField] float lArmDistance = 0.3f;
+	[Range(0.2f, 2f)] [SerializeField] float armReach = 1f;
 
-	[Range(0.05f, 1f)]
-	[SerializeField] float rArmDistance = 0.3f;
 
-	[Range(0.05f, 1f)]
-	[SerializeField] float lArmDistance = 0.3f;
+	[Header("Wind-up")]
+	[SerializeField] float windupPullBackDistance = 7.8f;
+	[SerializeField] float windupReach = 7f;
 
-	[Range(0.2f, 2f)]
-	[SerializeField] float armReach = 1f;
+	[Header("Attack")]
+	[SerializeField] float attackForwardDistance = 5f;
+	[SerializeField] float attackSideMovementSpeed = 5f;
+	[SerializeField] float attackBlendTime = 2f;
 
-	[Range(0, 20)]
-	[SerializeField] float sloppiness = 15f;
-
-	[SerializeField] float tiss = 7f;
-
-	float speed = 1f;
+	[Header("All")]
+	[SerializeField] float baseBlendSpeed = 5f;
 
 	Vector3 rArmPos, lArmPos;
 	Vector3 rTargetPos, lTargetPos;
@@ -56,9 +56,11 @@ public class ArmMovement : MechComponent
 		//Transform input direction to local space
 		Vector3 worldInputDir = mech.transform.TransformDirection(input);
 
-		float speedToUse = speed;
-		if (arms.weaponControl.state == WeaponControl.State.Attack)
-			speedToUse *= 40f;
+		float speedToUse = idleMoveSpeed;
+		if (arms.weaponControl.state == ArmRotation.State.Attack)
+		{
+			speedToUse = attackSideMovementSpeed;
+		}
 
 		//Add input values to XY position
 		armPos += worldInputDir * speedToUse * Time.deltaTime * engineer.energies[ARMS_INDEX] * scaleFactor;
@@ -92,37 +94,38 @@ public class ArmMovement : MechComponent
 		rTargetPos = SetArmPos(rInput, ref rArmPos, hierarchy.rShoulder);
 		lTargetPos = SetArmPos(lInput, ref lArmPos, hierarchy.lShoulder);
 
-		float blendTime = 20f - sloppiness;
+		float blendSpeedToUse = baseBlendSpeed;
+
 		switch (arms.weaponControl.state)
 		{
-			case WeaponControl.State.Defend:
+			case ArmRotation.State.Defend:
 				//rTargetPos += mech.transform.TransformPoint(new Vector3(0, 0, rArmDistance));
 				break;
 
-			case WeaponControl.State.WindUp:
+			case ArmRotation.State.WindUp:
 
-				Vector3 targetHandPos = rTargetPos - mech.transform.forward * 7.8f;
+				Vector3 targetHandPos = rTargetPos - mech.transform.forward * windupPullBackDistance;
 				Vector3 targetCenterPos = rHandCenterPos;
 
 				Vector3 dir = targetHandPos - rHandCenterPos;
-				dir = dir.normalized * tiss;
-				//Debug.DrawRay(targetCenterPos, dir, Color.blue);
+				dir = dir.normalized * windupReach;
 				rTargetPos = rHandCenterPos + dir;
 				break;
 
-			case WeaponControl.State.Attack:
-				rTargetPos += mech.transform.forward * 5f;
+			case ArmRotation.State.Attack:
+				rTargetPos += mech.transform.forward * attackForwardDistance;
 
-				blendTime = 2f;
+				blendSpeedToUse = attackBlendTime;
 				break;
 		}
 
 		//Interpolate on all axes
-		if (arms.weaponControl.state == WeaponControl.State.Attack)
-			blendTime *= 2f;
-
-		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * blendTime);
+		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * blendSpeedToUse);
+		
+		//Shield
 		//lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * blendTime);
+
+		//Two-handed sword solution:
 		lHandIKTarget.position = rHandIKTarget.position;
 	}
 }
