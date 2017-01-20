@@ -101,23 +101,18 @@ public class ArmMovement : MechComponent
 
 			case WeaponControl.State.WindUp:
 
-				rTargetPos -= mech.transform.forward * 5.8f;
-				//rTargetPos.z = mech.transform.TransformPoint(Vector3.one * 0.2f).z;
+				Vector3 targetHandPos = rTargetPos - mech.transform.forward * 7.8f;
+				Vector3 targetCenterPos = rHandCenterPos;
 
-				Vector3 dir = rTargetPos - rHandCenterPos;
-				dir.z = 0;
+				Vector3 dir = targetHandPos - rHandCenterPos;
 				dir = dir.normalized * tiss;
-				Vector3 armPos = rHandCenterPos + dir;
-
-				Debug.DrawRay(rHandCenterPos, dir, Color.red);
-				rTargetPos.x = armPos.x;
-				rTargetPos.y = armPos.y;
+				//Debug.DrawRay(targetCenterPos, dir, Color.blue);
+				rTargetPos = rHandCenterPos + dir;
 				break;
 
 			case WeaponControl.State.Attack:
-				rTargetPos.z = mech.transform.TransformPoint(Vector3.one * 0.85f).z;
-				//rTargetPos = rHandCenterPos + mech.transform.forward * 18f;
-				
+				rTargetPos += mech.transform.forward * 5f;
+
 				blendTime = 2f;
 				break;
 		}

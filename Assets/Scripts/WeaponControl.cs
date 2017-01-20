@@ -104,13 +104,22 @@ public class WeaponControl : MechComponent
 
 	Quaternion WindUpRotation()
 	{
-		Vector3 handCenterPos = arms.armMovement.handCenterPos;
+		//Get the direction from the 'middle' to the hand position
 		Transform rHand = arms.armMovement.rHandIK;
-		Vector3 dir = rHand.position - handCenterPos;
-		//Debug.DrawLine(arms.armMovement.rHandIK.position, handCenterPos, Color.green);
+		Vector3 handCenterPos = arms.armMovement.handCenterPos;
+		Vector3 middleToHandDir = rHand.position - handCenterPos;
+		
+		//Use the y angle of the mech to make it the same regardless of orientation
+		float yAngle = mech.transform.eulerAngles.y;
+		Quaternion mechAngle = Quaternion.Euler(0, -yAngle, 0);
+
+		//Rotation aligned with the direction to the center
+		Quaternion towardsMiddleRotation = Quaternion.LookRotation(mechAngle * -middleToHandDir, Vector3.forward);
+
+		//The extra angle to rotate the sword back
 		Quaternion verticalAngle = Quaternion.Euler(-75, 0, 0);
 
-		return Quaternion.LookRotation(-dir, Vector3.forward) * verticalAngle;
+		return towardsMiddleRotation * verticalAngle;
 	}
 
 	void Update()
