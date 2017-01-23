@@ -9,21 +9,25 @@ public class ArmMovement : MechComponent
 	public Transform rHandIK { get { return rHandIKTarget; } }
 	public Transform lHandIK { get { return rHandIKTarget; } }
 
-	[Header("Values")]
-	[Range(-1f, 1f)]
-	[SerializeField] float armHeight = -0.3f;
+	[Header("Idle/Blocking")]
+	[SerializeField] float idleMoveSpeed = 1f;
+	[Range(-1f, 1f)] [SerializeField] float armHeight = -0.3f;
+	[Range(0.05f, 1f)] [SerializeField] float rArmDistance = 0.3f;
+	[Range(0.05f, 1f)] [SerializeField] float lArmDistance = 0.3f;
+	[Range(0.2f, 2f)] [SerializeField] float armReach = 1f;
 
-	[Range(0.05f, 1f)]
-	[SerializeField] float rArmDistance = 0.3f;
 
-	[Range(0.05f, 1f)]
-	[SerializeField] float lArmDistance = 0.3f;
+	[Header("Wind-up")]
+	[SerializeField] float windupPullBackDistance = 7.8f;
+	[SerializeField] float windupReach = 7f;
 
-	[Range(0.2f, 2f)]
-	[SerializeField] float armReach = 1f;
+	[Header("Attack")]
+	[SerializeField] float attackForwardDistance = 5f;
+	[SerializeField] float attackSideMovementSpeed = 5f;
+	[SerializeField] float attackBlendTime = 2f;
 
-	[Range(0, 20)]
-	[SerializeField] float sloppiness = 15f;
+	[Header("All")]
+	[SerializeField] float baseBlendSpeed = 5f;
 
 	Vector3 rArmPos, lArmPos;
 	Vector3 rTargetPos, lTargetPos;
@@ -31,10 +35,12 @@ public class ArmMovement : MechComponent
 
 	public Vector3 rHandCenterPos
 	{
-		get
-		{
-			return hierarchy.rShoulder.position + Vector3.up * armHeight * scaleFactor;
-		}
+		get { return hierarchy.rShoulder.position + Vector3.up * armHeight * scaleFactor; }
+	}
+
+	public Vector3 handCenterPos
+	{
+		get { return (hierarchy.rShoulder.position + hierarchy.lShoulder.position) / 2 + Vector3.up * armHeight * scaleFactor; }
 	}
 
 	protected override void OnAwake()
@@ -50,8 +56,14 @@ public class ArmMovement : MechComponent
 		//Transform input direction to local space
 		Vector3 worldInputDir = mech.transform.TransformDirection(input);
 
+		float speedToUse = idleMoveSpeed;
+		if (arms.weaponControl.state == ArmRotation.State.Attack)
+		{
+			speedToUse = attackSideMovementSpeed;
+		}
+
 		//Add input values to XY position
-		armPos += worldInputDir * Time.deltaTime * engineer.energies[ARMS_INDEX] * scaleFactor;
+		armPos += worldInputDir * speedToUse * Time.deltaTime * engineer.energies[ARMS_INDEX] * scaleFactor;
 
 		//Limit arm's reach on local XY axis
 		armPos = Vector3.ClampMagnitude(armPos, armReach * scaleFactor);
@@ -78,25 +90,42 @@ public class ArmMovement : MechComponent
 	{
 		Vector3 rInput = new Vector3(input.rArmHorz, input.rArmVert);
 		Vector3 lInput = new Vector3(input.lArmHorz, input.lArmVert);
-
-		//NOTE: When falling, hands don't interpolate quickly enough, and will hang behind, may look buggy
+		
 		rTargetPos = SetArmPos(rInput, ref rArmPos, hierarchy.rShoulder);
-		lTargetPos = SetArmPos(lInput, ref lArmPos, hierarchy.lShoulder);		
+		lTargetPos = SetArmPos(lInput, ref lArmPos, hierarchy.lShoulder);
+
+		float blendSpeedToUse = baseBlendSpeed;
+
+		switch (arms.weaponControl.state)
+		{
+			case ArmRotation.State.Defend:
+				//rTargetPos += mech.transform.TransformPoint(new Vector3(0, 0, rArmDistance));
+				break;
+
+			case ArmRotation.State.WindUp:
+
+				Vector3 targetHandPos = rTargetPos - mech.transform.forward * windupPullBackDistance;
+				Vector3 targetCenterPos = rHandCenterPos;
+
+				Vector3 dir = targetHandPos - rHandCenterPos;
+				dir = dir.normalized * windupReach;
+				rTargetPos = rHandCenterPos + dir;
+				break;
+
+			case ArmRotation.State.Attack:
+				rTargetPos += mech.transform.forward * attackForwardDistance;
+
+				blendSpeedToUse = attackBlendTime;
+				break;
+		}
 
 		//Interpolate on all axes
-		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * (20f - sloppiness));
-		lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * (20f - sloppiness));
+		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * blendSpeedToUse);
+		
+		//Shield
+		//lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * blendTime);
 
-		//Lock the position on the local Z axis, so it doesn't interpolate.
-		Vector3 rHIKLocal = rHandIKTarget.localPosition;
-		Vector3 lHIKLocal = lHandIKTarget.localPosition;
-
-		Vector3 rTargetLocal = mech.transform.InverseTransformPoint(rTargetPos);
-		Vector3 lTargetLocal = mech.transform.InverseTransformPoint(lTargetPos);
-
-		rHIKLocal.z = rTargetLocal.z;
-		lHIKLocal.z = lTargetLocal.z;
-		rHandIKTarget.localPosition = rHIKLocal;
-		lHandIKTarget.localPosition = lHIKLocal;
+		//Two-handed sword solution:
+		lHandIKTarget.position = rHandIKTarget.position;
 	}
 }
