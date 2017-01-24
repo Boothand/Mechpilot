@@ -21,6 +21,11 @@ public class MechComponent : ManagedMechBehaviour
 
 	protected override void OnAwake()
 	{
+		if (!mech)
+		{
+			Debug.LogWarning("No mech assigned on " + transform.name, this as Object);
+			return;
+		}
 		animator = mech.GetComponent<Animator>();
 		hierarchy = mech.GetComponent<BodyHierarchy>();
 		rb = mech.GetComponent<Rigidbody>();

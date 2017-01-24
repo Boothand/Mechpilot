@@ -10,7 +10,7 @@ public class ManagedMechBehaviour : MonoBehaviour
 	protected virtual void Awake()
 	{
 		//Auto-get references if on the same component - otherwise assign in inspector
-		if (!mech && transform.root.GetComponentInChildren<Mech>())
+		if (!mech)
 		{
 			mech = transform.root.GetComponentInChildren<Mech>();
 		}
