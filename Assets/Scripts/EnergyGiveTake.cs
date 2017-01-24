@@ -23,7 +23,7 @@ public class EnergyGiveTake : MechComponent
 			otherType = EnergyManager.EnergyComponents.Helm;
 		}
 
-		float amount = Time.deltaTime;
+		float amount = 0.10f;
 
 		//Pressing the give energy button
 		if (giveEnergyInput)
@@ -33,7 +33,7 @@ public class EnergyGiveTake : MechComponent
 		}
 
 		//Pressing the take energy button
-		if (takeEnergyInput)
+		if (takeEnergyInput && energyManager.energies[(int)otherType] > 0.30f)
 		{
 			//print(type + " taking from " + otherType);
 
