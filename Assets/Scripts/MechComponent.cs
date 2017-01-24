@@ -12,10 +12,10 @@ public class MechComponent : ManagedMechBehaviour
 	protected Helm helm;
 	protected Engineer engineer;
 	protected WeaponsOfficer arms;
+	protected EnergyManager energyManager;
 
 	protected const int HELM_INDEX = 0;
 	protected const int ARMS_INDEX = 1;
-	protected const int ENGINEER_INDEX = 2;
 
 	protected float scaleFactor { get; private set; }
 
@@ -33,6 +33,7 @@ public class MechComponent : ManagedMechBehaviour
 		helm = mech.transform.root.GetComponentInChildren<Helm>();
 		engineer = mech.transform.root.GetComponentInChildren<Engineer>();
 		arms = mech.transform.root.GetComponentInChildren<WeaponsOfficer>();
+		energyManager = mech.transform.root.GetComponentInChildren<EnergyManager>();
 
 		scaleFactor = transform.root.localScale.y;
 		base.OnAwake();

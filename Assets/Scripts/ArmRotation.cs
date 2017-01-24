@@ -50,7 +50,7 @@ public class ArmRotation : MechComponent
 		float rotationInput = Mathf.Clamp(input.rArmRot, -1f, 1f);
 
 		//Add input values to the target rotation
-		idleTargetAngle += rotationInput * Time.deltaTime * rotationSpeed * engineer.energies[ARMS_INDEX];
+		idleTargetAngle += rotationInput * Time.deltaTime * rotationSpeed * energyManager.energies[ARMS_INDEX];
 
 		//Wrap
 		if (idleTargetAngle > 360)

@@ -63,7 +63,7 @@ public class ArmMovement : MechComponent
 		}
 
 		//Add input values to XY position
-		armPos += worldInputDir * speedToUse * Time.deltaTime * engineer.energies[ARMS_INDEX] * scaleFactor;
+		armPos += worldInputDir * speedToUse * Time.deltaTime * energyManager.energies[ARMS_INDEX] * scaleFactor;
 
 		//Limit arm's reach on local XY axis
 		armPos = Vector3.ClampMagnitude(armPos, armReach * scaleFactor);
