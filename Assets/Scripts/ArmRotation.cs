@@ -92,6 +92,10 @@ public class ArmRotation : MechComponent
 		fromRotation = targetWindupRotation;
 		toRotation = targetAttackRotation;
 
+		//print("Before: " + idleTargetAngle);
+		//idleTargetAngle = fromRotation.eulerAngles.y;
+		//print("After: " + idleTargetAngle);
+
 		//Attack
 		state = State.Attack;
 		while (rotationTimer < 1f)
