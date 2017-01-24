@@ -21,6 +21,7 @@ public class MechMovement : MechComponent
 
 	[Header("Values")]
 	[SerializeField] float moveSpeed = 50f;
+	[SerializeField] float maxSlopeAngle = 45f;
 	[SerializeField] float accelerationSpeed = 0.5f;
 	[SerializeField] float animationSpeedFactor = 0.4f;
 
@@ -63,12 +64,31 @@ public class MechMovement : MechComponent
 		worldMoveDir.y = 0f;
 
 		//Don't go faster diagonally
-		//if (worldMoveDir.magnitude > 1f)
-		//{
-			worldMoveDir.Normalize();
+		worldMoveDir.Normalize();
 		worldMoveDir *= inputVec.magnitude;
-		//}
+
 		Debug.DrawRay(hierarchy.head.position, worldMoveDir * scaleFactor);
+
+		
+		if (rb.velocity.y > 0.001f)
+		{
+			Vector3 rayStartPos = mech.transform.position + Vector3.up * 2f;
+			Ray ray = new Ray(rayStartPos, worldMoveDir);
+			Debug.DrawRay(rayStartPos, worldMoveDir * 15f, Color.blue);
+			RaycastHit hitInfo;
+			Physics.Raycast(ray, out hitInfo, 15f);
+
+			if (hitInfo.transform)
+			{
+				float angle = Vector3.Angle(Vector3.up, hitInfo.normal);
+				if (angle > maxSlopeAngle)
+				{
+					//worldMoveDir = Vector3.zero;
+					velocity = Vector3.zero;
+					rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+				}
+			}
+		}
 
 		//Move velocity towards the desired direction, with a set acceleration
 		Vector3 vel = Vector3.MoveTowards(velocity, worldMoveDir, Time.deltaTime * accelerationSpeed);
@@ -81,7 +101,6 @@ public class MechMovement : MechComponent
 	{
 		if (moving)
 		{
-			//print("OK");
 			return physMat_moving;
 		}
 
