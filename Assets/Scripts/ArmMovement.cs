@@ -120,7 +120,7 @@ public class ArmMovement : MechComponent
 		}
 
 		//Interpolate on all axes
-		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * blendSpeedToUse);
+		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * blendSpeedToUse * energyManager.energies[ARMS_INDEX]);
 		
 		//Shield
 		//lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * blendTime);

@@ -76,7 +76,7 @@ public class ArmRotation : MechComponent
 		{
 			fromRotation = idleHandRotation;
 			toRotation = targetWindupRotation;
-			rotationTimer += Time.deltaTime * windupSpeed;
+			rotationTimer += Time.deltaTime * windupSpeed * energyManager.energies[ARMS_INDEX];
 			yield return null;
 		}
 
@@ -96,7 +96,7 @@ public class ArmRotation : MechComponent
 		state = State.Attack;
 		while (rotationTimer < 1f)
 		{
-			rotationTimer += Time.deltaTime * attackSpeed;
+			rotationTimer += Time.deltaTime * attackSpeed * energyManager.energies[ARMS_INDEX];
 			yield return null;
 		}
 
@@ -107,7 +107,7 @@ public class ArmRotation : MechComponent
 		{
 			fromRotation = idleHandRotation;
 			toRotation = targetAttackRotation;
-			rotationTimer -= Time.deltaTime * attackSpeed * 1.3f;
+			rotationTimer -= Time.deltaTime * attackSpeed * 1.3f * energyManager.energies[ARMS_INDEX];
 			yield return null;
 		}
 
