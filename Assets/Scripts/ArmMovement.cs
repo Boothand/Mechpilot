@@ -103,24 +103,45 @@ public class ArmMovement : MechComponent
 				break;
 
 			case ArmRotation.State.WindUp:
+			case ArmRotation.State.WindedUp:
 
-				Vector3 targetHandPos = rTargetPos - mech.transform.forward * windupPullBackDistance;
+				Vector3 targetHandPos = rTargetPos - mech.transform.forward * windupPullBackDistance * scaleFactor;
 				Vector3 targetCenterPos = rHandCenterPos;
 
 				Vector3 dir = targetHandPos - rHandCenterPos;
-				dir = dir.normalized * windupReach;
+				dir = dir.normalized * windupReach * scaleFactor;
 				rTargetPos = rHandCenterPos + dir;
+
+				
+				//if (rHandIKTarget.position.y < handCenterPos.y)
+				//{
+				//	print(rHandIK.localPosition);
+				//	Vector3 localPos = rHandIKTarget.localPosition;
+				//	if (localPos.x < 0.3f && localPos.x > 0f)
+				//	{
+				//		localPos.x = 0.3f;
+				//	}
+				//	if (localPos.x > -0.3f && localPos.x < 0f)
+				//	{
+				//		localPos.x = -0.3f;
+				//	}
+
+				//	localPos.y = 1.8f;
+
+				//	rHandIKTarget.localPosition = localPos;
+				//}
+
 				break;
 
 			case ArmRotation.State.Attack:
-				rTargetPos += mech.transform.forward * attackForwardDistance;
+				rTargetPos += mech.transform.forward * attackForwardDistance * scaleFactor;
 
 				blendSpeedToUse = attackBlendTime;
 				break;
 		}
 
 		//Interpolate on all axes
-		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * blendSpeedToUse * energyManager.energies[ARMS_INDEX]);
+		rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rTargetPos, Time.deltaTime * blendSpeedToUse * energyManager.energies[ARMS_INDEX] * scaleFactor);
 		
 		//Shield
 		//lHandIKTarget.position = Vector3.Lerp(lHandIKTarget.position, lTargetPos, Time.deltaTime * blendTime);

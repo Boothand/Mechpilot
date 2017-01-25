@@ -8,6 +8,7 @@ public class ArmRotation : MechComponent
 		Idle,
 		Defend,
 		WindUp,
+		WindedUp,
 		Attack
 	}
 
@@ -80,12 +81,15 @@ public class ArmRotation : MechComponent
 			yield return null;
 		}
 
+		state = State.WindedUp;
+
 		rotationTimer = 0f;
 
 		while (input.attack)
 		{
 			fromRotation = targetWindupRotation;
 			toRotation = targetAttackRotation;
+			//print(fromRotation.eulerAngles.y + " " + idleTargetAngle);
 			yield return null;
 		}
 
@@ -93,7 +97,7 @@ public class ArmRotation : MechComponent
 		toRotation = targetAttackRotation;
 
 		//print("Before: " + idleTargetAngle);
-		//idleTargetAngle = fromRotation.eulerAngles.y;
+		//idleTargetAngle = -fromRotation.eulerAngles.y;
 		//print("After: " + idleTargetAngle);
 
 		//Attack
@@ -104,9 +108,10 @@ public class ArmRotation : MechComponent
 			yield return null;
 		}
 
-		//yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.25f);
 
 		//Retract
+
 		while (rotationTimer > 0f)
 		{
 			fromRotation = idleHandRotation;
@@ -124,7 +129,9 @@ public class ArmRotation : MechComponent
 		Transform rHand = arms.armMovement.rHandIK;
 		Vector3 handCenterPos = arms.armMovement.handCenterPos;
 		Vector3 middleToHandDir = rHand.position - handCenterPos;
-		
+
+		//print(rHand.localEulerAngles.y);
+
 		//Use the y angle of the mech to make it the same regardless of orientation
 		float yAngle = mech.transform.eulerAngles.y;
 		Quaternion mechAngle = Quaternion.Euler(0, -yAngle, 0);
@@ -134,7 +141,6 @@ public class ArmRotation : MechComponent
 
 		//The extra angle to rotate the sword back
 		Quaternion verticalAngle = Quaternion.Euler(-rotateBackAmount, 0, 0);
-
 		return towardsMiddleRotation * verticalAngle;
 	}
 
