@@ -126,22 +126,25 @@ public class ArmRotation : MechComponent
 	Quaternion WindUpRotation()
 	{
 		//Get the direction from the 'middle' to the hand position
-		Transform rHand = arms.armMovement.rHandIK;
-		Vector3 handCenterPos = arms.armMovement.handCenterPos;
-		Vector3 middleToHandDir = rHand.position - handCenterPos;
+		//Transform rHand = arms.armMovement.rHandIK;
+		//Vector3 handCenterPos = arms.armMovement.handCenterPos;
+		//Vector3 middleToHandDir = rHand.position - handCenterPos;
 
-		//print(rHand.localEulerAngles.y);
+		////print(rHand.localEulerAngles.y);
 
-		//Use the y angle of the mech to make it the same regardless of orientation
-		float yAngle = mech.transform.eulerAngles.y;
-		Quaternion mechAngle = Quaternion.Euler(0, -yAngle, 0);
+		////Use the y angle of the mech to make it the same regardless of orientation
+		//float yAngle = mech.transform.eulerAngles.y;
+		//Quaternion mechAngle = Quaternion.Euler(0, -yAngle, 0);
 
-		//Rotation aligned with the direction to the center
-		Quaternion towardsMiddleRotation = Quaternion.LookRotation(mechAngle * -middleToHandDir, Vector3.forward);
+		////Rotation aligned with the direction to the center
+		//Quaternion towardsMiddleRotation = Quaternion.LookRotation(mechAngle * -middleToHandDir, Vector3.forward);
 
 		//The extra angle to rotate the sword back
+		//Quaternion verticalAngle = Quaternion.Euler(-rotateBackAmount, 0, 0);
+		//return towardsMiddleRotation * verticalAngle;
+
 		Quaternion verticalAngle = Quaternion.Euler(-rotateBackAmount, 0, 0);
-		return towardsMiddleRotation * verticalAngle;
+		return idleHandRotation * verticalAngle;
 	}
 
 	void Update()
