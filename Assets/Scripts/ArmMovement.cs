@@ -57,7 +57,7 @@ public class ArmMovement : MechComponent
 		Vector3 worldInputDir = mech.transform.TransformDirection(input);
 
 		float speedToUse = idleMoveSpeed;
-		if (arms.weaponControl.state == ArmRotation.State.Attack)
+		if (arms.armRotation.state == ArmRotation.State.Attack)
 		{
 			speedToUse = attackSideMovementSpeed;
 		}
@@ -96,7 +96,7 @@ public class ArmMovement : MechComponent
 
 		float blendSpeedToUse = baseBlendSpeed;
 
-		switch (arms.weaponControl.state)
+		switch (arms.armRotation.state)
 		{
 			case ArmRotation.State.Defend:
 				//rTargetPos += mech.transform.TransformPoint(new Vector3(0, 0, rArmDistance));

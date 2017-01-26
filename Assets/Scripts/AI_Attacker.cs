@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class AI_Attacker : MechComponent
+public class AI_Attacker : AI_MechComponent
 {
 	Vector3 localBasePos;
 
@@ -24,14 +24,57 @@ public class AI_Attacker : MechComponent
 		return localBasePos;
 	}
 
+	float DecideWindupRotation()
+	{
+		float limit = arms.armRotation.getIdleRotationLimit;
+		float randomAngle = 0f + Random.Range(-limit, limit);
+
+		return randomAngle;
+	}
+
 	void MoveHandsToPos(Vector3 localPos)
 	{
 		Transform rIK = arms.armMovement.rHandIK;
 
 		Vector3 dir = localPos - rIK.localPosition;
 
-		input.rArmHorz += Mathf.Sign(dir.x);
-		input.rArmVert += Mathf.Sign(dir.y);
+		input.rArmHorz = Mathf.Sign(dir.x);
+		input.rArmVert = Mathf.Sign(dir.y);
+	}
+
+	void MoveHandsInDirection(Vector3 dir)
+	{
+		Transform rIK = arms.armMovement.rHandIK;
+
+		Vector3 direction = dir;
+
+		input.rArmHorz = Mathf.Sign(dir.x);
+		input.rArmVert = Mathf.Sign(dir.y);
+	}
+
+	void RotateHandsToAngle(float angle)
+	{
+		float aimAngle = arms.armRotation.idleTargetAngle;
+
+		if (aimAngle < angle - 0.01f)
+		{
+			input.rArmRot = 1f;
+		}
+		else if (aimAngle > angle + 0.01f)
+		{
+			input.rArmRot = -1f;
+		}
+	}
+
+	void StopArms()
+	{
+		input.rArmHorz = 0f;
+		input.rArmVert = 0f;
+	}
+
+	void StopHandRotation()
+	{
+		input.rArmRot = 0f;
 	}
 
 	IEnumerator AttackRoutine()
@@ -41,24 +84,34 @@ public class AI_Attacker : MechComponent
 			input.attack = true;
 
 			Vector3 attackPos = DecideWindupPosition();
+			float attackAngle = DecideWindupRotation();
 
-			while (arms.weaponControl.state != ArmRotation.State.WindedUp)
+			while (arms.armRotation.state != ArmRotation.State.WindedUp)
 			{
 				MoveHandsToPos(attackPos);
+				RotateHandsToAngle(attackAngle);
 				yield return null;
 			}
 
-			yield return new WaitForSeconds(0.5f);
+			//StopArms();
+			StopHandRotation();
+
+			yield return new WaitForSeconds(0.2f);
 
 			input.attack = false;
 
-			while (arms.weaponControl.state != ArmRotation.State.Defend)
+			Vector3 dir = localBasePos - attackPos;
+
+			while (arms.armRotation.state != ArmRotation.State.Defend)
 			{
-				MoveHandsToPos(localBasePos);
+				MoveHandsInDirection(dir);
 				yield return null;
 			}
 
-			yield return new WaitForSeconds(1f);
+
+			StopArms();
+
+			yield return new WaitForSeconds(0.3f);
 		}
 	}
 
@@ -66,5 +119,13 @@ public class AI_Attacker : MechComponent
 	{
 		Vector3 basePos = arms.armMovement.handCenterPos;
 		localBasePos = mech.transform.InverseTransformPoint(basePos);
+
+		//Debug.DrawRay(hierarchy.rhand.position, hierarchy.rhand.up, Color.red);
+
+		Debug.DrawRay(hierarchy.head.position, hierarchy.head.forward, Color.red);
+
+		Vector3 dirToEnemy = transform.position - enemy.transform.position;
+		dirToEnemy.Normalize();
+
 	}
 }

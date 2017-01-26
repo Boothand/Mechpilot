@@ -4,7 +4,7 @@ using System.Collections;
 public class WeaponsOfficer : MechComponent
 {
 	public ArmMovement armMovement { get; private set; }
-	public ArmRotation weaponControl { get; private set; }
+	public ArmRotation armRotation { get; private set; }
 	[SerializeField] Transform weapon;
 
 	protected override void OnAwake()
@@ -12,7 +12,7 @@ public class WeaponsOfficer : MechComponent
 		base.OnAwake();
 
 		armMovement = GetComponent<ArmMovement>();
-		weaponControl = GetComponent<ArmRotation>();
+		armRotation = GetComponent<ArmRotation>();
 	}
 
 	void IgnoreHierarchyRecursive(Transform root, Collider otherCol)
@@ -34,7 +34,13 @@ public class WeaponsOfficer : MechComponent
 	{
 		IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
 	}
-	
+
+	void FixedUpdate()
+	{
+		//armMovement.RunComponent();
+
+	}
+
 	void Update ()
 	{
 		//Move IK targets horizontally and vertically

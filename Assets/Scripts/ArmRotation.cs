@@ -17,7 +17,8 @@ public class ArmRotation : MechComponent
 	[Header("Idle/Blocking")]
 	[SerializeField] float rotationSpeed = 200f;
 	[SerializeField] float idleRotationLimit = 140f;
-	float idleTargetAngle;
+	public float idleTargetAngle { get; private set; }
+	public float getIdleRotationLimit { get { return idleRotationLimit; } }
 	Quaternion idleHandRotation;
 
 	[Header("Wind-Up")]
@@ -125,24 +126,6 @@ public class ArmRotation : MechComponent
 
 	Quaternion WindUpRotation()
 	{
-		//Get the direction from the 'middle' to the hand position
-		//Transform rHand = arms.armMovement.rHandIK;
-		//Vector3 handCenterPos = arms.armMovement.handCenterPos;
-		//Vector3 middleToHandDir = rHand.position - handCenterPos;
-
-		////print(rHand.localEulerAngles.y);
-
-		////Use the y angle of the mech to make it the same regardless of orientation
-		//float yAngle = mech.transform.eulerAngles.y;
-		//Quaternion mechAngle = Quaternion.Euler(0, -yAngle, 0);
-
-		////Rotation aligned with the direction to the center
-		//Quaternion towardsMiddleRotation = Quaternion.LookRotation(mechAngle * -middleToHandDir, Vector3.forward);
-
-		//The extra angle to rotate the sword back
-		//Quaternion verticalAngle = Quaternion.Euler(-rotateBackAmount, 0, 0);
-		//return towardsMiddleRotation * verticalAngle;
-
 		Quaternion verticalAngle = Quaternion.Euler(-rotateBackAmount, 0, 0);
 		return idleHandRotation * verticalAngle;
 	}
