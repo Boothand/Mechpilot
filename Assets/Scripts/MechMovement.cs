@@ -67,7 +67,7 @@ public class MechMovement : MechComponent
 		worldMoveDir.Normalize();
 		worldMoveDir *= inputVec.magnitude;
 
-		Debug.DrawRay(hierarchy.head.position, worldMoveDir * scaleFactor);
+		//Debug.DrawRay(hierarchy.head.position, worldMoveDir * scaleFactor);
 
 		
 		if (rb.velocity.y > 0.001f)
