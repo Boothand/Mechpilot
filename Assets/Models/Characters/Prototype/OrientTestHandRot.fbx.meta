@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d0ac3ca037bf2b0478f0de917c000f17
-timeCreated: 1484663435
+timeCreated: 1485358803
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -74,6 +74,14 @@ ModelImporter:
     100132: thumb_end_l
     100134: upperarm_l
     100136: upperarm_r
+    100138: chest
+    100140: Mesh_geo
+    100142: Mesh_geo_MeshPart0
+    100144: Mesh_geo_MeshPart1
+    100146: Mesh_geo_MeshPart2
+    100148: Mesh_geo_MeshPart3
+    100150: Mesh_grp
+    100152: spine
     400000: ball_l
     400002: ball_r
     400004: calf_l
@@ -143,9 +151,25 @@ ModelImporter:
     400132: thumb_end_l
     400134: upperarm_l
     400136: upperarm_r
+    400138: chest
+    400140: Mesh_geo
+    400142: Mesh_geo_MeshPart0
+    400144: Mesh_geo_MeshPart1
+    400146: Mesh_geo_MeshPart2
+    400148: Mesh_geo_MeshPart3
+    400150: Mesh_grp
+    400152: spine
     4300000: pCylinder17
+    4300002: Mesh_geo_MeshPart0
+    4300004: Mesh_geo_MeshPart1
+    4300006: Mesh_geo_MeshPart2
+    4300008: Mesh_geo_MeshPart3
     9500000: //RootNode
     13700000: pCylinder17
+    13700002: Mesh_geo_MeshPart0
+    13700004: Mesh_geo_MeshPart1
+    13700006: Mesh_geo_MeshPart2
+    13700008: Mesh_geo_MeshPart3
   materials:
     importMaterials: 1
     materialName: 0
@@ -194,7 +218,7 @@ ModelImporter:
   humanDescription:
     serializedVersion: 2
     human:
-    - boneName: Root
+    - boneName: pelvis
       humanName: Hips
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -430,6 +454,21 @@ ModelImporter:
       position: {x: 6.4439293e-10, y: 1.5074561, z: -0.017459087}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: neck_01
+      parentName: spine_03
+      position: {x: -0.0000000024979658, y: 0.12217473, z: -0.0028188427}
+      rotation: {x: -0.047308598, y: 0, z: -0, w: 0.9988803}
+      scale: {x: 1, y: 1, z: 1}
+    - name: head
+      parentName: neck_01
+      position: {x: -9.0175717e-10, y: 0.20254466, z: 0.014523854}
+      rotation: {x: 0.40183035, y: -0.36986476, z: -0.59810114, w: 0.5865215}
+      scale: {x: 1, y: 1, z: 1}
+    - name: headtip
+      parentName: head
+      position: {x: -0.95912427, y: -2.7430408e-16, z: -1.5317484e-16}
+      rotation: {x: -0.40183035, y: 0.36986476, z: 0.59810114, w: 0.5865215}
+      scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: upperarm_l
       parentName: spine_03
       position: {x: -1.1329564, y: 0.00022161736, z: -0.0000051125803}
@@ -485,26 +524,6 @@ ModelImporter:
       position: {x: -0.25710645, y: -2.469136e-13, z: -4.1425197e-14}
       rotation: {x: -0.15079655, y: -0.14949489, z: 0.7431186, w: 0.6345759}
       scale: {x: 0.01, y: 0.01, z: 0.01}
-    - name: ring_01_l
-      parentName: hand_l
-      position: {x: -0.9880511, y: -0.000058996593, z: -0.13338688}
-      rotation: {x: -0.000002158026, y: 0.030477248, z: -0.00007077481, w: 0.99953544}
-      scale: {x: 0.01, y: 0.01, z: 0.01}
-    - name: ring_02_l
-      parentName: ring_01_l
-      position: {x: -0.36188993, y: 0.0000077474015, z: -0.00000000990602}
-      rotation: {x: -6.4106793e-12, y: 0.00000009053647, z: 0.000070807706, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ring_03_l
-      parentName: ring_02_l
-      position: {x: -0.1648433, y: -1.083008e-13, z: 1.3560291e-16}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ring_end_l
-      parentName: ring_03_l
-      position: {x: -0.25710645, y: -9.05942e-14, z: 1.5348833e-14}
-      rotation: {x: -0.15079655, y: -0.14949489, z: 0.7431186, w: 0.6345759}
-      scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: pinky_01_l
       parentName: hand_l
       position: {x: -1.0029422, y: -0.000047984624, z: -0.3773409}
@@ -525,6 +544,26 @@ ModelImporter:
       position: {x: -0.25710645, y: 1.0658141e-14, z: 5.0515148e-15}
       rotation: {x: -0.15079655, y: -0.14949489, z: 0.7431186, w: 0.6345759}
       scale: {x: 0.01, y: 0.01, z: 0.01}
+    - name: ring_01_l
+      parentName: hand_l
+      position: {x: -0.9880511, y: -0.000058996593, z: -0.13338688}
+      rotation: {x: -0.000002158026, y: 0.030477248, z: -0.00007077481, w: 0.99953544}
+      scale: {x: 0.01, y: 0.01, z: 0.01}
+    - name: ring_02_l
+      parentName: ring_01_l
+      position: {x: -0.36188993, y: 0.0000077474015, z: -0.00000000990602}
+      rotation: {x: -6.4106793e-12, y: 0.00000009053647, z: 0.000070807706, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ring_03_l
+      parentName: ring_02_l
+      position: {x: -0.1648433, y: -1.083008e-13, z: 1.3560291e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ring_end_l
+      parentName: ring_03_l
+      position: {x: -0.25710645, y: -9.05942e-14, z: 1.5348833e-14}
+      rotation: {x: -0.15079655, y: -0.14949489, z: 0.7431186, w: 0.6345759}
+      scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: thumb_01_l
       parentName: hand_l
       position: {x: -0.1968857, y: -0.000046901845, z: 0.5826464}
@@ -543,7 +582,7 @@ ModelImporter:
     - name: thumb_end_l
       parentName: thumb_03_l
       position: {x: -0.23515373, y: 3.5527137e-15, z: -5.967449e-16}
-      rotation: {x: 0.6320934, y: 0.5544217, z: -0.41883487, w: -0.34300405}
+      rotation: {x: 0.6320935, y: 0.5544218, z: -0.41883492, w: -0.34300408}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: upperarm_r
       parentName: spine_03
@@ -643,7 +682,7 @@ ModelImporter:
     - name: thumb_01_r
       parentName: hand_r
       position: {x: -0.24479805, y: -3.561477e-15, z: -0.576491}
-      rotation: {x: 0.000000031708733, y: 0.25491384, z: 0.000000045837368, w: 0.96696377}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: thumb_02_r
       parentName: thumb_01_r
@@ -659,21 +698,6 @@ ModelImporter:
       parentName: thumb_03_r
       position: {x: -0.27150944, y: 3.904219e-14, z: 1.5705753e-15}
       rotation: {x: -0.06899123, y: 0.842444, z: 0.36532608, w: 0.38995534}
-      scale: {x: 0.01, y: 0.01, z: 0.01}
-    - name: neck_01
-      parentName: spine_03
-      position: {x: -0.0000000024979658, y: 0.12217473, z: -0.0028188427}
-      rotation: {x: -0.047308598, y: 0, z: -0, w: 0.9988803}
-      scale: {x: 1, y: 1, z: 1}
-    - name: head
-      parentName: neck_01
-      position: {x: -9.0175717e-10, y: 0.20254466, z: 0.014523854}
-      rotation: {x: 0.40183035, y: -0.36986476, z: -0.59810114, w: 0.5865215}
-      scale: {x: 1, y: 1, z: 1}
-    - name: headtip
-      parentName: head
-      position: {x: -0.95912427, y: -2.7430408e-16, z: -1.5317484e-16}
-      rotation: {x: -0.40183035, y: 0.36986476, z: 0.59810114, w: 0.5865215}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: thigh_l
       parentName: pelvis

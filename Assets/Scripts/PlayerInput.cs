@@ -5,16 +5,13 @@ public class PlayerInput : AbstractInput
 {
 	protected Player helmPlayer;
 	protected Player armsPlayer;
-	protected Player engineerPlayer;
 	int helmID = 0;
 	int armsID = 1;
-	int engineerID = 2;
 
 	void Awake()
 	{
 		helmPlayer = ReInput.players.GetPlayer(helmID);
 		armsPlayer = ReInput.players.GetPlayer(armsID);
-		engineerPlayer = ReInput.players.GetPlayer(engineerID);
 	}
 	
 	void Update ()
@@ -32,11 +29,12 @@ public class PlayerInput : AbstractInput
 		rArmRot = armsPlayer.GetAxis("Rotate Hand");
 
 		attack = armsPlayer.GetButton("Wind Up Attack");
-		/*crouch = rewiredPlayer.GetButtonDown(crouchString);
+		/*crouch = rewiredPlayer.GetButtonDown(crouchString);*/
 
-
-		engineerHorz = rewiredPlayer.GetAxis(engineerHorzString);
-		engineerVert = rewiredPlayer.GetAxis(engineerVertString);*/
+		giveToPilot = armsPlayer.GetButtonDown("Give Pilot Energy");
+		takeFromPilot = armsPlayer.GetButtonDown("Take Energy From Pilot");
+		giveToWeapons = helmPlayer.GetButtonDown("Give Weapons Energy");
+		takeFromWeapons = helmPlayer.GetButtonDown("Take Energy From Weapons");
 
 
 		droneSide = armsPlayer.GetAxis("Scout Drone Horizontal");

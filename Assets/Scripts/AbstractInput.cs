@@ -4,7 +4,8 @@
 //Each field corresponds to an input that can be bound to anything on the controller.
 public class AbstractInput : MonoBehaviour
 {
-	//---------- Mech Axes ----------
+	//---------- PILOT ---------- \\
+
 	//Leg movement
 	[HideInInspector] public float moveHorz;
 	[HideInInspector] public float moveVert;
@@ -13,6 +14,15 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public float lookHorz;
 	[HideInInspector] public float lookVert;
 
+	[HideInInspector] public bool crouch;
+	[HideInInspector] public bool dodge;
+	[HideInInspector] public bool dash;
+
+	[HideInInspector] public bool giveToWeapons;
+	[HideInInspector] public bool takeFromWeapons;
+
+
+	//---------- WEAPONS OFFICER ---------- \\
 	//Left arm movement
 	[HideInInspector] public float lArmHorz;
 	[HideInInspector] public float lArmVert;
@@ -24,22 +34,10 @@ public class AbstractInput : MonoBehaviour
 	//Right arm rotation
 	[HideInInspector] public float rArmRot;
 
-	//Engineer
-	[HideInInspector] public float engineerHorz;
-	[HideInInspector] public float engineerVert;
-
-
-	//---------- Mech Actions ----------
-
-	//Movement
-	[HideInInspector] public bool crouch;
-	[HideInInspector] public bool dodge;
-	[HideInInspector] public bool dash;
-
-	//Weapons' Officer
 	[HideInInspector] public bool attack;
 
-
+	[HideInInspector] public bool giveToPilot;
+	[HideInInspector] public bool takeFromPilot;
 
 	//---------- Drones ----------
 	[HideInInspector] public float droneForward;

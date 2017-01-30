@@ -8,7 +8,10 @@ public class HeadRotation : MechComponent
 	[SerializeField] Transform aimBaseX;
 	[SerializeField] Transform aimBaseY;
 
-	[SerializeField] float maxTurnSpeed = 1f;
+	[SerializeField] float turnSpeed = 100f;
+	[SerializeField] float blendSpeed = 5f;
+
+	float maxTurnSpeed = 1f;
 
 	public Vector3 lookDir { get { return aimBaseX.forward; } }
 
@@ -67,11 +70,11 @@ public class HeadRotation : MechComponent
 		float lookVertInput = Mathf.Clamp(input.lookVert, -maxTurnSpeed, maxTurnSpeed);
 
 		//Feed input values into the X and Y rotation of the aim base
-		targetRotation.x += lookHorzInput * engineer.energies[HELM_INDEX] * Time.deltaTime * 100f;
-		targetRotation.y += lookVertInput * engineer.energies[HELM_INDEX] * Time.deltaTime * 100f;
+		targetRotation.x += lookHorzInput * energyManager.energies[HELM_INDEX] * Time.deltaTime * turnSpeed;
+		targetRotation.y += lookVertInput * energyManager.energies[HELM_INDEX] * Time.deltaTime * turnSpeed;
 
-		headRotation.x = Mathf.Lerp(headRotation.x, targetRotation.x, Time.deltaTime * 5f);
-		headRotation.y = Mathf.Lerp(headRotation.y, targetRotation.y, Time.deltaTime * 5f);
+		headRotation.x = Mathf.Lerp(headRotation.x, targetRotation.x, Time.deltaTime * blendSpeed);
+		headRotation.y = Mathf.Lerp(headRotation.y, targetRotation.y, Time.deltaTime * blendSpeed);
 
 		//Apply the values to the rotation
 		aimBaseX.localRotation = Quaternion.Euler(0f, headRotation.x, 0f);
