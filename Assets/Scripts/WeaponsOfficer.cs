@@ -7,6 +7,8 @@ public class WeaponsOfficer : MechComponent
 	public ArmRotation armRotation { get; private set; }
 	[SerializeField] Transform weapon;
 
+	public Transform getWeapon { get { return weapon; } }
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -32,7 +34,7 @@ public class WeaponsOfficer : MechComponent
 
 	void Start()
 	{
-		IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
+		IgnoreHierarchyRecursive(transform.root, weapon.GetChild(0).GetComponent<Collider>());
 	}
 
 	void FixedUpdate()
@@ -44,7 +46,7 @@ public class WeaponsOfficer : MechComponent
 	void Update ()
 	{
 		//Move IK targets horizontally and vertically
-		armMovement.RunComponent();
+		//armMovement.RunComponent();
 
 		//Run attack animations, manage attacking states and gameplay
 	}

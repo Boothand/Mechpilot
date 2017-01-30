@@ -9,7 +9,8 @@ public class ArmRotation : MechComponent
 		Defend,
 		WindUp,
 		WindedUp,
-		Attack
+		Attack,
+		Staggered
 	}
 
 	public State state { get; private set; }
@@ -31,8 +32,14 @@ public class ArmRotation : MechComponent
 	[SerializeField] float swingAmount = 120f;
 	Quaternion targetAttackRotation;
 
+	[SerializeField] AudioSource audioSource;
+	[SerializeField] AudioClip[] swordClips;
+
 	[Header("All")]
 	[SerializeField] float blendSpeed = 5f;
+
+	[SerializeField] Transform swordTip;
+	[SerializeField] Transform test;
 
 	Quaternion finalRotation;
 	Quaternion fromRotation;
@@ -45,6 +52,36 @@ public class ArmRotation : MechComponent
 	{
 		base.OnAwake();
 		state = State.Defend;
+
+		arms.getWeapon.GetComponent<Collidable>().OnCollision -= SwordCollide;
+		arms.getWeapon.GetComponent<Collidable>().OnCollision += SwordCollide;
+	}
+
+
+
+	void SwordCollide(Collision col)
+	{
+		if (col.transform.GetComponent<Collidable>())
+		{
+			float impact = col.relativeVelocity.magnitude;
+
+			AudioClip randomClip = swordClips[Random.Range(0, swordClips.Length)];
+			audioSource.volume = impact / 4f;
+			audioSource.pitch = 1 + Random.Range(-0.1f, 0.1f);
+			audioSource.PlayOneShot(randomClip);
+
+			if (impact > 1.3f)
+			{
+				print("Hit was strong enough");
+				Debug.DrawRay(col.contacts[0].point, col.relativeVelocity, Color.red);
+				if (state == State.Attack)
+				{
+					state = State.Staggered;
+					StopAllCoroutines();
+					StartCoroutine(StaggerRoutine(col.relativeVelocity));
+				}
+			}
+		}
 	}
 
 	Quaternion IdleArmRotation()
@@ -86,21 +123,18 @@ public class ArmRotation : MechComponent
 
 		rotationTimer = 0f;
 
+		//Holding wind-up
 		while (input.attack)
 		{
 			fromRotation = targetWindupRotation;
 			toRotation = targetAttackRotation;
-			//print(fromRotation.eulerAngles.y + " " + idleTargetAngle);
 			yield return null;
 		}
 
 		fromRotation = targetWindupRotation;
 		toRotation = targetAttackRotation;
 
-		//print("Before: " + idleTargetAngle);
-		//idleTargetAngle = -fromRotation.eulerAngles.y;
-		//print("After: " + idleTargetAngle);
-
+		//Releasing
 		//Attack
 		state = State.Attack;
 		while (rotationTimer < 1f)
@@ -124,6 +158,38 @@ public class ArmRotation : MechComponent
 		state = State.Defend;
 	}
 
+	IEnumerator StaggerRoutine(Vector3 velocity)
+	{
+		Transform rHandIK = arms.armMovement.rHandIK;
+		Vector3 newTipPos = swordTip.position + velocity * 0.1f;
+
+		Vector3 dir = (rHandIK.position - rHandIK.position).normalized;
+		Quaternion newRot = Quaternion.LookRotation(-dir);
+
+		fromRotation = rHandIK.localRotation;
+		toRotation = newRot;
+
+		rotationTimer = 0f;
+		while (rotationTimer < 1f)
+		{
+			rotationTimer += Time.deltaTime * 4f;
+			yield return null;
+		}
+
+		rotationTimer = 0f;
+
+		fromRotation = newRot;
+		toRotation = idleHandRotation;
+
+		while (rotationTimer < 1f)
+		{
+			rotationTimer += Time.deltaTime * 4f;
+			yield return null;
+		}
+		
+		state = State.Defend;
+	}
+
 	Quaternion WindUpRotation()
 	{
 		Quaternion verticalAngle = Quaternion.Euler(-rotateBackAmount, 0, 0);
@@ -132,6 +198,12 @@ public class ArmRotation : MechComponent
 
 	void Update()
 	{
+		//Vector3 dir = (test.position - arms.armMovement.rHandIK.position).normalized;
+
+		//Quaternion rot = Quaternion.LookRotation(-dir);
+		//arms.armMovement.rHandIK.localRotation = rot;
+
+		//return;
 		idleHandRotation = IdleArmRotation();
 
 		targetWindupRotation = WindUpRotation();

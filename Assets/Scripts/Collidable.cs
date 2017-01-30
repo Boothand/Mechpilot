@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Collidable : MechComponent
 {
-	public delegate void Collide();
+	public delegate void Collide(Collision col);
 	public event Collide OnCollision;
 
 	[SerializeField] LayerMask layerMask;
@@ -34,7 +34,19 @@ public class Collidable : MechComponent
 			print("Collided with " + col.name);
 			if (OnCollision != null)
 			{
-				OnCollision();
+				//OnCollision(col);
+			}
+		}
+	}
+
+	void OnCollisionEnter(Collision col)
+	{
+		if (col.transform.root != transform.root &&
+			IsInLayerMask(col.gameObject, layerMask))
+		{
+			if (OnCollision != null)
+			{
+				OnCollision(col);
 			}
 		}
 	}
