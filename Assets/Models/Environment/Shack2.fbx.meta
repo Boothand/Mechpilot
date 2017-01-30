@@ -38,6 +38,11 @@ ModelImporter:
     4300004: Shack_roofframe
     4300006: Roofplanks1
     4300008: Roofplanks2
+    6400000: Cabin_foundation
+    6400002: Cabin_walls
+    6400004: Roofplanks1
+    6400006: Roofplanks2
+    6400008: Shack_roofframe
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -65,7 +70,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
