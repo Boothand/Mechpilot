@@ -1,31 +1,36 @@
 fileFormatVersion: 2
-guid: 3b12ac43d08ea184ebe3fc466d8919c1
-timeCreated: 1484234776
+guid: ca0d399759aa24f49816674183df8793
+timeCreated: 1485788765
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Bridge_mil_bottom_geo
-    100002: Bridge_mil_middle_geo
-    100004: Bridge_mil_top_geo
-    100006: //RootNode
-    400000: Bridge_mil_bottom_geo
-    400002: Bridge_mil_middle_geo
-    400004: Bridge_mil_top_geo
-    400006: //RootNode
-    2300000: Bridge_mil_bottom_geo
-    2300002: Bridge_mil_middle_geo
-    2300004: Bridge_mil_top_geo
-    3300000: Bridge_mil_bottom_geo
-    3300002: Bridge_mil_middle_geo
-    3300004: Bridge_mil_top_geo
-    4300000: Bridge_mil_bottom_geo
-    4300002: Bridge_mil_middle_geo
-    4300004: Bridge_mil_top_geo
-    6400000: Bridge_mil_bottom_geo
-    6400002: Bridge_mil_middle_geo
-    6400004: Bridge_mil_top_geo
-    9500000: //RootNode
+    100000: //RootNode
+    100002: Shack_grp_Cabin_foundationMED
+    100004: Shack_grp_Cabin_wallsMED
+    100006: Shack_grp_RoofplanksMED
+    100008: Shack_roofframeMED_Shack_grp
+    400000: //RootNode
+    400002: Shack_grp_Cabin_foundationMED
+    400004: Shack_grp_Cabin_wallsMED
+    400006: Shack_grp_RoofplanksMED
+    400008: Shack_roofframeMED_Shack_grp
+    2300000: Shack_grp_Cabin_foundationMED
+    2300002: Shack_grp_Cabin_wallsMED
+    2300004: Shack_grp_RoofplanksMED
+    2300006: Shack_roofframeMED_Shack_grp
+    3300000: Shack_grp_Cabin_foundationMED
+    3300002: Shack_grp_Cabin_wallsMED
+    3300004: Shack_grp_RoofplanksMED
+    3300006: Shack_roofframeMED_Shack_grp
+    4300000: Shack_grp_Cabin_foundationMED
+    4300002: Shack_grp_Cabin_wallsMED
+    4300004: Shack_grp_RoofplanksMED
+    4300006: Shack_roofframeMED_Shack_grp
+    6400000: Shack_grp_Cabin_foundationMED
+    6400002: Shack_grp_Cabin_wallsMED
+    6400004: Shack_grp_RoofplanksMED
+    6400006: Shack_roofframeMED_Shack_grp
   materials:
     importMaterials: 1
     materialName: 0
@@ -88,7 +93,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
