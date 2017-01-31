@@ -5,9 +5,9 @@ public class WeaponsOfficer : MechComponent
 {
 	public ArmMovement armMovement { get; private set; }
 	public ArmRotation armRotation { get; private set; }
-	[SerializeField] Transform weapon;
+	[SerializeField] Sword weapon;
 
-	public Transform getWeapon { get { return weapon; } }
+	public Sword getWeapon { get { return weapon; } }
 
 	protected override void OnAwake()
 	{
@@ -34,7 +34,7 @@ public class WeaponsOfficer : MechComponent
 
 	void Start()
 	{
-		IgnoreHierarchyRecursive(transform.root, weapon.GetChild(0).GetComponent<Collider>());
+		IgnoreHierarchyRecursive(transform.root, weapon.transform.GetChild(0).GetComponent<Collider>());
 	}
 
 	void FixedUpdate()

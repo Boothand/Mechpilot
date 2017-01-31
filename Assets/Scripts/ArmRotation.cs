@@ -53,8 +53,8 @@ public class ArmRotation : MechComponent
 		base.OnAwake();
 		state = State.Defend;
 
-		arms.getWeapon.GetComponent<Collidable>().OnCollision -= SwordCollide;
-		arms.getWeapon.GetComponent<Collidable>().OnCollision += SwordCollide;
+		arms.getWeapon.OnCollision -= SwordCollide;
+		arms.getWeapon.OnCollision += SwordCollide;
 	}
 
 

@@ -79,6 +79,8 @@ public class ArmMovement : MechComponent
 			armDistance = lArmDistance;
 		}
 
+		Debug.DrawRay(shoulder.position, Vector3.up, Color.blue);
+
 		//Set hand position on local Z axis
 		handCentralPos += mech.transform.forward * armDistance * scaleFactor;
 
