@@ -86,7 +86,7 @@ public class ArmMovement : MechComponent
 		return handCentralPos + armPos;
 	}
 
-	public void RunComponent()
+	void Update()
 	{
 		Vector3 rInput = new Vector3(input.rArmHorz, input.rArmVert);
 		Vector3 lInput = new Vector3(input.lArmHorz, input.lArmVert);
