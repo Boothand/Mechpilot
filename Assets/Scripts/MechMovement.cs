@@ -125,7 +125,13 @@ public class MechMovement : MechComponent
 		animator.SetFloat("SideMovement", animSide);
 
 		//Animation speed follows actual mech speed
-		animator.SetFloat("MoveSpeed", rb.velocity.magnitude / scaleFactor * animationSpeedFactor);
+		float animSpeed = 1f;
+
+		if (moving)
+		{
+			animSpeed = rb.velocity.magnitude / scaleFactor * animationSpeedFactor;
+		}
+		animator.SetFloat("MoveSpeed", animSpeed);
 	}
 
 	public void RunComponentFixed()

@@ -5,6 +5,7 @@ public class WeaponsOfficer : MechComponent
 {
 	public ArmMovement armMovement { get; private set; }
 	public ArmRotation armRotation { get; private set; }
+	public ArmControl armControl { get; private set; }
 	[SerializeField] Sword weapon;
 
 	public Sword getWeapon { get { return weapon; } }
@@ -15,6 +16,7 @@ public class WeaponsOfficer : MechComponent
 
 		armMovement = GetComponent<ArmMovement>();
 		armRotation = GetComponent<ArmRotation>();
+		armControl = GetComponent<ArmControl>();
 	}
 
 	void IgnoreHierarchyRecursive(Transform root, Collider otherCol)

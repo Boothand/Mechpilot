@@ -5,8 +5,8 @@ public class PlayerInput : AbstractInput
 {
 	protected Player helmPlayer;
 	protected Player armsPlayer;
-	int helmID = 0;
-	int armsID = 1;
+	[SerializeField] int helmID = 0;
+	[SerializeField] int armsID = 1;
 
 	void Awake()
 	{

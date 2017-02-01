@@ -7,6 +7,8 @@ public class ArmControl : MechComponent
 	[SerializeField] Transform rHandIKTarget;
 	[SerializeField] Transform lHandIKTarget;
 
+	public Transform getRhandIKTarget { get { return rHandIKTarget; } }
+
 	public enum State
 	{
 		Idle,
@@ -15,7 +17,8 @@ public class ArmControl : MechComponent
 		WindedUp,
 		Attack,
 		AttackRetract,
-		Staggered
+		Staggered,
+		StaggeredEnd
 	}
 
 	public State state { get; private set; }
@@ -61,6 +64,7 @@ public class ArmControl : MechComponent
 	Quaternion fromRotation;
 	Quaternion toRotation;
 	float rotationTimer;
+	bool movingArm;
 
 	public Vector3 handCenterPos
 	{
@@ -71,46 +75,67 @@ public class ArmControl : MechComponent
 	public event SwordCollision Clash;
 	public event SwordCollision Block;
 	public event SwordCollision HitOpponent;
+	public delegate void ArmMovement();
+	public event ArmMovement OnMoveArmBegin;
+	public event ArmMovement OnMoveArm;
+	public event ArmMovement OnMoveArmEnd;
 	#endregion
 
+	[SerializeField] Transform test;
+	[SerializeField] Vector3 offsetthing;
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 		state = State.Defend;
 
+		//test = GameObject.Find("test").transform;
 		arms.getWeapon.OnCollision -= SwordCollide;
 		arms.getWeapon.OnCollision += SwordCollide;
 	}
 
 	void SwordCollide(Collision col)
 	{
+		Sword mySword = arms.getWeapon;
 		Sword otherSword = col.transform.GetComponent<Sword>();
+		
+
 		if (otherSword)
 		{
-			print("Collision");
+			float impact = otherSword.swordTipVelocity.magnitude + mySword.swordTipVelocity.magnitude;
+			impact *= 15f;
+			impact = Mathf.Clamp01(impact);
+
+			//Play sound
+			if (!otherSword.playingSwordSound)
+			{
+				mySword.PlayClashSound(impact);
+			}
+
+
+			//Get staggered
 			state = State.Staggered;
 
 			StopAllCoroutines();
-			StartCoroutine(StaggerRoutine(otherSword));
+			StartCoroutine(StaggerRoutine(otherSword, 1f));
 		}
 	}
 
-	IEnumerator StaggerRoutine(Sword otherSword)
+	IEnumerator StaggerRoutine(Sword otherSword, float multiplier)
 	{
 		Vector3 swordVelocity = arms.getWeapon.swordTipVelocity;
-		Vector3 otherVelocity = otherSword.swordTipVelocity;
+		Vector3 otherVelocity = otherSword.swordTipVelocity * multiplier;
 
 		Vector3 newTipPos = arms.getWeapon.getSwordTip.position + otherVelocity * 5f;
 		Debug.DrawLine(arms.getWeapon.getSwordTip.position, newTipPos, Color.black);
 
 		Vector3 newSwordDir = (newTipPos - rHandIKTarget.position).normalized;
-		Quaternion newWorldRot = Quaternion.LookRotation(newSwordDir);
+		Quaternion newWorldRot = Quaternion.LookRotation(newSwordDir, mech.transform.forward);
 
 		//Transform to localSpace
 		Quaternion newLocalRot = Quaternion.Inverse(mech.transform.rotation) * newWorldRot;
 
 		Debug.DrawLine(arms.getWeapon.getSwordTip.position, newTipPos, Color.black);
-		print(otherVelocity.magnitude.ToString("0.000"));
+		//print(otherVelocity.magnitude.ToString("0.000"));
 		fromRotation = rHandIKTarget.localRotation;
 		toRotation = newLocalRot;
 
@@ -126,12 +151,17 @@ public class ArmControl : MechComponent
 
 		fromRotation = newLocalRot;
 		toRotation = handSideRotation;
+		state = State.StaggeredEnd;
 
 		while (rotationTimer < 1f)
 		{
-			rotationTimer += Time.deltaTime * 4f;
+			rotationTimer += Time.deltaTime * 2f;
+			toRotation = handSideRotation;
+
 			yield return null;
 		}
+
+		rotationTimer = 0;
 
 		state = State.Defend;
 	}
@@ -149,8 +179,33 @@ public class ArmControl : MechComponent
 
 		//Add input values to XY position
 		armPos += inputVec * speedToUse * Time.deltaTime * energyManager.energies[ARMS_INDEX] * scaleFactor;
-		
-		
+
+		float inputVecMagnitude = inputVec.magnitude;
+
+		#region Event Stuff
+		if (!movingArm && inputVecMagnitude > 0.1f)
+		{
+			movingArm = true;
+
+			if (OnMoveArmBegin != null)
+				OnMoveArmBegin();
+		}
+
+		if (movingArm && inputVecMagnitude > 0.1f)
+		{
+			if (OnMoveArm != null)
+				OnMoveArm();
+		}
+
+		if (movingArm && inputVecMagnitude < 0.1f)
+		{
+			movingArm = false;
+
+			if (OnMoveArmEnd != null)
+				OnMoveArmEnd();
+		}
+		#endregion
+
 		//Limit arm's reach on local XY axis
 		armPos = Vector3.ClampMagnitude(armPos, armReach * scaleFactor);
 		actualArmPos = mech.transform.TransformDirection(armPos);
@@ -180,12 +235,13 @@ public class ArmControl : MechComponent
 		float rotationInput = Mathf.Clamp(input.rArmRot, -1f, 1f);
 
 		//Add input values to the target rotation
-		int factor = -1;
+		int factor = 1;
 
 		if (invertRotation)
-			factor = 1;
+			factor = -1;
 
-		if (state != State.Attack)
+		if (state != State.Attack &&
+			state != State.Staggered)
 		{
 			sideTargetAngle += factor * rotationInput * Time.deltaTime * rotationSpeed * energyManager.energies[ARMS_INDEX];
 		}
@@ -201,14 +257,14 @@ public class ArmControl : MechComponent
 		sideTargetAngle = Mathf.Clamp(sideTargetAngle, -sideRotationLimit, sideRotationLimit);
 
 		//Return the rotation
-		Quaternion offsetlolz = Quaternion.Euler(sideRotOffset);
-		Quaternion localRotation = offsetlolz * Quaternion.Euler(0, -sideTargetAngle, 0);
+		Quaternion offset = Quaternion.Euler(sideRotOffset);
+		Quaternion localRotation = offset * Quaternion.Euler(0, -sideTargetAngle, 0);
 		return localRotation;
 	}
 
 	Quaternion WindUpRotation()
 	{
-		Quaternion verticalAngle = Quaternion.Euler(-rotateBackAmount, 0, 0);
+		Quaternion verticalAngle = Quaternion.Euler(rotateBackAmount, 0, 0);
 		return handSideRotation * verticalAngle;
 	}
 
@@ -283,7 +339,8 @@ public class ArmControl : MechComponent
 	{
 		//Vector3 dir = (test.position - rHandIKTarget.position).normalized;
 
-		//Quaternion worldRot = Quaternion.LookRotation(dir);
+		//Quaternion worldRot = Quaternion.LookRotation(dir, mech.transform.forward);
+		////worldRot.eulerAngles = new Vector3(worldRot.eulerAngles.x, worldRot.eulerAngles.y, worldRot.eulerAngles.z);
 		//Quaternion localRot = Quaternion.Inverse(mech.transform.rotation) * worldRot;
 		//rHandIKTarget.localRotation = localRot;
 
@@ -301,7 +358,7 @@ public class ArmControl : MechComponent
 		//Store the different target rotations we will use at different times
 		handSideRotation = ArmSideRotation();
 		targetWindupRotation = WindUpRotation();
-		targetAttackRotation = targetWindupRotation * Quaternion.Euler(swingAmount, 0, 0);
+		targetAttackRotation = targetWindupRotation * Quaternion.Euler(-swingAmount, 0, 0);
 
 		//float blendSpeedToUse =  BlendSpeedToUse();
 
