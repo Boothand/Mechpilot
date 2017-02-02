@@ -1,232 +1,232 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿//using System.Collections;
+//using UnityEngine;
 
-public class ArmRotation : MechComponent
-{
-	public enum State
-	{
-		Idle,
-		Defend,
-		WindUp,
-		WindedUp,
-		Attack,
-		Staggered
-	}
+//public class ArmRotation : MechComponent
+//{
+//	public enum State
+//	{
+//		Idle,
+//		Defend,
+//		WindUp,
+//		WindedUp,
+//		Attack,
+//		Staggered
+//	}
 
-	public State state { get; private set; }
+//	public State state { get; private set; }
 	
-	[Header("Idle/Blocking")]
-	[SerializeField] float rotationSpeed = 200f;
-	[SerializeField] float idleRotationLimit = 140f;
-	public float idleTargetAngle { get; private set; }
-	public float getIdleRotationLimit { get { return idleRotationLimit; } }
-	Quaternion idleHandRotation;
+//	[Header("Idle/Blocking")]
+//	[SerializeField] float rotationSpeed = 200f;
+//	[SerializeField] float idleRotationLimit = 140f;
+//	public float idleTargetAngle { get; private set; }
+//	public float getIdleRotationLimit { get { return idleRotationLimit; } }
+//	Quaternion idleHandRotation;
 
-	[Header("Wind-Up")]
-	[SerializeField] float rotateBackAmount = 75;
-	[SerializeField] float windupSpeed = 2f;
-	Quaternion targetWindupRotation;
+//	[Header("Wind-Up")]
+//	[SerializeField] float rotateBackAmount = 75;
+//	[SerializeField] float windupSpeed = 2f;
+//	Quaternion targetWindupRotation;
 
-	[Header("Attack")]
-	[SerializeField] float attackSpeed = 3f;
-	[SerializeField] float swingAmount = 120f;
-	Quaternion targetAttackRotation;
+//	[Header("Attack")]
+//	[SerializeField] float attackSpeed = 3f;
+//	[SerializeField] float swingAmount = 120f;
+//	Quaternion targetAttackRotation;
 
-	[SerializeField] AudioSource audioSource;
-	[SerializeField] AudioClip[] swordClips;
+//	[SerializeField] AudioSource audioSource;
+//	[SerializeField] AudioClip[] swordClips;
 
-	[Header("All")]
-	[SerializeField] float blendSpeed = 5f;
+//	[Header("All")]
+//	[SerializeField] float blendSpeed = 5f;
 
-	[SerializeField] Transform swordTip;
-	[SerializeField] Transform test;
+//	[SerializeField] Transform swordTip;
+//	[SerializeField] Transform test;
 
-	Quaternion finalRotation;
-	Quaternion fromRotation;
-	Quaternion toRotation;
-	float rotationTimer;
-
-
-
-	protected override void OnAwake()
-	{
-		base.OnAwake();
-		state = State.Defend;
-
-		arms.getWeapon.GetComponent<Collidable>().OnCollision -= SwordCollide;
-		arms.getWeapon.GetComponent<Collidable>().OnCollision += SwordCollide;
-	}
+//	Quaternion finalRotation;
+//	Quaternion fromRotation;
+//	Quaternion toRotation;
+//	float rotationTimer;
 
 
 
-	void SwordCollide(Collision col)
-	{
-		if (col.transform.GetComponent<Collidable>())
-		{
-			float impact = col.relativeVelocity.magnitude;
+//	protected override void OnAwake()
+//	{
+//		base.OnAwake();
+//		state = State.Defend;
 
-			AudioClip randomClip = swordClips[Random.Range(0, swordClips.Length)];
-			audioSource.volume = impact / 4f;
-			audioSource.pitch = 1 + Random.Range(-0.1f, 0.1f);
-			audioSource.PlayOneShot(randomClip);
+//		arms.getWeapon.OnCollision -= SwordCollide;
+//		arms.getWeapon.OnCollision += SwordCollide;
+//	}
 
-			if (impact > 1.3f)
-			{
-				print("Hit was strong enough");
-				Debug.DrawRay(col.contacts[0].point, col.relativeVelocity, Color.red);
-				if (state == State.Attack)
-				{
-					state = State.Staggered;
-					StopAllCoroutines();
-					StartCoroutine(StaggerRoutine(col.relativeVelocity));
-				}
-			}
-		}
-	}
 
-	Quaternion IdleArmRotation()
-	{
-		float rotationInput = Mathf.Clamp(input.rArmRot, -1f, 1f);
 
-		//Add input values to the target rotation
-		idleTargetAngle += rotationInput * Time.deltaTime * rotationSpeed * energyManager.energies[ARMS_INDEX];
+//	void SwordCollide(Collision col)
+//	{
+//		if (col.transform.GetComponent<Collidable>())
+//		{
+//			float impact = col.relativeVelocity.magnitude;
 
-		//Wrap
-		if (idleTargetAngle > 360)
-			idleTargetAngle -= 360f;
+//			AudioClip randomClip = swordClips[Random.Range(0, swordClips.Length)];
+//			audioSource.volume = impact / 4f;
+//			audioSource.pitch = 1 + Random.Range(-0.1f, 0.1f);
+//			audioSource.PlayOneShot(randomClip);
 
-		if (idleTargetAngle < -360)
-			idleTargetAngle += 360f;
+//			if (impact > 1.3f)
+//			{
+//				print("Hit was strong enough");
+//				Debug.DrawRay(col.contacts[0].point, col.relativeVelocity, Color.red);
+//				if (state == State.Attack)
+//				{
+//					state = State.Staggered;
+//					StopAllCoroutines();
+//					StartCoroutine(StaggerRoutine(col.relativeVelocity));
+//				}
+//			}
+//		}
+//	}
 
-		//Limit target rotation
-		idleTargetAngle = Mathf.Clamp(idleTargetAngle, -idleRotationLimit, idleRotationLimit);
+//	Quaternion IdleArmRotation()
+//	{
+//		float rotationInput = Mathf.Clamp(input.rArmRot, -1f, 1f);
 
-		//Return the rotation
-		Quaternion localRotation = Quaternion.Euler(90, 0, 0) * Quaternion.Euler(0, -idleTargetAngle, 0);
-		return localRotation;
-	}
+//		//Add input values to the target rotation
+//		idleTargetAngle += rotationInput * Time.deltaTime * rotationSpeed * energyManager.energies[ARMS_INDEX];
 
-	IEnumerator SwingRoutine()
-	{
-		rotationTimer = 0f;
+//		//Wrap
+//		if (idleTargetAngle > 360)
+//			idleTargetAngle -= 360f;
 
-		//Winding up
-		while (rotationTimer < 1f)
-		{
-			fromRotation = idleHandRotation;
-			toRotation = targetWindupRotation;
-			rotationTimer += Time.deltaTime * windupSpeed * energyManager.energies[ARMS_INDEX];
-			yield return null;
-		}
+//		if (idleTargetAngle < -360)
+//			idleTargetAngle += 360f;
 
-		state = State.WindedUp;
+//		//Limit target rotation
+//		idleTargetAngle = Mathf.Clamp(idleTargetAngle, -idleRotationLimit, idleRotationLimit);
 
-		rotationTimer = 0f;
+//		//Return the rotation
+//		Quaternion localRotation = Quaternion.Euler(90, 0, 0) * Quaternion.Euler(0, -idleTargetAngle, 0);
+//		return localRotation;
+//	}
 
-		//Holding wind-up
-		while (input.attack)
-		{
-			fromRotation = targetWindupRotation;
-			toRotation = targetAttackRotation;
-			yield return null;
-		}
+//	IEnumerator SwingRoutine()
+//	{
+//		rotationTimer = 0f;
 
-		fromRotation = targetWindupRotation;
-		toRotation = targetAttackRotation;
+//		//Winding up
+//		while (rotationTimer < 1f)
+//		{
+//			fromRotation = idleHandRotation;
+//			toRotation = targetWindupRotation;
+//			rotationTimer += Time.deltaTime * windupSpeed * energyManager.energies[ARMS_INDEX];
+//			yield return null;
+//		}
 
-		//Releasing
-		//Attack
-		state = State.Attack;
-		while (rotationTimer < 1f)
-		{
-			rotationTimer += Time.deltaTime * attackSpeed * energyManager.energies[ARMS_INDEX];
-			yield return null;
-		}
+//		state = State.WindedUp;
 
-		yield return new WaitForSeconds(0.25f);
+//		rotationTimer = 0f;
 
-		//Retract
+//		//Holding wind-up
+//		while (input.attack)
+//		{
+//			fromRotation = targetWindupRotation;
+//			toRotation = targetAttackRotation;
+//			yield return null;
+//		}
 
-		while (rotationTimer > 0f)
-		{
-			fromRotation = idleHandRotation;
-			toRotation = targetAttackRotation;
-			rotationTimer -= Time.deltaTime * attackSpeed * 1.3f * energyManager.energies[ARMS_INDEX];
-			yield return null;
-		}
+//		fromRotation = targetWindupRotation;
+//		toRotation = targetAttackRotation;
 
-		state = State.Defend;
-	}
+//		//Releasing
+//		//Attack
+//		state = State.Attack;
+//		while (rotationTimer < 1f)
+//		{
+//			rotationTimer += Time.deltaTime * attackSpeed * energyManager.energies[ARMS_INDEX];
+//			yield return null;
+//		}
 
-	IEnumerator StaggerRoutine(Vector3 velocity)
-	{
-		Transform rHandIK = arms.armMovement.rHandIK;
-		Vector3 newTipPos = swordTip.position + velocity * 0.1f;
+//		yield return new WaitForSeconds(0.25f);
 
-		Vector3 dir = (rHandIK.position - rHandIK.position).normalized;
-		Quaternion newRot = Quaternion.LookRotation(-dir);
+//		//Retract
 
-		fromRotation = rHandIK.localRotation;
-		toRotation = newRot;
+//		while (rotationTimer > 0f)
+//		{
+//			fromRotation = idleHandRotation;
+//			toRotation = targetAttackRotation;
+//			rotationTimer -= Time.deltaTime * attackSpeed * 1.3f * energyManager.energies[ARMS_INDEX];
+//			yield return null;
+//		}
 
-		rotationTimer = 0f;
-		while (rotationTimer < 1f)
-		{
-			rotationTimer += Time.deltaTime * 4f;
-			yield return null;
-		}
+//		state = State.Defend;
+//	}
 
-		rotationTimer = 0f;
+//	IEnumerator StaggerRoutine(Vector3 velocity)
+//	{
+//		Transform rHandIK = arms.armMovement.rHandIK;
+//		Vector3 newTipPos = swordTip.position + velocity * 0.1f;
 
-		fromRotation = newRot;
-		toRotation = idleHandRotation;
+//		Vector3 dir = (rHandIK.position - rHandIK.position).normalized;
+//		Quaternion newRot = Quaternion.LookRotation(-dir);
 
-		while (rotationTimer < 1f)
-		{
-			rotationTimer += Time.deltaTime * 4f;
-			yield return null;
-		}
+//		fromRotation = rHandIK.localRotation;
+//		toRotation = newRot;
+
+//		rotationTimer = 0f;
+//		while (rotationTimer < 1f)
+//		{
+//			rotationTimer += Time.deltaTime * 4f;
+//			yield return null;
+//		}
+
+//		rotationTimer = 0f;
+
+//		fromRotation = newRot;
+//		toRotation = idleHandRotation;
+
+//		while (rotationTimer < 1f)
+//		{
+//			rotationTimer += Time.deltaTime * 4f;
+//			yield return null;
+//		}
 		
-		state = State.Defend;
-	}
+//		state = State.Defend;
+//	}
 
-	Quaternion WindUpRotation()
-	{
-		Quaternion verticalAngle = Quaternion.Euler(-rotateBackAmount, 0, 0);
-		return idleHandRotation * verticalAngle;
-	}
+//	Quaternion WindUpRotation()
+//	{
+//		Quaternion verticalAngle = Quaternion.Euler(-rotateBackAmount, 0, 0);
+//		return idleHandRotation * verticalAngle;
+//	}
 
-	void Update()
-	{
-		//Vector3 dir = (test.position - arms.armMovement.rHandIK.position).normalized;
+//	void Update()
+//	{
+//		//Vector3 dir = (test.position - arms.armMovement.rHandIK.position).normalized;
 
-		//Quaternion rot = Quaternion.LookRotation(-dir);
-		//arms.armMovement.rHandIK.localRotation = rot;
+//		//Quaternion rot = Quaternion.LookRotation(-dir);
+//		//arms.armMovement.rHandIK.localRotation = rot;
 
-		//return;
-		idleHandRotation = IdleArmRotation();
+//		//return;
+//		idleHandRotation = IdleArmRotation();
 
-		targetWindupRotation = WindUpRotation();
-		Quaternion swingAngle = Quaternion.Euler(swingAmount, 0, 0);
-		targetAttackRotation = targetWindupRotation * swingAngle;
+//		targetWindupRotation = WindUpRotation();
+//		Quaternion swingAngle = Quaternion.Euler(swingAmount, 0, 0);
+//		targetAttackRotation = targetWindupRotation * swingAngle;
 
-		if (state == State.Defend)
-		{
-			fromRotation = idleHandRotation;
-			toRotation = targetWindupRotation;
+//		if (state == State.Defend)
+//		{
+//			fromRotation = idleHandRotation;
+//			toRotation = targetWindupRotation;
 
-			if (input.attack)
-			{
-				state = State.WindUp;
-				StartCoroutine(SwingRoutine());
-			}
-		}
+//			if (input.attack)
+//			{
+//				state = State.WindUp;
+//				StartCoroutine(SwingRoutine());
+//			}
+//		}
 
-		Quaternion finalTargetRotation = Quaternion.Lerp(fromRotation, toRotation, rotationTimer);
-		finalRotation = Quaternion.Lerp(finalRotation, finalTargetRotation, Time.deltaTime * blendSpeed);
+//		Quaternion finalTargetRotation = Quaternion.Lerp(fromRotation, toRotation, rotationTimer);
+//		finalRotation = Quaternion.Lerp(finalRotation, finalTargetRotation, Time.deltaTime * blendSpeed);
 
-		//Apply the rotation
-		Transform rHandIk = arms.armMovement.rHandIK;
-		rHandIk.localRotation = finalRotation;
-	}
-}
+//		//Apply the rotation
+//		Transform rHandIk = arms.armMovement.rHandIK;
+//		rHandIk.localRotation = finalRotation;
+//	}
+//}

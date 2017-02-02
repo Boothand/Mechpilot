@@ -3,18 +3,22 @@ using System.Collections;
 
 public class WeaponsOfficer : MechComponent
 {
-	public ArmMovement armMovement { get; private set; }
-	public ArmRotation armRotation { get; private set; }
-	[SerializeField] Transform weapon;
+	public ArmControl armControl { get; private set; }
+	public ArmBlockState armBlockState { get; private set; }
+	public ArmWindupState armWindupState { get; private set; }
+	public ArmAttackState armAttackState { get; private set; }
+	[SerializeField] Sword weapon;
 
-	public Transform getWeapon { get { return weapon; } }
+	public Sword getWeapon { get { return weapon; } }
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-
-		armMovement = GetComponent<ArmMovement>();
-		armRotation = GetComponent<ArmRotation>();
+		
+		armControl = GetComponent<ArmControl>();
+		armBlockState = GetComponent<ArmBlockState>();
+		armWindupState = GetComponent<ArmWindupState>();
+		armAttackState = GetComponent<ArmAttackState>();
 	}
 
 	void IgnoreHierarchyRecursive(Transform root, Collider otherCol)
@@ -34,7 +38,7 @@ public class WeaponsOfficer : MechComponent
 
 	void Start()
 	{
-		IgnoreHierarchyRecursive(transform.root, weapon.GetChild(0).GetComponent<Collider>());
+		IgnoreHierarchyRecursive(transform.root, weapon.transform.GetChild(0).GetComponent<Collider>());
 	}
 
 	void FixedUpdate()

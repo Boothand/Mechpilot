@@ -26,7 +26,7 @@ public class AI_Attacker : AI_MechComponent
 
 	float DecideWindupRotation()
 	{
-		float limit = arms.armRotation.getIdleRotationLimit;
+		float limit = arms.armBlockState.getSideRotationLimit;
 		float randomAngle = 0f + Random.Range(-limit, limit);
 
 		return randomAngle;
@@ -34,7 +34,7 @@ public class AI_Attacker : AI_MechComponent
 
 	void MoveHandsToPos(Vector3 localPos)
 	{
-		Transform rIK = arms.armMovement.rHandIK;
+		Transform rIK = arms.armControl.getRhandIKTarget;
 
 		Vector3 dir = localPos - rIK.localPosition;
 
@@ -44,7 +44,7 @@ public class AI_Attacker : AI_MechComponent
 
 	void MoveHandsInDirection(Vector3 dir)
 	{
-		Transform rIK = arms.armMovement.rHandIK;
+		Transform rIK = arms.armControl.getRhandIKTarget;
 
 		Vector3 direction = dir;
 
@@ -54,7 +54,7 @@ public class AI_Attacker : AI_MechComponent
 
 	void RotateHandsToAngle(float angle)
 	{
-		float aimAngle = arms.armRotation.idleTargetAngle;
+		float aimAngle = arms.armBlockState.sideTargetAngle;
 
 		if (aimAngle < angle - 0.01f)
 		{
@@ -86,8 +86,10 @@ public class AI_Attacker : AI_MechComponent
 			Vector3 attackPos = DecideWindupPosition();
 			float attackAngle = DecideWindupRotation();
 
-			while (arms.armRotation.state != ArmRotation.State.WindedUp)
+			float aTimer = 0f;
+			while (arms.armControl.state != ArmControl.State.WindedUp)
 			{
+				aTimer += Time.deltaTime;
 				MoveHandsToPos(attackPos);
 				RotateHandsToAngle(attackAngle);
 				yield return null;
@@ -102,7 +104,7 @@ public class AI_Attacker : AI_MechComponent
 
 			Vector3 dir = localHandBasePos - attackPos;
 
-			while (arms.armRotation.state != ArmRotation.State.Defend)
+			while (arms.armControl.state != ArmControl.State.Defend)
 			{
 				MoveHandsInDirection(dir);
 				yield return null;
@@ -117,7 +119,7 @@ public class AI_Attacker : AI_MechComponent
 
 	void Update()
 	{
-		Vector3 basePos = arms.armMovement.handCenterPos;
+		Vector3 basePos = arms.armControl.handCenterPos;
 		localHandBasePos = mech.transform.InverseTransformPoint(basePos);
 	}
 }
