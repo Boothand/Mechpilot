@@ -80,9 +80,11 @@ public class ArmControl : MechComponent
 	public event ArmMovement OnMoveArm;
 	public event ArmMovement OnMoveArmEnd;
 	#endregion
-
+	Vector3 blockPos;
 	[SerializeField] Transform test;
 	[SerializeField] Vector3 offsetthing;
+
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -111,12 +113,14 @@ public class ArmControl : MechComponent
 				mySword.PlayClashSound(impact);
 			}
 
+			if (state != State.Defend)
+			{
+				//Get staggered
+				state = State.Staggered;
 
-			//Get staggered
-			state = State.Staggered;
-
-			StopAllCoroutines();
-			StartCoroutine(StaggerRoutine(otherSword, 1f));
+				StopAllCoroutines();
+				StartCoroutine(StaggerRoutine(otherSword, 1f));
+			}
 		}
 	}
 
@@ -139,11 +143,15 @@ public class ArmControl : MechComponent
 		fromRotation = rHandIKTarget.localRotation;
 		toRotation = newLocalRot;
 
+
+
 		rotationTimer = 0f;
 		while (rotationTimer < 1f)
 		{
+			rTargetPos = blockPos + otherVelocity * 3f;
+
 			Debug.DrawLine(rHandIKTarget.position, newTipPos, Color.red);
-			rotationTimer += Time.deltaTime * 4f;
+			rotationTimer += Time.deltaTime * 3f;
 			yield return null;
 		}
 
@@ -151,11 +159,14 @@ public class ArmControl : MechComponent
 
 		fromRotation = newLocalRot;
 		toRotation = handSideRotation;
+
+
 		state = State.StaggeredEnd;
 
 		while (rotationTimer < 1f)
 		{
-			rotationTimer += Time.deltaTime * 2f;
+			rTargetPos = blockPos + otherVelocity * 3f;
+			rotationTimer += Time.deltaTime * 1f;
 			toRotation = handSideRotation;
 
 			yield return null;
@@ -176,6 +187,12 @@ public class ArmControl : MechComponent
 		//Vector3 worldInputDir = mech.transform.TransformDirection(inputVec);
 
 		float speedToUse = idleMoveSpeed;
+
+		if (state == State.Staggered ||
+			state == State.StaggeredEnd)
+		{
+			speedToUse = idleMoveSpeed / 1.75f;
+		}
 
 		//Add input values to XY position
 		armPos += inputVec * speedToUse * Time.deltaTime * energyManager.energies[ARMS_INDEX] * scaleFactor;
@@ -351,8 +368,7 @@ public class ArmControl : MechComponent
 		Vector3 lMoveInput = new Vector3(input.lArmHorz, input.lArmVert);   //Only for shield
 
 		//Set idle target position
-		Vector3 blockPos = SetArmPos(rMoveInput, ref rArmPos, hierarchy.rShoulder);
-		rTargetPos = blockPos;
+		blockPos = SetArmPos(rMoveInput, ref rArmPos, hierarchy.rShoulder);
 		//lTargetPos = SetArmPos(lMoveInput, ref lArmPos, hierarchy.lShoulder);   //If 1 handed weapon + shield
 
 		//Store the different target rotations we will use at different times
@@ -369,6 +385,8 @@ public class ArmControl : MechComponent
 				break;
 
 			case State.Defend:
+				rTargetPos = blockPos;
+
 				fromRotation = handSideRotation;
 				toRotation = targetWindupRotation;
 
@@ -399,23 +417,36 @@ public class ArmControl : MechComponent
 				break;
 		}
 
-		//Set final position
+		float zPosBlendSpeedToUse = zPosBlendSpeed;
+
+		if (state == State.StaggeredEnd)
+		{
+			zPosBlendSpeedToUse = 0.5f;
+		}
+
+		//------------ POSITION ------------\\
 		Vector3 localIKPos = rHandIKTarget.localPosition;
 		Vector3 localTargetPos = mech.transform.InverseTransformPoint(rTargetPos);
 		float xyLerpFactor = Time.deltaTime * xyPosBlendSpeed * energyManager.energies[ARMS_INDEX] * scaleFactor;
+		
 		//Lerp Z position separately
 		localIKPos.x = Mathf.Lerp(localIKPos.x, localTargetPos.x, xyLerpFactor);
 		localIKPos.y = Mathf.Lerp(localIKPos.y, localTargetPos.y, xyLerpFactor);
-		localIKPos.z = Mathf.Lerp(localIKPos.z, localTargetPos.z, Time.deltaTime * zPosBlendSpeed);
+		localIKPos.z = Mathf.Lerp(localIKPos.z, localTargetPos.z, Time.deltaTime * zPosBlendSpeedToUse);
 
+		//Set final position
 		rHandIKTarget.localPosition = localIKPos;
 
 		lHandIKTarget.position = lHandTarget.position;
-		lHandIKTarget.rotation = lHandTarget.rotation;
 
-		//Set final rotation
+
+		//------------ ROTATION ------------\\
 		Quaternion finalTargetRotation = Quaternion.Lerp(fromRotation, toRotation, rotationTimer);	//Interpolate
 		finalRotation = Quaternion.Lerp(finalRotation, finalTargetRotation, Time.deltaTime * rotationBlendSpeed);   //Smooth
+		
+		//Set final rotation
 		rHandIKTarget.localRotation = finalRotation;
+
+		lHandIKTarget.rotation = lHandTarget.rotation;
 	}
 }

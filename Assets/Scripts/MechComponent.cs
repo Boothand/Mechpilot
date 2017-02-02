@@ -11,7 +11,7 @@ public class MechComponent : ManagedMechBehaviour
 	protected AbstractInput input;
 	protected Helm helm;
 	protected Engineer engineer;
-	protected WeaponsOfficer arms;
+	public WeaponsOfficer arms { get; protected set; }
 	protected EnergyManager energyManager;
 
 	protected const int HELM_INDEX = 0;

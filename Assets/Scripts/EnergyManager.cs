@@ -26,8 +26,8 @@ public class EnergyManager : MechComponent
 
 		energies = new float[2];
 
-		energies[helmIndex] = 0.25f;
-		energies[weaponsIndex] = 0.75f;
+		energies[helmIndex] = 0.5f;
+		energies[weaponsIndex] = 0.5f;
 	}
 
 	public void AddEnergy(EnergyComponents component, float amount)
