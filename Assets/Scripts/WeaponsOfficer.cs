@@ -3,9 +3,10 @@ using System.Collections;
 
 public class WeaponsOfficer : MechComponent
 {
-	public ArmMovement armMovement { get; private set; }
-	public ArmRotation armRotation { get; private set; }
 	public ArmControl armControl { get; private set; }
+	public ArmBlockState armBlockState { get; private set; }
+	public ArmWindupState armWindupState { get; private set; }
+	public ArmAttackState armAttackState { get; private set; }
 	[SerializeField] Sword weapon;
 
 	public Sword getWeapon { get { return weapon; } }
@@ -13,10 +14,11 @@ public class WeaponsOfficer : MechComponent
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-
-		armMovement = GetComponent<ArmMovement>();
-		armRotation = GetComponent<ArmRotation>();
+		
 		armControl = GetComponent<ArmControl>();
+		armBlockState = GetComponent<ArmBlockState>();
+		armWindupState = GetComponent<ArmWindupState>();
+		armAttackState = GetComponent<ArmAttackState>();
 	}
 
 	void IgnoreHierarchyRecursive(Transform root, Collider otherCol)

@@ -63,7 +63,7 @@ public class Sword : MechComponent
 		playingSwordSound = true;
 
 		audioSource.volume = volume;
-		float pitch = 1 + Random.Range(-0.1f, 0.1f);
+		//float pitch = 1 + Random.Range(-0.1f, 0.1f);
 		audioSource.PlayOneShot(clip);
 
 		yield return new WaitForSeconds(0.2f);

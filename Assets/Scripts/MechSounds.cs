@@ -17,12 +17,12 @@ public class MechSounds : MechComponent
 
 	void Start()
 	{
-		arms.armControl.OnMoveArmBegin -= PlayOnMoveBeginSound;
-		arms.armControl.OnMoveArmBegin += PlayOnMoveBeginSound;
-		arms.armControl.OnMoveArm -= PlayOnMoveSound;
-		arms.armControl.OnMoveArm += PlayOnMoveSound;
-		arms.armControl.OnMoveArmEnd -= PlayOnMoveEndSound;
-		arms.armControl.OnMoveArmEnd += PlayOnMoveEndSound;
+		arms.armBlockState.OnMoveArmBegin -= PlayOnMoveBeginSound;
+		arms.armBlockState.OnMoveArmBegin += PlayOnMoveBeginSound;
+		arms.armBlockState.OnMoveArm -= PlayOnMoveSound;
+		arms.armBlockState.OnMoveArm += PlayOnMoveSound;
+		arms.armBlockState.OnMoveArmEnd -= PlayOnMoveEndSound;
+		arms.armBlockState.OnMoveArmEnd += PlayOnMoveEndSound;
 	}
 
 	void PlayOnMoveBeginSound()

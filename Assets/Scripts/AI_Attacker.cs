@@ -26,7 +26,7 @@ public class AI_Attacker : AI_MechComponent
 
 	float DecideWindupRotation()
 	{
-		float limit = arms.armControl.getIdleRotationLimit;
+		float limit = arms.armBlockState.getSideRotationLimit;
 		float randomAngle = 0f + Random.Range(-limit, limit);
 
 		return randomAngle;
@@ -54,7 +54,7 @@ public class AI_Attacker : AI_MechComponent
 
 	void RotateHandsToAngle(float angle)
 	{
-		float aimAngle = arms.armControl.sideTargetAngle;
+		float aimAngle = arms.armBlockState.sideTargetAngle;
 
 		if (aimAngle < angle - 0.01f)
 		{
