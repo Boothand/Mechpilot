@@ -23,7 +23,7 @@ public class ArmControl : MechComponent
 	}
 	public State state { get; private set; }
 
-	//----- Store these so we don't have to calculate them more than once per frame -----\\
+	//----- Store these so we don't have to calculate them more than once per frame: -----\\
 
 	//The different rotations to interpolate between
 	public Quaternion handSideRotation { get; private set; }
@@ -69,8 +69,7 @@ public class ArmControl : MechComponent
 	{
 		base.OnAwake();
 		state = State.Defend;
-
-		//test = GameObject.Find("test").transform;
+		
 		arms.getWeapon.OnCollision -= SwordCollide;
 		arms.getWeapon.OnCollision += SwordCollide;
 	}
@@ -79,7 +78,6 @@ public class ArmControl : MechComponent
 	{
 		Sword mySword = arms.getWeapon;
 		Sword otherSword = col.transform.GetComponent<Sword>();
-		
 
 		if (otherSword)
 		{
@@ -167,7 +165,7 @@ public class ArmControl : MechComponent
 	{
 		rotationTimer = 0f;
 
-		//Winding up
+		//Wait until done winding up
 		while (rotationTimer < 1f)
 		{
 			fromRotation = handSideRotation;
@@ -177,10 +175,9 @@ public class ArmControl : MechComponent
 		}
 
 		state = State.WindedUp;
-
 		rotationTimer = 0f;
 
-		//Holding wind-up
+		//Wait until you're done holding attack
 		while (input.attack)
 		{
 			fromRotation = targetWindupRotation;
@@ -192,7 +189,7 @@ public class ArmControl : MechComponent
 		fromRotation = targetWindupRotation;
 		toRotation = targetAttackRotation;
 
-		//Releasing attack
+		//Wait until end of attack
 		state = State.Attack;
 		while (rotationTimer < 1f)
 		{
@@ -200,50 +197,32 @@ public class ArmControl : MechComponent
 			yield return null;
 		}
 
+		//The time to wait before retracting
 		yield return new WaitForSeconds(0.25f);
 
 		//Retract
+		rotationTimer = 0f;
 		state = State.AttackRetract;
-		while (rotationTimer > 0f)
+		while (rotationTimer < 1f)
 		{
-			fromRotation = handSideRotation;
-			toRotation = targetAttackRotation;
-			rotationTimer -= Time.deltaTime * arms.armAttackState.getAttackRotSpeed * 1.3f * energyManager.energies[ARMS_INDEX];
+			fromRotation = targetAttackRotation;
+			toRotation = handSideRotation;
+			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * 1.3f * energyManager.energies[ARMS_INDEX];
 			yield return null;
 		}
 
 		state = State.Defend;
 	}
 
-	void Update()
+	void SetTargetPos()
 	{
-		//Store the different target rotations we will use at different times
-		handSideRotation = arms.armBlockState.ArmSideRotation();
-		targetWindupRotation = arms.armWindupState.WindUpRotation();
-		targetAttackRotation = arms.armAttackState.AttackRotation();
-
-		//Store the different target positions we will use at different times
-		blockPos = arms.armBlockState.BlockPos();
-		windupPos = arms.armWindupState.WindUpPosition();
-		attackPos = arms.armAttackState.AttackPosition();
-
 		switch (state)
 		{
 			case State.Idle:
-
 				break;
 
 			case State.Defend:
 				rTargetPos = blockPos;
-
-				fromRotation = handSideRotation;
-				toRotation = targetWindupRotation;
-
-				if (input.attack)
-				{
-					state = State.WindUp;
-					StartCoroutine(SwingRoutine());
-				}
 				break;
 
 			case State.WindUp:
@@ -259,6 +238,33 @@ public class ArmControl : MechComponent
 				//See StaggerRoutine
 				break;
 		}
+	}
+
+	void Update()
+	{
+		//Store the different target rotations we will use at different times
+		handSideRotation = arms.armBlockState.ArmSideRotation();
+		targetWindupRotation = arms.armWindupState.WindUpRotation();
+		targetAttackRotation = arms.armAttackState.AttackRotation();
+
+		//Store the different target positions we will use at different times
+		blockPos = arms.armBlockState.BlockPos();
+		windupPos = arms.armWindupState.WindUpPosition();
+		attackPos = arms.armAttackState.AttackPosition();
+
+		if (state == State.Defend)
+		{
+			fromRotation = handSideRotation;
+			toRotation = targetWindupRotation;
+
+			if (input.attack)
+			{
+				state = State.WindUp;
+				StartCoroutine(SwingRoutine());
+			}
+		}
+
+		SetTargetPos();
 
 		float zPosBlendSpeedToUse = zPosBlendSpeed;
 
