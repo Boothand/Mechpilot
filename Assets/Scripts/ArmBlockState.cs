@@ -33,6 +33,8 @@ public class ArmBlockState : MechComponent
 
 	public Vector3 BlockPos()
 	{
+		ArmControl.State state = arms.armControl.state;
+
 		Vector3 inputVec = new Vector3(input.rArmHorz, input.rArmVert);
 		//Vector3 lMoveInput = new Vector3(input.lArmHorz, input.lArmVert);   //Only for shield
 
@@ -43,8 +45,10 @@ public class ArmBlockState : MechComponent
 
 		float speedToUse = idleMoveSpeed;
 
-		if (arms.armControl.state == ArmControl.State.Staggered ||
-			arms.armControl.state == ArmControl.State.StaggeredEnd)
+		if (state == ArmControl.State.Staggered ||
+			state == ArmControl.State.StaggeredEnd ||
+			state == ArmControl.State.BlockStaggered ||
+			state == ArmControl.State.BlockStaggeredEnd)
 		{
 			speedToUse = idleMoveSpeed / 1.75f;
 		}
@@ -100,15 +104,16 @@ public class ArmBlockState : MechComponent
 	public Quaternion ArmSideRotation()
 	{
 		float rotationInput = Mathf.Clamp(input.rArmRot, -1f, 1f);
-
+		ArmControl.State state = arms.armControl.state;
 		//Add input values to the target rotation
 		int factor = 1;
 
 		if (invertRotation)
 			factor = -1;
 
-		if (arms.armControl.state != ArmControl.State.Attack &&
-			arms.armControl.state != ArmControl.State.Staggered)
+		if (state != ArmControl.State.Attack &&
+			state != ArmControl.State.Staggered &&
+			state != ArmControl.State.BlockStaggered)
 		{
 			sideTargetAngle += factor * rotationInput * Time.deltaTime * rotationSpeed * energyManager.energies[ARMS_INDEX];
 		}

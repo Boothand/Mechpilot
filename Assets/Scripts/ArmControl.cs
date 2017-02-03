@@ -5,8 +5,10 @@ public class ArmControl : MechComponent
 {
 	#region Variables/References
 	//The IK targets to move and rotate around
+	[Header("References")]
 	[SerializeField] Transform rHandIKTarget;
 	[SerializeField] Transform lHandIKTarget;
+	[SerializeField] Transform lHandTarget;	//Where to put the left hand (if longsword)
 	public Transform getRhandIKTarget { get { return rHandIKTarget; } }
 
 	//The different states during combat
@@ -19,7 +21,9 @@ public class ArmControl : MechComponent
 		Attack,
 		AttackRetract,
 		Staggered,
-		StaggeredEnd
+		StaggeredEnd,
+		BlockStaggered,
+		BlockStaggeredEnd
 	}
 	public State state { get; private set; }
 
@@ -35,11 +39,12 @@ public class ArmControl : MechComponent
 	public Vector3 windupPos { get; private set; }
 	public Vector3 attackPos { get; private set; }
 
-	[Header("All")]
-	[SerializeField] Transform lHandTarget;	//Where to put the left hand (if longsword)
+	[Header("Smoothing")]
 	[SerializeField] float xyPosBlendSpeed = 15f;	//How smoothly to move on the local XY axis
 	[SerializeField] float rotationBlendSpeed = 10f;	//How smoothly to blend rotationSpeed
 	[SerializeField] float zPosBlendSpeed = 5f;	//How smoothly to move on local Z axis
+
+	[Header("Other")]
 	[SerializeField] bool invertRotation;
 
 	//The final values to move towards
@@ -69,88 +74,184 @@ public class ArmControl : MechComponent
 	{
 		base.OnAwake();
 		state = State.Defend;
-		
+	}
+
+	void Start()
+	{
 		arms.getWeapon.OnCollision -= SwordCollide;
 		arms.getWeapon.OnCollision += SwordCollide;
 	}
 
-	void SwordCollide(Collision col)
+	void SwordCollide(Collider col)
 	{
 		Sword mySword = arms.getWeapon;
-		Sword otherSword = col.transform.GetComponent<Sword>();
+		Collidable other = col.transform.GetComponent<Collidable>();
+		float myImpact = mySword.swordTipVelocity.magnitude * 7.5f;
 
-		if (otherSword)
+		if (other)
 		{
-			float impact = otherSword.swordTipVelocity.magnitude + mySword.swordTipVelocity.magnitude;
-			impact *= 15f;
-			impact = Mathf.Clamp01(impact);
-
-			//Play sound
-			if (!otherSword.playingSwordSound)
+			if (other is Sword &&
+				(state == State.Defend ||
+				state == State.Attack))
 			{
-				mySword.PlayClashSound(impact);
+				#region Sword collides with sword
+
+				Sword otherSword = other as Sword;
+				State otherState = otherSword.arms.armControl.state;
+				float theirImpact = otherSword.swordTipVelocity.magnitude * 7.5f;
+
+				float impact = theirImpact + myImpact;
+				impact = Mathf.Clamp01(impact);
+
+				//Play sound
+				if (!otherSword.playingSwordSound)
+				{
+					mySword.PlayClashSound(impact);
+				}
+
+				if (state != State.Defend)
+				{
+					//Get staggered
+
+					StopAllCoroutines();
+					if (otherState == State.Defend ||
+						otherState == State.BlockStaggered)
+					{
+						StartCoroutine(StaggerRoutine(otherSword, 10));
+					}
+					else
+					{
+						StartCoroutine(StaggerRoutine(otherSword, 5f));
+
+					}
+				}
+
+				//if (state == State.Defend)
+				//{
+				//	//Get staggered less
+
+				//	StopAllCoroutines();
+				//	StartCoroutine(BlockStaggerRoutine(otherSword, 2.5f));
+				//}
+				#endregion
 			}
-
-			if (state != State.Defend)
+			else
 			{
-				//Get staggered
-				state = State.Staggered;
-
 				StopAllCoroutines();
-				StartCoroutine(StaggerRoutine(otherSword, 5f));
+				StartCoroutine(HitBodypartRoutine(other, myImpact));
 			}
 		}
 	}
 
 	IEnumerator StaggerRoutine(Sword otherSword, float multiplier)
 	{
-		Vector3 swordVelocity = arms.getWeapon.swordTipVelocity;
+		state = State.Staggered;
 		Vector3 otherVelocity = otherSword.swordTipVelocity;
-		Vector3 swordTipPos = arms.getWeapon.getSwordTip.position;
-
-		Vector3 newTipPos = swordTipPos + otherVelocity * multiplier;
-		//Debug.DrawLine(arms.getWeapon.getSwordTip.position, newTipPos, Color.black);
-
-		//Vector from hand to new sword tip position
-		Vector3 newSwordDir = (newTipPos - rHandIKTarget.position).normalized;
-
-		//The world rotation of that vector
-		Quaternion newWorldRot = Quaternion.LookRotation(newSwordDir, mech.transform.forward);
-
-		//Transform to localSpace
-		Quaternion newLocalRot = Quaternion.Inverse(mech.transform.rotation) * newWorldRot;
-
-		//Debug.DrawLine(arms.getWeapon.getSwordTip.position, newTipPos, Color.black);
+		Quaternion newLocalSwordRot = arms.armStaggerState.StaggerRotation(otherVelocity, multiplier);		
 
 		fromRotation = rHandIKTarget.localRotation;
-		toRotation = newLocalRot;
-
-		float staggerBeginRotSpeed = 3f;
-		float staggerEndRotSpeed = 3f;
+		toRotation = newLocalSwordRot;		
 
 		rotationTimer = 0f;
 		while (rotationTimer < 1f)
 		{
 			//Also change the arm's position
-			rTargetPos = blockPos + otherVelocity * multiplier;
-
-			//Debug.DrawLine(rHandIKTarget.position, newTipPos, Color.red);
-			rotationTimer += Time.deltaTime * staggerBeginRotSpeed;
+			rTargetPos = blockPos + otherVelocity * multiplier; //arms.armStaggerState.StaggerPosition(otherSword, multiplier);
+			
+			rotationTimer += Time.deltaTime * arms.armStaggerState.getStaggerBeginRotSpeed;
 			yield return null;
 		}
 
 		rotationTimer = 0f;
 
-		fromRotation = newLocalRot;
+		fromRotation = newLocalSwordRot;
 		toRotation = handSideRotation;
-
 
 		state = State.StaggeredEnd;
 
 		while (rotationTimer < 1f)
 		{
-			rTargetPos = blockPos + otherVelocity * multiplier * 0.75f;
-			rotationTimer += Time.deltaTime * staggerEndRotSpeed;
+			rTargetPos = blockPos + otherVelocity * multiplier;// = arms.armStaggerState.StaggerPosition(otherSword, multiplier * 0.75f);
+
+			rotationTimer += Time.deltaTime * arms.armStaggerState.getStaggerEndRotSpeed;
+			toRotation = handSideRotation;
+
+			yield return null;
+		}
+
+		rotationTimer = 0;
+
+		state = State.Defend;
+	}
+
+	IEnumerator BlockStaggerRoutine(Sword otherSword, float multiplier)
+	{
+		state = State.BlockStaggered;
+		Vector3 otherVelocity = otherSword.swordTipVelocity;
+
+		Quaternion newLocalSwordRot = arms.armStaggerState.StaggerRotation(otherVelocity, multiplier);
+
+		fromRotation = rHandIKTarget.localRotation;
+		toRotation = newLocalSwordRot;
+
+		rotationTimer = 0f;
+		while (rotationTimer < 1f)
+		{
+			rotationTimer += Time.deltaTime * arms.armStaggerState.getBlockStaggerBeginRotSpeed;
+			yield return null;
+		}
+
+		rotationTimer = 0f;
+
+		fromRotation = newLocalSwordRot;
+		toRotation = handSideRotation;
+
+		state = State.BlockStaggeredEnd;
+
+		while (rotationTimer < 1f)
+		{
+			rotationTimer += Time.deltaTime * arms.armStaggerState.getBlockStaggerEndRotSpeed;
+			toRotation = handSideRotation;
+
+			yield return null;
+		}
+
+		rotationTimer = 0;
+
+		state = State.Defend;
+	}
+
+	IEnumerator HitBodypartRoutine(Collidable other, float impact)
+	{
+		state = State.Staggered;
+		Vector3 myVelocity = arms.getWeapon.swordTipVelocity;
+		Quaternion newLocalSwordRot = arms.armStaggerState.StaggerRotation(-myVelocity, impact);
+
+		fromRotation = rHandIKTarget.localRotation;
+		toRotation = newLocalSwordRot;
+
+		rotationTimer = 0f;
+		while (rotationTimer < 1f)
+		{
+			//Also change the arm's position
+			rTargetPos = blockPos - myVelocity * impact; //arms.armStaggerState.StaggerPosition(otherSword, multiplier);
+
+			rotationTimer += Time.deltaTime * arms.armStaggerState.getStaggerBeginRotSpeed;
+			yield return null;
+		}
+
+		rotationTimer = 0f;
+
+		fromRotation = newLocalSwordRot;
+		toRotation = handSideRotation;
+
+		state = State.StaggeredEnd;
+
+		while (rotationTimer < 1f)
+		{
+			rTargetPos = blockPos - myVelocity * impact * 0.75f;// = arms.armStaggerState.StaggerPosition(otherSword, multiplier * 0.75f);
+
+			rotationTimer += Time.deltaTime * arms.armStaggerState.getStaggerEndRotSpeed;
 			toRotation = handSideRotation;
 
 			yield return null;
@@ -235,6 +336,7 @@ public class ArmControl : MechComponent
 				break;
 
 			case State.Staggered:
+			case State.BlockStaggered:
 				//See StaggerRoutine
 				break;
 		}
@@ -267,16 +369,18 @@ public class ArmControl : MechComponent
 		SetTargetPos();
 
 		float zPosBlendSpeedToUse = zPosBlendSpeed;
+		float xyPosBlendSpeedToUse = xyPosBlendSpeed;
 
 		if (state == State.StaggeredEnd)
 		{
 			zPosBlendSpeedToUse = 0.5f;
+			xyPosBlendSpeedToUse *= 0.3f;
 		}
 
 		//------------ POSITION ------------\\
 		Vector3 localIKPos = rHandIKTarget.localPosition;
 		Vector3 localTargetPos = mech.transform.InverseTransformPoint(rTargetPos);
-		float xyLerpFactor = Time.deltaTime * xyPosBlendSpeed * energyManager.energies[ARMS_INDEX] * scaleFactor;
+		float xyLerpFactor = Time.deltaTime * xyPosBlendSpeedToUse * energyManager.energies[ARMS_INDEX] * scaleFactor;
 		
 		//Lerp Z position separately
 		localIKPos.x = Mathf.Lerp(localIKPos.x, localTargetPos.x, xyLerpFactor);

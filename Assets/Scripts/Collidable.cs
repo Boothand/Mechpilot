@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class Collidable : MechComponent
 {
-	public delegate void Collide(Collision col);
+	public delegate void Collide(Collider col);
 	public event Collide OnCollision;
 
-	[SerializeField] LayerMask layerMask;
+	[SerializeField] protected LayerMask layerMask;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 	}
 
-	bool IsInLayerMask(GameObject obj, LayerMask mask)
+	protected bool IsInLayerMask(GameObject obj, LayerMask mask)
 	{
 		int bit = (1 << obj.layer);
 
@@ -30,26 +30,26 @@ public class Collidable : MechComponent
 		if (col.transform.root != transform.root &&
 			IsInLayerMask(col.gameObject, layerMask))
 		{
-
-			print("Collided with " + col.name);
-			if (OnCollision != null)
-			{
-				//OnCollision(col);
-			}
-		}
-	}
-
-	void OnCollisionEnter(Collision col)
-	{
-		if (col.transform.root != transform.root &&
-			IsInLayerMask(col.gameObject, layerMask))
-		{
 			if (OnCollision != null)
 			{
 				OnCollision(col);
 			}
 		}
 	}
+
+	//void OnCollisionEnter(Collision col)
+	//{
+	//	if (/*col.transform.root != transform.root &&*/
+	//		IsInLayerMask(col.gameObject, layerMask))
+	//	{
+	//		print("Calling event, hit " + col.transform.name);
+
+	//		if (OnCollision != null)
+	//		{
+	//			OnCollision(col);
+	//		}
+	//	}
+	//}
 
 	void Update()
 	{
