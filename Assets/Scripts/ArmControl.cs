@@ -21,9 +21,7 @@ public class ArmControl : MechComponent
 		Attack,
 		AttackRetract,
 		Staggered,
-		StaggeredEnd,
-		BlockStaggered,
-		BlockStaggeredEnd
+		StaggeredEnd
 	}
 	public State state { get; private set; }
 
@@ -115,38 +113,48 @@ public class ArmControl : MechComponent
 
 					StopAllCoroutines();
 					if (otherState == State.Defend ||
-						otherState == State.BlockStaggered)
+						otherState == State.Staggered)
 					{
-						StartCoroutine(StaggerRoutine(otherSword, 10));
+						StartCoroutine(StaggerRoutine(otherSword, 10, arms.armStaggerState.getStaggerEndRotSpeed));
 					}
 					else
 					{
-						StartCoroutine(StaggerRoutine(otherSword, 5f));
+						StartCoroutine(StaggerRoutine(otherSword, 5f, arms.armStaggerState.getStaggerEndRotSpeed));
 
 					}
 				}
 
-				//if (state == State.Defend)
-				//{
-				//	//Get staggered less
+				if (state == State.Defend)
+				{
+					//Get staggered less
 
-				//	StopAllCoroutines();
-				//	StartCoroutine(BlockStaggerRoutine(otherSword, 2.5f));
-				//}
+					StopAllCoroutines();
+					StartCoroutine(StaggerRoutine(otherSword, 4f, arms.armStaggerState.getBlockStaggerEndRotSpeed));
+				}
 				#endregion
 			}
 			else
 			{
 				StopAllCoroutines();
-				StartCoroutine(HitBodypartRoutine(other, myImpact));
+				StartCoroutine(StaggerRoutine(null, myImpact, arms.armStaggerState.getStaggerEndRotSpeed));
 			}
 		}
 	}
 
-	IEnumerator StaggerRoutine(Sword otherSword, float multiplier)
+	IEnumerator StaggerRoutine(Sword otherSword, float multiplier, float speed)
 	{
 		state = State.Staggered;
-		Vector3 otherVelocity = otherSword.swordTipVelocity;
+		Vector3 otherVelocity = Vector3.zero;
+
+		if (otherSword)
+		{
+			otherVelocity = otherSword.swordTipVelocity;
+		}
+		else
+		{
+			otherVelocity = -arms.getWeapon.swordTipVelocity;
+		}
+
 		Quaternion newLocalSwordRot = arms.armStaggerState.StaggerRotation(otherVelocity, multiplier);		
 
 		fromRotation = rHandIKTarget.localRotation;
@@ -158,7 +166,7 @@ public class ArmControl : MechComponent
 			//Also change the arm's position
 			rTargetPos = blockPos + otherVelocity * multiplier; //arms.armStaggerState.StaggerPosition(otherSword, multiplier);
 			
-			rotationTimer += Time.deltaTime * arms.armStaggerState.getStaggerBeginRotSpeed;
+			rotationTimer += Time.deltaTime * speed;
 			yield return null;
 		}
 
@@ -171,87 +179,9 @@ public class ArmControl : MechComponent
 
 		while (rotationTimer < 1f)
 		{
-			rTargetPos = blockPos + otherVelocity * multiplier;// = arms.armStaggerState.StaggerPosition(otherSword, multiplier * 0.75f);
+			rTargetPos = blockPos + otherVelocity * multiplier * 0.75f;// = arms.armStaggerState.StaggerPosition(otherSword, multiplier * 0.75f);
 
-			rotationTimer += Time.deltaTime * arms.armStaggerState.getStaggerEndRotSpeed;
-			toRotation = handSideRotation;
-
-			yield return null;
-		}
-
-		rotationTimer = 0;
-
-		state = State.Defend;
-	}
-
-	IEnumerator BlockStaggerRoutine(Sword otherSword, float multiplier)
-	{
-		state = State.BlockStaggered;
-		Vector3 otherVelocity = otherSword.swordTipVelocity;
-
-		Quaternion newLocalSwordRot = arms.armStaggerState.StaggerRotation(otherVelocity, multiplier);
-
-		fromRotation = rHandIKTarget.localRotation;
-		toRotation = newLocalSwordRot;
-
-		rotationTimer = 0f;
-		while (rotationTimer < 1f)
-		{
-			rotationTimer += Time.deltaTime * arms.armStaggerState.getBlockStaggerBeginRotSpeed;
-			yield return null;
-		}
-
-		rotationTimer = 0f;
-
-		fromRotation = newLocalSwordRot;
-		toRotation = handSideRotation;
-
-		state = State.BlockStaggeredEnd;
-
-		while (rotationTimer < 1f)
-		{
-			rotationTimer += Time.deltaTime * arms.armStaggerState.getBlockStaggerEndRotSpeed;
-			toRotation = handSideRotation;
-
-			yield return null;
-		}
-
-		rotationTimer = 0;
-
-		state = State.Defend;
-	}
-
-	IEnumerator HitBodypartRoutine(Collidable other, float impact)
-	{
-		state = State.Staggered;
-		Vector3 myVelocity = arms.getWeapon.swordTipVelocity;
-		Quaternion newLocalSwordRot = arms.armStaggerState.StaggerRotation(-myVelocity, impact);
-
-		fromRotation = rHandIKTarget.localRotation;
-		toRotation = newLocalSwordRot;
-
-		rotationTimer = 0f;
-		while (rotationTimer < 1f)
-		{
-			//Also change the arm's position
-			rTargetPos = blockPos - myVelocity * impact; //arms.armStaggerState.StaggerPosition(otherSword, multiplier);
-
-			rotationTimer += Time.deltaTime * arms.armStaggerState.getStaggerBeginRotSpeed;
-			yield return null;
-		}
-
-		rotationTimer = 0f;
-
-		fromRotation = newLocalSwordRot;
-		toRotation = handSideRotation;
-
-		state = State.StaggeredEnd;
-
-		while (rotationTimer < 1f)
-		{
-			rTargetPos = blockPos - myVelocity * impact * 0.75f;// = arms.armStaggerState.StaggerPosition(otherSword, multiplier * 0.75f);
-
-			rotationTimer += Time.deltaTime * arms.armStaggerState.getStaggerEndRotSpeed;
+			rotationTimer += Time.deltaTime * speed;
 			toRotation = handSideRotation;
 
 			yield return null;
@@ -336,7 +266,6 @@ public class ArmControl : MechComponent
 				break;
 
 			case State.Staggered:
-			case State.BlockStaggered:
 				//See StaggerRoutine
 				break;
 		}

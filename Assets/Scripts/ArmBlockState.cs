@@ -46,9 +46,7 @@ public class ArmBlockState : MechComponent
 		float speedToUse = idleMoveSpeed;
 
 		if (state == ArmControl.State.Staggered ||
-			state == ArmControl.State.StaggeredEnd ||
-			state == ArmControl.State.BlockStaggered ||
-			state == ArmControl.State.BlockStaggeredEnd)
+			state == ArmControl.State.StaggeredEnd)
 		{
 			speedToUse = idleMoveSpeed / 1.75f;
 		}
@@ -112,8 +110,7 @@ public class ArmBlockState : MechComponent
 			factor = -1;
 
 		if (state != ArmControl.State.Attack &&
-			state != ArmControl.State.Staggered &&
-			state != ArmControl.State.BlockStaggered)
+			state != ArmControl.State.Staggered)
 		{
 			sideTargetAngle += factor * rotationInput * Time.deltaTime * rotationSpeed * energyManager.energies[ARMS_INDEX];
 		}
