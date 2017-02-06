@@ -133,11 +133,16 @@ public class ArmControl : MechComponent
 				//Staggering when I'm defending:
 				if (state == State.Defend ||
 					state == State.WindUp ||
-					state == State.WindedUp ||
 					state == State.AttackRetract)
 				{
 					StopAllCoroutines();
 					StartCoroutine(StaggerRoutine(otherSword, 3f, arms.armStaggerState.getBlockStaggerEndRotSpeed));
+				}
+
+				if (state == State.WindedUp)
+				{
+					StopAllCoroutines();
+					StartCoroutine(StaggerRoutine(otherSword, 3f, arms.armStaggerState.getBlockStaggerEndRotSpeed / 2, true));
 				}
 				#endregion
 			}
@@ -154,7 +159,7 @@ public class ArmControl : MechComponent
 		}
 	}
 
-	IEnumerator StaggerRoutine(Sword otherSword, float multiplier, float speed)
+	IEnumerator StaggerRoutine(Sword otherSword, float multiplier, float speed, bool gotoWindedUp = false)
 	{
 		state = State.Staggered;
 		Vector3 otherVelocity = Vector3.zero;
@@ -197,15 +202,23 @@ public class ArmControl : MechComponent
 			rotationTimer += Time.deltaTime * speed;
 			toRotation = handSideRotation;
 
+			if (gotoWindedUp)
+			{
+				toRotation = targetWindupRotation;
+				rTargetPos = windupPos;
+			}
 			yield return null;
 		}
 
 		rotationTimer = 0;
 		
 		state = State.Defend;
+
+		if (gotoWindedUp)
+			state = State.WindedUp;
 	}
 
-	IEnumerator SwingRoutine()
+	IEnumerator WindupRoutine()
 	{
 		rotationTimer = 0f;
 
@@ -219,22 +232,12 @@ public class ArmControl : MechComponent
 		}
 
 		state = State.WindedUp;
+	}
+
+	IEnumerator SwingRoutine2()
+	{
 		rotationTimer = 0f;
 
-		//Wait until you're done holding attack
-		while (input.attack)
-		{
-			fromRotation = targetWindupRotation;
-			toRotation = targetAttackRotation;
-
-			yield return null;
-		}
-
-		fromRotation = targetWindupRotation;
-		toRotation = targetAttackRotation;
-
-		//Wait until end of attack
-		state = State.Attack;
 		while (rotationTimer < 1f)
 		{
 			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * energyManager.energies[ARMS_INDEX];
@@ -256,6 +259,59 @@ public class ArmControl : MechComponent
 		}
 
 		state = State.Defend;
+	}
+
+	IEnumerator SwingRoutine()
+	{
+		//rotationTimer = 0f;
+
+		////Wait until done winding up
+		//while (rotationTimer < 1f)
+		//{
+		//	fromRotation = handSideRotation;
+		//	toRotation = targetWindupRotation;
+		//	rotationTimer += Time.deltaTime * arms.armWindupState.getWindupRotSpeed * energyManager.energies[ARMS_INDEX];
+		//	yield return null;
+		//}
+
+		//state = State.WindedUp;
+		rotationTimer = 0f;
+
+		//Wait until you're done holding attack
+		while (input.attack)
+		{
+			fromRotation = targetWindupRotation;
+			toRotation = targetAttackRotation;
+
+			yield return null;
+		}
+
+		fromRotation = targetWindupRotation;
+		toRotation = targetAttackRotation;
+
+		//Wait until end of attack
+		//state = State.Attack;
+		//while (rotationTimer < 1f)
+		//{
+		//	rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * energyManager.energies[ARMS_INDEX];
+		//	yield return null;
+		//}
+
+		////The time to wait before retracting
+		//yield return new WaitForSeconds(0.25f);
+
+		////Retract
+		//rotationTimer = 0f;
+		//state = State.AttackRetract;
+		//while (rotationTimer < 1f)
+		//{
+		//	fromRotation = targetAttackRotation;
+		//	toRotation = handSideRotation;
+		//	rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * 1.3f * energyManager.energies[ARMS_INDEX];
+		//	yield return null;
+		//}
+
+		//state = State.Defend;
 	}
 
 	void SetTargetPos()
@@ -307,7 +363,22 @@ public class ArmControl : MechComponent
 			if (input.attack)
 			{
 				state = State.WindUp;
-				StartCoroutine(SwingRoutine());
+				StopAllCoroutines();
+				StartCoroutine(WindupRoutine());
+			}
+		}
+
+		if (state == State.WindedUp)
+		{
+			rotationTimer = 0f;
+			fromRotation = targetWindupRotation;
+			toRotation = targetAttackRotation;
+
+			if (!input.attack)
+			{
+				state = State.Attack;
+				StopAllCoroutines();
+				StartCoroutine(SwingRoutine2());
 			}
 		}
 
