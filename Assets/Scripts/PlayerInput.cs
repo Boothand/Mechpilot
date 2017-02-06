@@ -20,6 +20,7 @@ public class PlayerInput : AbstractInput
 		moveVert = helmPlayer.GetAxis("Move Vertical");
 		lookHorz = helmPlayer.GetAxis("Look Horizontal");
 		lookVert = helmPlayer.GetAxis("Look Vertical");
+		crouchAxis = helmPlayer.GetAxis("Crouch");
 
 		lArmHorz = armsPlayer.GetAxis("Move Left Arm X");
 		lArmVert = armsPlayer.GetAxis("Move Left Arm Y");
@@ -29,7 +30,6 @@ public class PlayerInput : AbstractInput
 		rArmRot = armsPlayer.GetAxis("Rotate Hand");
 
 		attack = armsPlayer.GetButton("Wind Up Attack");
-		/*crouch = rewiredPlayer.GetButtonDown(crouchString);*/
 
 		giveToPilot = armsPlayer.GetButtonDown("Give Pilot Energy");
 		takeFromPilot = armsPlayer.GetButtonDown("Take Energy From Pilot");
