@@ -88,9 +88,7 @@ public class ArmControl : MechComponent
 
 		if (other)
 		{
-			if (other is Sword &&
-				(state == State.Defend ||
-				state == State.Attack))
+			if (other is Sword)
 			{
 				#region Sword collides with sword
 
@@ -101,42 +99,52 @@ public class ArmControl : MechComponent
 				float impact = theirImpact + myImpact;
 				impact = Mathf.Clamp01(impact);
 
-				//Play sound
+				//Play sound, make sure not both swords play it
 				if (!otherSword.playingSwordSound)
 				{
 					mySword.PlayClashSound(impact);
 				}
 
-				if (state != State.Defend)
+				//STAGGERING
+				//When attacking:
+				if (state == State.Attack)
 				{
-					//Get staggered
-
-					StopAllCoroutines();
+					//If they block my attack
 					if (otherState == State.Defend ||
-						otherState == State.Staggered)
+						otherState == State.Staggered ||
+						otherState == State.WindUp ||
+						otherState == State.WindedUp)
 					{
+						StopAllCoroutines();
 						StartCoroutine(StaggerRoutine(otherSword, 10, arms.armStaggerState.getStaggerEndRotSpeed));
 					}
-					else
-					{
-						StartCoroutine(StaggerRoutine(otherSword, 5f, arms.armStaggerState.getStaggerEndRotSpeed));
 
+					//If both swords attack and clash
+					if (otherState == State.Attack)
+					{
+						StopAllCoroutines();
+						StartCoroutine(StaggerRoutine(otherSword, 5f, arms.armStaggerState.getStaggerEndRotSpeed));
 					}
 				}
 
-				if (state == State.Defend)
+				//Staggering when I'm defending:
+				if (state == State.Defend ||
+					state == State.WindUp ||
+					state == State.AttackRetract)
 				{
-					//Get staggered less
-
 					StopAllCoroutines();
-					StartCoroutine(StaggerRoutine(otherSword, 4f, arms.armStaggerState.getBlockStaggerEndRotSpeed));
+					StartCoroutine(StaggerRoutine(otherSword, 3f, arms.armStaggerState.getBlockStaggerEndRotSpeed));
 				}
 				#endregion
 			}
 			else
 			{
-				StopAllCoroutines();
-				StartCoroutine(StaggerRoutine(null, myImpact, arms.armStaggerState.getStaggerEndRotSpeed));
+				//If I hit anything else than a sword
+				if (state == State.Attack)
+				{
+					StopAllCoroutines();
+					StartCoroutine(StaggerRoutine(null, myImpact, arms.armStaggerState.getStaggerEndRotSpeed));
+				}
 			}
 		}
 	}
@@ -188,7 +196,7 @@ public class ArmControl : MechComponent
 		}
 
 		rotationTimer = 0;
-
+		
 		state = State.Defend;
 	}
 
