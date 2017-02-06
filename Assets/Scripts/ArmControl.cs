@@ -21,9 +21,12 @@ public class ArmControl : MechComponent
 		Attack,
 		AttackRetract,
 		Staggered,
-		StaggeredEnd
+		StaggeredEnd,
+		BlockStaggered,
+		BlockStaggeredEnd
 	}
 	public State state { get; private set; }
+	public State prevState { get; private set; }
 
 	//----- Store these so we don't have to calculate them more than once per frame: -----\\
 
@@ -93,7 +96,7 @@ public class ArmControl : MechComponent
 				#region Sword collides with sword
 
 				Sword otherSword = other as Sword;
-				State otherState = otherSword.arms.armControl.state;
+				State otherPrevState = otherSword.arms.armControl.prevState;
 				float theirImpact = otherSword.swordTipVelocity.magnitude * 7.5f;
 
 				float impact = theirImpact + myImpact;
@@ -110,18 +113,18 @@ public class ArmControl : MechComponent
 				if (state == State.Attack)
 				{
 					//If they block my attack
-					if (otherState == State.Defend ||
-						otherState == State.Staggered ||
-						otherState == State.WindUp ||
-						otherState == State.WindedUp)
+					if (otherPrevState == State.Defend ||
+						otherPrevState == State.WindUp ||
+						otherPrevState == State.WindedUp)
 					{
 						StopAllCoroutines();
 						StartCoroutine(StaggerRoutine(otherSword, 10, arms.armStaggerState.getStaggerEndRotSpeed));
 					}
 
 					//If both swords attack and clash
-					if (otherState == State.Attack)
+					if (otherPrevState == State.Attack)
 					{
+						print("Attacks clashed in air");
 						StopAllCoroutines();
 						StartCoroutine(StaggerRoutine(otherSword, 5f, arms.armStaggerState.getStaggerEndRotSpeed));
 					}
@@ -130,6 +133,7 @@ public class ArmControl : MechComponent
 				//Staggering when I'm defending:
 				if (state == State.Defend ||
 					state == State.WindUp ||
+					state == State.WindedUp ||
 					state == State.AttackRetract)
 				{
 					StopAllCoroutines();
@@ -142,6 +146,7 @@ public class ArmControl : MechComponent
 				//If I hit anything else than a sword
 				if (state == State.Attack)
 				{
+					print("Hit something else");
 					StopAllCoroutines();
 					StartCoroutine(StaggerRoutine(null, myImpact, arms.armStaggerState.getStaggerEndRotSpeed));
 				}
@@ -281,6 +286,9 @@ public class ArmControl : MechComponent
 
 	void Update()
 	{
+		//Store so it's one frame delayed, so others can check during collision what you were actually doing.
+		prevState = state;
+
 		//Store the different target rotations we will use at different times
 		handSideRotation = arms.armBlockState.ArmSideRotation();
 		targetWindupRotation = arms.armWindupState.WindUpRotation();
