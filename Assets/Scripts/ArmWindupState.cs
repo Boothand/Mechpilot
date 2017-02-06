@@ -20,7 +20,7 @@ public class ArmWindupState : MechComponent
 
 	public Quaternion WindUpRotation()
 	{
-		Quaternion verticalAngle = Quaternion.Euler(rotateBackAmount, 0, 0);
+		Quaternion verticalAngle = Quaternion.Euler(0, -rotateBackAmount, 0);
 		return arms.armControl.handSideRotation * verticalAngle;
 	}
 

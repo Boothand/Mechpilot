@@ -127,7 +127,7 @@ public class ArmBlockState : MechComponent
 
 		//Return the rotation
 		Quaternion offset = Quaternion.Euler(sideRotOffset);
-		Quaternion localRotation = offset * Quaternion.Euler(0, -sideTargetAngle, 0);
+		Quaternion localRotation = offset * Quaternion.Euler(-sideTargetAngle, 0, 0);
 		return localRotation;
 	}
 }

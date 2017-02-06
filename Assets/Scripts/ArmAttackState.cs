@@ -21,7 +21,7 @@ public class ArmAttackState : MechComponent
 
 	public Quaternion AttackRotation()
 	{
-		Quaternion rot = Quaternion.Euler(-swingAmount, 0, 0);
+		Quaternion rot = Quaternion.Euler(0, swingAmount, 0);
 		return arms.armControl.targetWindupRotation * rot;
 	}
 
