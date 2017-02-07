@@ -13,6 +13,7 @@ public class MechMovement : MechComponent
 	Vector3 inputVec;
 	Vector3 worldMoveDir;
 	Vector3 velocity;
+	Vector3 lastPos;
 
 	public Vector3 getVelocity { get { return velocity; } }
 
@@ -69,23 +70,25 @@ public class MechMovement : MechComponent
 
 		//Debug.DrawRay(hierarchy.head.position, worldMoveDir * scaleFactor);
 
-		
-		if (rb.velocity.y > 0.001f)
+
+		if (true)//rb.velocity.y > 0.001f)
 		{
-			Vector3 rayStartPos = mech.transform.position + Vector3.up * 2f;
-			Ray ray = new Ray(rayStartPos, worldMoveDir);
-			Debug.DrawRay(rayStartPos, worldMoveDir * 15f, Color.blue);
+			Vector3 rayStartPos = mech.transform.position + Vector3.up * 0.02f * scaleFactor;
+			Vector3 dir = Vector3.down;
+			Ray ray = new Ray(rayStartPos, dir);
+			Debug.DrawRay(rayStartPos, dir * 0.16f * scaleFactor, Color.blue);
 			RaycastHit hitInfo;
-			Physics.Raycast(ray, out hitInfo, 15f);
+			Physics.Raycast(ray, out hitInfo, 0.16f * scaleFactor);
 
 			if (hitInfo.transform)
 			{
-				float angle = Vector3.Angle(Vector3.up, hitInfo.normal);
-				if (angle > maxSlopeAngle)
+				float dot = Vector3.Dot(Vector3.up, hitInfo.normal);
+
+				if (dot > 0.7f)
 				{
 					//worldMoveDir = Vector3.zero;
-					velocity = Vector3.zero;
-					rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+					//velocity = Vector3.zero;
+					rb.velocity = Vector3.zero;
 				}
 			}
 		}
@@ -127,11 +130,15 @@ public class MechMovement : MechComponent
 		//Animation speed follows actual mech speed
 		float animSpeed = 1f;
 
+		//Vector3 actualVelocity = mech.transform.position - lastPos;
+		print(velocity);
 		if (moving)
 		{
-			animSpeed = rb.velocity.magnitude / scaleFactor * animationSpeedFactor;
+			animSpeed = velocity.magnitude / scaleFactor * animationSpeedFactor;
 		}
 		animator.SetFloat("MoveSpeed", animSpeed);
+
+		lastPos = mech.transform.position;
 	}
 
 	public void RunComponentFixed()
@@ -139,13 +146,14 @@ public class MechMovement : MechComponent
 		//------------------ MOVING ------------------\\
 		//Apply the velocity on X and Z axis, and regular y velocity (gravity) from rigidbody.
 
-		Vector3 gravityVector = Vector3.up * rb.velocity.y;
+		//Vector3 gravityVector = Vector3.up * rb.velocity.y;
 
 		//Depending on base move speed and available energy
 		Vector3 moveVectorXZ = velocity * moveSpeed * energyManager.energies[HELM_INDEX] * scaleFactor * Time.deltaTime;
 		moveVectorXZ.y = 0f;
 
-		rb.velocity = moveVectorXZ + gravityVector;
+		mech.transform.position += moveVectorXZ * 0.02f;
+		//rb.velocity = moveVectorXZ + gravityVector;
 	}
 
 	public void RunComponent()
