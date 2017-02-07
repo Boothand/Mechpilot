@@ -43,7 +43,7 @@ public class ArmStaggerState : MechComponent
 		Quaternion newWorldRot = Quaternion.LookRotation(newSwordDir, mech.transform.forward);
 
 		//Transform to local space
-		Quaternion newLocalRot = Quaternion.Inverse(mech.transform.rotation) * newWorldRot;
+		Quaternion newLocalRot = Quaternion.Inverse(mech.transform.rotation) * newWorldRot * Quaternion.Euler(0, 0, 90);
 
 		//Debug.DrawLine(arms.getWeapon.getSwordTip.position, newTipPos, Color.black);
 
