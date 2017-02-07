@@ -131,7 +131,6 @@ public class MechMovement : MechComponent
 		float animSpeed = 1f;
 
 		//Vector3 actualVelocity = mech.transform.position - lastPos;
-		print(velocity);
 		if (moving)
 		{
 			animSpeed = velocity.magnitude / scaleFactor * animationSpeedFactor;

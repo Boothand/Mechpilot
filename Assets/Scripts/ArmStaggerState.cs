@@ -6,14 +6,22 @@ public class ArmStaggerState : MechComponent
 	[SerializeField] float staggerBeginRotSpeed = 3f;
 	[SerializeField] float staggerEndRotSpeed = 3f;
 
-	[SerializeField] float blockStaggerBeginRotSpeed = 6f;
-	[SerializeField] float blockStaggerEndRotSpeed = 6f;
+	[SerializeField] float blockBeginRotSpeed = 6f;
+	[SerializeField] float blockEndRotSpeed = 6f;
+
+	[SerializeField] float blockMultiplier = 0.08f;
+	[SerializeField] float clashMultiplier = 0.12f;
+	[SerializeField] float blockedMultiplier = 0.25f;
+
+	public float getBlockMultiplier { get { return blockMultiplier; } }
+	public float getBlockedMultiplier { get { return blockedMultiplier; } }
+	public float getClashMultiplier { get { return clashMultiplier; } }
 
 	public float getStaggerBeginRotSpeed { get { return staggerBeginRotSpeed; } }
 	public float getStaggerEndRotSpeed { get { return staggerEndRotSpeed; } }
 
-	public float getBlockStaggerBeginRotSpeed { get { return blockStaggerBeginRotSpeed; } }
-	public float getBlockStaggerEndRotSpeed { get { return blockStaggerEndRotSpeed; } }
+	public float getBlockStaggerBeginRotSpeed { get { return blockBeginRotSpeed; } }
+	public float getBlockStaggerEndRotSpeed { get { return blockEndRotSpeed; } }
 
 	protected override void OnAwake()
 	{
