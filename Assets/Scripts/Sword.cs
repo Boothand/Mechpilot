@@ -41,6 +41,7 @@ public class Sword : Collidable
 	void Update()
 	{
 		swordTipVelocity = swordTip.position - lastPos;
+		swordTipVelocity *= scaleFactor;
 
 		lastPos = swordTip.position;
 	}

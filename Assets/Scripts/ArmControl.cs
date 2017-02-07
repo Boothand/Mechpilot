@@ -87,7 +87,7 @@ public class ArmControl : MechComponent
 	{
 		Sword mySword = arms.getWeapon;
 		Collidable other = col.transform.GetComponent<Collidable>();
-		float myImpact = mySword.swordTipVelocity.magnitude * 7.5f;
+		float myImpact = mySword.swordTipVelocity.magnitude / 300f;
 
 		if (other)
 		{
@@ -97,7 +97,7 @@ public class ArmControl : MechComponent
 
 				Sword otherSword = other as Sword;
 				State otherPrevState = otherSword.arms.armControl.prevState;
-				float theirImpact = otherSword.swordTipVelocity.magnitude * 7.5f;
+				float theirImpact = otherSword.swordTipVelocity.magnitude / 300f;
 
 				float impact = theirImpact + myImpact;
 				impact = Mathf.Clamp01(impact);
@@ -118,7 +118,7 @@ public class ArmControl : MechComponent
 						otherPrevState == State.WindedUp)
 					{
 						StopAllCoroutines();
-						StartCoroutine(StaggerRoutine(otherSword, 10, arms.armStaggerState.getStaggerEndRotSpeed));
+						StartCoroutine(StaggerRoutine(otherSword, 0.25f, arms.armStaggerState.getStaggerEndRotSpeed));
 					}
 
 					//If both swords attack and clash
@@ -126,7 +126,7 @@ public class ArmControl : MechComponent
 					{
 						print("Attacks clashed in air");
 						StopAllCoroutines();
-						StartCoroutine(StaggerRoutine(otherSword, 5f, arms.armStaggerState.getStaggerEndRotSpeed));
+						StartCoroutine(StaggerRoutine(otherSword, 0.12f, arms.armStaggerState.getStaggerEndRotSpeed));
 					}
 				}
 
@@ -136,13 +136,13 @@ public class ArmControl : MechComponent
 					state == State.AttackRetract)
 				{
 					StopAllCoroutines();
-					StartCoroutine(StaggerRoutine(otherSword, 3f, arms.armStaggerState.getBlockStaggerEndRotSpeed));
+					StartCoroutine(StaggerRoutine(otherSword, 0.08f, arms.armStaggerState.getBlockStaggerEndRotSpeed));
 				}
 
 				if (state == State.WindedUp)
 				{
 					StopAllCoroutines();
-					StartCoroutine(StaggerRoutine(otherSword, 3f, arms.armStaggerState.getBlockStaggerEndRotSpeed / 2, true));
+					StartCoroutine(StaggerRoutine(otherSword, 0.08f, arms.armStaggerState.getBlockStaggerEndRotSpeed / 2, true));
 				}
 				#endregion
 			}
@@ -151,9 +151,8 @@ public class ArmControl : MechComponent
 				//If I hit anything else than a sword
 				if (state == State.Attack)
 				{
-					print("Hit something else");
 					StopAllCoroutines();
-					StartCoroutine(StaggerRoutine(null, myImpact, arms.armStaggerState.getStaggerEndRotSpeed));
+					StartCoroutine(StaggerRoutine(null, myImpact / 30f, arms.armStaggerState.getStaggerEndRotSpeed));
 				}
 			}
 		}
@@ -234,7 +233,7 @@ public class ArmControl : MechComponent
 		state = State.WindedUp;
 	}
 
-	IEnumerator SwingRoutine2()
+	IEnumerator SwingRoutine()
 	{
 		rotationTimer = 0f;
 
@@ -259,59 +258,6 @@ public class ArmControl : MechComponent
 		}
 
 		state = State.Defend;
-	}
-
-	IEnumerator SwingRoutine()
-	{
-		//rotationTimer = 0f;
-
-		////Wait until done winding up
-		//while (rotationTimer < 1f)
-		//{
-		//	fromRotation = handSideRotation;
-		//	toRotation = targetWindupRotation;
-		//	rotationTimer += Time.deltaTime * arms.armWindupState.getWindupRotSpeed * energyManager.energies[ARMS_INDEX];
-		//	yield return null;
-		//}
-
-		//state = State.WindedUp;
-		rotationTimer = 0f;
-
-		//Wait until you're done holding attack
-		while (input.attack)
-		{
-			fromRotation = targetWindupRotation;
-			toRotation = targetAttackRotation;
-
-			yield return null;
-		}
-
-		fromRotation = targetWindupRotation;
-		toRotation = targetAttackRotation;
-
-		//Wait until end of attack
-		//state = State.Attack;
-		//while (rotationTimer < 1f)
-		//{
-		//	rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * energyManager.energies[ARMS_INDEX];
-		//	yield return null;
-		//}
-
-		////The time to wait before retracting
-		//yield return new WaitForSeconds(0.25f);
-
-		////Retract
-		//rotationTimer = 0f;
-		//state = State.AttackRetract;
-		//while (rotationTimer < 1f)
-		//{
-		//	fromRotation = targetAttackRotation;
-		//	toRotation = handSideRotation;
-		//	rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * 1.3f * energyManager.energies[ARMS_INDEX];
-		//	yield return null;
-		//}
-
-		//state = State.Defend;
 	}
 
 	void SetTargetPos()
@@ -383,7 +329,7 @@ public class ArmControl : MechComponent
 			{
 				state = State.Attack;
 				StopAllCoroutines();
-				StartCoroutine(SwingRoutine2());
+				StartCoroutine(SwingRoutine());
 			}
 		}
 
