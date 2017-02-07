@@ -71,27 +71,27 @@ public class MechMovement : MechComponent
 		//Debug.DrawRay(hierarchy.head.position, worldMoveDir * scaleFactor);
 
 
-		if (true)//rb.velocity.y > 0.001f)
-		{
-			Vector3 rayStartPos = mech.transform.position + Vector3.up * 0.02f * scaleFactor;
-			Vector3 dir = Vector3.down;
-			Ray ray = new Ray(rayStartPos, dir);
-			Debug.DrawRay(rayStartPos, dir * 0.16f * scaleFactor, Color.blue);
-			RaycastHit hitInfo;
-			Physics.Raycast(ray, out hitInfo, 0.16f * scaleFactor);
+		//if (true)//rb.velocity.y > 0.001f)
+		//{
+		//	Vector3 rayStartPos = mech.transform.position + Vector3.up * 0.02f * scaleFactor;
+		//	Vector3 dir = Vector3.down;
+		//	Ray ray = new Ray(rayStartPos, dir);
+		//	Debug.DrawRay(rayStartPos, dir * 0.16f * scaleFactor, Color.blue);
+		//	RaycastHit hitInfo;
+		//	Physics.Raycast(ray, out hitInfo, 0.16f * scaleFactor);
 
-			if (hitInfo.transform)
-			{
-				float dot = Vector3.Dot(Vector3.up, hitInfo.normal);
+		//	if (hitInfo.transform)
+		//	{
+		//		float dot = Vector3.Dot(Vector3.up, hitInfo.normal);
 
-				if (dot > 0.7f)
-				{
-					//worldMoveDir = Vector3.zero;
-					//velocity = Vector3.zero;
-					rb.velocity = Vector3.zero;
-				}
-			}
-		}
+		//		if (dot > 0.7f)
+		//		{
+		//			//worldMoveDir = Vector3.zero;
+		//			//velocity = Vector3.zero;
+		//			rb.velocity = Vector3.zero;
+		//		}
+		//	}
+		//}
 
 		//Move velocity towards the desired direction, with a set acceleration
 		Vector3 vel = Vector3.MoveTowards(velocity, worldMoveDir, Time.deltaTime * accelerationSpeed);
@@ -145,14 +145,18 @@ public class MechMovement : MechComponent
 		//------------------ MOVING ------------------\\
 		//Apply the velocity on X and Z axis, and regular y velocity (gravity) from rigidbody.
 
-		//Vector3 gravityVector = Vector3.up * rb.velocity.y;
+		Vector3 gravityVector = Vector3.up * rb.velocity.y;
 
 		//Depending on base move speed and available energy
 		Vector3 moveVectorXZ = velocity * moveSpeed * energyManager.energies[HELM_INDEX] * scaleFactor * Time.deltaTime;
 		moveVectorXZ.y = 0f;
 
-		mech.transform.position += moveVectorXZ * 0.02f;
-		//rb.velocity = moveVectorXZ + gravityVector;
+		//mech.transform.position += moveVectorXZ * 0.02f;
+		//rb.MovePosition(mech.transform.position + moveVectorXZ * 0.02f);
+		gravityVector.y = Mathf.Clamp(gravityVector.y, -10f, 0f);
+		rb.velocity = moveVectorXZ + gravityVector;
+
+		//rb.AddForce(moveVectorXZ);
 	}
 
 	public void RunComponent()
@@ -168,7 +172,7 @@ public class MechMovement : MechComponent
 
 
 		//Prevent unwanted sliding by switching out the physic material
-		capsuleCol.material = GetAppropriatePhysicMaterial();
+		//capsuleCol.material = GetAppropriatePhysicMaterial();
 
 		//Walk animation
 		DoWalkAnimation();
