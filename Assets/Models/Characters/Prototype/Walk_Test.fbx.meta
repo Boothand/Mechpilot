@@ -532,7 +532,7 @@ ModelImporter:
       name: Crouch Idle
       takeName: Take 001
       firstFrame: 101
-      lastFrame: 160
+      lastFrame: 159
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

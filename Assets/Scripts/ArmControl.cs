@@ -334,6 +334,10 @@ public class ArmControl : MechComponent
 				rTargetPos = attackPos;
 				break;
 
+			case State.AttackRetract:
+				rTargetPos = blockPos;
+				break;
+
 			case State.Staggered:
 				//See StaggerRoutine
 				break;
@@ -357,6 +361,7 @@ public class ArmControl : MechComponent
 
 		if (state == State.Defend)
 		{
+			rotationTimer = 0f;
 			fromRotation = handSideRotation;
 			toRotation = targetWindupRotation;
 
@@ -389,7 +394,7 @@ public class ArmControl : MechComponent
 
 		if (state == State.StaggeredEnd)
 		{
-			zPosBlendSpeedToUse = 0.5f;
+			zPosBlendSpeedToUse /= 6;
 			xyPosBlendSpeedToUse *= 0.3f;
 		}
 
@@ -401,17 +406,16 @@ public class ArmControl : MechComponent
 		//Lerp Z position separately
 		localIKPos.x = Mathf.Lerp(localIKPos.x, localTargetPos.x, xyLerpFactor);
 		localIKPos.y = Mathf.Lerp(localIKPos.y, localTargetPos.y, xyLerpFactor);
-		localIKPos.z = Mathf.Lerp(localIKPos.z, localTargetPos.z, Time.deltaTime * zPosBlendSpeedToUse);
+		localIKPos.z = Mathf.Lerp(localIKPos.z, localTargetPos.z, Time.deltaTime * zPosBlendSpeedToUse * scaleFactor);
 
 		//Set final position
 		rHandIKTarget.localPosition = localIKPos;
 
 		lHandIKTarget.position = lHandTarget.position;
 
-
 		//------------ ROTATION ------------\\
 		Quaternion finalTargetRotation = Quaternion.Lerp(fromRotation, toRotation, rotationTimer);	//Interpolate
-		finalRotation = Quaternion.Lerp(finalRotation, finalTargetRotation, Time.deltaTime * rotationBlendSpeed);   //Smooth
+		finalRotation = Quaternion.Lerp(finalRotation, finalTargetRotation, Time.deltaTime * rotationBlendSpeed * scaleFactor);   //Smooth
 		
 		//Set final rotation
 		rHandIKTarget.localRotation = finalRotation;
