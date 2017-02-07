@@ -88,6 +88,7 @@ public class ArmControl : MechComponent
 		Sword mySword = arms.getWeapon;
 		Collidable other = col.transform.GetComponent<Collidable>();
 		float myImpact = mySword.swordTipVelocity.magnitude / 300f;
+		ArmStaggerState stagg = arms.armStaggerState;
 
 		if (other)
 		{
@@ -118,31 +119,33 @@ public class ArmControl : MechComponent
 						otherPrevState == State.WindedUp)
 					{
 						StopAllCoroutines();
-						StartCoroutine(StaggerRoutine(otherSword, 0.25f, arms.armStaggerState.getStaggerEndRotSpeed));
+						StartCoroutine(StaggerRoutine(otherSword, stagg.getBlockedMultiplier, stagg.getStaggerEndRotSpeed));
 					}
 
 					//If both swords attack and clash
 					if (otherPrevState == State.Attack)
 					{
-						print("Attacks clashed in air");
 						StopAllCoroutines();
-						StartCoroutine(StaggerRoutine(otherSword, 0.12f, arms.armStaggerState.getStaggerEndRotSpeed));
+						StartCoroutine(StaggerRoutine(otherSword, stagg.getClashMultiplier, stagg.getStaggerEndRotSpeed));
 					}
 				}
 
-				//Staggering when I'm defending:
-				if (state == State.Defend ||
-					state == State.WindUp ||
-					state == State.AttackRetract)
+				if (otherPrevState == State.Attack)
 				{
-					StopAllCoroutines();
-					StartCoroutine(StaggerRoutine(otherSword, 0.08f, arms.armStaggerState.getBlockStaggerEndRotSpeed));
-				}
+					//Staggering when I'm defending:
+					if (state == State.Defend ||
+						state == State.WindUp ||
+						state == State.AttackRetract)
+					{
+						StopAllCoroutines();
+						StartCoroutine(StaggerRoutine(otherSword, stagg.getBlockMultiplier, stagg.getBlockStaggerEndRotSpeed));
+					}
 
-				if (state == State.WindedUp)
-				{
-					StopAllCoroutines();
-					StartCoroutine(StaggerRoutine(otherSword, 0.08f, arms.armStaggerState.getBlockStaggerEndRotSpeed / 2, true));
+					if (state == State.WindedUp)
+					{
+						StopAllCoroutines();
+						StartCoroutine(StaggerRoutine(otherSword, stagg.getBlockMultiplier, stagg.getBlockStaggerEndRotSpeed / 2, true));
+					}
 				}
 				#endregion
 			}
@@ -152,7 +155,7 @@ public class ArmControl : MechComponent
 				if (state == State.Attack)
 				{
 					StopAllCoroutines();
-					StartCoroutine(StaggerRoutine(null, myImpact / 30f, arms.armStaggerState.getStaggerEndRotSpeed));
+					StartCoroutine(StaggerRoutine(null, myImpact / 30f, stagg.getStaggerEndRotSpeed));
 				}
 			}
 		}
