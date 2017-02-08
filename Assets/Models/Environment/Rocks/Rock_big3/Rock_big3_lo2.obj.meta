@@ -7,11 +7,16 @@ ModelImporter:
   fileIDToRecycleName:
     100000: pCube1_0
     100002: //RootNode
+    100004: Rock_big3_MUDlolo:pCube1_0
     400000: pCube1_0
     400002: //RootNode
+    400004: Rock_big3_MUDlolo:pCube1_0
     2300000: pCube1_0
+    2300002: Rock_big3_MUDlolo:pCube1_0
     3300000: pCube1_0
+    3300002: Rock_big3_MUDlolo:pCube1_0
     4300000: pCube1_0
+    4300002: Rock_big3_MUDlolo:pCube1_0
   materials:
     importMaterials: 1
     materialName: 0
