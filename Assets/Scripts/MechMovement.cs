@@ -133,7 +133,7 @@ public class MechMovement : MechComponent
 		//Vector3 actualVelocity = mech.transform.position - lastPos;
 		if (moving)
 		{
-			animSpeed = velocity.magnitude / scaleFactor * animationSpeedFactor;
+			animSpeed = rb.velocity.magnitude / scaleFactor * animationSpeedFactor;
 		}
 		animator.SetFloat("MoveSpeed", animSpeed);
 
