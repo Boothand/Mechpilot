@@ -244,6 +244,13 @@ public class ArmControl : MechComponent
 		while (rotationTimer < 1f)
 		{
 			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * energyManager.energies[ARMS_INDEX];
+			
+			//Feint
+			if (input.attack && rotationTimer < 0.7f)
+			{
+				state = State.Defend;
+				yield break;
+			}
 			yield return null;
 		}
 
