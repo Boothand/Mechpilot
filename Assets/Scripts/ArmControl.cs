@@ -116,7 +116,8 @@ public class ArmControl : MechComponent
 					//If they block my attack
 					if (otherPrevState == State.Defend ||
 						otherPrevState == State.WindUp ||
-						otherPrevState == State.WindedUp)
+						otherPrevState == State.WindedUp ||
+						otherPrevState == State.AttackRetract)
 					{
 						StopAllCoroutines();
 						StartCoroutine(StaggerRoutine(otherSword, stagg.getBlockedMultiplier, stagg.getStaggerEndRotSpeed));
