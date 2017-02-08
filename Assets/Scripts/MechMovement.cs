@@ -28,13 +28,23 @@ public class MechMovement : MechComponent
 
 	//Flags
 	public bool moving { get; private set; }
+	public bool grounded { get; private set; }
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 
 		capsuleCol = mech.GetComponent<CapsuleCollider>();
+	}
 
+	void OnCollisionStay()
+	{
+		grounded = true;
+	}
+
+	void OnCollisionExit()
+	{
+		grounded = false;
 	}
 
 	Vector3 BuildVelocity() //Return value just for increased readability in the Update-loop
@@ -140,7 +150,7 @@ public class MechMovement : MechComponent
 		lastPos = mech.transform.position;
 	}
 
-	public void RunComponentFixed()
+	void FixedUpdate()
 	{
 		//------------------ MOVING ------------------\\
 		//Apply the velocity on X and Z axis, and regular y velocity (gravity) from rigidbody.
@@ -154,12 +164,13 @@ public class MechMovement : MechComponent
 		//mech.transform.position += moveVectorXZ * 0.02f;
 		//rb.MovePosition(mech.transform.position + moveVectorXZ * 0.02f);
 		gravityVector.y = Mathf.Clamp(gravityVector.y, -10f, 0f);
-		rb.velocity = moveVectorXZ + gravityVector;
+		rb.velocity = new Vector3(moveVectorXZ.x, rb.velocity.y, moveVectorXZ.z);
+		//rb.velocity = moveVectorXZ + gravityVector;
 
 		//rb.AddForce(moveVectorXZ);
 	}
 
-	public void RunComponent()
+	void Update()
 	{
 		//------------------ MOVING ------------------\\
 

@@ -18,14 +18,14 @@ public class Helm : MechComponent
 
 	void FixedUpdate()
 	{
-		move.RunComponentFixed();
+		//move.RunComponentFixed();
 	}
 
 	void Update ()
 	{
 		//------------------ MOVING / TURNING THE BODY ------------------\\
 
-		move.RunComponent();
+		//move.RunComponent();
 
 		//------------------ LOOKING AROUND / ROTATING HEAD ------------------\\
 		headRotation.RunComponent();
