@@ -17,6 +17,8 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public float crouchAxis;
 	[HideInInspector] public bool dodge;
 	[HideInInspector] public bool dash;
+	[HideInInspector] public bool kick;
+	[HideInInspector] public float run;
 
 	[HideInInspector] public bool giveToWeapons;
 	[HideInInspector] public bool takeFromWeapons;

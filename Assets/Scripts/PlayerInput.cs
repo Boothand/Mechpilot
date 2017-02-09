@@ -21,6 +21,9 @@ public class PlayerInput : AbstractInput
 		lookHorz = helmPlayer.GetAxis("Look Horizontal");
 		lookVert = helmPlayer.GetAxis("Look Vertical");
 		crouchAxis = helmPlayer.GetAxis("Crouch");
+		dash = helmPlayer.GetButtonDown("Dash");
+		kick = helmPlayer.GetButtonDown("Kick");
+		run = helmPlayer.GetAxis("Run");
 
 		lArmHorz = armsPlayer.GetAxis("Move Left Arm X");
 		lArmVert = armsPlayer.GetAxis("Move Left Arm Y");
@@ -28,6 +31,7 @@ public class PlayerInput : AbstractInput
 		rArmVert = armsPlayer.GetAxis("Move Right Arm Y");
 
 		rArmRot = armsPlayer.GetAxis("Rotate Hand");
+
 
 		attack = armsPlayer.GetButton("Wind Up Attack");
 

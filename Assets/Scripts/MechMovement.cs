@@ -103,10 +103,16 @@ public class MechMovement : MechComponent
 		//	}
 		//}
 
+		dasher.RunComponent(ref velocity);
+
+		//if (velocity.magnitude > 0.01f)
+		//{
+		//	print(velocity);
+		//}
 		//Move velocity towards the desired direction, with a set acceleration
 		Vector3 vel = Vector3.MoveTowards(velocity, worldMoveDir, Time.deltaTime * accelerationSpeed);
 
-		vel = Vector3.ClampMagnitude(vel, 1f);
+		//vel = Vector3.ClampMagnitude(vel, 1f);
 		return vel;
 	}
 
