@@ -20,7 +20,7 @@ public class EnergyGiveTake : MechComponent
 		{
 			giveEnergyInput = input.giveToPilot;
 			takeEnergyInput = input.takeFromPilot;
-			otherType = EnergyManager.EnergyComponents.Helm;
+			otherType = EnergyManager.EnergyComponents.Pilot;
 		}
 
 		float amount = 0.10f;

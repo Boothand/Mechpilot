@@ -9,13 +9,13 @@ public class MechComponent : ManagedMechBehaviour
 	protected BodyHierarchy hierarchy;
 	protected Rigidbody rb;
 	protected AbstractInput input;
-	protected Helm helm;
+	protected Pilot pilot;
 	protected Engineer engineer;
 	public WeaponsOfficer arms { get; protected set; }
 	protected EnergyManager energyManager;
 	protected Dasher dasher;
 
-	protected const int HELM_INDEX = 0;
+	protected const int PILOT_INDEX = 0;
 	protected const int ARMS_INDEX = 1;
 
 	protected float scaleFactor { get; private set; }
@@ -31,7 +31,7 @@ public class MechComponent : ManagedMechBehaviour
 		hierarchy = mech.GetComponent<BodyHierarchy>();
 		rb = mech.GetComponent<Rigidbody>();
 		input = mech.GetComponent<AbstractInput>();
-		helm = mech.transform.root.GetComponentInChildren<Helm>();
+		pilot = mech.transform.root.GetComponentInChildren<Pilot>();
 		engineer = mech.transform.root.GetComponentInChildren<Engineer>();
 		arms = mech.transform.root.GetComponentInChildren<WeaponsOfficer>();
 		energyManager = mech.transform.root.GetComponentInChildren<EnergyManager>();

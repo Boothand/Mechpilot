@@ -2,7 +2,7 @@
 using System.Collections;
 
 //Responsible for all movement of the mech, including crouching, dodging and dashing, and syncing those animations.
-public class Helm : MechComponent
+public class Pilot : MechComponent
 {
 	//Auto-find references
 	public HeadRotation headRotation { get; private set; }

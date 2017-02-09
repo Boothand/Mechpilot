@@ -251,6 +251,7 @@ public class ArmControl : MechComponent
 				state = State.Defend;
 				yield break;
 			}
+
 			yield return null;
 		}
 

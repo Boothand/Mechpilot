@@ -5,15 +5,15 @@ public class EnergyManager : MechComponent
 {
 	public enum EnergyComponents
 	{
-		Helm,
+		Pilot,
 		Weapons
 	}
 
 	public float[] energies { get; private set; }
-	int helmIndex = (int)EnergyComponents.Helm;
+	int pilotIndex = (int)EnergyComponents.Pilot;
 	int weaponsIndex = (int)EnergyComponents.Weapons;
 
-	public int getHelmIndex { get { return helmIndex; } }
+	public int getHelmIndex { get { return pilotIndex; } }
 	public int getWeaponsIndex { get { return weaponsIndex; } }
 
 	public float energySum { get { return energies[0] + energies[1]; } }
@@ -26,7 +26,7 @@ public class EnergyManager : MechComponent
 
 		energies = new float[2];
 
-		energies[helmIndex] = 0.5f;
+		energies[pilotIndex] = 0.5f;
 		energies[weaponsIndex] = 0.5f;
 	}
 

@@ -3,27 +3,27 @@ using Rewired;
 
 public class PlayerInput : AbstractInput
 {
-	protected Player helmPlayer;
+	protected Player pilotPlayer;
 	protected Player armsPlayer;
-	[SerializeField] int helmID = 0;
+	[SerializeField] int pilotID = 0;
 	[SerializeField] int armsID = 1;
 
 	void Awake()
 	{
-		helmPlayer = ReInput.players.GetPlayer(helmID);
+		pilotPlayer = ReInput.players.GetPlayer(pilotID);
 		armsPlayer = ReInput.players.GetPlayer(armsID);
 	}
 	
 	void Update ()
 	{
-		moveHorz = helmPlayer.GetAxis("Move Horizontal");
-		moveVert = helmPlayer.GetAxis("Move Vertical");
-		lookHorz = helmPlayer.GetAxis("Look Horizontal");
-		lookVert = helmPlayer.GetAxis("Look Vertical");
-		crouchAxis = helmPlayer.GetAxis("Crouch");
-		dash = helmPlayer.GetButtonDown("Dash");
-		kick = helmPlayer.GetButtonDown("Kick");
-		run = helmPlayer.GetAxis("Run");
+		moveHorz = pilotPlayer.GetAxis("Move Horizontal");
+		moveVert = pilotPlayer.GetAxis("Move Vertical");
+		lookHorz = pilotPlayer.GetAxis("Look Horizontal");
+		lookVert = pilotPlayer.GetAxis("Look Vertical");
+		crouchAxis = pilotPlayer.GetAxis("Crouch");
+		dash = pilotPlayer.GetButtonDown("Dash");
+		kick = pilotPlayer.GetButtonDown("Kick");
+		run = pilotPlayer.GetAxis("Run");
 
 		lArmHorz = armsPlayer.GetAxis("Move Left Arm X");
 		lArmVert = armsPlayer.GetAxis("Move Left Arm Y");
@@ -37,8 +37,8 @@ public class PlayerInput : AbstractInput
 
 		giveToPilot = armsPlayer.GetButtonDown("Give Pilot Energy");
 		takeFromPilot = armsPlayer.GetButtonDown("Take Energy From Pilot");
-		giveToWeapons = helmPlayer.GetButtonDown("Give Weapons Energy");
-		takeFromWeapons = helmPlayer.GetButtonDown("Take Energy From Weapons");
+		giveToWeapons = pilotPlayer.GetButtonDown("Give Weapons Energy");
+		takeFromWeapons = pilotPlayer.GetButtonDown("Take Energy From Weapons");
 
 
 		droneSide = armsPlayer.GetAxis("Scout Drone Horizontal");
