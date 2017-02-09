@@ -4,7 +4,6 @@ using UnityEngine;
 public class AI_Movement : AI_MechComponent
 {
 	[SerializeField] float turnHeadSpeed = 1f;
-	[SerializeField] float combatDistance = 1.5f;
 
 	protected override void OnAwake()
 	{
@@ -29,23 +28,15 @@ public class AI_Movement : AI_MechComponent
 		}
 	}
 
-	bool FacingTarget(Vector3 target)
-	{
-		if (enemyFrontDot > 0.95f)
-		{
-			return true;
-		}
-
-		return false;
-	}
-
 	void WalkForward()
 	{
 		input.moveVert = 1f;
 	}
 
-	void Update()
+	protected override void Update()
 	{
+		base.Update();
+
 		input.moveVert = 0f;
 		input.moveHorz = 0f;
 		input.lookHorz = 0f;
@@ -54,8 +45,7 @@ public class AI_Movement : AI_MechComponent
 		TurnHeadTowards(enemy.transform.position);
 
 		//Walk to him
-		if (distanceToEnemy > combatDistance ||
-			!FacingTarget(enemy.transform.position))
+		if (!CanSwingAtEnemy(enemy.transform))
 		{
 			WalkForward();
 		}

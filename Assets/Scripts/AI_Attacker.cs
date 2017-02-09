@@ -5,14 +5,26 @@ public class AI_Attacker : AI_MechComponent
 {
 	Vector3 localHandBasePos;
 
+	public enum CombatState
+	{
+		Defend,
+		Attack
+	}
+	public CombatState combatState { get; private set; }
+
+	bool inAttackRoutine;
+
+
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
+		combatState = CombatState.Attack;
 	}
 
 	void Start()
 	{
-		StartCoroutine(AttackRoutine());
+
 	}
 
 	Vector3 DecideWindupPosition()
@@ -79,47 +91,67 @@ public class AI_Attacker : AI_MechComponent
 
 	IEnumerator AttackRoutine()
 	{
-		while (true)
+		inAttackRoutine = true;
+		input.attack = true;
+
+		Vector3 attackPos = DecideWindupPosition();
+		float attackAngle = DecideWindupRotation();
+
+		float aTimer = 0f;
+		while (arms.armControl.state != ArmControl.State.WindedUp)
 		{
-			input.attack = true;
-
-			Vector3 attackPos = DecideWindupPosition();
-			float attackAngle = DecideWindupRotation();
-
-			float aTimer = 0f;
-			while (arms.armControl.state != ArmControl.State.WindedUp)
-			{
-				aTimer += Time.deltaTime;
-				MoveHandsToPos(attackPos);
-				RotateHandsToAngle(attackAngle);
-				yield return null;
-			}
-
-			//StopArms();
-			StopHandRotation();
-
-			yield return new WaitForSeconds(0.2f);
-
-			input.attack = false;
-
-			Vector3 dir = localHandBasePos - attackPos;
-
-			while (arms.armControl.state != ArmControl.State.Defend)
-			{
-				MoveHandsInDirection(dir);
-				yield return null;
-			}
-
-
-			StopArms();
-
-			yield return new WaitForSeconds(0.3f);
+			aTimer += Time.deltaTime;
+			MoveHandsToPos(attackPos);
+			RotateHandsToAngle(attackAngle);
+			yield return null;
 		}
+
+		//StopArms();
+		StopHandRotation();
+
+		yield return new WaitForSeconds(0.2f);
+
+		input.attack = false;
+
+		Vector3 dir = localHandBasePos - attackPos;
+
+		while (arms.armControl.state != ArmControl.State.Defend)
+		{
+			MoveHandsInDirection(dir);
+			yield return null;
+		}
+
+		StopArms();
+
+		yield return new WaitForSeconds(0.3f);
+		inAttackRoutine = false;
 	}
 
-	void Update()
+	protected override void Update()
 	{
+		base.Update();
+		
 		Vector3 basePos = arms.armControl.handCenterPos;
 		localHandBasePos = mech.transform.InverseTransformPoint(basePos);
+
+		switch (combatState)
+		{
+			case CombatState.Defend:
+
+				break;
+
+			case CombatState.Attack:
+				if (!inAttackRoutine &&
+					CanSwingAtEnemy(enemy.transform))
+				{
+					StartCoroutine(AttackRoutine());
+				}
+				
+				if (!CanSwingAtEnemy(enemy.transform))
+				{
+					MoveHandsToPos(localHandBasePos);
+				}
+				break;
+		}
 	}
 }
