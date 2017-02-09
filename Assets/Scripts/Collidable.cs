@@ -13,7 +13,7 @@ public class Collidable : MechComponent
 		base.OnAwake();
 	}
 
-	protected bool IsInLayerMask(GameObject obj, LayerMask mask)
+	bool IsInLayerMask(GameObject obj, LayerMask mask)
 	{
 		int bit = (1 << obj.layer);
 
@@ -25,7 +25,13 @@ public class Collidable : MechComponent
 		return false;
 	}
 
-	void OnTriggerEnter(Collider col)
+	protected bool IsValid(GameObject obj)
+	{
+		return obj.transform.root != transform.root &&
+			IsInLayerMask(obj, layerMask);
+	}
+
+	protected virtual void OnTriggerEnter(Collider col)
 	{
 		if (col.transform.root != transform.root &&
 			IsInLayerMask(col.gameObject, layerMask))
