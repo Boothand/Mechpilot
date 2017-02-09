@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class BodyPart : Collidable
 {
+	public enum BodyGroup { Head, Body, Arms, Legs, NumBodyGroups }	
+	[SerializeField] BodyGroup bodyGroup;
+
 
 
 	protected override void OnAwake()
@@ -23,7 +26,7 @@ public class BodyPart : Collidable
 		{
 			if (swordHittingMe.arms.armControl.prevState == ArmControl.State.Attack)
 			{
-				print(transform.name + " got hit by a sword");
+				healthManager.GetHit(bodyGroup);
 			}
 		}
 	}

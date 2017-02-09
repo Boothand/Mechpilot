@@ -14,9 +14,10 @@ public class MechComponent : ManagedMechBehaviour
 	public WeaponsOfficer arms { get; protected set; }
 	protected EnergyManager energyManager;
 	protected Dasher dasher;
+	protected HealthManager healthManager;
 
 	protected const int PILOT_INDEX = 0;
-	protected const int ARMS_INDEX = 1;
+	protected const int WEAPONOFFICER_INDEX = 1;
 
 	protected float scaleFactor { get; private set; }
 
@@ -36,6 +37,7 @@ public class MechComponent : ManagedMechBehaviour
 		arms = mech.transform.root.GetComponentInChildren<WeaponsOfficer>();
 		energyManager = mech.transform.root.GetComponentInChildren<EnergyManager>();
 		dasher = mech.transform.root.GetComponentInChildren<Dasher>();
+		healthManager = mech.transform.root.GetComponentInChildren<HealthManager>();
 
 		scaleFactor = transform.root.localScale.y;
 		base.OnAwake();

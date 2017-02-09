@@ -230,7 +230,7 @@ public class ArmControl : MechComponent
 		{
 			fromRotation = handSideRotation;
 			toRotation = targetWindupRotation;
-			rotationTimer += Time.deltaTime * arms.armWindupState.getWindupRotSpeed * energyManager.energies[ARMS_INDEX];
+			rotationTimer += Time.deltaTime * arms.armWindupState.getWindupRotSpeed * energyManager.energies[WEAPONOFFICER_INDEX];
 			yield return null;
 		}
 
@@ -243,7 +243,7 @@ public class ArmControl : MechComponent
 
 		while (rotationTimer < 1f)
 		{
-			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * energyManager.energies[ARMS_INDEX];
+			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * energyManager.energies[WEAPONOFFICER_INDEX];
 			
 			//Feint
 			if (input.attack && rotationTimer < 0.7f)
@@ -265,7 +265,7 @@ public class ArmControl : MechComponent
 		{
 			fromRotation = targetAttackRotation;
 			toRotation = handSideRotation;
-			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * 1.3f * energyManager.energies[ARMS_INDEX];
+			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * 1.3f * energyManager.energies[WEAPONOFFICER_INDEX];
 			yield return null;
 		}
 
@@ -359,7 +359,7 @@ public class ArmControl : MechComponent
 		//------------ POSITION ------------\\
 		Vector3 localIKPos = rHandIKTarget.localPosition;
 		Vector3 localTargetPos = mech.transform.InverseTransformPoint(rTargetPos);
-		float xyLerpFactor = Time.deltaTime * xyPosBlendSpeedToUse * energyManager.energies[ARMS_INDEX] * scaleFactor;
+		float xyLerpFactor = Time.deltaTime * xyPosBlendSpeedToUse * energyManager.energies[WEAPONOFFICER_INDEX] * scaleFactor;
 		
 		//Lerp Z position separately
 		localIKPos.x = Mathf.Lerp(localIKPos.x, localTargetPos.x, xyLerpFactor);
