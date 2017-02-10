@@ -164,7 +164,7 @@ public class MechMovement : MechComponent
 		Vector3 gravityVector = Vector3.up * rb.velocity.y;
 
 		//Depending on base move speed and available energy
-		Vector3 moveVectorXZ = velocity * moveSpeed * energyManager.energies[PILOT_INDEX] * scaleFactor * Time.deltaTime;
+		Vector3 moveVectorXZ = velocity * moveSpeed * scaleFactor * Time.deltaTime;
 		moveVectorXZ.y = 0f;
 
 		//mech.transform.position += moveVectorXZ * 0.02f;
