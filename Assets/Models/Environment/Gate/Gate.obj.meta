@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 38131996c37fb23468ae9392a1d53847
-timeCreated: 1485182635
+guid: cc7d3eb671fdecc47a676b5d6f98c10b
+timeCreated: 1486721663
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -12,7 +12,6 @@ ModelImporter:
     2300000: Gate_geo1
     3300000: Gate_geo1
     4300000: Gate_geo1
-    6400000: Gate_geo1
   materials:
     importMaterials: 1
     materialName: 0
@@ -39,7 +38,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
