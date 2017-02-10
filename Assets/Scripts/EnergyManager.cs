@@ -34,7 +34,11 @@ public class EnergyManager : MechComponent
 		//Regenerate
 		if (stamina < maxStamina)
 		{
-			stamina += Time.deltaTime * regenerationSpeed;
+			if (arms.armControl.state != ArmControl.State.Attack &&
+				arms.armControl.state != ArmControl.State.AttackRetract)
+			{
+				stamina += Time.deltaTime * regenerationSpeed;
+			}
 		}
 
 		stamina = Mathf.Clamp(stamina, 0f, maxStamina);

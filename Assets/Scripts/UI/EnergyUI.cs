@@ -18,7 +18,7 @@ public class EnergyUI : MechComponent
 			Vector3 staminaScale = staminaBar.transform.localScale;
 
 			float targetScale = energyManager.stamina / energyManager.getMaxStamina;
-			staminaScale.y = Mathf.Lerp(staminaScale.y, targetScale, Time.deltaTime * 2f);
+			staminaScale.y = Mathf.Lerp(staminaScale.y, targetScale, Time.deltaTime * 4f);
 
 			staminaBar.transform.localScale = staminaScale;
 		}
