@@ -5,6 +5,7 @@ public class Dasher : MechComponent
 {
 	public bool inDash { get; private set; }
 	[SerializeField] float dashForce = 20f;
+	[SerializeField] float staminaUsage = 20f;
 	Vector3 vel;
 
 	protected override void OnAwake()
@@ -20,6 +21,8 @@ public class Dasher : MechComponent
 		Vector3 inputVector = new Vector3(input.moveHorz, 0f, input.moveVert);
 		Vector3 worldDashDir = mech.transform.TransformDirection(inputVector).normalized;
 		newVel += worldDashDir * dashForce;
+
+		energyManager.SpendStamina(staminaUsage);
 
 		float timer = 0f;
 		while (timer < 0.4f)
@@ -40,11 +43,14 @@ public class Dasher : MechComponent
 		if (input.dash)
 		{
 			//inDash = true;
-			StopAllCoroutines();
-			StartCoroutine(DashRoutine(velocity, (returnValue) =>
+			if (energyManager.CanSpendStamina(staminaUsage))
 			{
-				vel = returnValue;
-			}));
+				StopAllCoroutines();
+				StartCoroutine(DashRoutine(velocity, (returnValue) =>
+				{
+					vel = returnValue;
+				}));
+			}
 		}
 
 		if (inDash)
