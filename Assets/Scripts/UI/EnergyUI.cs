@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EnergyUI : MechComponent
 {
-	[SerializeField] Image pilotEnergy, weaponsEnergy;
+	[SerializeField] Image staminaBar;
 
 	protected override void OnAwake()
 	{
@@ -13,13 +13,14 @@ public class EnergyUI : MechComponent
 
 	void Update()
 	{
-		Vector3 pilotScale = pilotEnergy.transform.localScale;
-		Vector3 weaponsScale = weaponsEnergy.transform.localScale;
+		if (mech && staminaBar)
+		{
+			Vector3 staminaScale = staminaBar.transform.localScale;
 
-		pilotScale.y = energyManager.energies[energyManager.getHelmIndex];
-		weaponsScale.y = energyManager.energies[energyManager.getWeaponsIndex];
+			float targetScale = energyManager.stamina / energyManager.getMaxStamina;
+			staminaScale.y = Mathf.Lerp(staminaScale.y, targetScale, Time.deltaTime * 4f);
 
-		pilotEnergy.transform.localScale = pilotScale;
-		weaponsEnergy.transform.localScale = weaponsScale;
+			staminaBar.transform.localScale = staminaScale;
+		}
 	}
 }

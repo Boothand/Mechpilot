@@ -164,7 +164,7 @@ public class MechMovement : MechComponent
 		Vector3 gravityVector = Vector3.up * rb.velocity.y;
 
 		//Depending on base move speed and available energy
-		Vector3 moveVectorXZ = velocity * moveSpeed * energyManager.energies[HELM_INDEX] * scaleFactor * Time.deltaTime;
+		Vector3 moveVectorXZ = velocity * moveSpeed * scaleFactor * Time.deltaTime;
 		moveVectorXZ.y = 0f;
 
 		//mech.transform.position += moveVectorXZ * 0.02f;
@@ -197,7 +197,7 @@ public class MechMovement : MechComponent
 		//Gradually tween mech's forward direction towards head's aim direction
 		if (moving)
 		{
-			mech.transform.forward = Vector3.Lerp(mech.transform.forward, helm.headRotation.lookDir, Time.deltaTime * 2f);
+			mech.transform.forward = Vector3.Lerp(mech.transform.forward, pilot.headRotation.lookDir, Time.deltaTime * 2f);
 		}
 	}
 }

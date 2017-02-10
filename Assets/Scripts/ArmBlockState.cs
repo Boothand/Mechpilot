@@ -52,7 +52,7 @@ public class ArmBlockState : MechComponent
 		}
 
 		//Add input values to XY position
-		rArmPos += inputVec * speedToUse * Time.deltaTime * energyManager.energies[ARMS_INDEX] * scaleFactor;
+		rArmPos += inputVec * speedToUse * Time.deltaTime * scaleFactor;
 
 		float inputVecMagnitude = inputVec.magnitude;
 
@@ -112,7 +112,7 @@ public class ArmBlockState : MechComponent
 		if (state != ArmControl.State.Attack &&
 			state != ArmControl.State.Staggered)
 		{
-			sideTargetAngle += factor * rotationInput * Time.deltaTime * rotationSpeed * energyManager.energies[ARMS_INDEX];
+			sideTargetAngle += factor * rotationInput * Time.deltaTime * rotationSpeed;
 		}
 
 		//Wrap

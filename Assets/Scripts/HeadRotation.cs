@@ -70,8 +70,8 @@ public class HeadRotation : MechComponent
 		float lookVertInput = Mathf.Clamp(input.lookVert, -maxTurnSpeed, maxTurnSpeed);
 
 		//Feed input values into the X and Y rotation of the aim base
-		targetRotation.x += lookHorzInput * energyManager.energies[HELM_INDEX] * Time.deltaTime * turnSpeed;
-		targetRotation.y += lookVertInput * energyManager.energies[HELM_INDEX] * Time.deltaTime * turnSpeed;
+		targetRotation.x += lookHorzInput * Time.deltaTime * turnSpeed;
+		targetRotation.y += lookVertInput * Time.deltaTime * turnSpeed;
 
 		headRotation.x = Mathf.Lerp(headRotation.x, targetRotation.x, Time.deltaTime * blendSpeed);
 		headRotation.y = Mathf.Lerp(headRotation.y, targetRotation.y, Time.deltaTime * blendSpeed);

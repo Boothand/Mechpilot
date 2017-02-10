@@ -23,7 +23,8 @@ public class ArmControl : MechComponent
 		Staggered,
 		StaggeredEnd,
 		BlockStaggered,
-		BlockStaggeredEnd
+		BlockStaggeredEnd,
+		GetHitStaggered
 	}
 	public State state { get; private set; }
 	public State prevState { get; private set; }
@@ -71,6 +72,7 @@ public class ArmControl : MechComponent
 	#endregion
 
 
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -81,6 +83,14 @@ public class ArmControl : MechComponent
 	{
 		arms.getWeapon.OnCollision -= SwordCollide;
 		arms.getWeapon.OnCollision += SwordCollide;
+		healthManager.OnGetHit -= OnGetHit;
+		healthManager.OnGetHit += OnGetHit;
+	}
+
+	void OnGetHit()
+	{
+		StopAllCoroutines();
+		StartCoroutine(GetHitStaggerRoutine());
 	}
 
 	void SwordCollide(Collider col)
@@ -162,6 +172,24 @@ public class ArmControl : MechComponent
 		}
 	}
 
+	IEnumerator GetHitStaggerRoutine()
+	{
+		state = State.GetHitStaggered;
+
+		fromRotation = rHandIKTarget.rotation;
+
+		rotationTimer = 0f;
+		while (rotationTimer < 1f)
+		{
+			rotationTimer += Time.deltaTime;
+			toRotation = handSideRotation;
+			yield return null;
+		}
+
+		rotationTimer = 0f;
+		state = State.Defend;
+	}
+
 	IEnumerator StaggerRoutine(Sword otherSword, float multiplier, float speed, bool gotoWindedUp = false)
 	{
 		state = State.Staggered;
@@ -230,7 +258,7 @@ public class ArmControl : MechComponent
 		{
 			fromRotation = handSideRotation;
 			toRotation = targetWindupRotation;
-			rotationTimer += Time.deltaTime * arms.armWindupState.getWindupRotSpeed * energyManager.energies[ARMS_INDEX];
+			rotationTimer += Time.deltaTime * arms.armWindupState.getWindupRotSpeed;
 			yield return null;
 		}
 
@@ -243,7 +271,7 @@ public class ArmControl : MechComponent
 
 		while (rotationTimer < 1f)
 		{
-			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * energyManager.energies[ARMS_INDEX];
+			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed;
 			
 			//Feint
 			if (input.attack && rotationTimer < 0.7f)
@@ -251,6 +279,7 @@ public class ArmControl : MechComponent
 				state = State.Defend;
 				yield break;
 			}
+
 			yield return null;
 		}
 
@@ -264,7 +293,7 @@ public class ArmControl : MechComponent
 		{
 			fromRotation = targetAttackRotation;
 			toRotation = handSideRotation;
-			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * 1.3f * energyManager.energies[ARMS_INDEX];
+			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * 1.3f;
 			yield return null;
 		}
 
@@ -358,7 +387,7 @@ public class ArmControl : MechComponent
 		//------------ POSITION ------------\\
 		Vector3 localIKPos = rHandIKTarget.localPosition;
 		Vector3 localTargetPos = mech.transform.InverseTransformPoint(rTargetPos);
-		float xyLerpFactor = Time.deltaTime * xyPosBlendSpeedToUse * energyManager.energies[ARMS_INDEX] * scaleFactor;
+		float xyLerpFactor = Time.deltaTime * xyPosBlendSpeedToUse * scaleFactor;
 		
 		//Lerp Z position separately
 		localIKPos.x = Mathf.Lerp(localIKPos.x, localTargetPos.x, xyLerpFactor);

@@ -10,7 +10,7 @@ public class Engineer : MechComponent
 		Engineer
 	}
 
-	public int helmIndex = (int)EnergyComponents.Helm;
+	public int pilotIndex = (int)EnergyComponents.Helm;
 	public int weaponsIndex = (int)EnergyComponents.Weapons;
 	public int engineerIndex = (int)EnergyComponents.Engineer;
 
@@ -23,7 +23,7 @@ public class Engineer : MechComponent
 		base.OnAwake();
 		energies = new float[3];
 
-		energies[helmIndex] = 1f;
+		energies[pilotIndex] = 1f;
 		energies[weaponsIndex] = 1f;
 		energies[engineerIndex] = 0f;
 	}
@@ -89,6 +89,6 @@ public class Engineer : MechComponent
 			AddEnergy(EnergyComponents.Weapons, 0.02f);
 		}
 		
-		energySum = energies[helmIndex] + energies[weaponsIndex] + energies[engineerIndex];
+		energySum = energies[pilotIndex] + energies[weaponsIndex] + energies[engineerIndex];
 	}
 }
