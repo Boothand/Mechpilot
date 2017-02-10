@@ -21,13 +21,14 @@ public class MechMovement : MechComponent
 	float animForward, animSide;    //Interpolating values, sent to animator
 
 	[Header("Values")]
-	[SerializeField] float moveSpeed = 50f;
+	[SerializeField] float moveSpeed = 25f;
 	[SerializeField] float maxSlopeAngle = 45f;
 	[SerializeField] float accelerationSpeed = 0.5f;
 	[SerializeField] float animationSpeedFactor = 0.4f;
 
 	//Flags
 	public bool moving { get; private set; }
+	public bool running { get; private set; }
 	public bool grounded { get; private set; }
 
 	protected override void OnAwake()
@@ -76,8 +77,11 @@ public class MechMovement : MechComponent
 
 		//Don't go faster diagonally
 		worldMoveDir.Normalize();
+
+		//Scale move speed with the joystick axis
 		worldMoveDir *= inputVec.magnitude;
 
+		#region Debug
 		//Debug.DrawRay(hierarchy.head.position, worldMoveDir * scaleFactor);
 
 
@@ -102,18 +106,53 @@ public class MechMovement : MechComponent
 		//		}
 		//	}
 		//}
+		#endregion
 
+		float accelerationSpeedToUse = accelerationSpeed;
+
+		//Send velocity to dash component for potential modification
 		dasher.RunComponent(ref velocity);
 
-		//if (velocity.magnitude > 0.01f)
-		//{
-		//	print(velocity);
-		//}
+		//Send velocity to run function for potential modification
+		CheckRun(ref worldMoveDir);
+
+		if (running)
+		{
+			accelerationSpeedToUse *= 5f;
+		}
+
 		//Move velocity towards the desired direction, with a set acceleration
-		Vector3 vel = Vector3.MoveTowards(velocity, worldMoveDir, Time.deltaTime * accelerationSpeed);
+		Vector3 vel = Vector3.MoveTowards(velocity, worldMoveDir, Time.deltaTime * accelerationSpeedToUse);
 
 		//vel = Vector3.ClampMagnitude(vel, 1f);
 		return vel;
+	}
+
+	void CheckRun(ref Vector3 velocity)
+	{
+		running = false;
+
+		if (input.run > 0.3f &&
+			input.moveVert > 0.2f &&
+			Mathf.Abs(input.moveHorz) < 0.3f)
+		{
+			//Plan: Ta en viss start-stamina for å begynde å springe.
+			//Sakte akselerasjon og deselerasjon
+			running = true;
+
+			velocity *= 2.5f * input.run;
+
+			float staminaAmount = velocity.magnitude * Time.deltaTime * 10f;
+
+			print(staminaAmount);
+			energyManager.SpendStamina(staminaAmount);
+		}
+
+		float animSpeed = rb.velocity.magnitude / 60;
+		//print(animSpeed);
+
+		animator.SetBool("Running", running);
+		animator.SetFloat("RunAmount", animSpeed);
 	}
 
 	PhysicMaterial GetAppropriatePhysicMaterial()
