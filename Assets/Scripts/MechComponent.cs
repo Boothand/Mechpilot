@@ -14,6 +14,7 @@ public class MechComponent : ManagedMechBehaviour
 	public WeaponsOfficer arms { get; protected set; }
 	protected EnergyManager energyManager;
 	protected Dasher dasher;
+	protected Croucher croucher;
 	protected HealthManager healthManager;
 
 	protected const int PILOT_INDEX = 0;
@@ -37,6 +38,7 @@ public class MechComponent : ManagedMechBehaviour
 		arms = mech.transform.root.GetComponentInChildren<WeaponsOfficer>();
 		energyManager = mech.transform.root.GetComponentInChildren<EnergyManager>();
 		dasher = mech.transform.root.GetComponentInChildren<Dasher>();
+		croucher = mech.transform.root.GetComponentInChildren<Croucher>();
 		healthManager = mech.transform.root.GetComponentInChildren<HealthManager>();
 
 		scaleFactor = transform.root.localScale.y;

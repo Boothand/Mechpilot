@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Croucher : MechComponent
 {
-	float crouchHeight;
+	public float crouchHeight { get; private set; }
 	[SerializeField] float crouchSpeed = 1.3f;
 
 	protected override void OnAwake()

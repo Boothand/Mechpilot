@@ -4,7 +4,7 @@ using UnityEngine;
 public class Dasher : MechComponent
 {
 	public bool inDash { get; private set; }
-	[SerializeField] float dashForce = 20f;
+	[SerializeField] float dashForce = 4f;
 	[SerializeField] float staminaUsage = 20f;
 	Vector3 vel;
 
@@ -18,6 +18,7 @@ public class Dasher : MechComponent
 		inDash = true;
 		Vector3 newVel = Vector3.zero;
 
+		animator.SetTrigger("Dash");
 		Vector3 inputVector = new Vector3(input.moveHorz, 0f, input.moveVert);
 		Vector3 worldDashDir = mech.transform.TransformDirection(inputVector).normalized;
 		newVel += worldDashDir * dashForce;
@@ -43,7 +44,8 @@ public class Dasher : MechComponent
 		if (input.dash)
 		{
 			//inDash = true;
-			if (energyManager.CanSpendStamina(staminaUsage))
+			if (energyManager.CanSpendStamina(staminaUsage) &&
+				croucher.crouchHeight < 0.5f)
 			{
 				if (Mathf.Abs(input.moveHorz) > 0.1f ||
 					Mathf.Abs(input.moveVert) > 0.1f)
