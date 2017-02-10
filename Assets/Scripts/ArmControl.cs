@@ -23,7 +23,8 @@ public class ArmControl : MechComponent
 		Staggered,
 		StaggeredEnd,
 		BlockStaggered,
-		BlockStaggeredEnd
+		BlockStaggeredEnd,
+		GetHitStaggered
 	}
 	public State state { get; private set; }
 	public State prevState { get; private set; }
@@ -71,6 +72,7 @@ public class ArmControl : MechComponent
 	#endregion
 
 
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -81,6 +83,14 @@ public class ArmControl : MechComponent
 	{
 		arms.getWeapon.OnCollision -= SwordCollide;
 		arms.getWeapon.OnCollision += SwordCollide;
+		healthManager.OnGetHit -= OnGetHit;
+		healthManager.OnGetHit += OnGetHit;
+	}
+
+	void OnGetHit()
+	{
+		StopAllCoroutines();
+		StartCoroutine(GetHitStaggerRoutine());
 	}
 
 	void SwordCollide(Collider col)
@@ -160,6 +170,24 @@ public class ArmControl : MechComponent
 				}
 			}
 		}
+	}
+
+	IEnumerator GetHitStaggerRoutine()
+	{
+		state = State.GetHitStaggered;
+
+		fromRotation = rHandIKTarget.rotation;
+
+		rotationTimer = 0f;
+		while (rotationTimer < 1f)
+		{
+			rotationTimer += Time.deltaTime;
+			toRotation = handSideRotation;
+			yield return null;
+		}
+
+		rotationTimer = 0f;
+		state = State.Defend;
 	}
 
 	IEnumerator StaggerRoutine(Sword otherSword, float multiplier, float speed, bool gotoWindedUp = false)

@@ -17,6 +17,8 @@ public class HealthManager : MonoBehaviour
 
 	[SerializeField] BodyGroupStats[] bodyGroupStats;
 
+	public delegate void Hit();
+	public event Hit OnGetHit;
 
 
 	void Awake()
@@ -32,6 +34,12 @@ public class HealthManager : MonoBehaviour
 		health -= bodyGroupStats[index].damage;
 
 		health = Mathf.Clamp(health, 0, maxHealth);
+
+		if (OnGetHit != null)
+		{
+			OnGetHit();
+		}
+		print(health);
 	}
 
 	void Update()
