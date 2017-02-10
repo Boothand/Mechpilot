@@ -45,11 +45,15 @@ public class Dasher : MechComponent
 			//inDash = true;
 			if (energyManager.CanSpendStamina(staminaUsage))
 			{
-				StopAllCoroutines();
-				StartCoroutine(DashRoutine(velocity, (returnValue) =>
+				if (Mathf.Abs(input.moveHorz) > 0.1f ||
+					Mathf.Abs(input.moveVert) > 0.1f)
 				{
-					vel = returnValue;
-				}));
+					StopAllCoroutines();
+					StartCoroutine(DashRoutine(velocity, (returnValue) =>
+					{
+						vel = returnValue;
+					}));
+				}
 			}
 		}
 
