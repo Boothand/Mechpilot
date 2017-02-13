@@ -17,6 +17,8 @@ public class Dasher : MechComponent
 	{
 		inDash = true;
 		Vector3 newVel = Vector3.zero;
+		animator.SetFloat("DashX", input.moveHorz);
+		animator.SetFloat("DashY", input.moveVert);
 
 		animator.SetTrigger("Dash");
 		Vector3 inputVector = new Vector3(input.moveHorz, 0f, input.moveVert);
