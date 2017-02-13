@@ -168,6 +168,12 @@ public class ArmControl : MechComponent
 					StopAllCoroutines();
 					StartCoroutine(StaggerRoutine(null, myImpact / 30f, stagg.getStaggerEndRotSpeed));
 				}
+
+				if (other is BodyPart)
+				{
+					//Play body hit sound
+					mechSounds.PlayBodyHitSound(myImpact);
+				}
 			}
 		}
 	}
@@ -271,7 +277,7 @@ public class ArmControl : MechComponent
 
 		while (rotationTimer < 1f)
 		{
-			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed;
+			rotationTimer += Time.deltaTime * arms.armAttackState.getRotSpeed;
 			
 			//Feint
 			if (input.attack && rotationTimer < 0.7f)
@@ -293,7 +299,7 @@ public class ArmControl : MechComponent
 		{
 			fromRotation = targetAttackRotation;
 			toRotation = handSideRotation;
-			rotationTimer += Time.deltaTime * arms.armAttackState.getAttackRotSpeed * 1.3f;
+			rotationTimer += (rotationTimer * arms.armAttackState.getSwingAcceleration) + Time.deltaTime * arms.armAttackState.getRotSpeed;
 			yield return null;
 		}
 
