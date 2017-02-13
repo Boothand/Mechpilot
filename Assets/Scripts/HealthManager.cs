@@ -14,6 +14,7 @@ public class HealthManager : MonoBehaviour
 	int health = 100;
 	[SerializeField] int maxHealth = 100;
 	public int getHealth { get { return health; } }
+	public int getMaxHealth { get { return maxHealth; } }
 
 	[SerializeField] BodyGroupStats[] bodyGroupStats;
 
@@ -39,6 +40,7 @@ public class HealthManager : MonoBehaviour
 		{
 			OnGetHit();
 		}
+
 		print(health);
 	}
 

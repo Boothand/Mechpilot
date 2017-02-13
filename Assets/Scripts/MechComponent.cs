@@ -16,6 +16,7 @@ public class MechComponent : ManagedMechBehaviour
 	protected Dasher dasher;
 	protected Croucher croucher;
 	protected HealthManager healthManager;
+	protected MechSounds mechSounds;
 
 	protected const int PILOT_INDEX = 0;
 	protected const int WEAPONOFFICER_INDEX = 1;
@@ -40,6 +41,7 @@ public class MechComponent : ManagedMechBehaviour
 		dasher = mech.transform.root.GetComponentInChildren<Dasher>();
 		croucher = mech.transform.root.GetComponentInChildren<Croucher>();
 		healthManager = mech.transform.root.GetComponentInChildren<HealthManager>();
+		mechSounds = mech.transform.root.GetComponentInChildren<MechSounds>();
 
 		scaleFactor = transform.root.localScale.y;
 		base.OnAwake();

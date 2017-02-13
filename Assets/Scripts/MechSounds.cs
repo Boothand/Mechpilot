@@ -8,6 +8,7 @@ public class MechSounds : MechComponent
 	[SerializeField] AudioClip moveArmBeginSound;
 	[SerializeField] AudioClip moveArmSound;
 	[SerializeField] AudioClip moveArmEndSound;
+	[SerializeField] AudioClip bodyHitSound;
 
 	protected override void OnAwake()
 	{
@@ -17,12 +18,12 @@ public class MechSounds : MechComponent
 
 	void Start()
 	{
-		arms.armBlockState.OnMoveArmBegin -= PlayOnMoveBeginSound;
-		arms.armBlockState.OnMoveArmBegin += PlayOnMoveBeginSound;
-		arms.armBlockState.OnMoveArm -= PlayOnMoveSound;
-		arms.armBlockState.OnMoveArm += PlayOnMoveSound;
-		arms.armBlockState.OnMoveArmEnd -= PlayOnMoveEndSound;
-		arms.armBlockState.OnMoveArmEnd += PlayOnMoveEndSound;
+		//arms.armBlockState.OnMoveArmBegin -= PlayOnMoveBeginSound;
+		//arms.armBlockState.OnMoveArmBegin += PlayOnMoveBeginSound;
+		//arms.armBlockState.OnMoveArm -= PlayOnMoveSound;
+		//arms.armBlockState.OnMoveArm += PlayOnMoveSound;
+		//arms.armBlockState.OnMoveArmEnd -= PlayOnMoveEndSound;
+		//arms.armBlockState.OnMoveArmEnd += PlayOnMoveEndSound;
 	}
 
 	void PlayOnMoveBeginSound()
@@ -41,6 +42,20 @@ public class MechSounds : MechComponent
 	void PlayOnMoveSound()
 	{
 		
+	}
+
+	float RandomPitch(float basePitch, float maxVariance)
+	{
+		return basePitch + Random.Range(-maxVariance, maxVariance);
+	}
+
+	public void PlayBodyHitSound(float impact = 1f)
+	{
+		impact *= 3f;
+		singleSource.volume = impact;
+		print(impact);
+		singleSource.pitch = RandomPitch(1, 0.2f);
+		singleSource.PlayOneShot(bodyHitSound);
 	}
 
 	void PlayOnMoveEndSound()
