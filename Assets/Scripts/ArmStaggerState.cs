@@ -33,8 +33,9 @@ public class ArmStaggerState : MechComponent
 	{
 		Vector3 swordVelocity = arms.getWeapon.swordTipVelocity;
 		Vector3 swordTipPos = arms.getWeapon.getSwordTip.position;
-		
-		Vector3 newTipPos = swordTipPos + otherVelocity * multiplier;
+		Vector3 combinedVelocity = -swordVelocity + otherVelocity;
+		Debug.DrawRay(swordTipPos, swordVelocity, Color.red);
+		Vector3 newTipPos = swordTipPos + combinedVelocity * multiplier;
 
 		//Vector from hand to new sword tip position
 		Vector3 newSwordDir = (newTipPos - arms.armControl.getRhandIKTarget.position).normalized;
