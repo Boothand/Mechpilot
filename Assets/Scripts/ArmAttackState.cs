@@ -10,10 +10,12 @@ public class ArmAttackState : MechComponent
 	[SerializeField] float attackRotSpeed = 5f;
 	[SerializeField] float swingAmount = 120f;
 	[SerializeField] float swingAcceleration = 1.4f;
+	[SerializeField] float staminaAmount = 15f;
 
 	public float getRotSpeed { get { return attackRotSpeed; } }
 	public float getForwardDistance { get { return attackForwardDistance; } }
 	public float getSwingAcceleration { get { return swingAcceleration; } }
+	public float getStaminaAmount { get { return staminaAmount; } }
 
 
 	protected override void OnAwake()

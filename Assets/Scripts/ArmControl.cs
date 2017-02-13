@@ -163,16 +163,16 @@ public class ArmControl : MechComponent
 			else
 			{
 				//If I hit anything else than a sword
-				if (state == State.Attack)
+				if (prevState == State.Attack)
 				{
 					StopAllCoroutines();
 					StartCoroutine(StaggerRoutine(null, myImpact / 30f, stagg.getStaggerEndRotSpeed));
-				}
 
-				if (other is BodyPart)
-				{
-					//Play body hit sound
-					mechSounds.PlayBodyHitSound(myImpact);
+					if (other is BodyPart)
+					{
+						//Play body hit sound
+						mechSounds.PlayBodyHitSound(myImpact);
+					}
 				}
 			}
 		}
@@ -274,6 +274,7 @@ public class ArmControl : MechComponent
 	IEnumerator SwingRoutine()
 	{
 		rotationTimer = 0f;
+		energyManager.SpendStamina(arms.armAttackState.getStaminaAmount);
 
 		while (rotationTimer < 1f)
 		{
@@ -371,11 +372,18 @@ public class ArmControl : MechComponent
 			fromRotation = targetWindupRotation;
 			toRotation = targetAttackRotation;
 
-			if (!input.attack)
+			if (energyManager.CanSpendStamina(arms.armAttackState.getStaminaAmount))
 			{
-				state = State.Attack;
-				StopAllCoroutines();
-				StartCoroutine(SwingRoutine());
+				if (!input.attack)
+				{
+					state = State.Attack;
+					StopAllCoroutines();
+					StartCoroutine(SwingRoutine());
+				}
+			}
+			else
+			{
+				state = State.Defend;
 			}
 		}
 
