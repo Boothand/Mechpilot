@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AI_Defender : AI_MechComponent
 {
-
+	[SerializeField] float posUnderEnemyArmPos = 10f;
 
 	protected override void OnAwake()
 	{
@@ -17,12 +17,13 @@ public class AI_Defender : AI_MechComponent
 		Vector3 enemySwordDir = -enemySword.transform.right;
 
 		float enemyTargetAngle = enemy.weaponsOfficer.armBlockState.sideTargetAngle;
-		input.rArmHorz = -1f;
+		
+		aiCombat.MoveHandsToSidePos(-5f);
 
 		if (enemyTargetAngle < 0f)
 		{
 			rotDir = -rotDir;
-			input.rArmHorz = 1f;
+			aiCombat.MoveHandsToSidePos(5f);
 		}
 
 		if (Mathf.Abs(enemyTargetAngle) > 90f)
@@ -31,6 +32,18 @@ public class AI_Defender : AI_MechComponent
 		}
 		else
 		{
+			float enemyPos = enemy.weaponsOfficer.armBlockState.rArmPos.y;
+			float underEnemyPos =  enemyPos - posUnderEnemyArmPos;
+			float asd = Mathf.Lerp(enemyPos, underEnemyPos, Mathf.Abs(enemyTargetAngle) / 90f);
+			//print(arms.armBlockState.rArmPos.y + " " + asd);
+			if (arms.armBlockState.rArmPos.y > asd)
+			{
+				input.rArmVert = -1f;
+			}
+			else
+			{
+				input.rArmVert = 1f;
+			}
 			//aiCombat.MoveHandsToPos(aiCombat.localHandBasePos);
 		}
 

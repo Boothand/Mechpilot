@@ -39,6 +39,18 @@ public class AI_Combat : MechComponent
 		input.rArmVert = Mathf.Sign(dir.y);
 	}
 
+	public void MoveHandsToSidePos(float pos)
+	{
+		if (arms.armBlockState.rArmPos.x < pos - 0.1f)
+		{
+			input.rArmHorz = 1f;
+		}
+		else if (arms.armBlockState.rArmPos.x > pos + 0.1f)
+		{
+			input.rArmHorz = -1f;
+		}
+	}
+
 	public void RotateHandsToAngle(float angle)
 	{
 		float aimAngle = arms.armBlockState.sideTargetAngle;
