@@ -170,8 +170,7 @@ public class ArmControl : MechComponent
 
 					if (other is BodyPart)
 					{
-						//Play body hit sound
-						mechSounds.PlayBodyHitSound(myImpact);
+						
 					}
 				}
 			}
@@ -182,18 +181,20 @@ public class ArmControl : MechComponent
 	{
 		state = State.GetHitStaggered;
 
-		fromRotation = rHandIKTarget.rotation;
+		//fromRotation = rHandIKTarget.rotation;
 
-		rotationTimer = 0f;
-		while (rotationTimer < 1f)
-		{
-			rotationTimer += Time.deltaTime;
-			toRotation = handSideRotation;
-			yield return null;
-		}
+		//rotationTimer = 0f;
+		//while (rotationTimer < 1f)
+		//{
+		//	rotationTimer += Time.deltaTime;
+		//	toRotation = handSideRotation;
+		//	yield return null;
+		//}
+		yield return new WaitForSeconds(1f);
 
-		rotationTimer = 0f;
+		//rotationTimer = 0f;
 		state = State.Defend;
+		yield return null;
 	}
 
 	IEnumerator StaggerRoutine(Sword otherSword, float multiplier, float speed, bool gotoWindedUp = false)
@@ -278,7 +279,7 @@ public class ArmControl : MechComponent
 
 		while (rotationTimer < 1f)
 		{
-			rotationTimer += Time.deltaTime * arms.armAttackState.getRotSpeed;
+			rotationTimer += (rotationTimer * arms.armAttackState.getSwingAcceleration) + Time.deltaTime * arms.armAttackState.getRotSpeed;
 			
 			//Feint
 			if (input.attack && rotationTimer < 0.7f)
@@ -300,7 +301,7 @@ public class ArmControl : MechComponent
 		{
 			fromRotation = targetAttackRotation;
 			toRotation = handSideRotation;
-			rotationTimer += (rotationTimer * arms.armAttackState.getSwingAcceleration) + Time.deltaTime * arms.armAttackState.getRotSpeed;
+			rotationTimer += Time.deltaTime * arms.armAttackState.getRetractSpeed;
 			yield return null;
 		}
 
