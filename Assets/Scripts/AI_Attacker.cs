@@ -4,22 +4,11 @@ using UnityEngine;
 public class AI_Attacker : AI_MechComponent
 {
 	Vector3 localHandBasePos;
-
-	public enum CombatState
-	{
-		Defend,
-		Attack
-	}
-	public CombatState combatState { get; private set; }
-
 	bool inAttackRoutine;
-
-
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		combatState = CombatState.Attack;
 	}
 
 	void Start()
@@ -44,51 +33,6 @@ public class AI_Attacker : AI_MechComponent
 		return randomAngle;
 	}
 
-	void MoveHandsToPos(Vector3 localPos)
-	{
-		Transform rIK = arms.armControl.getRhandIKTarget;
-
-		Vector3 dir = localPos - rIK.localPosition;
-
-		input.rArmHorz = Mathf.Sign(dir.x);
-		input.rArmVert = Mathf.Sign(dir.y);
-	}
-
-	void MoveHandsInDirection(Vector3 dir)
-	{
-		Transform rIK = arms.armControl.getRhandIKTarget;
-
-		Vector3 direction = dir;
-
-		input.rArmHorz = Mathf.Sign(dir.x);
-		input.rArmVert = Mathf.Sign(dir.y);
-	}
-
-	void RotateHandsToAngle(float angle)
-	{
-		float aimAngle = arms.armBlockState.sideTargetAngle;
-
-		if (aimAngle < angle - 0.01f)
-		{
-			input.rArmRot = 1f;
-		}
-		else if (aimAngle > angle + 0.01f)
-		{
-			input.rArmRot = -1f;
-		}
-	}
-
-	void StopArms()
-	{
-		input.rArmHorz = 0f;
-		input.rArmVert = 0f;
-	}
-
-	void StopHandRotation()
-	{
-		input.rArmRot = 0f;
-	}
-
 	IEnumerator AttackRoutine()
 	{
 		inAttackRoutine = true;
@@ -101,13 +45,13 @@ public class AI_Attacker : AI_MechComponent
 		while (arms.armControl.state != ArmControl.State.WindedUp)
 		{
 			aTimer += Time.deltaTime;
-			MoveHandsToPos(attackPos);
-			RotateHandsToAngle(attackAngle);
+			aiCombat.MoveHandsToPos(attackPos);
+			aiCombat.RotateHandsToAngle(attackAngle);
 			yield return null;
 		}
 
 		//StopArms();
-		StopHandRotation();
+		aiCombat.StopHandRotation();
 
 		yield return new WaitForSeconds(0.2f);
 
@@ -117,11 +61,11 @@ public class AI_Attacker : AI_MechComponent
 
 		while (arms.armControl.state != ArmControl.State.Defend)
 		{
-			MoveHandsInDirection(dir);
+			aiCombat.MoveHandsInDirection(dir);
 			yield return null;
 		}
 
-		StopArms();
+		aiCombat.StopArms();
 
 		yield return new WaitForSeconds(0.3f);
 		inAttackRoutine = false;
@@ -130,28 +74,19 @@ public class AI_Attacker : AI_MechComponent
 	protected override void Update()
 	{
 		base.Update();
-		
-		Vector3 basePos = arms.armControl.handCenterPos;
-		localHandBasePos = mech.transform.InverseTransformPoint(basePos);
 
-		switch (combatState)
+		if (aiCombat.combatState == AI_Combat.CombatState.Attack)
 		{
-			case CombatState.Defend:
+			if (!inAttackRoutine &&
+				CanSwingAtEnemy(enemy.transform))
+			{
+				StartCoroutine(AttackRoutine());
+			}
 
-				break;
-
-			case CombatState.Attack:
-				if (!inAttackRoutine &&
-					CanSwingAtEnemy(enemy.transform))
-				{
-					StartCoroutine(AttackRoutine());
-				}
-				
-				if (!CanSwingAtEnemy(enemy.transform))
-				{
-					MoveHandsToPos(localHandBasePos);
-				}
-				break;
+			if (!CanSwingAtEnemy(enemy.transform))
+			{
+				aiCombat.MoveHandsToPos(localHandBasePos);
+			}
 		}
 	}
 }

@@ -11,7 +11,8 @@ public class ArmBlockState : MechComponent
 	[Range(0.05f, 1f)] [SerializeField] float lArmDistance = 0.232f;
 	[Range(0.2f, 2f)] [SerializeField] float armReach = 0.38f;
 	bool movingArm;
-	Vector3 rArmPos, lArmPos;
+	public Vector3 rArmPos { get; private set; }
+	public Vector3 lArmPos { get; private set; }
 
 	[Header("Rotation")]
 	[SerializeField] bool invertRotation;

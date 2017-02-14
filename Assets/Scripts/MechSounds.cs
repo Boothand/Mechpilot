@@ -51,7 +51,7 @@ public class MechSounds : MechComponent
 
 	public void PlayBodyHitSound(float impact = 1f)
 	{
-		impact *= 3f;
+		impact *= 20f;
 		singleSource.volume = impact;
 		print(impact);
 		singleSource.pitch = RandomPitch(1, 0.2f);

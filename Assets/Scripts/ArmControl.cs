@@ -163,16 +163,15 @@ public class ArmControl : MechComponent
 			else
 			{
 				//If I hit anything else than a sword
-				if (state == State.Attack)
+				if (prevState == State.Attack)
 				{
 					StopAllCoroutines();
 					StartCoroutine(StaggerRoutine(null, myImpact / 30f, stagg.getStaggerEndRotSpeed));
-				}
 
-				if (other is BodyPart)
-				{
-					//Play body hit sound
-					mechSounds.PlayBodyHitSound(myImpact);
+					if (other is BodyPart)
+					{
+						
+					}
 				}
 			}
 		}
@@ -182,18 +181,20 @@ public class ArmControl : MechComponent
 	{
 		state = State.GetHitStaggered;
 
-		fromRotation = rHandIKTarget.rotation;
+		//fromRotation = rHandIKTarget.rotation;
 
-		rotationTimer = 0f;
-		while (rotationTimer < 1f)
-		{
-			rotationTimer += Time.deltaTime;
-			toRotation = handSideRotation;
-			yield return null;
-		}
+		//rotationTimer = 0f;
+		//while (rotationTimer < 1f)
+		//{
+		//	rotationTimer += Time.deltaTime;
+		//	toRotation = handSideRotation;
+		//	yield return null;
+		//}
+		yield return new WaitForSeconds(1f);
 
-		rotationTimer = 0f;
+		//rotationTimer = 0f;
 		state = State.Defend;
+		yield return null;
 	}
 
 	IEnumerator StaggerRoutine(Sword otherSword, float multiplier, float speed, bool gotoWindedUp = false)
@@ -274,10 +275,11 @@ public class ArmControl : MechComponent
 	IEnumerator SwingRoutine()
 	{
 		rotationTimer = 0f;
+		energyManager.SpendStamina(arms.armAttackState.getStaminaAmount);
 
 		while (rotationTimer < 1f)
 		{
-			rotationTimer += Time.deltaTime * arms.armAttackState.getRotSpeed;
+			rotationTimer += (rotationTimer * arms.armAttackState.getSwingAcceleration) + Time.deltaTime * arms.armAttackState.getRotSpeed;
 			
 			//Feint
 			if (input.attack && rotationTimer < 0.7f)
@@ -299,7 +301,7 @@ public class ArmControl : MechComponent
 		{
 			fromRotation = targetAttackRotation;
 			toRotation = handSideRotation;
-			rotationTimer += (rotationTimer * arms.armAttackState.getSwingAcceleration) + Time.deltaTime * arms.armAttackState.getRotSpeed;
+			rotationTimer += Time.deltaTime * arms.armAttackState.getRetractSpeed;
 			yield return null;
 		}
 
@@ -371,11 +373,18 @@ public class ArmControl : MechComponent
 			fromRotation = targetWindupRotation;
 			toRotation = targetAttackRotation;
 
-			if (!input.attack)
+			if (energyManager.CanSpendStamina(arms.armAttackState.getStaminaAmount))
 			{
-				state = State.Attack;
-				StopAllCoroutines();
-				StartCoroutine(SwingRoutine());
+				if (!input.attack)
+				{
+					state = State.Attack;
+					StopAllCoroutines();
+					StartCoroutine(SwingRoutine());
+				}
+			}
+			else
+			{
+				state = State.Defend;
 			}
 		}
 

@@ -44,10 +44,21 @@ public class AI_Movement : AI_MechComponent
 		//Look at the player
 		TurnHeadTowards(enemy.transform.position);
 
-		//Walk to him
-		if (!CanSwingAtEnemy(enemy.transform))
+		switch (aiCombat.combatState)
 		{
-			WalkForward();
+			case AI_Combat.CombatState.Defend:
+
+				break;
+
+			case AI_Combat.CombatState.Attack:
+
+				//Walk to him
+				if (!CanSwingAtEnemy(enemy.transform))
+				{
+					WalkForward();
+				}
+
+				break;
 		}
 	}
 }
