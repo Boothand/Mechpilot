@@ -39,9 +39,9 @@ public class Dasher : MechComponent
 			yield return null;
 		}
 
-		velocity(Vector3.zero);
+		velocity(newVel * 0.3f);
 		//velocity(newVel);
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(0.2f);
 		inDash = false;
 	}
 
