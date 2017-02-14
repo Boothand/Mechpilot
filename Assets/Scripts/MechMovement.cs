@@ -111,7 +111,7 @@ public class MechMovement : MechComponent
 		float accelerationSpeedToUse = accelerationSpeed;
 
 		//Send velocity to dash component for potential modification
-		dasher.RunComponent(ref velocity);
+		dasher.RunComponent(ref velocity, ref accelerationSpeedToUse);
 
 		//Send velocity to run function for potential modification
 		CheckRun(ref worldMoveDir);
@@ -144,7 +144,6 @@ public class MechMovement : MechComponent
 
 			float staminaAmount = velocity.magnitude * Time.deltaTime * 10f;
 
-			print(staminaAmount);
 			energyManager.SpendStamina(staminaAmount);
 		}
 
