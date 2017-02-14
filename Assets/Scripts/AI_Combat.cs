@@ -9,7 +9,7 @@ public class AI_Combat : MechComponent
 
 	public float getCombatDistance { get { return combatDistance; } }
 
-
+	public Vector3 localHandBasePos { get; private set; }
 
 
 	protected override void OnAwake()
@@ -68,5 +68,7 @@ public class AI_Combat : MechComponent
 	void Update()
 	{
 		//Decide which combat state to use
+		Vector3 basePos = arms.armControl.handCenterPos;
+		localHandBasePos = mech.transform.InverseTransformPoint(basePos);
 	}
 }

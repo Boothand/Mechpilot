@@ -74,9 +74,6 @@ public class AI_Attacker : AI_MechComponent
 	protected override void Update()
 	{
 		base.Update();
-		
-		Vector3 basePos = arms.armControl.handCenterPos;
-		localHandBasePos = mech.transform.InverseTransformPoint(basePos);
 
 		if (aiCombat.combatState == AI_Combat.CombatState.Attack)
 		{
