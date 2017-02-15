@@ -26,7 +26,7 @@ public class AI_Defender : AI_MechComponent
 			aiCombat.MoveHandsToSidePos(5f);
 		}
 
-		if (Mathf.Abs(enemyTargetAngle) > 90f)
+		if (Mathf.Abs(enemyTargetAngle) > 80f)
 		{
 			input.rArmVert = -1f;
 		}
@@ -34,7 +34,7 @@ public class AI_Defender : AI_MechComponent
 		{
 			float enemyPos = enemy.weaponsOfficer.armBlockState.rArmPos.y;
 			float underEnemyPos =  enemyPos - posUnderEnemyArmPos;
-			float asd = Mathf.Lerp(enemyPos, underEnemyPos, Mathf.Abs(enemyTargetAngle) / 90f);
+			float asd = Mathf.Lerp(enemyPos, underEnemyPos, Mathf.Abs(enemyTargetAngle) / 80f);
 			//print(arms.armBlockState.rArmPos.y + " " + asd);
 			if (arms.armBlockState.rArmPos.y > asd)
 			{

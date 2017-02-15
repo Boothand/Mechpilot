@@ -36,9 +36,9 @@ public class AI_MechComponent : MechComponent
 		return distanceToEnemy < aiCombat.getCombatDistance;
 	}
 
-	protected bool FacingTarget(Vector3 target)
+	protected bool FacingTarget(Vector3 target, float threshold = 0.95f)
 	{
-		if (enemyFrontDot > 0.95f)
+		if (enemyFrontDot > threshold)
 		{
 			return true;
 		}
