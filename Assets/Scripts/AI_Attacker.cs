@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class AI_Attacker : AI_MechComponent
 {
-	Vector3 localHandBasePos;
 	bool inAttackRoutine;
 
 	protected override void OnAwake()
@@ -18,11 +17,12 @@ public class AI_Attacker : AI_MechComponent
 
 	Vector3 DecideWindupPosition()
 	{
+		Vector3 windupPos = aiCombat.localHandBasePos;
 		float range = 0.5f;
-		localHandBasePos.x += Random.Range(-range, range);
-		localHandBasePos.y += Random.Range(-range, range);
+		windupPos.x += Random.Range(-range, range);
+		windupPos.y += Random.Range(-range, range);
 
-		return localHandBasePos;
+		return windupPos;
 	}
 
 	float DecideWindupRotation()
@@ -57,7 +57,7 @@ public class AI_Attacker : AI_MechComponent
 
 		input.attack = false;
 
-		Vector3 dir = localHandBasePos - attackPos;
+		Vector3 dir = aiCombat.localHandBasePos - attackPos;
 
 		while (arms.armControl.state != ArmControl.State.Defend)
 		{
@@ -85,7 +85,7 @@ public class AI_Attacker : AI_MechComponent
 
 			if (!CanSwingAtEnemy(enemy.transform))
 			{
-				aiCombat.MoveHandsToPos(localHandBasePos);
+				aiCombat.MoveHandsToPos(aiCombat.localHandBasePos);
 			}
 		}
 	}
