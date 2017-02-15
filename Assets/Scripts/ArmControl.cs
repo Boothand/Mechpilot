@@ -181,18 +181,19 @@ public class ArmControl : MechComponent
 	{
 		state = State.GetHitStaggered;
 
-		//fromRotation = rHandIKTarget.rotation;
+		fromRotation = rHandIKTarget.localRotation;
 
-		//rotationTimer = 0f;
-		//while (rotationTimer < 1f)
-		//{
-		//	rotationTimer += Time.deltaTime;
-		//	toRotation = handSideRotation;
-		//	yield return null;
-		//}
-		yield return new WaitForSeconds(1f);
+		rotationTimer = 0f;
+		while (rotationTimer < 1f)
+		{
+			rotationTimer += Time.deltaTime;
+			rTargetPos = blockPos;
+			toRotation = handSideRotation;
+			yield return null;
+		}
+		//yield return new WaitForSeconds(1f);
 
-		//rotationTimer = 0f;
+		rotationTimer = 0f;
 		state = State.Defend;
 		yield return null;
 	}

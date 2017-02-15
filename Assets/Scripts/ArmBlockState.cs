@@ -123,8 +123,21 @@ public class ArmBlockState : MechComponent
 		if (sideTargetAngle < -360)
 			sideTargetAngle += 360f;
 
+		//Limit rotation angle based on state
+		float sideRotLimitToUse = sideRotationLimit;
+
+		switch (arms.armControl.state)
+		{
+			case ArmControl.State.WindUp:
+			case ArmControl.State.WindedUp:
+			case ArmControl.State.Attack:
+				sideRotLimitToUse = 100f;
+				break;
+
+		}
+
 		//Limit target rotation
-		sideTargetAngle = Mathf.Clamp(sideTargetAngle, -sideRotationLimit, sideRotationLimit);
+		sideTargetAngle = Mathf.Clamp(sideTargetAngle, -sideRotLimitToUse, sideRotLimitToUse);
 
 		//Return the rotation
 		Quaternion offset = Quaternion.Euler(sideRotOffset);

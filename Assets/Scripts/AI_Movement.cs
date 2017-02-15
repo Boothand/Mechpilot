@@ -48,6 +48,17 @@ public class AI_Movement : AI_MechComponent
 		{
 			case AI_Combat.CombatState.Defend:
 
+				if (!FacingTarget(enemy.transform.position, 0.995f))
+				{
+					if (IsWithinCombatDistance())
+					{
+						input.moveVert = -1f;
+					}
+					else
+					{
+						input.moveVert = 1f;
+					}
+				}
 				break;
 
 			case AI_Combat.CombatState.Attack:
