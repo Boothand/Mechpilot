@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 46f9816ebf61cea48ac59911418f0910
-timeCreated: 1487073974
+guid: c9317ee07ce1a714b93a9e93f6eb3f23
+timeCreated: 1487152698
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -157,6 +157,10 @@ ModelImporter:
     7400002: Hit Shoulder Left
     7400004: Hit Head Left
     7400006: Hit Leg Left
+    7400008: Hit Head Top
+    7400010: Elbows Idle
+    7400012: Block Left
+    7400014: Block Right
     9500000: //RootNode
     13700000: Mech_handfix_Ref:Mech_geo_MeshPart0
     13700002: Mech_handfix_Ref:Mech_geo_MeshPart1
@@ -871,6 +875,694 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hit Head Top
+      takeName: Take 001
+      firstFrame: 65
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: -0.06
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01/Mech_handfix_Ref:head
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01/Mech_handfix_Ref:head/Mech_handfix_Ref:headtip
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l/Mech_handfix_Ref:index_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l/Mech_handfix_Ref:index_03_l/Mech_handfix_Ref:index_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l/Mech_handfix_Ref:middle_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l/Mech_handfix_Ref:middle_03_l/Mech_handfix_Ref:middle_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l/Mech_handfix_Ref:pinky_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l/Mech_handfix_Ref:pinky_03_l/Mech_handfix_Ref:pinky_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l/Mech_handfix_Ref:ring_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l/Mech_handfix_Ref:ring_03_l/Mech_handfix_Ref:ring_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l/Mech_handfix_Ref:thumb_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l/Mech_handfix_Ref:thumb_03_l/Mech_handfix_Ref:thumb_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r/Mech_handfix_Ref:index_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r/Mech_handfix_Ref:index_03_r/Mech_handfix_Ref:index_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r/Mech_handfix_Ref:middle_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r/Mech_handfix_Ref:middle_03_r/Mech_handfix_Ref:middle_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r/Mech_handfix_Ref:pinky_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r/Mech_handfix_Ref:pinky_03_r/Mech_handfix_Ref:pinky_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r/Mech_handfix_Ref:ring_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r/Mech_handfix_Ref:ring_03_r/Mech_handfix_Ref:ring_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r/Mech_handfix_Ref:thumb_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r/Mech_handfix_Ref:thumb_03_r/Mech_handfix_Ref:thumb_end
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l/Mech_handfix_Ref:toes_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l/Mech_handfix_Ref:toes_l/Mech_handfix_Ref:ball_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r/Mech_handfix_Ref:toes_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r/Mech_handfix_Ref:toes_r/Mech_handfix_Ref:ball_r
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart0
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart1
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart2
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart3
+        weight: 0
+      - path: Mech_handfix_Ref:Main_ctrl
+        weight: 0
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Elbows Idle
+      takeName: Take 001
+      firstFrame: 82
+      lastFrame: 83
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: -0.06
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01/Mech_handfix_Ref:head
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01/Mech_handfix_Ref:head/Mech_handfix_Ref:headtip
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l/Mech_handfix_Ref:index_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l/Mech_handfix_Ref:index_03_l/Mech_handfix_Ref:index_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l/Mech_handfix_Ref:middle_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l/Mech_handfix_Ref:middle_03_l/Mech_handfix_Ref:middle_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l/Mech_handfix_Ref:pinky_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l/Mech_handfix_Ref:pinky_03_l/Mech_handfix_Ref:pinky_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l/Mech_handfix_Ref:ring_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l/Mech_handfix_Ref:ring_03_l/Mech_handfix_Ref:ring_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l/Mech_handfix_Ref:thumb_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l/Mech_handfix_Ref:thumb_03_l/Mech_handfix_Ref:thumb_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r/Mech_handfix_Ref:index_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r/Mech_handfix_Ref:index_03_r/Mech_handfix_Ref:index_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r/Mech_handfix_Ref:middle_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r/Mech_handfix_Ref:middle_03_r/Mech_handfix_Ref:middle_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r/Mech_handfix_Ref:pinky_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r/Mech_handfix_Ref:pinky_03_r/Mech_handfix_Ref:pinky_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r/Mech_handfix_Ref:ring_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r/Mech_handfix_Ref:ring_03_r/Mech_handfix_Ref:ring_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r/Mech_handfix_Ref:thumb_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r/Mech_handfix_Ref:thumb_03_r/Mech_handfix_Ref:thumb_end
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l/Mech_handfix_Ref:toes_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l/Mech_handfix_Ref:toes_l/Mech_handfix_Ref:ball_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r/Mech_handfix_Ref:toes_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r/Mech_handfix_Ref:toes_r/Mech_handfix_Ref:ball_r
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart0
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart1
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart2
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart3
+        weight: 0
+      - path: Mech_handfix_Ref:Main_ctrl
+        weight: 0
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Block Left
+      takeName: Take 001
+      firstFrame: 90
+      lastFrame: 91
+      wrapMode: 0
+      orientationOffsetY: 43.3
+      level: -0.06
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01/Mech_handfix_Ref:head
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01/Mech_handfix_Ref:head/Mech_handfix_Ref:headtip
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l/Mech_handfix_Ref:index_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l/Mech_handfix_Ref:index_03_l/Mech_handfix_Ref:index_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l/Mech_handfix_Ref:middle_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l/Mech_handfix_Ref:middle_03_l/Mech_handfix_Ref:middle_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l/Mech_handfix_Ref:pinky_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l/Mech_handfix_Ref:pinky_03_l/Mech_handfix_Ref:pinky_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l/Mech_handfix_Ref:ring_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l/Mech_handfix_Ref:ring_03_l/Mech_handfix_Ref:ring_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l/Mech_handfix_Ref:thumb_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l/Mech_handfix_Ref:thumb_03_l/Mech_handfix_Ref:thumb_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r/Mech_handfix_Ref:index_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r/Mech_handfix_Ref:index_03_r/Mech_handfix_Ref:index_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r/Mech_handfix_Ref:middle_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r/Mech_handfix_Ref:middle_03_r/Mech_handfix_Ref:middle_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r/Mech_handfix_Ref:pinky_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r/Mech_handfix_Ref:pinky_03_r/Mech_handfix_Ref:pinky_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r/Mech_handfix_Ref:ring_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r/Mech_handfix_Ref:ring_03_r/Mech_handfix_Ref:ring_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r/Mech_handfix_Ref:thumb_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r/Mech_handfix_Ref:thumb_03_r/Mech_handfix_Ref:thumb_end
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l/Mech_handfix_Ref:toes_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l/Mech_handfix_Ref:toes_l/Mech_handfix_Ref:ball_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r/Mech_handfix_Ref:toes_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r/Mech_handfix_Ref:toes_r/Mech_handfix_Ref:ball_r
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart0
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart1
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart2
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart3
+        weight: 0
+      - path: Mech_handfix_Ref:Main_ctrl
+        weight: 0
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0.96
+    - serializedVersion: 16
+      name: Block Right
+      takeName: Take 001
+      firstFrame: 106
+      lastFrame: 107
+      wrapMode: 0
+      orientationOffsetY: -43.3
+      level: -0.06
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01/Mech_handfix_Ref:head
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:neck_01/Mech_handfix_Ref:head/Mech_handfix_Ref:headtip
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l/Mech_handfix_Ref:index_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:index_01_l/Mech_handfix_Ref:index_02_l/Mech_handfix_Ref:index_03_l/Mech_handfix_Ref:index_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l/Mech_handfix_Ref:middle_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:middle_01_l/Mech_handfix_Ref:middle_02_l/Mech_handfix_Ref:middle_03_l/Mech_handfix_Ref:middle_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l/Mech_handfix_Ref:pinky_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:pinky_01_l/Mech_handfix_Ref:pinky_02_l/Mech_handfix_Ref:pinky_03_l/Mech_handfix_Ref:pinky_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l/Mech_handfix_Ref:ring_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:ring_01_l/Mech_handfix_Ref:ring_02_l/Mech_handfix_Ref:ring_03_l/Mech_handfix_Ref:ring_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l/Mech_handfix_Ref:thumb_03_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_l/Mech_handfix_Ref:lowerarm_l/Mech_handfix_Ref:hand_l/Mech_handfix_Ref:thumb_01_l/Mech_handfix_Ref:thumb_02_l/Mech_handfix_Ref:thumb_03_l/Mech_handfix_Ref:thumb_end_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r/Mech_handfix_Ref:index_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:index_01_r/Mech_handfix_Ref:index_02_r/Mech_handfix_Ref:index_03_r/Mech_handfix_Ref:index_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r/Mech_handfix_Ref:middle_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:middle_01_r/Mech_handfix_Ref:middle_02_r/Mech_handfix_Ref:middle_03_r/Mech_handfix_Ref:middle_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r/Mech_handfix_Ref:pinky_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:pinky_01_r/Mech_handfix_Ref:pinky_02_r/Mech_handfix_Ref:pinky_03_r/Mech_handfix_Ref:pinky_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r/Mech_handfix_Ref:ring_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:ring_01_r/Mech_handfix_Ref:ring_02_r/Mech_handfix_Ref:ring_03_r/Mech_handfix_Ref:ring_end_r
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r/Mech_handfix_Ref:thumb_03_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:spine/Mech_handfix_Ref:chest/Mech_handfix_Ref:upperarm_r/Mech_handfix_Ref:lowerarm_r/Mech_handfix_Ref:hand_r/Mech_handfix_Ref:thumb_01_r/Mech_handfix_Ref:thumb_02_r/Mech_handfix_Ref:thumb_03_r/Mech_handfix_Ref:thumb_end
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l/Mech_handfix_Ref:toes_l
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_l/Mech_handfix_Ref:calf_l/Mech_handfix_Ref:foot_l/Mech_handfix_Ref:toes_l/Mech_handfix_Ref:ball_l
+        weight: 0
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r/Mech_handfix_Ref:toes_r
+        weight: 1
+      - path: Mech_handfix_Ref:Game_engine/Mech_handfix_Ref:Root/Mech_handfix_Ref:hips/Mech_handfix_Ref:thigh_r/Mech_handfix_Ref:calf_r/Mech_handfix_Ref:foot_r/Mech_handfix_Ref:toes_r/Mech_handfix_Ref:ball_r
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart0
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart1
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart2
+        weight: 0
+      - path: Mech_handfix_Ref:Geo_grp/Mech_handfix_Ref:Mech_geo/Mech_handfix_Ref:Mech_geo_MeshPart3
+        weight: 0
+      - path: Mech_handfix_Ref:Main_ctrl
+        weight: 0
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0.96
     isReadable: 1
   meshes:
     lODScreenPercentages: []
