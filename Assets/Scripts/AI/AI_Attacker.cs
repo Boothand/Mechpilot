@@ -75,18 +75,33 @@ public class AI_Attacker : AI_MechComponent
 	{
 		base.Update();
 
-		if (aiCombat.combatState == AI_Combat.CombatState.Attack)
-		{
-			if (!inAttackRoutine &&
-				CanSwingAtEnemy(enemy.transform))
-			{
-				StartCoroutine(AttackRoutine());
-			}
+		//if (aiCombat.combatState == AI_Combat.CombatState.Attack)
+		//{
+		//	switch (aiCombat.attackMethod)
+		//	{
+		//		case AI_Combat.AttackMethod.Aggressive:
 
-			if (!CanSwingAtEnemy(enemy.transform))
-			{
-				aiCombat.MoveHandsToPos(aiCombat.localHandBasePos);
-			}
-		}
+		//			if (!inAttackRoutine &&
+		//				CanSwingAtEnemy(enemy.transform))
+		//			{
+		//				StopAllCoroutines();
+		//				StartCoroutine(AttackRoutine());
+		//			}
+
+		//			if (!CanSwingAtEnemy(enemy.transform))
+		//			{
+		//				aiCombat.MoveHandsToPos(aiCombat.localHandBasePos);
+		//			}
+		//			break;
+
+		//		case AI_Combat.AttackMethod.Counter:
+
+		//			break;
+
+		//		case AI_Combat.AttackMethod.Impatient:
+
+		//			break;
+		//	}
+		//}
 	}
 }

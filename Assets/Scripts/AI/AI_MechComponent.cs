@@ -7,6 +7,7 @@ public class AI_MechComponent : MechComponent
 	protected AI_Combat aiCombat;
 	protected AI_Movement aiMovement;
 	protected AI_Attacker aiAttacker;
+	protected AI_Defender aiDefender;
 	protected float enemyFrontDot, enemyRightDot;
 	protected Vector3 dirToEnemy;
 	protected float distanceToEnemy;
@@ -29,6 +30,7 @@ public class AI_MechComponent : MechComponent
 		aiCombat = transform.root.GetComponentInChildren<AI_Combat>();
 		aiMovement = transform.root.GetComponentInChildren<AI_Movement>();
 		aiAttacker = transform.root.GetComponentInChildren<AI_Attacker>();
+		aiDefender = transform.root.GetComponentInChildren<AI_Defender>();
 	}
 
 	protected bool IsWithinCombatDistance()

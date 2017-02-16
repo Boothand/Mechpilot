@@ -1,4 +1,4 @@
-﻿//using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class AI_Defender : AI_MechComponent
@@ -72,5 +72,20 @@ public class AI_Defender : AI_MechComponent
 		{
 			CrossEnemySwordDir(rotDir);
 		}
+
+		//switch (aiCombat.blockMethod)
+		//{
+		//	case AI_Combat.BlockMethod.Confident:
+
+		//		break;
+
+		//	case AI_Combat.BlockMethod.LowHealth:
+
+		//		break;
+
+		//	case AI_Combat.BlockMethod.LowStamina:
+
+		//		break;
+		//}
 	}
 }
