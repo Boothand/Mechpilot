@@ -11,11 +11,11 @@ public class MechComponent : ManagedMechBehaviour
 	protected AbstractInput input;
 	protected Pilot pilot;
 	protected Engineer engineer;
-	public WeaponsOfficer arms { get; protected set; }
-	protected EnergyManager energyManager;
+	public WeaponsOfficer arms { get; private set; }
+	public EnergyManager energyManager { get; private set; }
 	protected Dasher dasher;
 	protected Croucher croucher;
-	protected HealthManager healthManager;
+	public HealthManager healthManager { get; private set; }
 	protected MechSounds mechSounds;
 
 	protected const int PILOT_INDEX = 0;

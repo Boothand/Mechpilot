@@ -84,6 +84,8 @@ public class ArmBlockState : MechComponent
 		//Vector3 handCentralPos = shoulder.position + Vector3.up * armHeight * scaleFactor;
 		Vector3 handCentralPos = arms.armControl.handCenterPos;
 
+		//print(rArmPos);
+		animator.SetFloat("Hand Pos X", rArmPos.x);
 
 		//Dirty check to see which shoulder is used, and what arm distance to use.
 		float armDistance = rArmDistance;

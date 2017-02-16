@@ -6,6 +6,8 @@ public class BodyPart : Collidable
 	public enum BodyGroup { Head, Body, Arms, Legs, NumBodyGroups }	
 	[SerializeField] BodyGroup bodyGroup;
 
+	public BodyGroup getBodyGroup { get; private set; }
+
 
 
 	protected override void OnAwake()
@@ -22,6 +24,7 @@ public class BodyPart : Collidable
 			return;
 
 		Sword swordHittingMe = col.GetComponent<Sword>();
+		KickCheck footKickingMe = col.GetComponent<KickCheck>();
 
 		if (swordHittingMe)
 		{
@@ -52,6 +55,27 @@ public class BodyPart : Collidable
 				animator.SetFloat("YImpact", yImpact);
 				animator.SetTrigger("Impact Hit");
 			}
+		}
+
+		if (footKickingMe && footKickingMe.kicker.kicking)
+		{
+			//Play body hit sound
+			mechSounds.PlayBodyHitSound(1f);
+
+			float yImpact = 1f;
+
+			if (bodyGroup == BodyGroup.Body)
+				yImpact = 0.37f;
+			if (bodyGroup == BodyGroup.Arms)
+				yImpact = -0.37f;
+			if (bodyGroup == BodyGroup.Legs)
+				yImpact = -1f;
+
+			float xImpact = Mathf.Sign(transform.localPosition.x);
+
+			animator.SetFloat("XImpact", xImpact);
+			animator.SetFloat("YImpact", yImpact);
+			animator.SetTrigger("Impact Hit");
 		}
 	}
 
