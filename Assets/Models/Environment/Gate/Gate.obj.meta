@@ -7,11 +7,121 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     100002: Gate_geo1
+    100004: Gate_grp_Middle_frontR_Middle_grp
+    100006: Gate_grp_Middle_grp_Middle_backL
+    100008: Gate_grp_Middle_grp_Middle_backR
+    100010: Gate_grp_Middle_grp_Middle_frontL
+    100012: Gate_grp_Pillar_backR_Pillar_grp
+    100014: Gate_grp_Pillar_grp_Pillar_backL
+    100016: Gate_grp_Pillar_grp_Pillar_frontL
+    100018: Gate_grp_Pillar_grp_Pillar_frontR
+    100020: Gate_grp_Pillar_r_bottom_frontR_Pillartopbottom_grp
+    100022: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backL
+    100024: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backR
+    100026: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_frontL
+    100028: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backL
+    100030: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backR
+    100032: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontL
+    100034: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontR
+    100036: GateMain_frontR_GateMain_grp_Gate_grp
+    100038: GateMain_grp_Gate_grp_GateMain_backL
+    100040: GateMain_grp_Gate_grp_GateMain_backR
+    100042: GateMain_grp_Gate_grp_GateMain_frontL
+    100044: Gate_grp_Pillar_frontR_Pillar_grp
+    100046: Gate_grp_Pillar_grp_Pillar_backR
     400000: //RootNode
     400002: Gate_geo1
+    400004: Gate_grp_Middle_frontR_Middle_grp
+    400006: Gate_grp_Middle_grp_Middle_backL
+    400008: Gate_grp_Middle_grp_Middle_backR
+    400010: Gate_grp_Middle_grp_Middle_frontL
+    400012: Gate_grp_Pillar_backR_Pillar_grp
+    400014: Gate_grp_Pillar_grp_Pillar_backL
+    400016: Gate_grp_Pillar_grp_Pillar_frontL
+    400018: Gate_grp_Pillar_grp_Pillar_frontR
+    400020: Gate_grp_Pillar_r_bottom_frontR_Pillartopbottom_grp
+    400022: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backL
+    400024: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backR
+    400026: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_frontL
+    400028: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backL
+    400030: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backR
+    400032: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontL
+    400034: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontR
+    400036: GateMain_frontR_GateMain_grp_Gate_grp
+    400038: GateMain_grp_Gate_grp_GateMain_backL
+    400040: GateMain_grp_Gate_grp_GateMain_backR
+    400042: GateMain_grp_Gate_grp_GateMain_frontL
+    400044: Gate_grp_Pillar_frontR_Pillar_grp
+    400046: Gate_grp_Pillar_grp_Pillar_backR
     2300000: Gate_geo1
+    2300002: Gate_grp_Middle_frontR_Middle_grp
+    2300004: Gate_grp_Middle_grp_Middle_backL
+    2300006: Gate_grp_Middle_grp_Middle_backR
+    2300008: Gate_grp_Middle_grp_Middle_frontL
+    2300010: Gate_grp_Pillar_backR_Pillar_grp
+    2300012: Gate_grp_Pillar_grp_Pillar_backL
+    2300014: Gate_grp_Pillar_grp_Pillar_frontL
+    2300016: Gate_grp_Pillar_grp_Pillar_frontR
+    2300018: Gate_grp_Pillar_r_bottom_frontR_Pillartopbottom_grp
+    2300020: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backL
+    2300022: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backR
+    2300024: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_frontL
+    2300026: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backL
+    2300028: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backR
+    2300030: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontL
+    2300032: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontR
+    2300034: GateMain_frontR_GateMain_grp_Gate_grp
+    2300036: GateMain_grp_Gate_grp_GateMain_backL
+    2300038: GateMain_grp_Gate_grp_GateMain_backR
+    2300040: GateMain_grp_Gate_grp_GateMain_frontL
+    2300042: Gate_grp_Pillar_frontR_Pillar_grp
+    2300044: Gate_grp_Pillar_grp_Pillar_backR
     3300000: Gate_geo1
+    3300002: Gate_grp_Middle_frontR_Middle_grp
+    3300004: Gate_grp_Middle_grp_Middle_backL
+    3300006: Gate_grp_Middle_grp_Middle_backR
+    3300008: Gate_grp_Middle_grp_Middle_frontL
+    3300010: Gate_grp_Pillar_backR_Pillar_grp
+    3300012: Gate_grp_Pillar_grp_Pillar_backL
+    3300014: Gate_grp_Pillar_grp_Pillar_frontL
+    3300016: Gate_grp_Pillar_grp_Pillar_frontR
+    3300018: Gate_grp_Pillar_r_bottom_frontR_Pillartopbottom_grp
+    3300020: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backL
+    3300022: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backR
+    3300024: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_frontL
+    3300026: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backL
+    3300028: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backR
+    3300030: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontL
+    3300032: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontR
+    3300034: GateMain_frontR_GateMain_grp_Gate_grp
+    3300036: GateMain_grp_Gate_grp_GateMain_backL
+    3300038: GateMain_grp_Gate_grp_GateMain_backR
+    3300040: GateMain_grp_Gate_grp_GateMain_frontL
+    3300042: Gate_grp_Pillar_frontR_Pillar_grp
+    3300044: Gate_grp_Pillar_grp_Pillar_backR
     4300000: Gate_geo1
+    4300002: Gate_grp_Middle_frontR_Middle_grp
+    4300004: Gate_grp_Middle_grp_Middle_backL
+    4300006: Gate_grp_Middle_grp_Middle_backR
+    4300008: Gate_grp_Middle_grp_Middle_frontL
+    4300010: Gate_grp_Pillar_backR_Pillar_grp
+    4300012: Gate_grp_Pillar_grp_Pillar_backL
+    4300014: Gate_grp_Pillar_grp_Pillar_frontL
+    4300016: Gate_grp_Pillar_grp_Pillar_frontR
+    4300018: Gate_grp_Pillar_r_bottom_frontR_Pillartopbottom_grp
+    4300020: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backL
+    4300022: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backR
+    4300024: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_frontL
+    4300026: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backL
+    4300028: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backR
+    4300030: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontL
+    4300032: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontR
+    4300034: GateMain_frontR_GateMain_grp_Gate_grp
+    4300036: GateMain_grp_Gate_grp_GateMain_backL
+    4300038: GateMain_grp_Gate_grp_GateMain_backR
+    4300040: GateMain_grp_Gate_grp_GateMain_frontL
+    4300042: Gate_grp_Pillar_frontR_Pillar_grp
+    4300044: Gate_grp_Pillar_grp_Pillar_backR
   materials:
     importMaterials: 1
     materialName: 0
