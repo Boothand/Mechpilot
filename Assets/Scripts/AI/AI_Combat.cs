@@ -5,7 +5,11 @@ public class AI_Combat : AI_MechComponent
 {
 	[SerializeField] float combatDistance = 45f;
 	[SerializeField] float impatienceTime = 3f;
+	[SerializeField] float turnHeadSpeed = 1f;
+	[SerializeField] float posUnderEnemyArmPos = -2f;
 	float impatienceTimer;
+	public bool inAttackRoutine { get; private set; }
+
 	public AI_AttackMethod activeAttackMethod { get; private set; }
 	public AI_BlockMethod activeBlockMethod { get; private set; }
 
@@ -13,7 +17,7 @@ public class AI_Combat : AI_MechComponent
 	[SerializeField] AI_BlockMethod confidentBlock, lowStaminaBlock, lowHealthBlock;
 
 	public enum CombatState { Defend, Attack, Idle }
-	public CombatState combatState { get; private set; }
+	public CombatState combatState { get; set; }
 
 	public float getCombatDistance { get { return combatDistance; } }
 
@@ -33,9 +37,8 @@ public class AI_Combat : AI_MechComponent
 		Transform rIK = arms.armControl.getRhandIKTarget;
 
 		Vector3 dir = localPos - rIK.localPosition;
-
-		input.rArmHorz = Mathf.Sign(dir.x);
-		input.rArmVert = Mathf.Sign(dir.y);
+		input.rArmHorz = dir.x * 8f;
+		input.rArmVert = dir.y * 8f;
 	}
 
 	public void MoveHandsInDirection(Vector3 dir)
@@ -71,6 +74,24 @@ public class AI_Combat : AI_MechComponent
 		else if (aimAngle > angle + 0.01f)
 		{
 			input.rArmRot = -1f;
+		}
+	}
+
+	public void TurnHeadTowards(Vector3 target)
+	{
+		Vector3 dirToTarget = target - mech.transform.position;
+		dirToTarget.Normalize();
+
+		float rightDot = Vector3.Dot(hierarchy.head.transform.right, dirToTarget);
+
+		if (rightDot > 0f)
+		{
+			input.lookHorz = turnHeadSpeed;
+		}
+
+		if (rightDot < 0f)
+		{
+			input.lookHorz = -turnHeadSpeed;
 		}
 	}
 
@@ -124,27 +145,156 @@ public class AI_Combat : AI_MechComponent
 		return false;
 	}
 
-	public bool LowStamina(Mech someMech)
+	public bool LowStamina(Mech someMech, float threshold = 40f)
 	{
-		return someMech.weaponsOfficer.energyManager.stamina < 40f;
+		return someMech.weaponsOfficer.energyManager.stamina < threshold;
 	}
 
-	public bool LowHealth(Mech someMech)
+	public bool LowHealth(Mech someMech, float threshold = 40f)
 	{
-		return someMech.weaponsOfficer.healthManager.getHealth < 40f;
+		return someMech.weaponsOfficer.healthManager.getHealth < threshold;
 	}
 
 	public bool CanSeeEnemy()
 	{
 		return true; //For now...
 	}
+
+	public Vector3 DecideWindupPosition()
+	{
+		Vector3 windupPos = aiCombat.localHandBasePos;
+		float range = 0.5f;
+		windupPos.x += Random.Range(-range, range);
+		windupPos.y += Random.Range(-range, range);
+
+		return windupPos;
+	}
+
+	public float DecideWindupRotation()
+	{
+		float limit = arms.armBlockState.getSideRotationLimit;
+		float randomAngle = 0f + Random.Range(-limit, limit);
+
+		return randomAngle;
+	}
+
+	public void WalkForward()
+	{
+		input.moveVert = 1f;
+	}
+
+	public void WalkTo(Vector3 pos)
+	{
+		TurnHeadTowards(pos);
+		WalkForward();
+	}
+
+	public void CrossEnemySwordDir(float rotDir = 1f)
+	{
+		Sword enemySword = enemy.weaponsOfficer.getWeapon;
+		Vector3 enemyTipsPos = enemySword.getSwordTip.position;
+		Vector3 enemySwordDir = -enemySword.transform.right;
+
+		float enemyTargetAngle = enemy.weaponsOfficer.armBlockState.sideTargetAngle;
+
+		aiCombat.MoveHandsToSidePos(-5f);
+
+		if (enemyTargetAngle < 0f)
+		{
+			rotDir = -rotDir;
+			aiCombat.MoveHandsToSidePos(5f);
+		}
+
+		if (Mathf.Abs(enemyTargetAngle) > 80f)
+		{
+			input.rArmVert = -1f;
+		}
+		else
+		{
+			float enemyPos = enemy.weaponsOfficer.armBlockState.rArmPos.y;
+			float underEnemyPos = enemyPos - posUnderEnemyArmPos;
+			float asd = Mathf.Lerp(enemyPos, underEnemyPos, Mathf.Abs(enemyTargetAngle) / 80f);
+			//print(arms.armBlockState.rArmPos.y + " " + asd);
+			if (arms.armBlockState.rArmPos.y > asd)
+			{
+				input.rArmVert = -1f;
+			}
+			else
+			{
+				input.rArmVert = 1f;
+			}
+			//aiCombat.MoveHandsToPos(aiCombat.localHandBasePos);
+		}
+
+		float dirDot = Vector3.Dot(-arms.getWeapon.transform.right, enemySwordDir);
+		//print(dirDot);
+		if (dirDot > 0.4f)
+		{
+			input.rArmRot = rotDir;
+		}
+		else if (dirDot < 0.3f)
+		{
+			input.rArmRot = -rotDir;
+		}
+	}
+
+	public void ZeroAllInputs()
+	{
+		input.rArmHorz = 0f;
+		input.rArmVert = 0f;
+		input.rArmRot = 0f;
+		input.moveHorz = 0f;
+		input.moveVert = 0f;
+	}
+
 	#endregion
+
+	public IEnumerator AttackRoutine()
+	{
+		inAttackRoutine = true;
+		input.attack = true;
+
+		Vector3 attackPos = DecideWindupPosition();
+		float attackAngle = DecideWindupRotation();
+
+		float aTimer = 0f;
+		while (arms.armControl.state != ArmControl.State.WindedUp)
+		{
+			aTimer += Time.deltaTime;
+			aiCombat.MoveHandsToPos(attackPos);
+			aiCombat.RotateHandsToAngle(attackAngle);
+			yield return null;
+		}
+
+		//StopArms();
+		aiCombat.StopHandRotation();
+
+		yield return new WaitForSeconds(0.2f);
+
+		input.attack = false;
+
+		Vector3 dir = aiCombat.localHandBasePos - attackPos;
+
+		while (arms.armControl.state != ArmControl.State.Defend)
+		{
+			aiCombat.MoveHandsInDirection(dir);
+			yield return null;
+		}
+
+		aiCombat.StopArms();
+
+		yield return new WaitForSeconds(0.3f);
+		inAttackRoutine = false;
+	}
 
 	void DecideAttackAndBlockMethod()
 	{
 		//Defaults:
-		activeAttackMethod = aggressiveAttack;
-		activeBlockMethod = confidentBlock;
+		if (energyManager.stamina > 60f)
+		{
+			activeAttackMethod = aggressiveAttack;
+			activeBlockMethod = confidentBlock;
+		}
 
 		//If I'm healthy and got stamina, I'll be agressive. Might wind-up and attack, and dash away if he's attacking.
 		//Might kick if he's just winding up and standing there.

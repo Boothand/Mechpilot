@@ -1,4 +1,4 @@
-﻿//using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class AI_AttackMethod : AI_MechComponent
@@ -10,8 +10,10 @@ public class AI_AttackMethod : AI_MechComponent
 		base.OnAwake();
 	}
 
+
 	public virtual void RunComponent()
 	{
+		aiCombat.ZeroAllInputs();
 	}
 
 	protected override void Update()

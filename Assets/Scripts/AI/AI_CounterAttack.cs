@@ -10,6 +10,13 @@ public class AI_CounterAttack : AI_AttackMethod
 		base.OnAwake();
 	}
 
+	public override void RunComponent()
+	{
+		base.RunComponent();
+
+		print("In counter attack");
+	}
+
 	protected override void Update()
 	{
 		base.Update();

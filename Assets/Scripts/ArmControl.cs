@@ -296,8 +296,6 @@ public class ArmControl : MechComponent
 				keepStretchedOut = false;
 			}
 
-			print(rotationTimer);
-
 			//Feint
 			if (input.attack && rotationTimer < 0.7f)
 			{

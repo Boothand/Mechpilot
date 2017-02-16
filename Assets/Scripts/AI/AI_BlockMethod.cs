@@ -12,6 +12,7 @@ public class AI_BlockMethod : AI_MechComponent
 
 	public virtual void RunComponent()
 	{
+		aiCombat.ZeroAllInputs();
 	}
 
 	protected override void Update()
