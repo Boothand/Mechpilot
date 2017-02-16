@@ -277,11 +277,27 @@ public class ArmControl : MechComponent
 	{
 		rotationTimer = 0f;
 		energyManager.SpendStamina(arms.armAttackState.getStaminaAmount);
+		bool keepStretchedOut = true;
 
-		while (rotationTimer < 1f)
+		float maxRotationTime = 1.8f;
+		
+		while (rotationTimer < maxRotationTime && keepStretchedOut)
 		{
-			rotationTimer += (rotationTimer * arms.armAttackState.getSwingAcceleration) + Time.deltaTime * arms.armAttackState.getRotSpeed;
-			
+			Vector3 inputVec = new Vector3(input.rArmHorz, input.rArmVert);
+			rotationTimer += /*(rotationTimer * arms.armAttackState.getSwingAcceleration) +*/ Time.deltaTime * arms.armAttackState.getRotSpeed;
+
+			if (rotationTimer > 1f && inputVec.magnitude < 0.4f)
+			{
+				keepStretchedOut = false;
+			}
+
+			if (rotationTimer > maxRotationTime && keepStretchedOut)
+			{
+				keepStretchedOut = false;
+			}
+
+			print(rotationTimer);
+
 			//Feint
 			if (input.attack && rotationTimer < 0.7f)
 			{
