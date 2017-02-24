@@ -14,11 +14,9 @@ public class AI_LowHealthBlock : AI_BlockMethod
 	{
 		base.RunComponent();
 
-		float rotDir = 1f;
-
 		if (aiCombat.combatState == AI_Combat.CombatState.Defend)
 		{
-			aiCombat.CrossEnemySwordDir(rotDir);
+			aiCombat.CrossEnemySwordDir();
 		}
 
 		print("In low health block");

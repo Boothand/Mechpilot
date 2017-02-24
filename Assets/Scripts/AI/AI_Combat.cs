@@ -4,6 +4,7 @@ using UnityEngine;
 public class AI_Combat : AI_MechComponent
 {
 	[SerializeField] float combatDistance = 45f;
+	[SerializeField] float swingDistance = 32f;
 	[SerializeField] float impatienceTime = 3f;
 	[SerializeField] float turnHeadSpeed = 1f;
 	[SerializeField] float posUnderEnemyArmPos = -2f;
@@ -16,10 +17,18 @@ public class AI_Combat : AI_MechComponent
 	[SerializeField] AI_AttackMethod aggressiveAttack, counterAttack, impatientAttack;
 	[SerializeField] AI_BlockMethod confidentBlock, lowStaminaBlock, lowHealthBlock;
 
+	public AI_AttackMethod getAggressiveAttack { get { return aggressiveAttack; } }
+	public AI_AttackMethod getCounterAttack { get { return counterAttack; } }
+	public AI_AttackMethod getImpatientAttack { get { return impatientAttack; } }
+	public AI_BlockMethod getConfidentBlock { get { return confidentBlock; } }
+	public AI_BlockMethod getLowStaminaBlock { get { return lowStaminaBlock; } }
+	public AI_BlockMethod getLowHealthBlock { get { return lowHealthBlock; } }
+
 	public enum CombatState { Defend, Attack, Idle }
 	public CombatState combatState { get; set; }
 
 	public float getCombatDistance { get { return combatDistance; } }
+	public float getSwingDistance { get { return swingDistance; } }
 
 	public Vector3 localHandBasePos { get; private set; }
 
@@ -29,6 +38,8 @@ public class AI_Combat : AI_MechComponent
 		base.OnAwake();
 
 		combatState = CombatState.Attack;
+		activeAttackMethod = aggressiveAttack;
+		activeBlockMethod = confidentBlock;
 	}
 
 	#region Helper functions
@@ -183,14 +194,25 @@ public class AI_Combat : AI_MechComponent
 		input.moveVert = 1f;
 	}
 
+	public void WalkBackward()
+	{
+		input.moveVert = -1f;
+	}
+
+	public void MoveSideways(float dir = 1f)
+	{
+		input.moveHorz = dir;
+	}
+
 	public void WalkTo(Vector3 pos)
 	{
 		TurnHeadTowards(pos);
 		WalkForward();
 	}
 
-	public void CrossEnemySwordDir(float rotDir = 1f)
+	public void CrossEnemySwordDir()
 	{
+		float rotDir = 1f;
 		Sword enemySword = enemy.weaponsOfficer.getWeapon;
 		Vector3 enemyTipsPos = enemySword.getSwordTip.position;
 		Vector3 enemySwordDir = -enemySword.transform.right;
@@ -243,6 +265,8 @@ public class AI_Combat : AI_MechComponent
 		input.rArmHorz = 0f;
 		input.rArmVert = 0f;
 		input.rArmRot = 0f;
+		input.lookHorz = 0f;
+		input.lookVert = 0f;
 		input.moveHorz = 0f;
 		input.moveVert = 0f;
 	}
@@ -278,6 +302,12 @@ public class AI_Combat : AI_MechComponent
 		while (arms.armControl.state != ArmControl.State.Defend)
 		{
 			aiCombat.MoveHandsInDirection(dir);
+
+			if (!IsWithinSwingDistance())
+			{
+				WalkForward();
+			}
+
 			yield return null;
 		}
 
@@ -332,6 +362,18 @@ public class AI_Combat : AI_MechComponent
 		}
 	}
 
+	public void SetAttackMethod(AI_AttackMethod method)
+	{
+		combatState = CombatState.Attack;
+		activeAttackMethod = method;
+	}
+
+	public void SetBlockMethod(AI_BlockMethod method)
+	{
+		combatState = CombatState.Defend;
+		activeBlockMethod = method;
+	}
+
 	protected override void Update()
 	{
 		base.Update();
@@ -346,7 +388,7 @@ public class AI_Combat : AI_MechComponent
 		}
 
 		//Decide which block and attack method to use
-		DecideAttackAndBlockMethod();
+		//DecideAttackAndBlockMethod();
 
 		if (combatState == CombatState.Attack)
 		{

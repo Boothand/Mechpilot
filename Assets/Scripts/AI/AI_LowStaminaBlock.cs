@@ -16,11 +16,19 @@ public class AI_LowStaminaBlock : AI_BlockMethod
 
 		print("In low stamina block");
 
-		float rotDir = 1f;
-
 		if (aiCombat.combatState == AI_Combat.CombatState.Defend)
 		{
-			aiCombat.CrossEnemySwordDir(rotDir);
+			aiCombat.CrossEnemySwordDir();
+		}
+
+		if (aiCombat.LowHealth(mech))
+		{
+			aiCombat.SetBlockMethod(aiCombat.getLowHealthBlock);
+		}
+
+		if (energyManager.stamina > 60f)
+		{
+			aiCombat.SetAttackMethod(aiCombat.getAggressiveAttack);
 		}
 	}
 

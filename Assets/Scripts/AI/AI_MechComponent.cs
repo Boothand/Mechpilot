@@ -33,6 +33,11 @@ public class AI_MechComponent : MechComponent
 		aiDefender = transform.root.GetComponentInChildren<AI_Defender>();
 	}
 
+	protected bool IsWithinSwingDistance()
+	{
+		return distanceToEnemy < aiCombat.getSwingDistance;
+	}
+
 	protected bool IsWithinCombatDistance()
 	{
 		return distanceToEnemy < aiCombat.getCombatDistance;
