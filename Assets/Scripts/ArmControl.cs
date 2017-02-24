@@ -432,9 +432,11 @@ public class ArmControl : MechComponent
 		//------------ ROTATION ------------\\
 		Quaternion finalTargetRotation = Quaternion.Lerp(fromRotation, toRotation, rotationTimer);	//Interpolate
 		finalRotation = Quaternion.Lerp(finalRotation, finalTargetRotation, Time.deltaTime * rotationBlendSpeed * scaleFactor);   //Smooth
-		
+
 		//Set final rotation
-		rHandIKTarget.localRotation = finalRotation;
+		//rHandIKTarget.localRotation = finalRotation;
+		rHandIKTarget.rotation = finalRotation;
+
 
 		lHandIKTarget.rotation = lHandTarget.rotation;
 	}

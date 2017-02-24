@@ -33,10 +33,20 @@ public static class BlendTree2D
 
 	public static Vector3 BlendedPos(float x, float y, Vector3 bottom1, Vector3 bottom2, Vector3 top1, Vector3 top2)
 	{
-		Vector3 bottomRow = Vector3.Lerp(bottom1, bottom2, x);
-		Vector3 topRow = Vector3.Lerp(top1, top2, x);
+		Vector3 bottomRow = Vector3.Lerp(bottom1, bottom2, Mathf.Abs(x));
+		Vector3 topRow = Vector3.Lerp(top1, top2, Mathf.Abs(x));
 
-		Vector3 blendBetweenRows = Vector3.Lerp(bottomRow, topRow, y);
+		Vector3 blendBetweenRows = Vector3.Lerp(bottomRow, topRow, Mathf.Abs(y));
+
+		return blendBetweenRows;
+	}
+
+	public static Quaternion BlendedRot(float x, float y, Quaternion bottom1, Quaternion bottom2, Quaternion top1, Quaternion top2)
+	{
+		Quaternion bottomRow = Quaternion.Lerp(bottom1, bottom2, Mathf.Abs(x));
+		Quaternion topRow = Quaternion.Lerp(top1, top2, Mathf.Abs(x));
+
+		Quaternion blendBetweenRows = Quaternion.Lerp(bottomRow, topRow, Mathf.Abs(y));
 
 		return blendBetweenRows;
 	}
