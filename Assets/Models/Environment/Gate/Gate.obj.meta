@@ -122,6 +122,26 @@ ModelImporter:
     4300040: GateMain_grp_Gate_grp_GateMain_frontL
     4300042: Gate_grp_Pillar_frontR_Pillar_grp
     4300044: Gate_grp_Pillar_grp_Pillar_backR
+    6400000: Gate_grp_Middle_frontR_Middle_grp
+    6400002: Gate_grp_Middle_grp_Middle_backL
+    6400004: Gate_grp_Middle_grp_Middle_backR
+    6400006: Gate_grp_Middle_grp_Middle_frontL
+    6400008: Gate_grp_Pillar_frontR_Pillar_grp
+    6400010: Gate_grp_Pillar_grp_Pillar_backL
+    6400012: Gate_grp_Pillar_grp_Pillar_backR
+    6400014: Gate_grp_Pillar_grp_Pillar_frontL
+    6400016: Gate_grp_Pillar_r_bottom_frontR_Pillartopbottom_grp
+    6400018: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backL
+    6400020: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_backR
+    6400022: Gate_grp_Pillartopbottom_grp_Pillar_r_bottom_frontL
+    6400024: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backL
+    6400026: Gate_grp_Pillartopbottom_grp_Pillar_r_top_backR
+    6400028: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontL
+    6400030: Gate_grp_Pillartopbottom_grp_Pillar_r_top_frontR
+    6400032: GateMain_frontR_GateMain_grp_Gate_grp
+    6400034: GateMain_grp_Gate_grp_GateMain_backL
+    6400036: GateMain_grp_Gate_grp_GateMain_backR
+    6400038: GateMain_grp_Gate_grp_GateMain_frontL
   materials:
     importMaterials: 1
     materialName: 0
@@ -148,7 +168,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
