@@ -19,7 +19,6 @@ public class ArmAttackState : MechComponent
 	public float getSwingAcceleration { get { return swingAcceleration; } }
 	public float getStaminaAmount { get { return staminaAmount; } }
 
-
 	protected override void OnAwake()
 	{
 		base.OnAwake();
