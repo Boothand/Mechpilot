@@ -24,6 +24,9 @@ public class ArmBlockState : MechComponent
 
 	[SerializeField] Transform centerTransform, lowerLeftTransform, leftTransform, upperLeftTransform, topTransform,
 								upperRightTransform, rightTransform, lowerRightTransform, bottomTransform;
+
+	[SerializeField] Transform hangCenterTransform, hangLowerLeftTransform, hangLeftTransform, hangUpperLeftTransform, hangTopTransform,
+								hangUpperRightTransform, hangRightTransform, hangLowerRightTransform, hangBottomTransform;
 	
 	public delegate void ArmMovement();
 	public event ArmMovement OnMoveArmBegin;
@@ -90,14 +93,30 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y >= 0f)
 			{
 				//Top right
-				posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, rightTransform.position,
-																topTransform.position, upperRightTransform.position);
+				if (!input.hangBlock)
+				{
+					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, rightTransform.position,
+																	topTransform.position, upperRightTransform.position);
+				}
+				else
+				{
+					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, hangCenterTransform.position, hangRightTransform.position,
+															hangTopTransform.position, hangUpperRightTransform.position);
+				}
 			}
 			if (rArmPos.y < 0f)
 			{
 				//Bottom right
-				posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, rightTransform.position,
-																				bottomTransform.position, lowerRightTransform.position);
+				if (!input.hangBlock)
+				{
+					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, rightTransform.position,
+																					bottomTransform.position, lowerRightTransform.position);
+				}
+				else
+				{
+					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, hangCenterTransform.position, hangRightTransform.position,
+																					hangBottomTransform.position, hangLowerRightTransform.position);
+				}
 			}
 		}
 		else if (rArmPos.x < 0f)
@@ -105,18 +124,33 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y >= 0f)
 			{
 				//Top left
-				posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, leftTransform.position,
-																topTransform.position, upperLeftTransform.position);
+				if (!input.hangBlock)
+				{
+					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, leftTransform.position,
+																	topTransform.position, upperLeftTransform.position);
+				}
+				else
+				{
+					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, hangCenterTransform.position, hangLeftTransform.position,
+																	hangTopTransform.position, hangUpperLeftTransform.position);
+				}
 			}
 			if (rArmPos.y < 0f)
 			{
 				//Bottom left
-				posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, leftTransform.position,
-																			bottomTransform.position, lowerLeftTransform.position);
+				if (!input.hangBlock)
+				{
+					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, leftTransform.position,
+																				bottomTransform.position, lowerLeftTransform.position);
+				}
+				else
+				{
+					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, hangCenterTransform.position, hangLeftTransform.position,
+																			hangBottomTransform.position, hangLowerLeftTransform.position);
+				}
 			}
 		}
 		actualArmPos = mech.transform.TransformDirection(rArmPos);
-		print(rArmPos / 12);
 
 		//The center of the circular area used for the arm movement
 		//Vector3 handCentralPos = shoulder.position + Vector3.up * armHeight * scaleFactor;
@@ -190,14 +224,30 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y >= 0f)
 			{
 				//Top right
-				rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, rightTransform.rotation,
-																topTransform.rotation, upperRightTransform.rotation);
+				if (!input.hangBlock)
+				{
+					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, rightTransform.rotation,
+																	topTransform.rotation, upperRightTransform.rotation);
+				}
+				else
+				{
+					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, hangCenterTransform.rotation, hangRightTransform.rotation,
+																hangTopTransform.rotation, hangUpperRightTransform.rotation);
+				}
 			}
 			if (rArmPos.y < 0f)
 			{
 				//Bottom right
-				rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, rightTransform.rotation,
-																				bottomTransform.rotation, lowerRightTransform.rotation);
+				if (!input.hangBlock)
+				{
+					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, rightTransform.rotation,
+																					bottomTransform.rotation, lowerRightTransform.rotation);
+				}
+				else
+				{
+					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, hangCenterTransform.rotation, hangRightTransform.rotation,
+																					hangBottomTransform.rotation, hangLowerRightTransform.rotation);
+				}
 			}
 		}
 		else if (rArmPos.x < 0f)
@@ -205,14 +255,30 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y >= 0f)
 			{
 				//Top left
-				rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, leftTransform.rotation,
-																topTransform.rotation, upperLeftTransform.rotation);
+				if (!input.hangBlock)
+				{
+					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, leftTransform.rotation,
+																	topTransform.rotation, upperLeftTransform.rotation);
+				}
+				else
+				{
+					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, hangCenterTransform.rotation, hangLeftTransform.rotation,
+																hangTopTransform.rotation, hangUpperLeftTransform.rotation);
+				}
 			}
 			if (rArmPos.y < 0f)
 			{
 				//Bottom left
-				rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, leftTransform.rotation,
-																			bottomTransform.rotation, lowerLeftTransform.rotation);
+				if (!input.hangBlock)
+				{
+					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, leftTransform.rotation,
+																				bottomTransform.rotation, lowerLeftTransform.rotation);
+				}
+				else
+				{
+					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, hangCenterTransform.rotation, hangLeftTransform.rotation,
+																			hangBottomTransform.rotation, hangLowerLeftTransform.rotation);
+				}
 			}
 		}
 

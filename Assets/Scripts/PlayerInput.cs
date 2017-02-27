@@ -34,6 +34,7 @@ public class PlayerInput : AbstractInput
 
 
 		attack = armsPlayer.GetButton("Wind Up Attack");
+		hangBlock = armsPlayer.GetButton("Block Hanging");
 
 		giveToPilot = armsPlayer.GetButtonDown("Give Pilot Energy");
 		takeFromPilot = armsPlayer.GetButtonDown("Take Energy From Pilot");
