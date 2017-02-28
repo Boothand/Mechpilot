@@ -40,7 +40,7 @@ public class WeaponsOfficer : MechComponent
 
 	void Start()
 	{
-		IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
+		//IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
 	}
 
 	void FixedUpdate()
