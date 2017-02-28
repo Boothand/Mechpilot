@@ -70,7 +70,7 @@ public class MechMovement : MechComponent
 
 
 		//Transform direction from 'input' space to world space, relative to head's orientation.
-		worldMoveDir = hierarchy.head.TransformDirection(inputVec);
+		worldMoveDir = mech.transform.TransformDirection(inputVec);
 
 		//Keep the vector straight regardless of looking up/down
 		worldMoveDir.y = 0f;
@@ -233,7 +233,7 @@ public class MechMovement : MechComponent
 		DoWalkAnimation();
 
 		//Gradually tween mech's forward direction towards head's aim direction
-		if (moving)
+		if (inputVec.magnitude > 0.01f && moving)
 		{
 			mech.transform.forward = Vector3.Lerp(mech.transform.forward, pilot.headRotation.lookDir, Time.deltaTime * 2f);
 		}

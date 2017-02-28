@@ -53,7 +53,7 @@ public class MechSounds : MechComponent
 	{
 		impact *= 20f;
 		singleSource.volume = impact;
-		print(impact);
+		//print(impact);
 		singleSource.pitch = RandomPitch(1, 0.2f);
 		singleSource.PlayOneShot(bodyHitSound);
 	}
