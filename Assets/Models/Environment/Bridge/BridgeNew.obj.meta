@@ -67,6 +67,18 @@ ModelImporter:
     4300018: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_backR_geo
     4300020: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontL_geo
     4300022: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontR_geo
+    6400000: Bridge_top_backL_geo_Bridge_top_grp_MilitaryBridge_grp
+    6400002: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_backR_geo
+    6400004: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontL_geo
+    6400006: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontR_geo
+    6400008: MilitaryBridge_grp_Bridge_bottom_frontL_geo_Bridge_bottom_grp
+    6400010: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backL_geo
+    6400012: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backR_geo
+    6400014: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_frontR_geo
+    6400016: MilitaryBridge_grp_Bridge_middle_backL_geo_Bridge_middle_grp
+    6400018: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_backR_geo
+    6400020: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontL_geo
+    6400022: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontR_geo
   materials:
     importMaterials: 1
     materialName: 0
@@ -93,7 +105,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
