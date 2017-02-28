@@ -70,7 +70,7 @@ public class MechMovement : MechComponent
 
 
 		//Transform direction from 'input' space to world space, relative to head's orientation.
-		worldMoveDir = hierarchy.head.TransformDirection(inputVec);
+		worldMoveDir = mech.transform.TransformDirection(inputVec);
 
 		//Keep the vector straight regardless of looking up/down
 		worldMoveDir.y = 0f;

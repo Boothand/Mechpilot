@@ -97,11 +97,13 @@ public class HeadRotation : MechComponent
 		float yInput = Mathf.Clamp(input.lookVert, -1f, 1f);
 		angle.x = Mathf.Lerp(angle.x, xInput * xAngle, Time.deltaTime * speed);
 		angle.y = Mathf.Lerp(angle.y, yInput * yAngle, Time.deltaTime * speed);
-		chest.rotation *= Quaternion.Euler(0f, angle.x, 0f);
-		chest.rotation *= Quaternion.Euler(angle.y, 0f, 0f);
+		Quaternion rotOffset = Quaternion.Euler(angle.y, angle.x, 0f);
+		chest.rotation *= rotOffset;
 
-		forwardDir = chest.forward;
+		forwardDir = Quaternion.Euler(0, angle.x, 0) * mech.transform.forward;
 		forwardDir.y = 0f;
 		forwardDir.Normalize();
+
+		Debug.DrawRay(chest.position, forwardDir, Color.red);
 	}
 }
