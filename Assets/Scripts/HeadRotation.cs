@@ -71,6 +71,7 @@ public class HeadRotation : MechComponent
 
 		//Place the head's 'aim base' at the correct position
 		//aimBaseX.position = hierarchy.head.position;
+		//aimBaseX.forward = forwardDir;
 
 		//float lookHorzInput = Mathf.Clamp(input.lookHorz, -maxTurnSpeed, maxTurnSpeed);
 		//float lookVertInput = Mathf.Clamp(input.lookVert, -maxTurnSpeed, maxTurnSpeed);
