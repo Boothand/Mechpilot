@@ -13,19 +13,19 @@ public class Windup : MechComponent
 
 	void Update()
 	{
-		if (!windingUp && input.attack)
-		{
-			windingUp = true;
+		//if (!windingUp && input.attack)
+		//{
+		//	windingUp = true;
 
-			animator.CrossFade("Windup Left", 0.25f, 1);
-		}
+		//	animator.CrossFade("Windup Left", 0.25f, 1);
+		//}
 
-		if (windingUp && !input.attack)
-		{
-			windingUp = false;
-			attacking = true;
+		//if (windingUp && !input.attack)
+		//{
+		//	windingUp = false;
+		//	attacking = true;
 
-			animator.CrossFade("Left Slash", 0.25f, 1);
-		}
+		//	animator.CrossFade("Left Slash", 0.25f, 1);
+		//}
 	}
 }

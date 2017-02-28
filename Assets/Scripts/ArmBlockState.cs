@@ -22,10 +22,10 @@ public class ArmBlockState : MechComponent
 	public float getSideRotationLimit { get { return sideRotationLimit; } }
 	[SerializeField] Vector3 sideRotOffset;
 
-	[SerializeField] Transform centerTransform, lowerLeftTransform, leftTransform, upperLeftTransform, topTransform,
+	[SerializeField] public Transform centerTransform, lowerLeftTransform, leftTransform, upperLeftTransform, topTransform,
 								upperRightTransform, rightTransform, lowerRightTransform, bottomTransform;
 
-	[SerializeField] Transform hangCenterTransform, hangLowerLeftTransform, hangLeftTransform, hangUpperLeftTransform, hangTopTransform,
+	[SerializeField] public Transform hangCenterTransform, hangLowerLeftTransform, hangLeftTransform, hangUpperLeftTransform, hangTopTransform,
 								hangUpperRightTransform, hangRightTransform, hangLowerRightTransform, hangBottomTransform;
 	
 	public delegate void ArmMovement();
