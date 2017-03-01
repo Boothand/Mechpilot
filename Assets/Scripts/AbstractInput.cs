@@ -14,6 +14,9 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public float lookHorz;
 	[HideInInspector] public float lookVert;
 
+	[HideInInspector] public float turnBodyHorz;
+	[HideInInspector] public float turnBodyVert;
+
 	[HideInInspector] public float crouchAxis;
 	[HideInInspector] public bool dodge;
 	[HideInInspector] public bool dash;

@@ -7,7 +7,7 @@ public class ArmControl : MechComponent
 	//The IK targets to move and rotate around
 	[Header("References")]
 	[SerializeField] Transform rHandIKTarget;
-	[SerializeField] Transform lHandIKTarget;
+	[SerializeField] public Transform lHandIKTarget;
 	[SerializeField] Transform lHandTarget;	//Where to put the left hand (if longsword)
 	public Transform getRhandIKTarget { get { return rHandIKTarget; } }
 
