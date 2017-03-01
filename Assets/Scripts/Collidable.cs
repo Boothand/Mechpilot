@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Collidable : MechComponent
 {
-	public delegate void Collide(Collider col);
+	public delegate void Collide(Collision col);
 	public event Collide OnCollision;
 
 	[SerializeField] protected LayerMask layerMask;
@@ -31,7 +31,19 @@ public class Collidable : MechComponent
 			IsInLayerMask(obj, layerMask);
 	}
 
-	protected virtual void OnTriggerEnter(Collider col)
+	//protected virtual void OnTriggerEnter(Collider col)
+	//{
+	//	if (col.transform.root != transform.root &&
+	//		IsInLayerMask(col.gameObject, layerMask))
+	//	{
+	//		if (OnCollision != null)
+	//		{
+	//			OnCollision(col);
+	//		}
+	//	}
+	//}
+
+	protected virtual void OnCollisionEnter(Collision col)
 	{
 		if (col.transform.root != transform.root &&
 			IsInLayerMask(col.gameObject, layerMask))

@@ -21,11 +21,11 @@ public class Kicker : MechComponent
 		kickCheck.OnCollision += FootHitSomething;
 	}
 
-	void FootHitSomething(Collider col)
+	void FootHitSomething(Collision col)
 	{
 		hitSomething = true;
 
-		BodyPart bodypartIKicked = col.GetComponent<BodyPart>();
+		BodyPart bodypartIKicked = col.transform.GetComponent<BodyPart>();
 
 		if (bodypartIKicked && !dealingDamage)
 		{

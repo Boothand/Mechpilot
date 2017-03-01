@@ -81,8 +81,8 @@ public class ArmControl : MechComponent
 
 	void Start()
 	{
-		arms.getWeapon.OnCollision -= SwordCollide;
-		arms.getWeapon.OnCollision += SwordCollide;
+		//arms.getWeapon.OnCollision -= SwordCollide;
+		//arms.getWeapon.OnCollision += SwordCollide;
 		healthManager.OnGetHit -= OnGetHit;
 		healthManager.OnGetHit += OnGetHit;
 	}
