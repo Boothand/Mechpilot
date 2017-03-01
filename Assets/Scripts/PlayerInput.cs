@@ -20,6 +20,8 @@ public class PlayerInput : AbstractInput
 		moveVert = pilotPlayer.GetAxis("Move Vertical");
 		lookHorz = pilotPlayer.GetAxis("Look Horizontal");
 		lookVert = pilotPlayer.GetAxis("Look Vertical");
+		turnBodyHorz = pilotPlayer.GetAxis("Turn Body Horz");
+		turnBodyVert = pilotPlayer.GetAxis("Turn Body Vert");
 		crouchAxis = pilotPlayer.GetAxis("Crouch");
 		dash = pilotPlayer.GetButtonDown("Dash");
 		kick = pilotPlayer.GetButtonDown("Kick");
