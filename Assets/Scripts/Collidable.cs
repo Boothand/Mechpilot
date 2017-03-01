@@ -43,15 +43,19 @@ public class Collidable : MechComponent
 	//	}
 	//}
 
+	protected virtual void RunCollisionEvent(Collision col)
+	{
+		if (OnCollision != null)
+		{
+			OnCollision(col);
+		}
+	}
+
 	protected virtual void OnCollisionEnter(Collision col)
 	{
-		if (col.transform.root != transform.root &&
-			IsInLayerMask(col.gameObject, layerMask))
+		if (IsValid(col.gameObject))
 		{
-			if (OnCollision != null)
-			{
-				OnCollision(col);
-			}
+			RunCollisionEvent(col);
 		}
 	}
 

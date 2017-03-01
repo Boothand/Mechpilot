@@ -14,6 +14,25 @@ public class Attacker : MechComponent
 		base.OnAwake();
 	}
 
+	void Start()
+	{
+		arms.getWeapon.OnCollision -= OnSwordCollision;
+		arms.getWeapon.OnCollision += OnSwordCollision;
+	}
+
+	void OnSwordCollision(Collision col)
+	{
+		if (col.transform.GetComponent<Sword>())
+		{
+			if (inAttack)
+			{
+				inAttack = false;
+				StopAllCoroutines();
+				animator.CrossFade("Idle Block", 0.25f);
+			}
+		}
+	}
+
 	AttackDir GetDir()
 	{
 		inputVec = new Vector3(input.rArmHorz, input.rArmVert).normalized;
