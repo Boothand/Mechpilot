@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class Attacker : MechComponent
 {
-	public bool inAttack { get; private set; }
-	public enum AttackDir { BottomLeft, Left, TopLeft, Top, TopRight, Right, BottomRight }
 	[SerializeField] float attackDuration = 0.75f;
 	Vector3 inputVec;
 	float inputVecMagnitude;
+	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
+	Transform targetTransform;
+	WeaponsOfficer.CombatDir dir;
 
 	protected override void OnAwake()
 	{
@@ -24,135 +25,92 @@ public class Attacker : MechComponent
 	{
 		if (col.transform.GetComponent<Sword>())
 		{
-			if (inAttack)
+			if (arms.combatState == WeaponsOfficer.CombatState.Attack)
 			{
-				inAttack = false;
 				StopAllCoroutines();
-				animator.CrossFade("Idle Block", 0.25f);
+				//Stagger?
 			}
 		}
 	}
 
-	AttackDir GetDir()
+	Transform DecideAttackTransform()
 	{
-		inputVec = new Vector3(input.rArmHorz, input.rArmVert).normalized;
-		inputVecMagnitude = inputVec.magnitude;
-
-		float threshold = 0.2f;
-
-		//Top
-		if (Mathf.Abs(inputVec.x) < threshold && inputVec.y > 0f)
+		switch (stancePicker.stance)
 		{
-			return AttackDir.Top;
+			case WeaponsOfficer.CombatDir.BottomLeft:
+				return blTransform;
+
+			case WeaponsOfficer.CombatDir.BottomRight:
+				return brTransform;
+
+			case WeaponsOfficer.CombatDir.Top:
+				return topTransform;
+
+			case WeaponsOfficer.CombatDir.TopLeft:
+				return tlTransform;
+
+			case WeaponsOfficer.CombatDir.TopRight:
+				return trTransform;
 		}
 
-		//Right
-		if (inputVec.x > 0f)
-		{
-			if (inputVec.y > threshold)
-			{
-				//Top right
-				return AttackDir.TopRight;
-			}
-
-			if (inputVec.y < -threshold)
-			{
-				//Bottom right
-				return AttackDir.BottomRight;
-			}
-
-			return AttackDir.Right;
-		}
-
-		//Left
-		if (inputVec.x < 0f)
-		{
-			if (inputVec.y > threshold)
-			{
-				//Top left
-				return AttackDir.TopLeft;
-			}
-
-			if (inputVec.y < -threshold)
-			{
-				//Bottom left
-				return AttackDir.BottomLeft;
-			}
-
-			return AttackDir.Left;
-		}
-
-		return AttackDir.Top;
+		return trTransform;
 	}
 
-	IEnumerator Attack(AttackDir dir)
+	IEnumerator Attack(WeaponsOfficer.CombatDir dir)
 	{
-		string windupAnimToUse = "Windup Top";
-		string attackAnimToUse = "Top Slash";
+		targetTransform = DecideAttackTransform();
 
-		switch (dir)
+		Transform rIK = arms.armControl.getRhandIKTarget;
+		
+
+		while (true)
 		{
-			case AttackDir.BottomLeft:
-				windupAnimToUse = "Windup Bottom Left";
-				attackAnimToUse = "Bottom Left Slash";
-				break;
+			Vector3 fromPos = rIK.position;
+			Quaternion fromRot = rIK.rotation;
+			float attackTimer = 0f;
 
-			case AttackDir.BottomRight:
-				windupAnimToUse = "Windup Bottom Right";
-				attackAnimToUse = "Bottom Right Slash";
-				break;
+			float duration = attackDuration;
 
-			case AttackDir.Left:
-				windupAnimToUse = "Windup Left";
-				attackAnimToUse = "Left Slash";
-				break;
+			//If there are 'keyframes', adjust timing between each so it totals to attackDuration
+			if (targetTransform.childCount > 0)
+				duration /= targetTransform.childCount + 1;
 
-			case AttackDir.Right:
-				windupAnimToUse = "Windup Right";
-				attackAnimToUse = "Right Slash";
-				break;
+			while (attackTimer < attackDuration)
+			{
+				print(targetTransform.name);
+				attackTimer += Time.deltaTime;
+				rIK.position = Vector3.Lerp(fromPos, targetTransform.position, attackTimer / attackDuration);
+				rIK.rotation = Quaternion.Lerp(fromRot, targetTransform.rotation, attackTimer / attackDuration);
 
-			case AttackDir.Top:
-				windupAnimToUse = "Windup Top";
-				attackAnimToUse = "Top Slash";
-				break;
+				yield return null;
+			}
 
-			case AttackDir.TopLeft:
-				windupAnimToUse = "Windup Top Left";
-				attackAnimToUse = "Top Left Slash";
+			//If the attack 'animation' has 'keyframes'
+			if (targetTransform.childCount > 0)
+			{
+				targetTransform = targetTransform.GetChild(0);
+			}
+			else
+			{
 				break;
-
-			case AttackDir.TopRight:
-				windupAnimToUse = "Windup Top Right";
-				attackAnimToUse = "Top Right Slash";
-				break;
+			}
 		}
 
-		animator.CrossFade(windupAnimToUse, 0.25f, 1);
-
-
-		while (input.attack)
-		{
-			yield return null;
-		}
-
-		animator.CrossFade(attackAnimToUse, 0.25f, 1);
-
-
-		yield return new WaitForSeconds(attackDuration);
-
-		inAttack = false;
+		arms.combatState = WeaponsOfficer.CombatState.Stance;
 	}
 
 	void Update()
 	{
-		if (!inAttack && input.attack)
+		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
-			inAttack = true;
-			AttackDir dir = GetDir();
+			if (input.attack)
+			{
+				arms.combatState = WeaponsOfficer.CombatState.Attack;
+				dir = stancePicker.stance;
 
-			StopAllCoroutines();
-			StartCoroutine(Attack(dir));
+				StopAllCoroutines();
+				StartCoroutine(Attack(dir));
+			}
 		}
 	}
 }

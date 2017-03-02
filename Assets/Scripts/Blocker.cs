@@ -13,6 +13,7 @@ public class Blocker : MechComponent
 	Quaternion idleRot;
 	Vector3 inputVec;
 	float inputVecMagnitude;
+	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
 
 	public enum SwipeDir { BottomLeft, Left, TopLeft, Top, TopRight, Right, BottomRight }
 
@@ -206,28 +207,28 @@ public class Blocker : MechComponent
 	{
 		//idlePos = chest.position + Vector3.up * armHeight + chest.forward * armDistance;
 		//idleRot = chest.rotation * Quaternion.Euler(rotOffset);
-		inputVec = new Vector3(input.rArmHorz, input.rArmVert).normalized;
-		inputVecMagnitude = inputVec.magnitude;
+		//inputVec = new Vector3(input.rArmHorz, input.rArmVert).normalized;
+		//inputVecMagnitude = inputVec.magnitude;
 
-		if (!inBlockSwipe && !attacker.inAttack)
-		{
-			if (inputVecMagnitude > 0.4f)
-			{
-				inBlockSwipe = true;
+		//if (!inBlockSwipe && !attacker.inAttack)
+		//{
+		//	if (inputVecMagnitude > 0.4f)
+		//	{
+		//		inBlockSwipe = true;
 
-				SwipeDir dir = GetSwipeDirection(inputVec);
-				StopAllCoroutines();
-				StartCoroutine(Swipe(dir));
-			}
+		//		SwipeDir dir = GetSwipeDirection(inputVec);
+		//		StopAllCoroutines();
+		//		//StartCoroutine(Swipe(dir));
+		//	}
 
 			//	Transform rIK = arms.armControl.getRhandIKTarget;
 			//	rIK.position = Vector3.Lerp(rIK.position, idlePos, Time.deltaTime * 5f);
 			//	rIK.rotation = Quaternion.Lerp(rIK.rotation, idleRot, Time.deltaTime * 5f);
-		}
+		//}
 
 
 
-		//arms.armControl.lHandIKTarget.position = lHandTarget.position;
-		//arms.armControl.lHandIKTarget.rotation = lHandTarget.rotation;
+		arms.armControl.lHandIKTarget.position = lHandTarget.position;
+		arms.armControl.lHandIKTarget.rotation = lHandTarget.rotation;
 	}
 }

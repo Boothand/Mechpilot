@@ -75,7 +75,7 @@ public class BodyPart : Collidable
 	{
 		if (!healthManager.takingDamage && swordHittingMe)
 		{
-			if (swordHittingMe.arms.attacker.inAttack)
+			if (swordHittingMe.arms.combatState == WeaponsOfficer.CombatState.Attack)
 			{
 				healthManager.takingDamage = true;
 				StartCoroutine(GetHitBySword(swordHittingMe));
