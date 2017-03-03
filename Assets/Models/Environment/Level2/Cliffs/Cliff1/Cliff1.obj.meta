@@ -1,0 +1,197 @@
+fileFormatVersion: 2
+guid: df4b72696b65a1e4290757eb095d6fe4
+timeCreated: 1488546427
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Cliff_geo_polySurface2
+    100004: polySurface1_Cliff_geo
+    100006: polySurface1_polySurface3
+    100008: polySurface1_polySurface4
+    100010: polySurface1_polySurface5
+    100012: polySurface1_polySurface6
+    100014: polySurface1_polySurface7
+    100016: polySurface2_polySurface1
+    100018: Cliff_grp_Cliff_top_geo
+    100020: Cliff_grp_polySurface10
+    100022: Cliff_grp_polySurface4
+    100024: Cliff_grp_polySurface5
+    100026: Cliff_grp_polySurface6
+    100028: Cliff_grp_polySurface7
+    100030: Cliff_grp_polySurface8
+    100032: polySurface2_Cliff_grp
+    100034: Cliff_grp_polySurface10_polySurface12
+    100036: Cliff_grp_polySurface11_polySurface10
+    100038: Cliff_grp_Cliff_top_geo_polySurface14
+    100040: Cliff_grp_polySurface13_Cliff_top_geo
+    400000: //RootNode
+    400002: Cliff_geo_polySurface2
+    400004: polySurface1_Cliff_geo
+    400006: polySurface1_polySurface3
+    400008: polySurface1_polySurface4
+    400010: polySurface1_polySurface5
+    400012: polySurface1_polySurface6
+    400014: polySurface1_polySurface7
+    400016: polySurface2_polySurface1
+    400018: Cliff_grp_Cliff_top_geo
+    400020: Cliff_grp_polySurface10
+    400022: Cliff_grp_polySurface4
+    400024: Cliff_grp_polySurface5
+    400026: Cliff_grp_polySurface6
+    400028: Cliff_grp_polySurface7
+    400030: Cliff_grp_polySurface8
+    400032: polySurface2_Cliff_grp
+    400034: Cliff_grp_polySurface10_polySurface12
+    400036: Cliff_grp_polySurface11_polySurface10
+    400038: Cliff_grp_Cliff_top_geo_polySurface14
+    400040: Cliff_grp_polySurface13_Cliff_top_geo
+    2300000: Cliff_geo_polySurface2
+    2300002: polySurface1_Cliff_geo
+    2300004: polySurface1_polySurface3
+    2300006: polySurface1_polySurface4
+    2300008: polySurface1_polySurface5
+    2300010: polySurface1_polySurface6
+    2300012: polySurface1_polySurface7
+    2300014: polySurface2_polySurface1
+    2300016: Cliff_grp_Cliff_top_geo
+    2300018: Cliff_grp_polySurface10
+    2300020: Cliff_grp_polySurface4
+    2300022: Cliff_grp_polySurface5
+    2300024: Cliff_grp_polySurface6
+    2300026: Cliff_grp_polySurface7
+    2300028: Cliff_grp_polySurface8
+    2300030: polySurface2_Cliff_grp
+    2300032: Cliff_grp_polySurface10_polySurface12
+    2300034: Cliff_grp_polySurface11_polySurface10
+    2300036: Cliff_grp_Cliff_top_geo_polySurface14
+    2300038: Cliff_grp_polySurface13_Cliff_top_geo
+    3300000: Cliff_geo_polySurface2
+    3300002: polySurface1_Cliff_geo
+    3300004: polySurface1_polySurface3
+    3300006: polySurface1_polySurface4
+    3300008: polySurface1_polySurface5
+    3300010: polySurface1_polySurface6
+    3300012: polySurface1_polySurface7
+    3300014: polySurface2_polySurface1
+    3300016: Cliff_grp_Cliff_top_geo
+    3300018: Cliff_grp_polySurface10
+    3300020: Cliff_grp_polySurface4
+    3300022: Cliff_grp_polySurface5
+    3300024: Cliff_grp_polySurface6
+    3300026: Cliff_grp_polySurface7
+    3300028: Cliff_grp_polySurface8
+    3300030: polySurface2_Cliff_grp
+    3300032: Cliff_grp_polySurface10_polySurface12
+    3300034: Cliff_grp_polySurface11_polySurface10
+    3300036: Cliff_grp_Cliff_top_geo_polySurface14
+    3300038: Cliff_grp_polySurface13_Cliff_top_geo
+    4300000: Cliff_geo_polySurface2
+    4300002: polySurface1_Cliff_geo
+    4300004: polySurface1_polySurface3
+    4300006: polySurface1_polySurface4
+    4300008: polySurface1_polySurface5
+    4300010: polySurface1_polySurface6
+    4300012: polySurface1_polySurface7
+    4300014: polySurface2_polySurface1
+    4300016: Cliff_grp_Cliff_top_geo
+    4300018: Cliff_grp_polySurface10
+    4300020: Cliff_grp_polySurface4
+    4300022: Cliff_grp_polySurface5
+    4300024: Cliff_grp_polySurface6
+    4300026: Cliff_grp_polySurface7
+    4300028: Cliff_grp_polySurface8
+    4300030: polySurface2_Cliff_grp
+    4300032: Cliff_grp_polySurface10_polySurface12
+    4300034: Cliff_grp_polySurface11_polySurface10
+    4300036: Cliff_grp_Cliff_top_geo_polySurface14
+    4300038: Cliff_grp_polySurface13_Cliff_top_geo
+    6400000: Cliff_geo_polySurface2
+    6400002: polySurface1_Cliff_geo
+    6400004: polySurface1_polySurface3
+    6400006: polySurface1_polySurface4
+    6400008: polySurface1_polySurface5
+    6400010: polySurface1_polySurface6
+    6400012: polySurface1_polySurface7
+    6400014: polySurface2_polySurface1
+    6400016: Cliff_grp_Cliff_top_geo
+    6400018: Cliff_grp_polySurface10
+    6400020: Cliff_grp_polySurface4
+    6400022: Cliff_grp_polySurface5
+    6400024: Cliff_grp_polySurface6
+    6400026: Cliff_grp_polySurface7
+    6400028: Cliff_grp_polySurface8
+    6400030: polySurface2_Cliff_grp
+    6400032: Cliff_grp_polySurface10_polySurface12
+    6400034: Cliff_grp_polySurface11_polySurface10
+    6400036: Cliff_grp_Cliff_top_geo_polySurface14
+    6400038: Cliff_grp_polySurface13_Cliff_top_geo
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
