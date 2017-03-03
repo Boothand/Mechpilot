@@ -10,6 +10,10 @@ public class Sword : Collidable
 	public bool playingSwordSound { get; private set; }
 	public Transform getSwordTip { get { return swordTip; } }
 	public Vector3 swordTipVelocity { get; private set; }
+	[SerializeField] Transform leftHandTarget;
+	[SerializeField] Transform midPoint;
+	public Transform getLeftHandTarget { get { return leftHandTarget; } }
+	public Transform getMidPoint { get { return midPoint; } }
 
 	Vector3 lastPos;
 
@@ -18,7 +22,7 @@ public class Sword : Collidable
 		base.OnAwake();
 	}
 
-	public void PlayClashSound(float impact = 1)
+	public void PlayClashSound(float impact = 1f)
 	{
 		AudioClip randomClash = clashes[Random.Range(0, clashes.Length)];
 
@@ -36,6 +40,17 @@ public class Sword : Collidable
 		yield return new WaitForSeconds(0.2f);
 
 		playingSwordSound = false;
+	}
+
+	protected override void RunCollisionEvent(Collision col)
+	{
+		base.RunCollisionEvent(col);
+
+		if (col.transform.GetComponent<Sword>())
+		{
+			float magnitude = col.relativeVelocity.magnitude;
+			PlayClashSound(magnitude * 0.15f);
+		}
 	}
 
 	void Update()

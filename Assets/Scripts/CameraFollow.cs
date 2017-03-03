@@ -11,13 +11,11 @@ public class CameraFollow : MonoBehaviour
 
 	void Start ()
 	{
-		transform.SetParent(null);
+		//transform.SetParent(null);
 	}
 
 	void LateUpdate()
 	{
-		Vector3 targetPos = target.position + target.TransformDirection(posOffset);
-
 		if (useDamp)
 		{
 			transform.position = Vector3.Lerp(transform.position, target.position + target.TransformDirection(posOffset), Time.deltaTime * cameraDamp * 40f);

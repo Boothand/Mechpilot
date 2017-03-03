@@ -93,7 +93,7 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y >= 0f)
 			{
 				//Top right
-				if (!input.hangBlock)
+				if (!input.block)
 				{
 					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, rightTransform.position,
 																	topTransform.position, upperRightTransform.position);
@@ -107,7 +107,7 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y < 0f)
 			{
 				//Bottom right
-				if (!input.hangBlock)
+				if (!input.block)
 				{
 					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, rightTransform.position,
 																					bottomTransform.position, lowerRightTransform.position);
@@ -124,7 +124,7 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y >= 0f)
 			{
 				//Top left
-				if (!input.hangBlock)
+				if (!input.block)
 				{
 					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, leftTransform.position,
 																	topTransform.position, upperLeftTransform.position);
@@ -138,7 +138,7 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y < 0f)
 			{
 				//Bottom left
-				if (!input.hangBlock)
+				if (!input.block)
 				{
 					posToUse = BlendTree2D.BlendedPos(rArmPos.x / 12, rArmPos.y / 12, centerTransform.position, leftTransform.position,
 																				bottomTransform.position, lowerLeftTransform.position);
@@ -224,7 +224,7 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y >= 0f)
 			{
 				//Top right
-				if (!input.hangBlock)
+				if (!input.block)
 				{
 					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, rightTransform.rotation,
 																	topTransform.rotation, upperRightTransform.rotation);
@@ -238,7 +238,7 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y < 0f)
 			{
 				//Bottom right
-				if (!input.hangBlock)
+				if (!input.block)
 				{
 					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, rightTransform.rotation,
 																					bottomTransform.rotation, lowerRightTransform.rotation);
@@ -255,7 +255,7 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y >= 0f)
 			{
 				//Top left
-				if (!input.hangBlock)
+				if (!input.block)
 				{
 					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, leftTransform.rotation,
 																	topTransform.rotation, upperLeftTransform.rotation);
@@ -269,7 +269,7 @@ public class ArmBlockState : MechComponent
 			if (rArmPos.y < 0f)
 			{
 				//Bottom left
-				if (!input.hangBlock)
+				if (!input.block)
 				{
 					rotToUse = BlendTree2D.BlendedRot(rArmPos.x / 12, rArmPos.y / 12, centerTransform.rotation, leftTransform.rotation,
 																				bottomTransform.rotation, lowerLeftTransform.rotation);

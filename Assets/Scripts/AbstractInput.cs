@@ -40,7 +40,7 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public float rArmRot;
 
 	[HideInInspector] public bool attack;
-	[HideInInspector] public bool hangBlock;
+	[HideInInspector] public bool block;
 
 	[HideInInspector] public bool giveToPilot;
 	[HideInInspector] public bool takeFromPilot;

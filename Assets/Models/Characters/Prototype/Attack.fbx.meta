@@ -1748,7 +1748,7 @@ ModelImporter:
       name: Windup Top Right
       takeName: Take 001
       firstFrame: 61
-      lastFrame: 89
+      lastFrame: 78
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2264,7 +2264,7 @@ ModelImporter:
       name: Windup Bottom Right
       takeName: Take 001
       firstFrame: 151
-      lastFrame: 168
+      lastFrame: 167
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

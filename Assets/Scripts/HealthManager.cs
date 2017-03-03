@@ -15,6 +15,7 @@ public class HealthManager : MonoBehaviour
 	[SerializeField] int maxHealth = 100;
 	public int getHealth { get { return health; } }
 	public int getMaxHealth { get { return maxHealth; } }
+	public bool takingDamage { get; set; }
 
 	[SerializeField] BodyGroupStats[] bodyGroupStats;
 
@@ -29,7 +30,8 @@ public class HealthManager : MonoBehaviour
 
 	public void GetHit(BodyPart.BodyGroup group, Vector3 velocity)
 	{
-		float impact = velocity.magnitude / 75f;
+		float impact = velocity.magnitude;
+
 		//print(impact);
 		int index = (int)group;
 		bodyGroupStats[index].hitCount++;

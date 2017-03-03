@@ -17,6 +17,9 @@ public class MechComponent : ManagedMechBehaviour
 	protected Croucher croucher;
 	public HealthManager healthManager { get; private set; }
 	protected MechSounds mechSounds;
+	public Blocker blocker { get; private set; }
+	public Attacker attacker { get; private set; }
+	public StancePicker stancePicker { get; private set; }
 
 	protected const int PILOT_INDEX = 0;
 	protected const int WEAPONOFFICER_INDEX = 1;
@@ -42,6 +45,9 @@ public class MechComponent : ManagedMechBehaviour
 		croucher = mech.transform.root.GetComponentInChildren<Croucher>();
 		healthManager = mech.transform.root.GetComponentInChildren<HealthManager>();
 		mechSounds = mech.transform.root.GetComponentInChildren<MechSounds>();
+		blocker = mech.transform.root.GetComponentInChildren<Blocker>();
+		attacker = mech.transform.root.GetComponentInChildren<Attacker>();
+		stancePicker = mech.transform.root.GetComponentInChildren<StancePicker>();
 
 		scaleFactor = transform.root.localScale.y;
 		base.OnAwake();

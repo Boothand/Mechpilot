@@ -36,12 +36,7 @@ public class PlayerInput : AbstractInput
 
 
 		attack = armsPlayer.GetButton("Wind Up Attack");
-		hangBlock = armsPlayer.GetButton("Block Hanging");
-
-		giveToPilot = armsPlayer.GetButtonDown("Give Pilot Energy");
-		takeFromPilot = armsPlayer.GetButtonDown("Take Energy From Pilot");
-		giveToWeapons = pilotPlayer.GetButtonDown("Give Weapons Energy");
-		takeFromWeapons = pilotPlayer.GetButtonDown("Take Energy From Weapons");
+		block = armsPlayer.GetButton("Block");
 
 
 		droneSide = armsPlayer.GetAxis("Scout Drone Horizontal");
