@@ -42,14 +42,9 @@ public class Retract : MechComponent
 		Transform targetTransform2 = arms.stancePicker.GetStanceTransform();
 
 		Transform rIK = arms.getRhandIKTarget;
-		//Transform originalTargetTransform = targetTransform;
-
-		
-		
 
 		float duration = retractDuration / 2;
-		//while (true)
-		//{
+		
 		Vector3 fromPos = rIK.position;
 		Quaternion fromRot = rIK.rotation;
 		float retractTimer = 0f;

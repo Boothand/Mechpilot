@@ -10,6 +10,8 @@ public class Attacker : MechComponent
 	public Transform targetTransform { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 
+	bool cachedAttack;
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -59,6 +61,8 @@ public class Attacker : MechComponent
 
 	IEnumerator Attack(WeaponsOfficer.CombatDir dir)
 	{
+		arms.combatState = WeaponsOfficer.CombatState.Attack;
+
 		targetTransform = DecideAttackTransform();
 
 		Transform rIK = arms.getRhandIKTarget;
@@ -103,15 +107,33 @@ public class Attacker : MechComponent
 	{
 		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
-			if (input.attack)
+			if (!arms.stancePicker.changingStance)
 			{
-				arms.combatState = WeaponsOfficer.CombatState.Attack;
+				if (input.attack)
+				{
+					dir = stancePicker.stance;
+
+					StopAllCoroutines();
+					StartCoroutine(Attack(dir));
+				}
+			}
+
+			if (arms.stancePicker.changingStance)
+			{
+				if (input.attack)
+				{
+					cachedAttack = true;
+				}
+			}
+
+			if (cachedAttack && !arms.stancePicker.changingStance)
+			{
 				dir = stancePicker.stance;
+				cachedAttack = false;
 
 				StopAllCoroutines();
 				StartCoroutine(Attack(dir));
 			}
 		}
-
 	}
 }

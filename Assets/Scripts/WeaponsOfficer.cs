@@ -103,5 +103,10 @@ public class WeaponsOfficer : MechComponent
 
 		lHandIKTarget.position = weapon.getLeftHandTarget.position;
 		lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
+
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			Cursor.lockState = CursorLockMode.Locked;
+		}
 	}
 }
