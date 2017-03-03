@@ -12,7 +12,8 @@ public class Blocker : MechComponent
 	Quaternion idleRot;
 	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
 	Transform targetTransform;
-	Vector3 targetOffset;
+	Vector3 targetPosOffset;
+	Quaternion targetRotOffset;
 	WeaponsOfficer.CombatDir blockStance;
 
 	public Mech tempEnemy;
@@ -77,28 +78,45 @@ public class Blocker : MechComponent
 			//Up/down
 			if (myMidPoint.y < otherMidPoint.y)
 			{
-				targetOffset += Vector3.up * Time.deltaTime * 2f;
+				targetPosOffset += Vector3.up * Time.deltaTime * 2f;
 			}
 			else if (myMidPoint.y > otherMidPoint.y)
 			{
-				targetOffset -= Vector3.up * Time.deltaTime * 2f;
+				targetPosOffset -= Vector3.up * Time.deltaTime * 2f;
 			}
 
 			Vector3 localMyPoint = mech.transform.InverseTransformPoint(myMidPoint);
 			Vector3 localOtherPoint = mech.transform.InverseTransformPoint(otherMidPoint);
+			//tempEnemy.weaponsOfficer.getWeapon.getSwordTip
 
+			//Left/right
 			if (localMyPoint.x < localOtherPoint.x)
 			{
-				targetOffset += mech.transform.right * Time.deltaTime * 2f;
+				targetPosOffset += mech.transform.right * Time.deltaTime * 2f;
+				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(50f, 0, 0f);
 			}
 			else if (localMyPoint.x > localOtherPoint.x)
 			{
-				targetOffset -= mech.transform.right * Time.deltaTime * 2f;
+				targetPosOffset -= mech.transform.right * Time.deltaTime * 2f;
+				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(-50f, 0f, 0f);
+			}
+
+			//Forward/back
+			if (localMyPoint.z < localOtherPoint.z)
+			{
+				targetPosOffset += mech.transform.forward * Time.deltaTime * 2f;
+				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(50f, 0, 0f);
+			}
+			else if (localMyPoint.z > localOtherPoint.z)
+			{
+				targetPosOffset -= mech.transform.forward * Time.deltaTime * 2f;
+				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(-50f, 0f, 0f);
 			}
 		}
 		else
 		{
-			targetOffset = Vector3.Lerp(targetOffset, Vector3.zero, Time.deltaTime * 3f);
+			targetPosOffset = Vector3.Lerp(targetPosOffset, Vector3.zero, Time.deltaTime * 3f);
+			targetRotOffset = Quaternion.Lerp(targetRotOffset, Quaternion.identity, Time.deltaTime * 3f);
 		}
 	}
 
@@ -114,8 +132,8 @@ public class Blocker : MechComponent
 
 			AdjustPosition();
 
-			rIK.position = Vector3.Lerp(rIK.position, targetTransform.position + targetOffset, Time.deltaTime * 4f);
-			rIK.rotation = Quaternion.Lerp(rIK.rotation, targetTransform.rotation, Time.deltaTime * 4f);
+			rIK.position = Vector3.Lerp(rIK.position, targetTransform.position + targetPosOffset, Time.deltaTime * 4f);
+			rIK.rotation = Quaternion.Lerp(rIK.rotation, targetTransform.rotation * targetRotOffset, Time.deltaTime * 4f);
 
 		}
 	}
