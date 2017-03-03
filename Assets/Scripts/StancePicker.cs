@@ -51,7 +51,7 @@ public class StancePicker : MechComponent
 
 			SetStanceTransform();
 
-			Transform rIK = arms.armControl.getRhandIKTarget;
+			Transform rIK = arms.getRhandIKTarget;
 
 			rIK.position = Vector3.Lerp(rIK.position, targetTransform.position, Time.deltaTime * blendSpeed);
 			rIK.rotation = Quaternion.Lerp(rIK.rotation, targetTransform.rotation, Time.deltaTime * blendSpeed);

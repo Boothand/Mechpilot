@@ -45,7 +45,7 @@ public class AI_Combat : AI_MechComponent
 	#region Helper functions
 	public void MoveHandsToPos(Vector3 localPos)
 	{
-		Transform rIK = arms.armControl.getRhandIKTarget;
+		Transform rIK = arms.getRhandIKTarget;
 
 		Vector3 dir = localPos - rIK.localPosition;
 		input.rArmHorz = dir.x * 8f;
@@ -54,7 +54,7 @@ public class AI_Combat : AI_MechComponent
 
 	public void MoveHandsInDirection(Vector3 dir)
 	{
-		Transform rIK = arms.armControl.getRhandIKTarget;
+		Transform rIK = arms.getRhandIKTarget;
 
 		Vector3 direction = dir;
 

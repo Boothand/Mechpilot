@@ -17,8 +17,11 @@ public class WeaponsOfficer : MechComponent
 	public float inputVecMagnitude { get; private set; }
 
 	[SerializeField] Sword weapon;
+	[SerializeField] Transform rHandIKTarget;
+	[SerializeField] public Transform lHandIKTarget;
 
 	public Sword getWeapon { get { return weapon; } }
+	public Transform getRhandIKTarget { get { return rHandIKTarget; } }
 
 	protected override void OnAwake()
 	{
@@ -95,14 +98,10 @@ public class WeaponsOfficer : MechComponent
 
 	void Update ()
 	{
-		//Move IK targets horizontally and vertically
-		//armMovement.RunComponent();
-
-		//Run attack animations, manage attacking states and gameplay
 		inputVec = new Vector3(input.rArmHorz, input.rArmVert).normalized;
 		inputVecMagnitude = inputVec.magnitude;
 
-		arms.armControl.lHandIKTarget.position = weapon.getLeftHandTarget.position;
-		arms.armControl.lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
+		lHandIKTarget.position = weapon.getLeftHandTarget.position;
+		lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
 	}
 }

@@ -38,7 +38,7 @@ public class ArmStaggerState : MechComponent
 		Vector3 newTipPos = swordTipPos + combinedVelocity * multiplier;
 
 		//Vector from hand to new sword tip position
-		Vector3 newSwordDir = (newTipPos - arms.armControl.getRhandIKTarget.position).normalized;
+		Vector3 newSwordDir = (newTipPos - arms.getRhandIKTarget.position).normalized;
 
 		//The world rotation of the new sword vector
 		Quaternion newWorldRot = Quaternion.LookRotation(newSwordDir, mech.transform.forward);

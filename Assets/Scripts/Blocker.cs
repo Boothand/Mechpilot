@@ -66,15 +66,13 @@ public class Blocker : MechComponent
 
 	void AdjustPosition()
 	{
-		Transform rIK = arms.armControl.getRhandIKTarget;
+		Transform rIK = arms.getRhandIKTarget;
 
 		Vector3 myMidPoint = arms.getWeapon.getMidPoint.position;
 		Vector3 otherMidPoint = tempEnemy.weaponsOfficer.getWeapon.getMidPoint.position;
 
 		
-		if (tempEnemy.weaponsOfficer.combatState == WeaponsOfficer.CombatState.Attack/* &&
-			rIK.localPosition.y < 0.7f && 
-			rIK.localPosition.y > 0.21*/)
+		if (tempEnemy.weaponsOfficer.combatState == WeaponsOfficer.CombatState.Attack)
 		{
 			//Up/down
 			if (myMidPoint.y < otherMidPoint.y)
@@ -112,7 +110,7 @@ public class Blocker : MechComponent
 
 			targetTransform = GetTargetTransform(blockStance);
 
-			Transform rIK = arms.armControl.getRhandIKTarget;
+			Transform rIK = arms.getRhandIKTarget;
 
 			AdjustPosition();
 
