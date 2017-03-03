@@ -56,5 +56,10 @@ public class StancePicker : MechComponent
 			rIK.position = Vector3.Lerp(rIK.position, targetTransform.position, Time.deltaTime * blendSpeed);
 			rIK.rotation = Quaternion.Lerp(rIK.rotation, targetTransform.rotation, Time.deltaTime * blendSpeed);
 		}
+
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			Cursor.lockState = CursorLockMode.Locked;
+		}
 	}
 }

@@ -101,5 +101,8 @@ public class WeaponsOfficer : MechComponent
 		//Run attack animations, manage attacking states and gameplay
 		inputVec = new Vector3(input.rArmHorz, input.rArmVert).normalized;
 		inputVecMagnitude = inputVec.magnitude;
+
+		arms.armControl.lHandIKTarget.position = weapon.getLeftHandTarget.position;
+		arms.armControl.lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
 	}
 }

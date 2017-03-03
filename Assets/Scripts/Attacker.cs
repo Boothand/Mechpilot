@@ -8,7 +8,7 @@ public class Attacker : MechComponent
 	float inputVecMagnitude;
 	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
 	Transform targetTransform;
-	WeaponsOfficer.CombatDir dir;
+	public WeaponsOfficer.CombatDir dir { get; private set; }
 
 	protected override void OnAwake()
 	{
@@ -27,7 +27,7 @@ public class Attacker : MechComponent
 		{
 			if (arms.combatState == WeaponsOfficer.CombatState.Attack)
 			{
-				StopAllCoroutines();
+				//StopAllCoroutines();
 				//Stagger?
 			}
 		}
@@ -61,7 +61,7 @@ public class Attacker : MechComponent
 		targetTransform = DecideAttackTransform();
 
 		Transform rIK = arms.armControl.getRhandIKTarget;
-		
+		Transform originalTargetTransform = targetTransform;
 
 		while (true)
 		{
@@ -72,17 +72,16 @@ public class Attacker : MechComponent
 			float duration = attackDuration;
 
 			//If there are 'keyframes', adjust timing between each so it totals to attackDuration
-			if (targetTransform.childCount > 0)
-				duration /= targetTransform.childCount + 1;
+			if (originalTargetTransform.childCount > 0)
+				duration /= originalTargetTransform.childCount + 1;
 
-			while (attackTimer < attackDuration)
+			while (attackTimer < duration)
 			{
-				print(targetTransform.name);
 				attackTimer += Time.deltaTime;
-				rIK.position = Vector3.Lerp(fromPos, targetTransform.position, attackTimer / attackDuration);
-				rIK.rotation = Quaternion.Lerp(fromRot, targetTransform.rotation, attackTimer / attackDuration);
+				rIK.position = Vector3.Lerp(fromPos, targetTransform.position, attackTimer / duration);
+				rIK.rotation = Quaternion.Lerp(fromRot, targetTransform.rotation, attackTimer / duration);
 
-				yield return null;
+				yield return new WaitForEndOfFrame();
 			}
 
 			//If the attack 'animation' has 'keyframes'

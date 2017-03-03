@@ -10,6 +10,8 @@ public class Sword : Collidable
 	public bool playingSwordSound { get; private set; }
 	public Transform getSwordTip { get { return swordTip; } }
 	public Vector3 swordTipVelocity { get; private set; }
+	[SerializeField] Transform leftHandTarget;
+	public Transform getLeftHandTarget { get { return leftHandTarget; } }
 
 	Vector3 lastPos;
 
