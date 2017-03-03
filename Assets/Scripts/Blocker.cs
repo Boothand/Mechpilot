@@ -12,6 +12,7 @@ public class Blocker : MechComponent
 	Quaternion idleRot;
 	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
 	Transform targetTransform;
+	Vector3 targetOffset;
 	WeaponsOfficer.CombatDir blockStance;
 
 	public Mech tempEnemy;
@@ -63,6 +64,46 @@ public class Blocker : MechComponent
 		return WeaponsOfficer.CombatDir.Top;
 	}
 
+	void AdjustPosition()
+	{
+		Transform rIK = arms.armControl.getRhandIKTarget;
+
+		Vector3 myMidPoint = arms.getWeapon.getMidPoint.position;
+		Vector3 otherMidPoint = tempEnemy.weaponsOfficer.getWeapon.getMidPoint.position;
+
+		
+		if (tempEnemy.weaponsOfficer.combatState == WeaponsOfficer.CombatState.Attack/* &&
+			rIK.localPosition.y < 0.7f && 
+			rIK.localPosition.y > 0.21*/)
+		{
+			//Up/down
+			if (myMidPoint.y < otherMidPoint.y)
+			{
+				targetOffset += Vector3.up * Time.deltaTime * 2f;
+			}
+			else if (myMidPoint.y > otherMidPoint.y)
+			{
+				targetOffset -= Vector3.up * Time.deltaTime * 2f;
+			}
+
+			Vector3 localMyPoint = mech.transform.InverseTransformPoint(myMidPoint);
+			Vector3 localOtherPoint = mech.transform.InverseTransformPoint(otherMidPoint);
+
+			if (localMyPoint.x < localOtherPoint.x)
+			{
+				targetOffset += mech.transform.right * Time.deltaTime * 2f;
+			}
+			else if (localMyPoint.x > localOtherPoint.x)
+			{
+				targetOffset -= mech.transform.right * Time.deltaTime * 2f;
+			}
+		}
+		else
+		{
+			targetOffset = Vector3.Lerp(targetOffset, Vector3.zero, Time.deltaTime * 3f);
+		}
+	}
+
 	void Update()
 	{
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
@@ -73,8 +114,11 @@ public class Blocker : MechComponent
 
 			Transform rIK = arms.armControl.getRhandIKTarget;
 
-			rIK.position = Vector3.Lerp(rIK.position, targetTransform.position, Time.deltaTime * 4f);
+			AdjustPosition();
+
+			rIK.position = Vector3.Lerp(rIK.position, targetTransform.position + targetOffset, Time.deltaTime * 4f);
 			rIK.rotation = Quaternion.Lerp(rIK.rotation, targetTransform.rotation, Time.deltaTime * 4f);
+
 		}
 	}
 }
