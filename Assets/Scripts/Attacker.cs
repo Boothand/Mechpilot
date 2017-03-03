@@ -27,7 +27,8 @@ public class Attacker : MechComponent
 		{
 			if (arms.combatState == WeaponsOfficer.CombatState.Attack)
 			{
-				//StopAllCoroutines();
+				StopAllCoroutines();
+				arms.combatState = WeaponsOfficer.CombatState.Stance;
 				//Stagger?
 			}
 		}
@@ -60,7 +61,7 @@ public class Attacker : MechComponent
 	{
 		targetTransform = DecideAttackTransform();
 
-		Transform rIK = arms.armControl.getRhandIKTarget;
+		Transform rIK = arms.getRhandIKTarget;
 		Transform originalTargetTransform = targetTransform;
 
 		while (true)
