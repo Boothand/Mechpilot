@@ -9,7 +9,7 @@ public class WeaponsOfficer : MechComponent
 	public ArmAttackState armAttackState { get; private set; }
 	public ArmStaggerState armStaggerState { get; private set; }
 
-	public enum CombatState { Stance, Block, Attack }
+	public enum CombatState { Stance, Block, Attack, Retract }
 	public CombatState combatState;
 	public enum CombatDir { TopRight, TopLeft, BottomRight, BottomLeft, Top }
 

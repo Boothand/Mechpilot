@@ -7,7 +7,7 @@ public class Attacker : MechComponent
 	Vector3 inputVec;
 	float inputVecMagnitude;
 	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
-	Transform targetTransform;
+	public Transform targetTransform { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 
 	protected override void OnAwake()
@@ -96,7 +96,7 @@ public class Attacker : MechComponent
 			}
 		}
 
-		arms.combatState = WeaponsOfficer.CombatState.Stance;
+		arms.combatState = WeaponsOfficer.CombatState.Retract;
 	}
 
 	void Update()
@@ -112,5 +112,6 @@ public class Attacker : MechComponent
 				StartCoroutine(Attack(dir));
 			}
 		}
+
 	}
 }

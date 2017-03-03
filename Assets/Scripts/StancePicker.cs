@@ -6,7 +6,7 @@ public class StancePicker : MechComponent
 	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
 	public WeaponsOfficer.CombatDir stance { get; private set; }
 
-	Transform targetTransform;
+	public Transform targetTransform { get; private set; }
 
 	[SerializeField] float blendSpeed = 4f;
 
@@ -17,30 +17,27 @@ public class StancePicker : MechComponent
 
 	
 
-	void SetStanceTransform()
+	public Transform GetStanceTransform()
 	{
 		switch (stance)
 		{
 			case WeaponsOfficer.CombatDir.BottomLeft:
-				targetTransform = blTransform;
-				break;
+				return blTransform;
 
 			case WeaponsOfficer.CombatDir.BottomRight:
-				targetTransform = brTransform;
-				break;
+				return brTransform;
 
 			case WeaponsOfficer.CombatDir.Top:
-				targetTransform = topTransform;
-				break;
+				return topTransform;
 
 			case WeaponsOfficer.CombatDir.TopLeft:
-				targetTransform = tlTransform;
-				break;
+				return tlTransform;
 
 			case WeaponsOfficer.CombatDir.TopRight:
-				targetTransform = trTransform;
-				break;
+				return trTransform;
 		}
+
+		return topTransform;
 	}
 
 	void Update()
@@ -49,7 +46,7 @@ public class StancePicker : MechComponent
 		{
 			stance = arms.DecideCombatDir(stance);
 
-			SetStanceTransform();
+			targetTransform = GetStanceTransform();
 
 			Transform rIK = arms.getRhandIKTarget;
 
