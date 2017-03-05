@@ -3,18 +3,13 @@ using UnityEngine;
 
 public class Blocker : MechComponent
 {
-	[SerializeField] float armHeight, armDistance = 0.5f;
-	[SerializeField] Transform chest;
-	[SerializeField] Vector3 rotOffset;
-	[SerializeField] float swipeDuration = 0.75f;
-	bool inBlockSwipe;
-	Vector3 idlePos;
-	Quaternion idleRot;
 	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
 	Transform targetTransform;
 	Vector3 targetPosOffset;
 	Quaternion targetRotOffset;
 	WeaponsOfficer.CombatDir blockStance;
+
+	[SerializeField] bool autoBlock = true;
 
 	public Mech tempEnemy;
 
@@ -124,7 +119,14 @@ public class Blocker : MechComponent
 	{
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
 		{
-			blockStance = DecideBlockStance(tempEnemy.weaponsOfficer.stancePicker.stance);
+			if (autoBlock)
+			{
+				blockStance = DecideBlockStance(tempEnemy.weaponsOfficer.stancePicker.stance);
+			}
+			else
+			{
+				blockStance = stancePicker.stance;
+			}
 
 			targetTransform = GetTargetTransform(blockStance);
 

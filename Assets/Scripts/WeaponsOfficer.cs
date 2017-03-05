@@ -56,8 +56,8 @@ public class WeaponsOfficer : MechComponent
 
 	public WeaponsOfficer.CombatDir DecideCombatDir(WeaponsOfficer.CombatDir inDir)
 	{
-		if (Mathf.Abs(arms.inputVec.x) < 0.2f &&
-			arms.inputVec.y > 0.2f)
+		if (Mathf.Abs(arms.inputVec.x) < 0.4f &&
+			arms.inputVec.y > 0.4f)
 		{
 			return WeaponsOfficer.CombatDir.Top;
 		}
@@ -107,6 +107,17 @@ public class WeaponsOfficer : MechComponent
 		if (Input.GetKeyDown(KeyCode.R))
 		{
 			Cursor.lockState = CursorLockMode.Locked;
+		}
+
+		if (input.block)
+		{
+			combatState = CombatState.Block;
+		}
+
+		if (!input.block && combatState != CombatState.Attack &&
+			combatState != CombatState.Retract)
+		{
+			combatState = CombatState.Stance;
 		}
 	}
 }
