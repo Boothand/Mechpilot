@@ -21,6 +21,7 @@ public class MechComponent : ManagedMechBehaviour
 	public Attacker attacker { get; private set; }
 	public StancePicker stancePicker { get; private set; }
 	public Windup windup { get; private set; }
+	public Retract retract { get; private set; }
 
 	protected const int PILOT_INDEX = 0;
 	protected const int WEAPONOFFICER_INDEX = 1;
@@ -50,7 +51,7 @@ public class MechComponent : ManagedMechBehaviour
 		attacker = mech.transform.root.GetComponentInChildren<Attacker>();
 		stancePicker = mech.transform.root.GetComponentInChildren<StancePicker>();
 		windup = mech.transform.root.GetComponentInChildren<Windup>();
-
+		retract = mech.transform.root.GetComponentInChildren<Retract>();
 		scaleFactor = transform.root.localScale.y;
 		base.OnAwake();
 	}

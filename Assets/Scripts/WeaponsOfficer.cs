@@ -109,8 +109,12 @@ public class WeaponsOfficer : MechComponent
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 
-		if (input.block)
+		if (!blocker.blocking && input.block)
 		{
+			stancePicker.Stop();
+			windup.Stop();
+			attacker.Stop();
+			retract.Stop();
 			combatState = CombatState.Block;
 		}
 

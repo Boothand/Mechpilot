@@ -37,6 +37,12 @@ public class Windup : MechComponent
 		return trTransform;
 	}
 
+	public void Stop()
+	{
+		StopAllCoroutines();
+		windingUp = false;
+	}
+
 	IEnumerator WindupRoutine(WeaponsOfficer.CombatDir dir)
 	{
 		windingUp = true;
@@ -78,7 +84,6 @@ public class Windup : MechComponent
 				if (input.attack)
 				{
 					dir = stancePicker.stance;
-					print(dir);
 
 					StopAllCoroutines();
 					StartCoroutine(WindupRoutine(dir));

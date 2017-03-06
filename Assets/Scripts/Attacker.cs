@@ -58,6 +58,11 @@ public class Attacker : MechComponent
 		return trTransform;
 	}
 
+	public void Stop()
+	{
+		StopAllCoroutines();
+	}
+
 	IEnumerator Attack(WeaponsOfficer.CombatDir dir)
 	{
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
