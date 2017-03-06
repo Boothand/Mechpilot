@@ -10,7 +10,7 @@ public class BodyRotation : MechComponent
 	[SerializeField] float rotationSpeed = 0.05f;
 	Vector3 angle;
 
-	float inputXPersist, inputYPersist;
+	//float inputXPersist, inputYPersist;
 
 	[SerializeField] bool tilt;
 
