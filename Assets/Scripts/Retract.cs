@@ -39,7 +39,6 @@ public class Retract : MechComponent
 	IEnumerator RetractRoutine()
 	{
 		Transform targetTransform = GetRetractTransform(arms.attacker.dir);
-		Transform targetTransform2 = arms.stancePicker.GetStanceTransform();
 
 		Transform rIK = arms.getRhandIKTarget;
 
@@ -61,6 +60,8 @@ public class Retract : MechComponent
 		fromPos = rIK.position;
 		fromRot = rIK.rotation;
 		retractTimer = 0f;
+
+		Transform targetTransform2 = arms.stancePicker.GetStanceTransform();
 
 		while (retractTimer < duration)
 		{

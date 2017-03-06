@@ -9,7 +9,6 @@ public class Attacker : MechComponent
 	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
 	public Transform targetTransform { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
-
 	bool cachedAttack;
 
 	protected override void OnAwake()
@@ -105,35 +104,38 @@ public class Attacker : MechComponent
 
 	void Update()
 	{
-		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
+		if (arms.combatState == WeaponsOfficer.CombatState.Windup)
 		{
-			if (!arms.stancePicker.changingStance)
+			if (!arms.windup.windingUp)
 			{
-				if (input.attack)
+				if (!input.attack)
 				{
-					dir = stancePicker.stance;
+					dir = windup.dir;
+					print("Attack dir: " + dir);
 
 					StopAllCoroutines();
 					StartCoroutine(Attack(dir));
 				}
 			}
 
-			if (arms.stancePicker.changingStance)
-			{
-				if (input.attack)
-				{
-					cachedAttack = true;
-				}
-			}
+			//Save the attack for later
+			//if (arms.stancePicker.changingStance)
+			//{
+			//	if (input.attack)
+			//	{
+			//		cachedAttack = true;
+			//	}
+			//}
 
-			if (cachedAttack && !arms.stancePicker.changingStance)
-			{
-				dir = stancePicker.stance;
-				cachedAttack = false;
+			////Released the saved up attack
+			//if (cachedAttack && !arms.stancePicker.changingStance)
+			//{
+			//	dir = stancePicker.stance;
+			//	cachedAttack = false;
 
-				StopAllCoroutines();
-				StartCoroutine(Attack(dir));
-			}
+			//	StopAllCoroutines();
+			//	StartCoroutine(Attack(dir));
+			//}
 		}
 	}
 }
