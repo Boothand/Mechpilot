@@ -35,9 +35,9 @@ public class Attacker : MechComponent
 		}
 	}
 
-	Transform DecideAttackTransform()
+	Transform DecideAttackTransform(WeaponsOfficer.CombatDir dir)
 	{
-		switch (stancePicker.stance)
+		switch (dir)
 		{
 			case WeaponsOfficer.CombatDir.BottomLeft:
 				return blTransform;
@@ -62,7 +62,7 @@ public class Attacker : MechComponent
 	{
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
 
-		targetTransform = DecideAttackTransform();
+		targetTransform = DecideAttackTransform(dir);
 
 		Transform rIK = arms.getRhandIKTarget;
 		Transform originalTargetTransform = targetTransform;
@@ -79,9 +79,12 @@ public class Attacker : MechComponent
 			if (originalTargetTransform.childCount > 0)
 				duration /= originalTargetTransform.childCount + 1;
 
+			float acceleration = 0f;
+
 			while (attackTimer < duration)
 			{
-				attackTimer += Time.deltaTime;
+				acceleration += Time.deltaTime * 0.5f;
+				attackTimer += acceleration;
 				rIK.position = Vector3.Lerp(fromPos, targetTransform.position, attackTimer / duration);
 				rIK.rotation = Quaternion.Lerp(fromRot, targetTransform.rotation, attackTimer / duration);
 
