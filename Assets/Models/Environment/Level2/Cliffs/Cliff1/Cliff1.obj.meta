@@ -26,6 +26,17 @@ ModelImporter:
     100036: Cliff_grp_polySurface11_polySurface10
     100038: Cliff_grp_Cliff_top_geo_polySurface14
     100040: Cliff_grp_polySurface13_Cliff_top_geo
+    100042: Cliff_grp_Middle1
+    100044: Cliff_grp_Middle2
+    100046: Cliff_grp_Middle3
+    100048: Cliff_grp_Middle5
+    100050: Cliff_grp_Middle_bottom
+    100052: Cliff_grp_Top
+    100054: Middle4_Cliff_grp
+    100056: Cliff_grp_Cliff_grp_Middle2
+    100058: Cliff_grp_Cliff_grp_Top
+    100060: Cliff_grp_Middle6
+    100062: Middle_bottom_Cliff_grp
     400000: //RootNode
     400002: Cliff_geo_polySurface2
     400004: polySurface1_Cliff_geo
@@ -47,6 +58,17 @@ ModelImporter:
     400036: Cliff_grp_polySurface11_polySurface10
     400038: Cliff_grp_Cliff_top_geo_polySurface14
     400040: Cliff_grp_polySurface13_Cliff_top_geo
+    400042: Cliff_grp_Middle1
+    400044: Cliff_grp_Middle2
+    400046: Cliff_grp_Middle3
+    400048: Cliff_grp_Middle5
+    400050: Cliff_grp_Middle_bottom
+    400052: Cliff_grp_Top
+    400054: Middle4_Cliff_grp
+    400056: Cliff_grp_Cliff_grp_Middle2
+    400058: Cliff_grp_Cliff_grp_Top
+    400060: Cliff_grp_Middle6
+    400062: Middle_bottom_Cliff_grp
     2300000: Cliff_geo_polySurface2
     2300002: polySurface1_Cliff_geo
     2300004: polySurface1_polySurface3
@@ -67,6 +89,17 @@ ModelImporter:
     2300034: Cliff_grp_polySurface11_polySurface10
     2300036: Cliff_grp_Cliff_top_geo_polySurface14
     2300038: Cliff_grp_polySurface13_Cliff_top_geo
+    2300040: Cliff_grp_Middle1
+    2300042: Cliff_grp_Middle2
+    2300044: Cliff_grp_Middle3
+    2300046: Cliff_grp_Middle5
+    2300048: Cliff_grp_Middle_bottom
+    2300050: Cliff_grp_Top
+    2300052: Middle4_Cliff_grp
+    2300054: Cliff_grp_Cliff_grp_Middle2
+    2300056: Cliff_grp_Cliff_grp_Top
+    2300058: Cliff_grp_Middle6
+    2300060: Middle_bottom_Cliff_grp
     3300000: Cliff_geo_polySurface2
     3300002: polySurface1_Cliff_geo
     3300004: polySurface1_polySurface3
@@ -87,6 +120,17 @@ ModelImporter:
     3300034: Cliff_grp_polySurface11_polySurface10
     3300036: Cliff_grp_Cliff_top_geo_polySurface14
     3300038: Cliff_grp_polySurface13_Cliff_top_geo
+    3300040: Cliff_grp_Middle1
+    3300042: Cliff_grp_Middle2
+    3300044: Cliff_grp_Middle3
+    3300046: Cliff_grp_Middle5
+    3300048: Cliff_grp_Middle_bottom
+    3300050: Cliff_grp_Top
+    3300052: Middle4_Cliff_grp
+    3300054: Cliff_grp_Cliff_grp_Middle2
+    3300056: Cliff_grp_Cliff_grp_Top
+    3300058: Cliff_grp_Middle6
+    3300060: Middle_bottom_Cliff_grp
     4300000: Cliff_geo_polySurface2
     4300002: polySurface1_Cliff_geo
     4300004: polySurface1_polySurface3
@@ -107,6 +151,17 @@ ModelImporter:
     4300034: Cliff_grp_polySurface11_polySurface10
     4300036: Cliff_grp_Cliff_top_geo_polySurface14
     4300038: Cliff_grp_polySurface13_Cliff_top_geo
+    4300040: Cliff_grp_Middle1
+    4300042: Cliff_grp_Middle2
+    4300044: Cliff_grp_Middle3
+    4300046: Cliff_grp_Middle5
+    4300048: Cliff_grp_Middle_bottom
+    4300050: Cliff_grp_Top
+    4300052: Middle4_Cliff_grp
+    4300054: Cliff_grp_Cliff_grp_Middle2
+    4300056: Cliff_grp_Cliff_grp_Top
+    4300058: Cliff_grp_Middle6
+    4300060: Middle_bottom_Cliff_grp
     6400000: Cliff_geo_polySurface2
     6400002: polySurface1_Cliff_geo
     6400004: polySurface1_polySurface3
@@ -127,6 +182,17 @@ ModelImporter:
     6400034: Cliff_grp_polySurface11_polySurface10
     6400036: Cliff_grp_Cliff_top_geo_polySurface14
     6400038: Cliff_grp_polySurface13_Cliff_top_geo
+    6400040: Cliff_grp_Middle1
+    6400042: Cliff_grp_Middle2
+    6400044: Cliff_grp_Middle3
+    6400046: Cliff_grp_Middle5
+    6400048: Cliff_grp_Middle_bottom
+    6400050: Cliff_grp_Top
+    6400052: Middle4_Cliff_grp
+    6400054: Cliff_grp_Cliff_grp_Middle2
+    6400056: Cliff_grp_Cliff_grp_Top
+    6400058: Cliff_grp_Middle6
+    6400060: Middle_bottom_Cliff_grp
   materials:
     importMaterials: 1
     materialName: 0
