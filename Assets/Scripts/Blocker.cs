@@ -3,17 +3,13 @@ using UnityEngine;
 
 public class Blocker : MechComponent
 {
-	[SerializeField] float armHeight, armDistance = 0.5f;
-	[SerializeField] Transform chest;
-	[SerializeField] Vector3 rotOffset;
-	[SerializeField] float swipeDuration = 0.75f;
-	bool inBlockSwipe;
-	Vector3 idlePos;
-	Quaternion idleRot;
 	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
 	Transform targetTransform;
-	Vector3 targetOffset;
+	Vector3 targetPosOffset;
+	Quaternion targetRotOffset;
 	WeaponsOfficer.CombatDir blockStance;
+
+	[SerializeField] bool autoBlock = true;
 
 	public Mech tempEnemy;
 
@@ -66,41 +62,56 @@ public class Blocker : MechComponent
 
 	void AdjustPosition()
 	{
-		Transform rIK = arms.armControl.getRhandIKTarget;
+		Transform rIK = arms.getRhandIKTarget;
 
 		Vector3 myMidPoint = arms.getWeapon.getMidPoint.position;
 		Vector3 otherMidPoint = tempEnemy.weaponsOfficer.getWeapon.getMidPoint.position;
 
 		
-		if (tempEnemy.weaponsOfficer.combatState == WeaponsOfficer.CombatState.Attack/* &&
-			rIK.localPosition.y < 0.7f && 
-			rIK.localPosition.y > 0.21*/)
+		if (tempEnemy.weaponsOfficer.combatState == WeaponsOfficer.CombatState.Attack)
 		{
 			//Up/down
 			if (myMidPoint.y < otherMidPoint.y)
 			{
-				targetOffset += Vector3.up * Time.deltaTime * 2f;
+				targetPosOffset += Vector3.up * Time.deltaTime * 2f;
 			}
 			else if (myMidPoint.y > otherMidPoint.y)
 			{
-				targetOffset -= Vector3.up * Time.deltaTime * 2f;
+				targetPosOffset -= Vector3.up * Time.deltaTime * 2f;
 			}
 
 			Vector3 localMyPoint = mech.transform.InverseTransformPoint(myMidPoint);
 			Vector3 localOtherPoint = mech.transform.InverseTransformPoint(otherMidPoint);
+			//tempEnemy.weaponsOfficer.getWeapon.getSwordTip
 
+			//Left/right
 			if (localMyPoint.x < localOtherPoint.x)
 			{
-				targetOffset += mech.transform.right * Time.deltaTime * 2f;
+				targetPosOffset += mech.transform.right * Time.deltaTime * 2f;
+				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(50f, 0, 0f);
 			}
 			else if (localMyPoint.x > localOtherPoint.x)
 			{
-				targetOffset -= mech.transform.right * Time.deltaTime * 2f;
+				targetPosOffset -= mech.transform.right * Time.deltaTime * 2f;
+				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(-50f, 0f, 0f);
+			}
+
+			//Forward/back
+			if (localMyPoint.z < localOtherPoint.z)
+			{
+				targetPosOffset += mech.transform.forward * Time.deltaTime * 2f;
+				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(50f, 0, 0f);
+			}
+			else if (localMyPoint.z > localOtherPoint.z)
+			{
+				targetPosOffset -= mech.transform.forward * Time.deltaTime * 2f;
+				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(-50f, 0f, 0f);
 			}
 		}
 		else
 		{
-			targetOffset = Vector3.Lerp(targetOffset, Vector3.zero, Time.deltaTime * 3f);
+			targetPosOffset = Vector3.Lerp(targetPosOffset, Vector3.zero, Time.deltaTime * 3f);
+			targetRotOffset = Quaternion.Lerp(targetRotOffset, Quaternion.identity, Time.deltaTime * 3f);
 		}
 	}
 
@@ -108,16 +119,23 @@ public class Blocker : MechComponent
 	{
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
 		{
-			blockStance = DecideBlockStance(tempEnemy.weaponsOfficer.stancePicker.stance);
+			if (autoBlock)
+			{
+				blockStance = DecideBlockStance(tempEnemy.weaponsOfficer.stancePicker.stance);
+			}
+			else
+			{
+				blockStance = stancePicker.stance;
+			}
 
 			targetTransform = GetTargetTransform(blockStance);
 
-			Transform rIK = arms.armControl.getRhandIKTarget;
+			Transform rIK = arms.getRhandIKTarget;
 
 			AdjustPosition();
 
-			rIK.position = Vector3.Lerp(rIK.position, targetTransform.position + targetOffset, Time.deltaTime * 4f);
-			rIK.rotation = Quaternion.Lerp(rIK.rotation, targetTransform.rotation, Time.deltaTime * 4f);
+			rIK.position = Vector3.Lerp(rIK.position, targetTransform.position + targetPosOffset, Time.deltaTime * 4f);
+			rIK.rotation = Quaternion.Lerp(rIK.rotation, targetTransform.rotation * targetRotOffset, Time.deltaTime * 4f);
 
 		}
 	}

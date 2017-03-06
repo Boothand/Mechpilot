@@ -9,7 +9,7 @@ public class WeaponsOfficer : MechComponent
 	public ArmAttackState armAttackState { get; private set; }
 	public ArmStaggerState armStaggerState { get; private set; }
 
-	public enum CombatState { Stance, Block, Attack }
+	public enum CombatState { Stance, Block, Windup, Attack, Retract }
 	public CombatState combatState;
 	public enum CombatDir { TopRight, TopLeft, BottomRight, BottomLeft, Top }
 
@@ -17,8 +17,11 @@ public class WeaponsOfficer : MechComponent
 	public float inputVecMagnitude { get; private set; }
 
 	[SerializeField] Sword weapon;
+	[SerializeField] Transform rHandIKTarget;
+	[SerializeField] public Transform lHandIKTarget;
 
 	public Sword getWeapon { get { return weapon; } }
+	public Transform getRhandIKTarget { get { return rHandIKTarget; } }
 
 	protected override void OnAwake()
 	{
@@ -53,8 +56,8 @@ public class WeaponsOfficer : MechComponent
 
 	public WeaponsOfficer.CombatDir DecideCombatDir(WeaponsOfficer.CombatDir inDir)
 	{
-		if (Mathf.Abs(arms.inputVec.x) < 0.2f &&
-			arms.inputVec.y > 0.2f)
+		if (Mathf.Abs(arms.inputVec.x) < 0.4f &&
+			arms.inputVec.y > 0.4f)
 		{
 			return WeaponsOfficer.CombatDir.Top;
 		}
@@ -95,14 +98,27 @@ public class WeaponsOfficer : MechComponent
 
 	void Update ()
 	{
-		//Move IK targets horizontally and vertically
-		//armMovement.RunComponent();
-
-		//Run attack animations, manage attacking states and gameplay
 		inputVec = new Vector3(input.rArmHorz, input.rArmVert).normalized;
 		inputVecMagnitude = inputVec.magnitude;
 
-		arms.armControl.lHandIKTarget.position = weapon.getLeftHandTarget.position;
-		arms.armControl.lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
+		lHandIKTarget.position = weapon.getLeftHandTarget.position;
+		lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
+
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			Cursor.lockState = CursorLockMode.Locked;
+		}
+
+		if (input.block)
+		{
+			combatState = CombatState.Block;
+		}
+
+		if (!input.block && combatState != CombatState.Attack &&
+			combatState != CombatState.Retract &&
+			combatState != CombatState.Windup)
+		{
+			combatState = CombatState.Stance;
+		}
 	}
 }

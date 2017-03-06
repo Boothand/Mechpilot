@@ -34,8 +34,7 @@ public class EnergyManager : MechComponent
 		//Regenerate
 		if (stamina < maxStamina)
 		{
-			if (arms.armControl.state != ArmControl.State.Attack &&
-				arms.armControl.state != ArmControl.State.AttackRetract)
+			if (arms.combatState != WeaponsOfficer.CombatState.Attack)
 			{
 				stamina += Time.deltaTime * regenerationSpeed;
 			}

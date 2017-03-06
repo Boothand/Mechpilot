@@ -10,7 +10,7 @@ public class BodyRotation : MechComponent
 	[SerializeField] float rotationSpeed = 0.05f;
 	Vector3 angle;
 
-	float inputXPersist, inputYPersist;
+	//float inputXPersist, inputYPersist;
 
 	[SerializeField] bool tilt;
 
@@ -25,14 +25,14 @@ public class BodyRotation : MechComponent
 		float xInput = Mathf.Clamp(input.turnBodyHorz, -1f, 1f);
 		float yInput = Mathf.Clamp(input.turnBodyVert, -1f, 1f);
 
-		inputXPersist += xInput * rotationSpeed;
-		inputYPersist += yInput * rotationSpeed;
+		//inputXPersist += xInput * rotationSpeed;
+		//inputYPersist += yInput * rotationSpeed;
 
-		inputXPersist = Mathf.Clamp(inputXPersist, -1f, 1f);
-		inputYPersist = Mathf.Clamp(inputYPersist, -1f, 1f);
+		//inputXPersist = Mathf.Clamp(inputXPersist, -1f, 1f);
+		//inputYPersist = Mathf.Clamp(inputYPersist, -1f, 1f);
 
-		angle.x = Mathf.Lerp(angle.x, inputXPersist * xAngle, Time.deltaTime * blendSpeed);
-		angle.y = Mathf.Lerp(angle.y, inputYPersist * yAngle, Time.deltaTime * blendSpeed);
+		angle.x = Mathf.Lerp(angle.x, xInput * xAngle, Time.deltaTime * blendSpeed);
+		angle.y = Mathf.Lerp(angle.y, yInput * yAngle, Time.deltaTime * blendSpeed);
 		Quaternion rotOffset = Quaternion.Euler(-angle.y, angle.x, 0f);
 
 		if (tilt)

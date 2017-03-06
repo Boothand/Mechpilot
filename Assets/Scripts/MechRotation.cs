@@ -9,18 +9,30 @@ public class MechRotation : MechComponent
 	
 	Vector3 forwardDir;
 
+	[SerializeField] bool lockOn = true;
+	bool lockedOn;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
+		lockedOn = true;
 	}
 
 	void Update()
 	{
-		Vector3 targetRot = new Vector3(input.lookHorz, input.lookVert);
-		rotationAmount = Mathf.Lerp(rotationAmount, targetRot.x, Time.deltaTime * 4f);
+		if (lockOn && lockedOn &&
+			arms.combatState != WeaponsOfficer.CombatState.Attack)
+		{
+			forwardDir = blocker.tempEnemy.transform.position - mech.transform.position;
+		}
+		else
+		{
+			Vector3 targetRot = new Vector3(input.lookHorz, input.lookVert);
+			rotationAmount = Mathf.Lerp(rotationAmount, targetRot.x, Time.deltaTime * 4f);
 
-		forwardDir = Quaternion.Euler(0, rotationAmount * rotationSpeed, 0) * mech.transform.forward;
+			forwardDir = Quaternion.Euler(0, rotationAmount * rotationSpeed, 0) * mech.transform.forward;
+		}
+
 		forwardDir.y = 0f;
 		forwardDir.Normalize();
 	}
