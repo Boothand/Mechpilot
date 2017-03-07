@@ -36,6 +36,12 @@ public class Retract : MechComponent
 		return trTransform;
 	}
 
+	public void Stop()
+	{
+		retracting = false;
+		StopAllCoroutines();
+	}
+
 	IEnumerator RetractRoutine()
 	{
 		Transform targetTransform = GetRetractTransform(arms.attacker.dir);

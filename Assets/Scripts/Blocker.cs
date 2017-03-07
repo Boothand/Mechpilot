@@ -10,6 +10,7 @@ public class Blocker : MechComponent
 	WeaponsOfficer.CombatDir blockStance;
 
 	[SerializeField] bool autoBlock = true;
+	public bool blocking { get; private set; }
 
 	public Mech tempEnemy;
 
@@ -117,8 +118,12 @@ public class Blocker : MechComponent
 
 	void Update()
 	{
+		blocking = false;
+
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
 		{
+			blocking = true;
+
 			if (autoBlock)
 			{
 				blockStance = DecideBlockStance(tempEnemy.weaponsOfficer.stancePicker.stance);

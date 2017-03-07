@@ -43,6 +43,12 @@ public class StancePicker : MechComponent
 		return topTransform;
 	}
 
+	public void Stop()
+	{
+		StopAllCoroutines();
+		changingStance = false;
+	}
+
 	IEnumerator ChangeStanceRoutine(WeaponsOfficer.CombatDir newStance)
 	{
 		changingStance = true;
