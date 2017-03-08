@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class Blocker : MechComponent
 {
-	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
-	Transform targetTransform;
+	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
+	IKPose targetPose;
 	Vector3 targetPosOffset;
 	Quaternion targetRotOffset;
 	WeaponsOfficer.CombatDir blockStance;
+	WeaponsOfficer.CombatDir idealBlock;
+
+	[SerializeField] float blendSpeed = 1f;
 
 	[SerializeField] bool autoBlock = true;
 	public bool blocking { get; private set; }
@@ -19,7 +22,7 @@ public class Blocker : MechComponent
 		base.OnAwake();
 	}
 
-	Transform GetTargetTransform(WeaponsOfficer.CombatDir dir)
+	IKPose GetTargetPose(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
 		{
@@ -69,7 +72,8 @@ public class Blocker : MechComponent
 		Vector3 otherMidPoint = tempEnemy.weaponsOfficer.getWeapon.getMidPoint.position;
 
 		
-		if (tempEnemy.weaponsOfficer.combatState == WeaponsOfficer.CombatState.Attack)
+		if (tempEnemy.weaponsOfficer.combatState == WeaponsOfficer.CombatState.Attack &&
+			blockStance == idealBlock)
 		{
 			//Up/down
 			if (myMidPoint.y < otherMidPoint.y)
@@ -116,6 +120,22 @@ public class Blocker : MechComponent
 		}
 	}
 
+	IEnumerator BlockRoutine()
+	{
+		arms.StoreTargets();
+
+		float timer = 0f;
+		float duration = 0.75f;
+
+		while (timer < duration)
+		{
+			timer += Time.deltaTime;
+
+			arms.InterpolateIKPose(targetPose, timer / duration);
+			yield return null;
+		}
+	}
+
 	void Update()
 	{
 		blocking = false;
@@ -123,25 +143,23 @@ public class Blocker : MechComponent
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
 		{
 			blocking = true;
+			idealBlock = DecideBlockStance(tempEnemy.weaponsOfficer.stancePicker.stance);
 
 			if (autoBlock)
 			{
-				blockStance = DecideBlockStance(tempEnemy.weaponsOfficer.stancePicker.stance);
+				blockStance = idealBlock;
 			}
 			else
 			{
 				blockStance = stancePicker.stance;
 			}
 
-			targetTransform = GetTargetTransform(blockStance);
-
-			Transform rIK = arms.getRhandIKTarget;
-
+			targetPose = GetTargetPose(blockStance);
+			
 			AdjustPosition();
 
-			rIK.position = Vector3.Lerp(rIK.position, targetTransform.position + targetPosOffset, Time.deltaTime * 4f);
-			rIK.rotation = Quaternion.Lerp(rIK.rotation, targetTransform.rotation * targetRotOffset, Time.deltaTime * 4f);
-
+			arms.StoreTargets();
+			arms.InterpolateIKPoseOffset(targetPose, targetPosOffset, Time.deltaTime * blendSpeed);
 		}
 	}
 }

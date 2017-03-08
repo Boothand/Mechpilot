@@ -45,6 +45,7 @@ public class Retract : MechComponent
 	IEnumerator RetractRoutine()
 	{
 		IKPose targetPose = GetRetractPose(arms.attacker.dir);
+		IKPose targetPose2 = arms.stancePicker.GetStancePose();
 
 		//Transform rIK = arms.getRhandIKTarget;
 
@@ -67,18 +68,19 @@ public class Retract : MechComponent
 		
 		retractTimer = 0f;
 
-		IKPose targetPose2 = arms.stancePicker.GetStancePose();
 		arms.StoreTargets();
 
 		while (retractTimer < duration)
 		{
 			retractTimer += Time.deltaTime;
+			//targetPose2 = arms.stancePicker.GetStancePose();
 			arms.InterpolateIKPose(targetPose2, retractTimer / duration);
 
 			yield return null;
 		}
 
 		retracting = false;
+		stancePicker.ForceStance();
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
 	}
 

@@ -25,6 +25,8 @@ public class WeaponsOfficer : MechComponent
 	[SerializeField] Transform lShoulderTarget;
 	[SerializeField] Transform bodyTarget;
 
+	[SerializeField] bool alwaysBlock;
+
 	Vector3 fromRhandPos, fromRElbowPos, fromLElbowPos, fromRShoulderPos, fromLShoulderPos, fromBodyPos;
 	Quaternion fromRhandRot;
 
@@ -65,6 +67,22 @@ public class WeaponsOfficer : MechComponent
 	public void InterpolateIKPose(IKPose pose, float timer)
 	{
 		rHandIKTarget.position = Vector3.Lerp(fromRhandPos, pose.rHand.position, timer);
+		rHandIKTarget.rotation = Quaternion.Lerp(fromRhandRot, pose.rHand.rotation, timer);
+
+		rElbowTarget.position = Vector3.Lerp(fromRElbowPos, pose.rElbow.position, timer);
+		lElbowTarget.position = Vector3.Lerp(fromLElbowPos, pose.lElbow.position, timer);
+
+		rShoulderTarget.position = Vector3.Lerp(fromRShoulderPos, pose.rShoulder.position, timer);
+		lShoulderTarget.position = Vector3.Lerp(fromLShoulderPos, pose.lShoulder.position, timer);
+
+		bodyTarget.position = Vector3.Lerp(fromBodyPos, pose.body.position, timer);
+
+		Debug.DrawLine(fromRhandPos, pose.rHand.position, Color.red);
+	}
+
+	public void InterpolateIKPoseOffset(IKPose pose, Vector3 handOffset, float timer)
+	{
+		rHandIKTarget.position = Vector3.Lerp(fromRhandPos, pose.rHand.position + handOffset, timer);
 		rHandIKTarget.rotation = Quaternion.Lerp(fromRhandRot, pose.rHand.rotation, timer);
 
 		rElbowTarget.position = Vector3.Lerp(fromRElbowPos, pose.rElbow.position, timer);
@@ -147,6 +165,9 @@ public class WeaponsOfficer : MechComponent
 
 		lHandIKTarget.position = weapon.getLeftHandTarget.position;
 		lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
+
+		if (alwaysBlock)
+			input.block = true;
 
 		if (Input.GetKeyDown(KeyCode.R))
 		{
