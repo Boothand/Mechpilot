@@ -18,10 +18,24 @@ public class WeaponsOfficer : MechComponent
 
 	[SerializeField] Sword weapon;
 	[SerializeField] Transform rHandIKTarget;
-	[SerializeField] public Transform lHandIKTarget;
+	[SerializeField] Transform lHandIKTarget;
+	[SerializeField] Transform rElbowTarget;
+	[SerializeField] Transform lElbowTarget;
+	[SerializeField] Transform rShoulderTarget;
+	[SerializeField] Transform lShoulderTarget;
+	[SerializeField] Transform bodyTarget;
+
+	Vector3 fromRhandPos, fromRElbowPos, fromLElbowPos, fromRShoulderPos, fromLShoulderPos, fromBodyPos;
+	Quaternion fromRhandRot;
 
 	public Sword getWeapon { get { return weapon; } }
 	public Transform getRhandIKTarget { get { return rHandIKTarget; } }
+	public Transform getLhandIKTarget { get { return lHandIKTarget; } }
+	public Transform getRElbowTarget { get { return rElbowTarget; } }
+	public Transform getLElbowTarget { get { return lElbowTarget; } }
+	public Transform getRShoulderTarget { get { return rShoulderTarget; } }
+	public Transform getLShoulderTarget { get { return lShoulderTarget; } }
+	public Transform getBodyTarget { get { return bodyTarget; } }
 
 	protected override void OnAwake()
 	{
@@ -32,6 +46,36 @@ public class WeaponsOfficer : MechComponent
 		armWindupState = GetComponent<ArmWindupState>();
 		armAttackState = GetComponent<ArmAttackState>();
 		armStaggerState = GetComponent<ArmStaggerState>();
+	}
+
+	public void StoreTargets()
+	{
+		fromRhandPos = rHandIKTarget.position;
+		fromRhandRot = rHandIKTarget.rotation;
+
+		fromRElbowPos = rElbowTarget.position;
+		fromLElbowPos = lElbowTarget.position;
+
+		fromRShoulderPos = rShoulderTarget.position;
+		fromLShoulderPos = lShoulderTarget.position;
+
+		fromBodyPos = bodyTarget.position;
+	}
+
+	public void InterpolateIKPose(IKPose pose, float timer)
+	{
+		rHandIKTarget.position = Vector3.Lerp(fromRhandPos, pose.rHand.position, timer);
+		rHandIKTarget.rotation = Quaternion.Lerp(fromRhandRot, pose.rHand.rotation, timer);
+
+		rElbowTarget.position = Vector3.Lerp(fromRElbowPos, pose.rElbow.position, timer);
+		lElbowTarget.position = Vector3.Lerp(fromLElbowPos, pose.lElbow.position, timer);
+
+		rShoulderTarget.position = Vector3.Lerp(fromRShoulderPos, pose.rShoulder.position, timer);
+		lShoulderTarget.position = Vector3.Lerp(fromLShoulderPos, pose.lShoulder.position, timer);
+
+		bodyTarget.position = Vector3.Lerp(fromBodyPos, pose.body.position, timer);
+
+		Debug.DrawLine(fromRhandPos, pose.rHand.position, Color.red);
 	}
 
 	void IgnoreHierarchyRecursive(Transform root, Collider otherCol)

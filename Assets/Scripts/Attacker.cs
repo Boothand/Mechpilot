@@ -6,8 +6,8 @@ public class Attacker : MechComponent
 	[SerializeField] float attackDuration = 0.75f;
 	Vector3 inputVec;
 	float inputVecMagnitude;
-	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
-	public Transform targetTransform { get; private set; }
+	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
+	public IKPose targetPose { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 	bool cachedAttack;
 
@@ -35,7 +35,7 @@ public class Attacker : MechComponent
 		}
 	}
 
-	Transform DecideAttackTransform(WeaponsOfficer.CombatDir dir)
+	IKPose DecideAttackTransform(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
 		{
@@ -67,22 +67,20 @@ public class Attacker : MechComponent
 	{
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
 
-		targetTransform = DecideAttackTransform(dir);
-
-		Transform rIK = arms.getRhandIKTarget;
-		Transform originalTargetTransform = targetTransform;
+		targetPose = DecideAttackTransform(dir);
+		
+		IKPose poseToUse = targetPose;
 
 		while (true)
 		{
-			Vector3 fromPos = rIK.position;
-			Quaternion fromRot = rIK.rotation;
+			arms.StoreTargets();
 			float attackTimer = 0f;
 
 			float duration = attackDuration;
 
 			//If there are 'keyframes', adjust timing between each so it totals to attackDuration
-			if (originalTargetTransform.childCount > 0)
-				duration /= originalTargetTransform.childCount + 1;
+			if (targetPose.rHand.childCount > 0)
+				duration /= targetPose.rHand.childCount + 1;
 
 			float acceleration = 0f;
 
@@ -90,16 +88,15 @@ public class Attacker : MechComponent
 			{
 				acceleration += Time.deltaTime * 0.5f;
 				attackTimer += acceleration;
-				rIK.position = Vector3.Lerp(fromPos, targetTransform.position, attackTimer / duration);
-				rIK.rotation = Quaternion.Lerp(fromRot, targetTransform.rotation, attackTimer / duration);
+				arms.InterpolateIKPose(poseToUse, attackTimer / duration);
 
-				yield return new WaitForEndOfFrame();
+				yield return null;
 			}
 
 			//If the attack 'animation' has 'keyframes'
-			if (targetTransform.childCount > 0)
+			if (poseToUse.rHand.childCount > 0)
 			{
-				targetTransform = targetTransform.GetChild(0);
+				poseToUse.rHand = poseToUse.rHand.GetChild(0);
 			}
 			else
 			{
@@ -119,7 +116,6 @@ public class Attacker : MechComponent
 				if (!input.attack)
 				{
 					dir = windup.dir;
-					print("Attack dir: " + dir);
 
 					StopAllCoroutines();
 					StartCoroutine(Attack(dir));

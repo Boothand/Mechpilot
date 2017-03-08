@@ -3,15 +3,16 @@ using UnityEngine;
 
 public class StancePicker : MechComponent
 {
-	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform, bottomMidPoseTransform;
+	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform, bottomMidPose;
 	public WeaponsOfficer.CombatDir stance { get; private set; }
 	WeaponsOfficer.CombatDir prevStance;
 
-	public Transform targetTransform { get; private set; }
+	public IKPose targetPose { get; private set; }
 
 	[SerializeField] float blendSpeed = 4f;
 	[SerializeField] float switchTime = 0.5f;
 	public bool changingStance { get; private set; }
+	
 
 	protected override void OnAwake()
 	{
@@ -20,7 +21,7 @@ public class StancePicker : MechComponent
 
 	
 
-	public Transform GetStanceTransform()
+	public IKPose GetStancePose()
 	{
 		switch (stance)
 		{
@@ -53,12 +54,10 @@ public class StancePicker : MechComponent
 	{
 		changingStance = true;
 		bool goToMid = false;
-		Transform rIK = arms.getRhandIKTarget;
-		Vector3 fromPos = rIK.position;
-		Quaternion fromRot = rIK.rotation;
 		float timer = 0f;
 
 		float switchTimeToUse = switchTime;
+
 
 		if (prevStance != WeaponsOfficer.CombatDir.Top && newStance != WeaponsOfficer.CombatDir.Top)
 		{
@@ -76,31 +75,30 @@ public class StancePicker : MechComponent
 			}
 		}
 
+		arms.StoreTargets();
+
 		if (goToMid)
 		{
 			while (timer < switchTimeToUse)
 			{
 				timer += Time.deltaTime;
+				arms.InterpolateIKPose(bottomMidPose, timer / switchTimeToUse);
 
-				rIK.position = Vector3.Lerp(fromPos, bottomMidPoseTransform.position, timer / switchTimeToUse);
-				rIK.rotation = Quaternion.Lerp(fromRot, bottomMidPoseTransform.rotation, timer / switchTimeToUse);
-
-				yield return new WaitForEndOfFrame();
+				yield return null;
 			}
+
+			arms.StoreTargets();
 		}
 
 		timer = 0f;
-		fromPos = rIK.position;
-		fromRot = rIK.rotation;
 
 		while (timer < switchTimeToUse)
 		{
 			timer += Time.deltaTime;
 
-			rIK.position = Vector3.Lerp(fromPos, targetTransform.position, timer / switchTimeToUse);
-			rIK.rotation = Quaternion.Lerp(fromRot, targetTransform.rotation, timer / switchTimeToUse);
+			arms.InterpolateIKPose(targetPose, timer / switchTimeToUse);
 
-			yield return new WaitForEndOfFrame();
+			yield return null;
 		}
 
 		changingStance = false;
@@ -113,9 +111,11 @@ public class StancePicker : MechComponent
 			stance = arms.DecideCombatDir(stance);
 		}
 
+		print(stance);
+
 		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
-			targetTransform = GetStanceTransform();
+			targetPose = GetStancePose();
 
 			if (prevStance != stance)
 			{
@@ -125,18 +125,22 @@ public class StancePicker : MechComponent
 
 			if (!changingStance)
 			{
-				Transform rIK = arms.getRhandIKTarget;
+				//Transform rIK = arms.getRhandIKTarget;
 
-				if (Vector3.Distance(rIK.position, targetTransform.position) > 0.01f)
-				{
-					rIK.position = Vector3.Lerp(rIK.position, targetTransform.position, Time.deltaTime * blendSpeed);
-					rIK.rotation = Quaternion.Lerp(rIK.rotation, targetTransform.rotation, Time.deltaTime * blendSpeed);
-				}
-				else
-				{
-					rIK.position = targetTransform.position;
-					rIK.rotation = targetTransform.rotation;
-				}
+				//if (Vector3.Distance(rIK.position, targetPose.rHand.position) > 0.01f)
+				//{
+				//	//arms.StoreTargets();
+				//	//arms.InterpolateIKPose(targetPose, Time.deltaTime * blendSpeed);
+				//	rIK.position = Vector3.Lerp(rIK.position, targetPose.rHand.position, Time.deltaTime * blendSpeed);
+				//	rIK.rotation = Quaternion.Lerp(rIK.rotation, targetPose.rHand.rotation, Time.deltaTime * blendSpeed);
+				//}
+				//else
+				//{
+				//	//arms.StoreTargets();
+				//	//arms.InterpolateIKPose(targetPose, 1f);
+				//	rIK.position = targetPose.rHand.position;
+				//	rIK.rotation = targetPose.rHand.rotation;
+				//}
 			}
 		}
 
