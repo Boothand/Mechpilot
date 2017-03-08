@@ -66,10 +66,14 @@ public class Attacker : MechComponent
 	IEnumerator Attack(WeaponsOfficer.CombatDir dir)
 	{
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
-
 		targetPose = DecideAttackTransform(dir);
-		
-		IKPose poseToUse = targetPose;
+
+		bool keyframeAnim = false;
+		int keyFrames = targetPose.rHand.childCount;
+
+
+		if (keyFrames > 0)
+			keyframeAnim = true;
 
 		while (true)
 		{
@@ -79,8 +83,10 @@ public class Attacker : MechComponent
 			float duration = attackDuration;
 
 			//If there are 'keyframes', adjust timing between each so it totals to attackDuration
-			if (targetPose.rHand.childCount > 0)
-				duration /= targetPose.rHand.childCount + 1;
+			if (keyframeAnim)
+				duration /= keyFrames + 1;
+
+			print(duration);
 
 			float acceleration = 0f;
 
@@ -88,19 +94,27 @@ public class Attacker : MechComponent
 			{
 				acceleration += Time.deltaTime * 0.5f;
 				attackTimer += acceleration;
-				arms.InterpolateIKPose(poseToUse, attackTimer / duration);
+				arms.InterpolateIKPose(targetPose, attackTimer / duration);
 
 				yield return null;
 			}
 
 			//If the attack 'animation' has 'keyframes'
-			if (poseToUse.rHand.childCount > 0)
+			if (targetPose.rHand.childCount > 0)
 			{
-				poseToUse.rHand = poseToUse.rHand.GetChild(0);
+				targetPose.rHand = targetPose.rHand.GetChild(0);
 			}
 			else
 			{
 				break;
+			}
+		}
+		
+		if (keyframeAnim)
+		{
+			for (int i = 0; i < keyFrames; i++)
+			{
+				targetPose.rHand = targetPose.rHand.parent;
 			}
 		}
 
