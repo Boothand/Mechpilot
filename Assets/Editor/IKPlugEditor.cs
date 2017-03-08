@@ -31,7 +31,7 @@ public class IKPlugEditor : Editor
 				else if (child.name == "Shoulder L")
 					ik.solver.GetEffector(FullBodyBipedEffector.LeftShoulder).target = child;
 				else if (child.name == "Body Target")
-					lookIK.solver.target = child;
+					ik.solver.bodyEffector.target = child;
 				else
 					ik.solver.rightHandEffector.target = child;
 			}
@@ -55,7 +55,7 @@ public class IKPlugEditor : Editor
 				else if (child.name == "Shoulder L")
 					ik.solver.GetEffector(FullBodyBipedEffector.LeftShoulder).target = transformToUse;
 				else if (child.name == "Body Target")
-					lookIK.solver.target = transformToUse;
+					ik.solver.bodyEffector.target = transformToUse;
 				else
 					ik.solver.rightHandEffector.target = transformToUse;
 			}
@@ -69,6 +69,7 @@ public class IKPlugEditor : Editor
 			ik.solver.leftArmChain.bendConstraint.bendGoal = ikGroup.transform.root.Find("Walk_Test").FindChild("lElbowIKTarget");
 			ik.solver.GetEffector(FullBodyBipedEffector.RightShoulder).target = ikGroup.transform.root.Find("Walk_Test").FindChild("rShoulderIKTarget");
 			ik.solver.GetEffector(FullBodyBipedEffector.LeftShoulder).target = ikGroup.transform.root.Find("Walk_Test").FindChild("lShoulderIKTarget");
+			ik.solver.bodyEffector.target = ikGroup.transform.root.Find("Walk_Test").FindChild("bodyIKTarget");
 		}
 	}
 }

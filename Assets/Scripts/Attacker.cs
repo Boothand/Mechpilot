@@ -7,6 +7,7 @@ public class Attacker : MechComponent
 	Vector3 inputVec;
 	float inputVecMagnitude;
 	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
+	[SerializeField] IKPose trTransform2, tlTransform2, brTransform2, blTransform2, topTransform2;
 	public IKPose targetPose { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 	bool cachedAttack;
@@ -58,6 +59,29 @@ public class Attacker : MechComponent
 		return trTransform;
 	}
 
+	IKPose DecideAttackTransform2(WeaponsOfficer.CombatDir dir)
+	{
+		switch (dir)
+		{
+			case WeaponsOfficer.CombatDir.BottomLeft:
+				return blTransform2;
+
+			case WeaponsOfficer.CombatDir.BottomRight:
+				return brTransform2;
+
+			case WeaponsOfficer.CombatDir.Top:
+				return topTransform2;
+
+			case WeaponsOfficer.CombatDir.TopLeft:
+				return tlTransform2;
+
+			case WeaponsOfficer.CombatDir.TopRight:
+				return trTransform2;
+		}
+
+		return trTransform2;
+	}
+
 	public void Stop()
 	{
 		StopAllCoroutines();
@@ -67,56 +91,35 @@ public class Attacker : MechComponent
 	{
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
 		targetPose = DecideAttackTransform(dir);
-
-		bool keyframeAnim = false;
-		int keyFrames = targetPose.rHand.childCount;
-
-
-		if (keyFrames > 0)
-			keyframeAnim = true;
-
-		while (true)
-		{
-			arms.StoreTargets();
-			float attackTimer = 0f;
-
-			float duration = attackDuration;
-
-			//If there are 'keyframes', adjust timing between each so it totals to attackDuration
-			if (keyframeAnim)
-				duration /= keyFrames + 1;
-
-			print(duration);
-
-			float acceleration = 0f;
-
-			while (attackTimer < duration)
-			{
-				acceleration += Time.deltaTime * 0.5f;
-				attackTimer += acceleration;
-				arms.InterpolateIKPose(targetPose, attackTimer / duration);
-
-				yield return null;
-			}
-
-			//If the attack 'animation' has 'keyframes'
-			if (targetPose.rHand.childCount > 0)
-			{
-				targetPose.rHand = targetPose.rHand.GetChild(0);
-			}
-			else
-			{
-				break;
-			}
-		}
+		IKPose finalPose = DecideAttackTransform2(dir);
 		
-		if (keyframeAnim)
+		arms.StoreTargets();
+		float attackTimer = 0f;
+
+		float duration = attackDuration;			
+
+		float acceleration = 0f;
+
+		while (attackTimer < duration)
 		{
-			for (int i = 0; i < keyFrames; i++)
-			{
-				targetPose.rHand = targetPose.rHand.parent;
-			}
+			acceleration += Time.deltaTime * 0.5f;
+			attackTimer += acceleration;
+			arms.InterpolateIKPose(targetPose, attackTimer / duration);
+
+			yield return null;
 		}
+
+		attackTimer = 0f;
+		arms.StoreTargets();
+
+		while (attackTimer < duration)
+		{
+			acceleration += Time.deltaTime * 0.5f;
+			attackTimer += acceleration;
+			arms.InterpolateIKPose(finalPose, attackTimer / duration);
+
+			yield return null;
+		}	
 
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
 	}

@@ -111,8 +111,6 @@ public class StancePicker : MechComponent
 			stance = arms.DecideCombatDir(stance);
 		}
 
-		print(stance);
-
 		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
 			targetPose = GetStancePose();
