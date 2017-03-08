@@ -4,8 +4,8 @@ using UnityEngine;
 public class Windup : MechComponent
 {
 	[SerializeField] float windupTime = 0.5f;
-	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
-	public Transform targetTransform { get; private set; }
+	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
+	public IKPose targetTransform { get; private set; }
 	public bool windingUp { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 
@@ -14,7 +14,7 @@ public class Windup : MechComponent
 		base.OnAwake();
 	}
 
-	Transform DecideWindupTransform()
+	IKPose DecideWindupTransform()
 	{
 		switch (stancePicker.stance)
 		{
@@ -50,21 +50,17 @@ public class Windup : MechComponent
 
 		targetTransform = DecideWindupTransform();
 
-		Transform rIK = arms.getRhandIKTarget;
-		Vector3 fromPos = rIK.position;
-		Quaternion fromRot = rIK.rotation;
-
 		float timer = 0f;
 
+		arms.StoreTargets();
 
 		while (timer < windupTime)
 		{
 			timer += Time.deltaTime;
 
-			rIK.position = Vector3.Lerp(fromPos, targetTransform.position, timer / windupTime);
-			rIK.rotation = Quaternion.Lerp(fromRot, targetTransform.rotation, timer / windupTime);
+			arms.InterpolateIKPose(targetTransform, timer / windupTime);
 
-			yield return new WaitForEndOfFrame();
+			yield return null;
 		}
 
 		while (input.attack)

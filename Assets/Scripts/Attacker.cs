@@ -6,8 +6,9 @@ public class Attacker : MechComponent
 	[SerializeField] float attackDuration = 0.75f;
 	Vector3 inputVec;
 	float inputVecMagnitude;
-	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
-	public Transform targetTransform { get; private set; }
+	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
+	[SerializeField] IKPose trTransform2, tlTransform2, brTransform2, blTransform2, topTransform2;
+	public IKPose targetPose { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 	bool cachedAttack;
 
@@ -35,7 +36,7 @@ public class Attacker : MechComponent
 		}
 	}
 
-	Transform DecideAttackTransform(WeaponsOfficer.CombatDir dir)
+	IKPose DecideAttackTransform(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
 		{
@@ -58,6 +59,29 @@ public class Attacker : MechComponent
 		return trTransform;
 	}
 
+	IKPose DecideAttackTransform2(WeaponsOfficer.CombatDir dir)
+	{
+		switch (dir)
+		{
+			case WeaponsOfficer.CombatDir.BottomLeft:
+				return blTransform2;
+
+			case WeaponsOfficer.CombatDir.BottomRight:
+				return brTransform2;
+
+			case WeaponsOfficer.CombatDir.Top:
+				return topTransform2;
+
+			case WeaponsOfficer.CombatDir.TopLeft:
+				return tlTransform2;
+
+			case WeaponsOfficer.CombatDir.TopRight:
+				return trTransform2;
+		}
+
+		return trTransform2;
+	}
+
 	public void Stop()
 	{
 		StopAllCoroutines();
@@ -66,46 +90,36 @@ public class Attacker : MechComponent
 	IEnumerator Attack(WeaponsOfficer.CombatDir dir)
 	{
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
+		targetPose = DecideAttackTransform(dir);
+		IKPose finalPose = DecideAttackTransform2(dir);
+		
+		arms.StoreTargets();
+		float attackTimer = 0f;
 
-		targetTransform = DecideAttackTransform(dir);
+		float duration = attackDuration;			
 
-		Transform rIK = arms.getRhandIKTarget;
-		Transform originalTargetTransform = targetTransform;
+		float acceleration = 0f;
 
-		while (true)
+		while (attackTimer < duration)
 		{
-			Vector3 fromPos = rIK.position;
-			Quaternion fromRot = rIK.rotation;
-			float attackTimer = 0f;
+			acceleration += Time.deltaTime * 0.5f;
+			attackTimer += acceleration;
+			arms.InterpolateIKPose(targetPose, attackTimer / duration);
 
-			float duration = attackDuration;
-
-			//If there are 'keyframes', adjust timing between each so it totals to attackDuration
-			if (originalTargetTransform.childCount > 0)
-				duration /= originalTargetTransform.childCount + 1;
-
-			float acceleration = 0f;
-
-			while (attackTimer < duration)
-			{
-				acceleration += Time.deltaTime * 0.5f;
-				attackTimer += acceleration;
-				rIK.position = Vector3.Lerp(fromPos, targetTransform.position, attackTimer / duration);
-				rIK.rotation = Quaternion.Lerp(fromRot, targetTransform.rotation, attackTimer / duration);
-
-				yield return new WaitForEndOfFrame();
-			}
-
-			//If the attack 'animation' has 'keyframes'
-			if (targetTransform.childCount > 0)
-			{
-				targetTransform = targetTransform.GetChild(0);
-			}
-			else
-			{
-				break;
-			}
+			yield return null;
 		}
+
+		attackTimer = 0f;
+		arms.StoreTargets();
+
+		while (attackTimer < duration)
+		{
+			acceleration += Time.deltaTime * 0.5f;
+			attackTimer += acceleration;
+			arms.InterpolateIKPose(finalPose, attackTimer / duration);
+
+			yield return null;
+		}	
 
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
 	}
@@ -119,7 +133,6 @@ public class Attacker : MechComponent
 				if (!input.attack)
 				{
 					dir = windup.dir;
-					print("Attack dir: " + dir);
 
 					StopAllCoroutines();
 					StartCoroutine(Attack(dir));

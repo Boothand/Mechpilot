@@ -6,14 +6,14 @@ public class Retract : MechComponent
 	[SerializeField] float retractDuration = 0.75f;
 	bool retracting;
 
-	[SerializeField] Transform trTransform, tlTransform, brTransform, blTransform, topTransform;
+	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 	}
 
-	Transform GetRetractTransform(WeaponsOfficer.CombatDir dir)
+	IKPose GetRetractPose(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
 		{
@@ -44,38 +44,38 @@ public class Retract : MechComponent
 
 	IEnumerator RetractRoutine()
 	{
-		Transform targetTransform = GetRetractTransform(arms.attacker.dir);
+		IKPose targetPose = GetRetractPose(arms.attacker.dir);
 
-		Transform rIK = arms.getRhandIKTarget;
+		//Transform rIK = arms.getRhandIKTarget;
 
 		float duration = retractDuration / 2;
 		
-		Vector3 fromPos = rIK.position;
-		Quaternion fromRot = rIK.rotation;
+		//Vector3 fromPos = rIK.position;
+		//Quaternion fromRot = rIK.rotation;
 		float retractTimer = 0f;
 
+		arms.StoreTargets();
+
 		while (retractTimer < duration)
 		{
 			retractTimer += Time.deltaTime;
-			rIK.position = Vector3.Lerp(fromPos, targetTransform.position, retractTimer / duration);
-			rIK.rotation = Quaternion.Lerp(fromRot, targetTransform.rotation, retractTimer / duration);
 
-			yield return new WaitForEndOfFrame();
+			arms.InterpolateIKPose(targetPose, retractTimer / duration);
+
+			yield return null;
 		}
-
-		fromPos = rIK.position;
-		fromRot = rIK.rotation;
+		
 		retractTimer = 0f;
 
-		Transform targetTransform2 = arms.stancePicker.GetStanceTransform();
+		IKPose targetPose2 = arms.stancePicker.GetStancePose();
+		arms.StoreTargets();
 
 		while (retractTimer < duration)
 		{
 			retractTimer += Time.deltaTime;
-			rIK.position = Vector3.Lerp(fromPos, targetTransform2.position, retractTimer / duration);
-			rIK.rotation = Quaternion.Lerp(fromRot, targetTransform2.rotation, retractTimer / duration);
+			arms.InterpolateIKPose(targetPose2, retractTimer / duration);
 
-			yield return new WaitForEndOfFrame();
+			yield return null;
 		}
 
 		retracting = false;
