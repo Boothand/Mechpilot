@@ -19,6 +19,11 @@ public class StancePicker : MechComponent
 		base.OnAwake();
 	}
 
+	void Start()
+	{
+		targetPose = GetStancePose();
+		StartCoroutine(ChangeStanceRoutine(stance));
+	}
 	
 
 	public IKPose GetStancePose()
