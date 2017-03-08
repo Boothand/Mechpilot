@@ -110,6 +110,22 @@ public class StancePicker : MechComponent
 		changingStance = false;
 	}
 
+	public IEnumerator ForceStanceRoutine()
+	{
+		arms.StoreTargets();
+
+		float timer = 0f;
+		float dur = 0.5f;
+
+		while (timer < dur)
+		{
+			timer += Time.deltaTime;
+			arms.InterpolateIKPose(targetPose, timer / dur);
+
+			yield return null;
+		}
+	}
+
 	public void ForceStance()
 	{
 		//prevStance = stance;
@@ -118,6 +134,8 @@ public class StancePicker : MechComponent
 			StopAllCoroutines();
 			StartCoroutine(ChangeStanceRoutine(stance));
 		}
+		//StopAllCoroutines();
+		//StartCoroutine(ForceStanceRoutine());
 	}
 
 	void Update()

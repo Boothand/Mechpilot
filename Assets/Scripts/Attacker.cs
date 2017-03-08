@@ -29,8 +29,10 @@ public class Attacker : MechComponent
 		{
 			if (arms.combatState == WeaponsOfficer.CombatState.Attack)
 			{
-				StopAllCoroutines();
+				//StopAllCoroutines();
 				arms.combatState = WeaponsOfficer.CombatState.Stance;
+				Stop();
+				stancePicker.StartCoroutine(stancePicker.ForceStanceRoutine());
 				//Stagger?
 			}
 		}
