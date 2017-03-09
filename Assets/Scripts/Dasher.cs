@@ -51,7 +51,7 @@ public class Dasher : MechComponent
 		{
 			//inDash = true;
 			if (energyManager.CanSpendStamina(staminaUsage) &&
-				croucher.crouchHeight < 0.5f)
+				croucher.animCrouchHeight < 0.5f)
 			{
 				if (Mathf.Abs(input.moveHorz) > 0.1f ||
 					Mathf.Abs(input.moveVert) > 0.1f)

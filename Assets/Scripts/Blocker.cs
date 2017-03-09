@@ -158,8 +158,9 @@ public class Blocker : MechComponent
 			
 			AdjustPosition();
 
+			//Only for the sake of maintaining crouch height atm
 			arms.StoreTargets();
-			arms.InterpolateIKPoseOffset(targetPose, targetPosOffset, Time.deltaTime * blendSpeed);
+			arms.InterpolateIKPose(targetPose, targetPosOffset, Time.deltaTime * blendSpeed);
 		}
 	}
 }

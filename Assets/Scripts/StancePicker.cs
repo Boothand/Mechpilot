@@ -154,6 +154,12 @@ public class StancePicker : MechComponent
 				StopAllCoroutines();
 				StartCoroutine(ChangeStanceRoutine(stance));
 			}
+
+			if (!changingStance)
+			{
+				arms.StoreTargets();
+				arms.InterpolateIKPose(targetPose, Time.deltaTime * 5f);
+			}
 		}
 	}
 }
