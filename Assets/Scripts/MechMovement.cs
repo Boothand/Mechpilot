@@ -239,7 +239,7 @@ public class MechMovement : MechComponent
 		//Gradually tween mech's forward direction towards head's aim direction
 		if (true)//inputVec.magnitude > 0.01f && moving)
 		{
-			mech.transform.forward = Vector3.Lerp(mech.transform.forward, pilot.headRotation.lookDir, Time.deltaTime * 2f);
+			mech.transform.forward = Vector3.Lerp(mech.transform.forward, pilot.headRotation.getForwardDir, Time.deltaTime * 2f);
 		}
 	}
 }
