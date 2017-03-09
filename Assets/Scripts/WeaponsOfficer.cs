@@ -214,5 +214,15 @@ public class WeaponsOfficer : MechComponent
 		{
 			combatState = CombatState.Stance;
 		}
+
+		if (combatState == CombatState.Attack
+			|| combatState == CombatState.Block)
+		{
+			weapon.EnableCollider(true);
+		}
+		else
+		{
+			weapon.EnableCollider(false);
+		}
 	}
 }

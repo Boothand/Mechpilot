@@ -14,12 +14,13 @@ public class Sword : Collidable
 	[SerializeField] Transform midPoint;
 	public Transform getLeftHandTarget { get { return leftHandTarget; } }
 	public Transform getMidPoint { get { return midPoint; } }
-
+	Collider swordCollider;
 	Vector3 lastPos;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
+		swordCollider = GetComponent<Collider>();
 	}
 
 	public void PlayClashSound(float impact = 1f)
@@ -27,6 +28,11 @@ public class Sword : Collidable
 		AudioClip randomClash = clashes[Random.Range(0, clashes.Length)];
 
 		StartCoroutine(PlaySoundRoutine(randomClash, impact));
+	}
+
+	public void EnableCollider(bool truth)
+	{
+		swordCollider.enabled = truth;
 	}
 
 	IEnumerator PlaySoundRoutine(AudioClip clip, float volume)
