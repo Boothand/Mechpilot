@@ -13,6 +13,9 @@ ModelImporter:
     100010: Cliff_lo_org1_LO_middle2
     100012: Cliff_lo_org1_LO_top
     100014: LO_middle1_Cliff_lo_org1
+    100016: Cliff_lo_org1_LO_middle2_LO_middle2
+    100018: Cliff_lo_org1_LO_middle2_LO_middle3
+    100020: LO_middle1_LO_middle1_Cliff_lo_org1
     400000: //RootNode
     400002: Cliff_lo_LO_top
     400004: LO_middle1_Cliff_lo
@@ -21,6 +24,9 @@ ModelImporter:
     400010: Cliff_lo_org1_LO_middle2
     400012: Cliff_lo_org1_LO_top
     400014: LO_middle1_Cliff_lo_org1
+    400016: Cliff_lo_org1_LO_middle2_LO_middle2
+    400018: Cliff_lo_org1_LO_middle2_LO_middle3
+    400020: LO_middle1_LO_middle1_Cliff_lo_org1
     2300000: Cliff_lo_LO_top
     2300002: LO_middle1_Cliff_lo
     2300004: Cliff3_Top
@@ -28,6 +34,9 @@ ModelImporter:
     2300008: Cliff_lo_org1_LO_middle2
     2300010: Cliff_lo_org1_LO_top
     2300012: LO_middle1_Cliff_lo_org1
+    2300014: Cliff_lo_org1_LO_middle2_LO_middle2
+    2300016: Cliff_lo_org1_LO_middle2_LO_middle3
+    2300018: LO_middle1_LO_middle1_Cliff_lo_org1
     3300000: Cliff_lo_LO_top
     3300002: LO_middle1_Cliff_lo
     3300004: Cliff3_Top
@@ -35,6 +44,9 @@ ModelImporter:
     3300008: Cliff_lo_org1_LO_middle2
     3300010: Cliff_lo_org1_LO_top
     3300012: LO_middle1_Cliff_lo_org1
+    3300014: Cliff_lo_org1_LO_middle2_LO_middle2
+    3300016: Cliff_lo_org1_LO_middle2_LO_middle3
+    3300018: LO_middle1_LO_middle1_Cliff_lo_org1
     4300000: Cliff_lo_LO_top
     4300002: LO_middle1_Cliff_lo
     4300004: Cliff3_Top
@@ -42,11 +54,17 @@ ModelImporter:
     4300008: Cliff_lo_org1_LO_middle2
     4300010: Cliff_lo_org1_LO_top
     4300012: LO_middle1_Cliff_lo_org1
+    4300014: Cliff_lo_org1_LO_middle2_LO_middle2
+    4300016: Cliff_lo_org1_LO_middle2_LO_middle3
+    4300018: LO_middle1_LO_middle1_Cliff_lo_org1
     6400000: Cliff3_Top
     6400002: Middle1_Cliff3
     6400004: Cliff_lo_org1_LO_middle2
     6400006: Cliff_lo_org1_LO_top
     6400008: LO_middle1_Cliff_lo_org1
+    6400010: Cliff_lo_org1_LO_middle2_LO_middle2
+    6400012: Cliff_lo_org1_LO_middle2_LO_middle3
+    6400014: LO_middle1_LO_middle1_Cliff_lo_org1
   materials:
     importMaterials: 1
     materialName: 0
