@@ -20,7 +20,7 @@ public class MechRotation : MechComponent
 
 	void Update()
 	{
-		if (lockOn && lockedOn &&
+		if (lockOn && lockedOn && blocker.tempEnemy &&
 			arms.combatState != WeaponsOfficer.CombatState.Attack)
 		{
 			forwardDir = blocker.tempEnemy.transform.position - mech.transform.position;
