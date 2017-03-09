@@ -6,12 +6,14 @@ public class BodyPart : Collidable
 	public enum BodyGroup { Head, Body, Arms, Legs, NumBodyGroups }	
 	[SerializeField] BodyGroup bodyGroup;
 	public BodyGroup getBodyGroup { get; private set; }
+	Rigidbody rbody;
 
 
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
+		rbody = GetComponent<Rigidbody>();
 	}
 
 	IEnumerator GetHitBySword(Sword swordHittingMe)
@@ -21,25 +23,30 @@ public class BodyPart : Collidable
 		//Play body hit sound
 		mechSounds.PlayBodyHitSound(1f);
 
+		rbody.AddForce(swordHittingMe.swordTipVelocity * 50f, ForceMode.Impulse);
+		arms.SetPinWeightUpperBody(1f, 0.1f, 0f);
+		arms.SetPinWeightUpperBody(0.1f, 1f, 2f);
+
+
 		//Play impact animation
-		Vector3 localSwordVelocity = mech.transform.InverseTransformDirection(swordHittingMe.swordTipVelocity);
-		float swordMagnitude = localSwordVelocity.magnitude;
+		//Vector3 localSwordVelocity = mech.transform.InverseTransformDirection(swordHittingMe.swordTipVelocity);
+		//float swordMagnitude = localSwordVelocity.magnitude;
 
-		float xImpact = /*swordMagnitude **/ -Mathf.Sign(localSwordVelocity.x);
-		xImpact /= 65f;
+		//float xImpact = /*swordMagnitude **/ -Mathf.Sign(localSwordVelocity.x);
+		//xImpact /= 65f;
 
-		float yImpact = 1f;
+		//float yImpact = 1f;
 
-		if (bodyGroup == BodyGroup.Body)
-			yImpact = 0.37f;
-		if (bodyGroup == BodyGroup.Arms)
-			yImpact = -0.37f;
-		if (bodyGroup == BodyGroup.Legs)
-			yImpact = -1f;
+		//if (bodyGroup == BodyGroup.Body)
+		//	yImpact = 0.37f;
+		//if (bodyGroup == BodyGroup.Arms)
+		//	yImpact = -0.37f;
+		//if (bodyGroup == BodyGroup.Legs)
+		//	yImpact = -1f;
 
-		animator.SetFloat("XImpact", xImpact);
-		animator.SetFloat("YImpact", yImpact);
-		animator.SetTrigger("Impact Hit");
+		//animator.SetFloat("XImpact", xImpact);
+		//animator.SetFloat("YImpact", yImpact);
+		//animator.SetTrigger("Impact Hit");
 
 		yield return new WaitForSeconds(1f);
 
