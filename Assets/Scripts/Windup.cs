@@ -75,7 +75,9 @@ public class Windup : MechComponent
 	{
 		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
-			if (!windingUp && !stancePicker.changingStance)
+			if (!windingUp
+				&& !stancePicker.changingStance
+				&& !dodger.dodging)
 			{
 				if (input.attack)
 				{

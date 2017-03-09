@@ -24,6 +24,7 @@ public class PlayerInput : AbstractInput
 		turnBodyVert = pilotPlayer.GetAxis("Turn Body Vert");
 		crouchAxis = pilotPlayer.GetAxis("Crouch");
 		dash = pilotPlayer.GetButtonDown("Dash");
+		dodge = pilotPlayer.GetButton("Dodge");
 		kick = pilotPlayer.GetButtonDown("Kick");
 		run = pilotPlayer.GetAxis("Run");
 

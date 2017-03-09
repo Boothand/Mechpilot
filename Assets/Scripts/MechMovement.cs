@@ -10,8 +10,10 @@ public class MechMovement : MechComponent
 	[SerializeField] PhysicMaterial physMat_moving;
 
 	//Direction, velocity, movement
-	Vector3 inputVec;
+	public Vector3 inputVec { get; private set; }
+	public float inputVecMagnitude { get; private set; }
 	Vector3 worldMoveDir;
+	public Vector3 getWorldMoveDir { get { return worldMoveDir; } }
 	Vector3 velocity;
 	Vector3 lastPos;
 
@@ -67,7 +69,7 @@ public class MechMovement : MechComponent
 		}
 		
 		inputVec = new Vector3(moveHorz, 0f, moveVert);
-
+		inputVecMagnitude = inputVec.magnitude;
 
 		//Transform direction from 'input' space to world space, relative to head's orientation.
 		worldMoveDir = mech.transform.TransformDirection(inputVec);
@@ -115,6 +117,8 @@ public class MechMovement : MechComponent
 
 		//Send velocity to run function for potential modification
 		CheckRun(ref worldMoveDir);
+
+		dodger.DodgeVelocityModification(ref velocity);
 
 		if (running)
 		{

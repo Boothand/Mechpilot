@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using RootMotion.FinalIK;
 
 public class WeaponsOfficer : MechComponent
 {
@@ -15,6 +16,8 @@ public class WeaponsOfficer : MechComponent
 
 	public Vector3 inputVec { get; private set; }
 	public float inputVecMagnitude { get; private set; }
+
+	[SerializeField] FullBodyBipedIK fbbik;
 
 	[SerializeField] Sword weapon;
 	[SerializeField] Transform rHandIKTarget;
@@ -48,6 +51,28 @@ public class WeaponsOfficer : MechComponent
 		armWindupState = GetComponent<ArmWindupState>();
 		armAttackState = GetComponent<ArmAttackState>();
 		armStaggerState = GetComponent<ArmStaggerState>();
+		fbbik = transform.root.GetComponentInChildren<FullBodyBipedIK>();
+	}
+
+	IEnumerator TweenIKWeightRoutine(float weight, float time)
+	{
+		float timer = 0f;
+		float fromWeight = fbbik.solver.IKPositionWeight;
+
+		while (timer < time)
+		{
+			timer += Time.deltaTime;
+
+			fbbik.solver.IKPositionWeight = Mathf.Lerp(fromWeight, weight, timer / time);
+			yield return null;
+		}
+
+		fbbik.solver.IKPositionWeight = weight;
+	}
+
+	public void TweenIKWeight(float weight, float time)
+	{
+		StartCoroutine(TweenIKWeightRoutine(weight, time));
 	}
 
 	public void StoreTargets()
