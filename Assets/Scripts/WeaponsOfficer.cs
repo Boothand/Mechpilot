@@ -54,6 +54,11 @@ public class WeaponsOfficer : MechComponent
 		fbbik = transform.root.GetComponentInChildren<FullBodyBipedIK>();
 	}
 
+	void Start()
+	{
+		//IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
+	}
+
 	IEnumerator TweenIKWeightRoutine(float weight, float time)
 	{
 		float timer = 0f;
@@ -101,11 +106,9 @@ public class WeaponsOfficer : MechComponent
 		lShoulderTarget.position = Vector3.Lerp(fromLShoulderPos, pose.lShoulder.position, timer);
 
 		bodyTarget.position = Vector3.Lerp(fromBodyPos, pose.body.position, timer);
-
-		Debug.DrawLine(fromRhandPos, pose.rHand.position, Color.red);
 	}
 
-	public void InterpolateIKPoseOffset(IKPose pose, Vector3 handOffset, float timer)
+	public void InterpolateIKPose(IKPose pose, Vector3 handOffset, float timer)
 	{
 		rHandIKTarget.position = Vector3.Lerp(fromRhandPos, pose.rHand.position + handOffset, timer);
 		rHandIKTarget.rotation = Quaternion.Lerp(fromRhandRot, pose.rHand.rotation, timer);
@@ -117,8 +120,27 @@ public class WeaponsOfficer : MechComponent
 		lShoulderTarget.position = Vector3.Lerp(fromLShoulderPos, pose.lShoulder.position, timer);
 
 		bodyTarget.position = Vector3.Lerp(fromBodyPos, pose.body.position, timer);
+	}
 
-		Debug.DrawLine(fromRhandPos, pose.rHand.position, Color.red);
+	public void OffsetIKTargets(Vector3 offset, float blendSpeed)
+	{
+		rHandIKTarget.position += offset;
+		rElbowTarget.position += offset;
+		lElbowTarget.position += offset;
+		rShoulderTarget.position += offset;
+		lShoulderTarget.position += offset;
+		bodyTarget.position += offset;
+
+		//rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rHandIKTarget.position + offset, Time.deltaTime * blendSpeed);
+		////rHandIKTarget.rotation = Quaternion.Lerp(rHandIKTarget.rotation, pose.rHand.rotation, timer);
+
+		//rElbowTarget.position = Vector3.Lerp(rElbowTarget.position, rElbowTarget.position + offset, Time.deltaTime * blendSpeed);
+		//lElbowTarget.position = Vector3.Lerp(lElbowTarget.position, lElbowTarget.position + offset, Time.deltaTime * blendSpeed);
+
+		//rShoulderTarget.position = Vector3.Lerp(rShoulderTarget.position, rShoulderTarget.position + offset, Time.deltaTime * blendSpeed);
+		//lShoulderTarget.position = Vector3.Lerp(lShoulderTarget.position, lShoulderTarget.position + offset, Time.deltaTime * blendSpeed);
+
+		//bodyTarget.position = Vector3.Lerp(bodyTarget.position, bodyTarget.position + offset, Time.deltaTime * blendSpeed);
 	}
 
 	void IgnoreHierarchyRecursive(Transform root, Collider otherCol)
@@ -136,22 +158,17 @@ public class WeaponsOfficer : MechComponent
 		}
 	}
 
-	void Start()
-	{
-		//IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
-	}
-
 	public WeaponsOfficer.CombatDir DecideCombatDir(WeaponsOfficer.CombatDir inDir)
 	{
-		if (Mathf.Abs(arms.inputVec.x) < 0.4f &&
-			arms.inputVec.y > 0.4f)
+		if (Mathf.Abs(inputVec.x) < 0.4f &&
+			inputVec.y > 0.4f)
 		{
 			return WeaponsOfficer.CombatDir.Top;
 		}
 
-		if (arms.inputVec.x > 0.1f)
+		if (inputVec.x > 0.1f)
 		{
-			if (arms.inputVec.y < -0f)
+			if (inputVec.y < -0f)
 			{
 				//Top right
 				return WeaponsOfficer.CombatDir.BottomRight;
@@ -161,9 +178,9 @@ public class WeaponsOfficer : MechComponent
 			return WeaponsOfficer.CombatDir.TopRight;
 		}
 
-		if (arms.inputVec.x < -0.1f)
+		if (inputVec.x < -0.1f)
 		{
-			if (arms.inputVec.y < -0f)
+			if (inputVec.y < -0f)
 			{
 				//Bottom left
 				return WeaponsOfficer.CombatDir.BottomLeft;
@@ -175,12 +192,6 @@ public class WeaponsOfficer : MechComponent
 
 		//Default
 		return inDir;
-	}
-
-	void FixedUpdate()
-	{
-		//armMovement.RunComponent();
-
 	}
 
 	void Update ()
@@ -199,6 +210,7 @@ public class WeaponsOfficer : MechComponent
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 
+		//Setting the state to block, and properly ending the other states
 		if (!blocker.blocking && input.block)
 		{
 			stancePicker.Stop();
@@ -208,6 +220,7 @@ public class WeaponsOfficer : MechComponent
 			combatState = CombatState.Block;
 		}
 
+		//When to set state to stance
 		if (!input.block && combatState != CombatState.Attack &&
 			combatState != CombatState.Retract &&
 			combatState != CombatState.Windup)
@@ -215,6 +228,7 @@ public class WeaponsOfficer : MechComponent
 			combatState = CombatState.Stance;
 		}
 
+		//Turn off collider when not blocking or attacking
 		if (combatState == CombatState.Attack
 			|| combatState == CombatState.Block)
 		{
