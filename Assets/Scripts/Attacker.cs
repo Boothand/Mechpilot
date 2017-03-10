@@ -140,25 +140,6 @@ public class Attacker : MechComponent
 					StartCoroutine(Attack(dir));
 				}
 			}
-
-			//Save the attack for later
-			//if (arms.stancePicker.changingStance)
-			//{
-			//	if (input.attack)
-			//	{
-			//		cachedAttack = true;
-			//	}
-			//}
-
-			////Released the saved up attack
-			//if (cachedAttack && !arms.stancePicker.changingStance)
-			//{
-			//	dir = stancePicker.stance;
-			//	cachedAttack = false;
-
-			//	StopAllCoroutines();
-			//	StartCoroutine(Attack(dir));
-			//}
 		}
 	}
 }
