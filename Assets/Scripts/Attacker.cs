@@ -10,7 +10,6 @@ public class Attacker : MechComponent
 	[SerializeField] IKPose trTransform2, tlTransform2, brTransform2, blTransform2, topTransform2;
 	public IKPose targetPose { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
-	bool cachedAttack;
 
 	protected override void OnAwake()
 	{
