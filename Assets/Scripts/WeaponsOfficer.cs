@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using RootMotion.FinalIK;
+using RootMotion.Dynamics;
 
 public class WeaponsOfficer : MechComponent
 {
@@ -17,7 +18,8 @@ public class WeaponsOfficer : MechComponent
 	public Vector3 inputVec { get; private set; }
 	public float inputVecMagnitude { get; private set; }
 
-	[SerializeField] FullBodyBipedIK fbbik;
+	FullBodyBipedIK fbbik;
+	PuppetMaster puppet;
 
 	[SerializeField] Sword weapon;
 	[SerializeField] Transform rHandIKTarget;
@@ -52,6 +54,7 @@ public class WeaponsOfficer : MechComponent
 		armAttackState = GetComponent<ArmAttackState>();
 		armStaggerState = GetComponent<ArmStaggerState>();
 		fbbik = transform.root.GetComponentInChildren<FullBodyBipedIK>();
+		puppet = transform.root.GetComponentInChildren<PuppetMaster>();
 	}
 
 	void Start()
@@ -192,6 +195,50 @@ public class WeaponsOfficer : MechComponent
 
 		//Default
 		return inDir;
+	}
+
+	IEnumerator SetPinWeightUpperBodyRoutine(float fromWeight, float toWeight, float duration)
+	{
+		float startPinWeight = puppet.pinWeight;
+
+		float timer = 0f;
+		float interpolationWeight = 0f;
+
+		//HACKY :D
+		float rhandStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightHand)].rigidbody.mass;
+		float rarmStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightLowerArm)].rigidbody.mass;
+		float rupperArmStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightUpperArm)].rigidbody.mass;
+		float weaponStartMass = getWeapon.GetComponent<Rigidbody>().mass;
+		float headStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.Head)].rigidbody.mass;
+		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightHand)].rigidbody.mass = 1f;
+		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightLowerArm)].rigidbody.mass = 1f;
+		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightUpperArm)].rigidbody.mass = 1f;
+		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.Head)].rigidbody.mass = 200f;
+
+		getWeapon.GetComponent<Rigidbody>().mass = 1f;
+
+		while (timer < duration)
+		{
+			timer += Time.deltaTime;
+
+			interpolationWeight = Mathf.Lerp(fromWeight, toWeight, timer / duration);
+			puppet.SetMuscleWeightsRecursive(HumanBodyBones.Spine, 1f, interpolationWeight);
+
+			yield return null;
+		}
+
+		//HACKY!
+		puppet.SetMuscleWeightsRecursive(HumanBodyBones.Spine, 1f, toWeight);
+		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightHand)].rigidbody.mass = rhandStartMass;
+		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightLowerArm)].rigidbody.mass = rarmStartMass;
+		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightUpperArm)].rigidbody.mass = rupperArmStartMass;
+		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.Head)].rigidbody.mass = headStartMass;
+		getWeapon.GetComponent<Rigidbody>().mass = weaponStartMass;
+	}
+
+	public void SetPinWeightUpperBody(float fromWeight, float toWeight, float time)
+	{
+		StartCoroutine(SetPinWeightUpperBodyRoutine(fromWeight, toWeight, time));
 	}
 
 	void Update ()
