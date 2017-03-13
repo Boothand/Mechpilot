@@ -12,6 +12,21 @@ public class Stagger : MechComponent
 		base.OnAwake();
 	}
 
+	void Start()
+	{
+		healthManager.OnGetHit -= GetHit;
+		healthManager.OnGetHit += GetHit;
+	}
+
+	void GetHit()
+	{
+		stancePicker.Stop();
+		windup.Stop();
+		attacker.Stop();
+		retract.Stop();
+		GetStaggered(stancePicker.stance);
+	}
+
 	IKPose GetPose(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
@@ -37,32 +52,48 @@ public class Stagger : MechComponent
 		staggering = false;
 	}
 
-	IEnumerator StaggerRoutine()
+	IEnumerator StaggerRoutine(WeaponsOfficer.CombatDir dir)
 	{
+		arms.combatState = WeaponsOfficer.CombatState.Stagger;
 		staggering = true;
 		arms.StoreTargets();
-		IKPose targetPose = GetPose(arms.attacker.dir);
+		IKPose targetPose = GetPose(dir);
+		IKPose targetPose2 = stancePicker.GetStancePose(dir);
 
 		float timer = 0f;
 
-		while (timer < duration)
+		float durationToUse = duration / 2;
+
+		while (timer < durationToUse)
 		{
 			timer += Time.deltaTime;
 
-			arms.InterpolateIKPose(targetPose, timer / duration);
+			arms.InterpolateIKPose(targetPose, timer / durationToUse);
+			//print(timer / duration);
 			yield return null;
 		}
-		
+
+		timer = 0f;
+		arms.StoreTargets();
+
+		while (timer < durationToUse)
+		{
+			timer += Time.deltaTime;
+
+			arms.InterpolateIKPose(targetPose2, timer / durationToUse);
+			yield return null;
+		}
+
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
-		//stancePicker.ForceStance();
+		stancePicker.ForceStance();
 
 		staggering = false;
 	}
 
-	public void GetStaggered()
+	public void GetStaggered(WeaponsOfficer.CombatDir dir)
 	{
 		StopAllCoroutines();
-		StartCoroutine(StaggerRoutine());
+		StartCoroutine(StaggerRoutine(dir));
 	}
 
 	void Update()

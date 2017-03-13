@@ -24,8 +24,8 @@ public class BodyPart : Collidable
 		mechSounds.PlayBodyHitSound(1f);
 
 		//rbody.AddForce(swordHittingMe.swordTipVelocity * 50f, ForceMode.Impulse);
-		arms.SetPinWeightUpperBody(1f, 0.1f, 0f);
-		arms.SetPinWeightUpperBody(0.1f, 1f, 2f);
+		arms.SetPinWeightUpperBody(1f, 0.4f, 0f);
+		arms.SetPinWeightUpperBody(0.4f, 2f, 1f);
 
 
 		//Play impact animation

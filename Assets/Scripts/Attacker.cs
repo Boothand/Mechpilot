@@ -33,7 +33,7 @@ public class Attacker : MechComponent
 			{
 				Stop();
 				arms.combatState = WeaponsOfficer.CombatState.Stagger;
-				arms.stagger.GetStaggered();
+				arms.stagger.GetStaggered(dir);
 				//stancePicker.StartCoroutine(stancePicker.ForceStanceRoutine());
 				//Stagger?
 			}
@@ -92,7 +92,7 @@ public class Attacker : MechComponent
 		StopAllCoroutines();
 	}
 
-	IEnumerator Attack(WeaponsOfficer.CombatDir dir)
+	IEnumerator AttackRoutine(WeaponsOfficer.CombatDir dir)
 	{
 		attacking = true;
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
@@ -131,6 +131,12 @@ public class Attacker : MechComponent
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
 	}
 
+	public void AttackInstantly(WeaponsOfficer.CombatDir dir)
+	{
+		StopAllCoroutines();
+		StartCoroutine(AttackRoutine(dir));
+	}
+
 	void Update()
 	{
 		if (arms.combatState == WeaponsOfficer.CombatState.Windup)
@@ -142,7 +148,7 @@ public class Attacker : MechComponent
 					dir = windup.dir;
 
 					StopAllCoroutines();
-					StartCoroutine(Attack(dir));
+					StartCoroutine(AttackRoutine(dir));
 				}
 			}
 		}
