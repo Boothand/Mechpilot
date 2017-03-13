@@ -47,7 +47,7 @@ public class Retract : MechComponent
 		retracting = true;
 
 		IKPose targetPose = GetRetractPose(arms.attacker.dir);
-		IKPose targetPose2 = arms.stancePicker.GetStancePose();
+		IKPose targetPose2 = arms.stancePicker.GetStancePose(arms.attacker.dir);
 
 		//Transform rIK = arms.getRhandIKTarget;
 

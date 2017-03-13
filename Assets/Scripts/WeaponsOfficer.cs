@@ -258,18 +258,8 @@ public class WeaponsOfficer : MechComponent
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 
-		//Setting the state to block, and properly ending the other states
-		if (!blocker.blocking && input.block)
-		{
-			stancePicker.Stop();
-			windup.Stop();
-			attacker.Stop();
-			retract.Stop();
-			combatState = CombatState.Block;
-		}
-
 		//When to set state to stance
-		if (!input.block
+		if (!blocker.blocking
 			&& combatState != CombatState.Attack
 			&& combatState != CombatState.Retract
 			&& combatState != CombatState.Windup

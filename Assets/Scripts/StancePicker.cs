@@ -21,14 +21,14 @@ public class StancePicker : MechComponent
 
 	void Start()
 	{
-		targetPose = GetStancePose();
+		targetPose = GetStancePose(stance);
 		StartCoroutine(ChangeStanceRoutine(stance));
 	}
 	
 
-	public IKPose GetStancePose()
+	public IKPose GetStancePose(WeaponsOfficer.CombatDir dir)
 	{
-		switch (stance)
+		switch (dir)
 		{
 			case WeaponsOfficer.CombatDir.BottomLeft:
 				return blTransform;
@@ -128,7 +128,6 @@ public class StancePicker : MechComponent
 
 	public void ForceStance()
 	{
-		//prevStance = stance;
 		if (prevStance != stance)
 		{
 			StopAllCoroutines();
@@ -147,7 +146,7 @@ public class StancePicker : MechComponent
 
 		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
-			targetPose = GetStancePose();
+			targetPose = GetStancePose(stance);
 
 			if (!changingStance && prevStance != stance)
 			{

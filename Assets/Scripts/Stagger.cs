@@ -31,6 +31,12 @@ public class Stagger : MechComponent
 		return topPose;
 	}
 
+	public void Stop()
+	{
+		StopAllCoroutines();
+		staggering = false;
+	}
+
 	IEnumerator StaggerRoutine()
 	{
 		staggering = true;
@@ -48,6 +54,8 @@ public class Stagger : MechComponent
 		}
 		
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
+		//stancePicker.ForceStance();
+
 		staggering = false;
 	}
 
