@@ -24,6 +24,45 @@ public class Blocker : MechComponent
 		base.OnAwake();
 	}
 
+	void Start()
+	{
+		arms.getWeapon.OnCollision -= OnSwordCollision;
+		arms.getWeapon.OnCollision += OnSwordCollision;
+	}
+
+	void OnSwordCollision(Collision col)
+	{
+		Sword otherSword = col.transform.GetComponent<Sword>();
+		if (otherSword && otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Attack)
+		{
+			//If I block the other
+			if (arms.combatState == WeaponsOfficer.CombatState.Block)
+			{
+				StartCoroutine(CheckCounterAttackRoutine());
+			}
+		}
+	}
+
+	IEnumerator CheckCounterAttackRoutine()
+	{
+		float timer = 0f;
+
+		while (timer < 0.5f)
+		{
+			timer += Time.deltaTime;
+
+			if (input.attack)
+			{
+				StopAllCoroutines();
+				blocking = false;
+				attacker.AttackInstantly(blockStance);
+				break;
+			}
+
+			yield return null;
+		}
+	}
+
 	IKPose GetTargetPose(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
@@ -180,7 +219,7 @@ public class Blocker : MechComponent
 
 			targetPose = GetTargetPose(blockStance);
 			
-			AdjustPosition();
+			//AdjustPosition();
 
 			//Only for the sake of maintaining crouch height atm
 			arms.StoreTargets();
