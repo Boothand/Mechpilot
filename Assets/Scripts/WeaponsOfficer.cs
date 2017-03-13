@@ -13,6 +13,7 @@ public class WeaponsOfficer : MechComponent
 
 	public enum CombatState { Stance, Block, Windup, Attack, Stagger, Retract }
 	public CombatState combatState;
+	public CombatState prevCombatState;
 	public enum CombatDir { TopRight, TopLeft, BottomRight, BottomLeft, Top }
 
 	public Vector3 inputVec { get; private set; }
@@ -279,7 +280,8 @@ public class WeaponsOfficer : MechComponent
 
 		//Turn off collider when not blocking or attacking
 		if (combatState == CombatState.Attack
-			|| combatState == CombatState.Block)
+			|| combatState == CombatState.Block
+			|| combatState == CombatState.Stagger)
 		{
 			weapon.EnableCollider(true);
 		}
@@ -287,5 +289,7 @@ public class WeaponsOfficer : MechComponent
 		{
 			weapon.EnableCollider(false);
 		}
+
+		prevCombatState = combatState;
 	}
 }
