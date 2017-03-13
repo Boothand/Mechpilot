@@ -12,7 +12,7 @@ public class Blocker : MechComponent
 
 	[SerializeField] float blendSpeed = 1f;
 
-	[SerializeField] bool autoBlock = true;
+	[SerializeField] bool autoBlock;
 	public bool blocking { get; private set; }
 
 	public Mech tempEnemy;

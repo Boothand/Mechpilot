@@ -42,6 +42,7 @@ public class Windup : MechComponent
 	{
 		StopAllCoroutines();
 		windingUp = false;
+		cachedAttack = false;
 	}
 
 	IEnumerator WindupRoutine(WeaponsOfficer.CombatDir dir)
@@ -78,7 +79,10 @@ public class Windup : MechComponent
 		{
 			if (!windingUp
 				&& !stancePicker.changingStance
-				&& !dodger.dodging)
+				&& !dodger.dodging
+				&& !attacker.attacking
+				&& !retract.retracting
+				&& !stagger.staggering)
 			{
 				if (input.attack)
 				{
@@ -86,6 +90,7 @@ public class Windup : MechComponent
 
 					StopAllCoroutines();
 					StartCoroutine(WindupRoutine(dir));
+
 				}
 			}
 
@@ -108,5 +113,7 @@ public class Windup : MechComponent
 				StartCoroutine(WindupRoutine(dir));
 			}
 		}
+
+		//print(windingUp);
 	}
 }

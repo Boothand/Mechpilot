@@ -11,7 +11,7 @@ public class WeaponsOfficer : MechComponent
 	public ArmAttackState armAttackState { get; private set; }
 	public ArmStaggerState armStaggerState { get; private set; }
 
-	public enum CombatState { Stance, Block, Windup, Attack, Retract }
+	public enum CombatState { Stance, Block, Windup, Attack, Stagger, Retract }
 	public CombatState combatState;
 	public enum CombatDir { TopRight, TopLeft, BottomRight, BottomLeft, Top }
 
@@ -268,9 +268,11 @@ public class WeaponsOfficer : MechComponent
 		}
 
 		//When to set state to stance
-		if (!input.block && combatState != CombatState.Attack &&
-			combatState != CombatState.Retract &&
-			combatState != CombatState.Windup)
+		if (!input.block
+			&& combatState != CombatState.Attack
+			&& combatState != CombatState.Retract
+			&& combatState != CombatState.Windup
+			&& combatState != CombatState.Stagger)
 		{
 			combatState = CombatState.Stance;
 		}

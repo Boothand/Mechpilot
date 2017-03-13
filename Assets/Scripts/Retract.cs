@@ -4,7 +4,7 @@ using UnityEngine;
 public class Retract : MechComponent
 {
 	[SerializeField] float retractDuration = 0.75f;
-	bool retracting;
+	public bool retracting { get; private set; }
 
 	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
 
@@ -44,6 +44,8 @@ public class Retract : MechComponent
 
 	IEnumerator RetractRoutine()
 	{
+		retracting = true;
+
 		IKPose targetPose = GetRetractPose(arms.attacker.dir);
 		IKPose targetPose2 = arms.stancePicker.GetStancePose();
 
@@ -88,7 +90,6 @@ public class Retract : MechComponent
 	{
 		if (!retracting && arms.combatState == WeaponsOfficer.CombatState.Retract)
 		{
-			retracting = true;
 			StartCoroutine(RetractRoutine());
 		}
 	}
