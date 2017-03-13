@@ -32,6 +32,7 @@ public class WeaponsOfficer : MechComponent
 	[SerializeField] Transform bodyTarget;
 
 	[SerializeField] bool alwaysBlock;
+	[SerializeField] bool alwaysAttack;
 
 	Vector3 fromRhandPos, fromRElbowPos, fromLElbowPos, fromRShoulderPos, fromLShoulderPos, fromBodyPos;
 	Quaternion fromRhandRot;
@@ -86,6 +87,7 @@ public class WeaponsOfficer : MechComponent
 
 	public void StoreTargets()
 	{
+		//print("Targets were stored.");
 		fromRhandPos = rHandIKTarget.position;
 		fromRhandRot = rHandIKTarget.rotation;
 
@@ -252,6 +254,18 @@ public class WeaponsOfficer : MechComponent
 
 		if (alwaysBlock)
 			input.block = true;
+
+		
+		if (alwaysAttack)
+		{
+			if (input.attack)
+				input.attack = false;
+			else
+			{
+				input.attack = true;
+			}
+			
+		}
 
 		if (Input.GetKeyDown(KeyCode.R))
 		{
