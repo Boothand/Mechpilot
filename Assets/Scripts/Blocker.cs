@@ -10,9 +10,11 @@ public class Blocker : MechComponent
 	WeaponsOfficer.CombatDir blockStance;
 	WeaponsOfficer.CombatDir idealBlock;
 
+	[SerializeField] float minBlockTime = 0.5f;
+
 	[SerializeField] float blendSpeed = 1f;
 
-	[SerializeField] bool autoBlock = true;
+	[SerializeField] bool autoBlock;
 	public bool blocking { get; private set; }
 
 	public Mech tempEnemy;
@@ -20,6 +22,45 @@ public class Blocker : MechComponent
 	protected override void OnAwake()
 	{
 		base.OnAwake();
+	}
+
+	void Start()
+	{
+		arms.getWeapon.OnCollision -= OnSwordCollision;
+		arms.getWeapon.OnCollision += OnSwordCollision;
+	}
+
+	void OnSwordCollision(Collision col)
+	{
+		Sword otherSword = col.transform.GetComponent<Sword>();
+		if (otherSword && otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Attack)
+		{
+			//If I block the other
+			if (arms.combatState == WeaponsOfficer.CombatState.Block)
+			{
+				StartCoroutine(CheckCounterAttackRoutine());
+			}
+		}
+	}
+
+	IEnumerator CheckCounterAttackRoutine()
+	{
+		float timer = 0f;
+
+		while (timer < 0.5f)
+		{
+			timer += Time.deltaTime;
+
+			if (input.attack)
+			{
+				StopAllCoroutines();
+				blocking = false;
+				attacker.AttackInstantly(blockStance);
+				break;
+			}
+
+			yield return null;
+		}
 	}
 
 	IKPose GetTargetPose(WeaponsOfficer.CombatDir dir)
@@ -136,14 +177,36 @@ public class Blocker : MechComponent
 		}
 	}
 
+	IEnumerator BlockTimingRoutine()
+	{
+		yield return new WaitForSeconds(minBlockTime);
+
+		while (input.block)
+		{
+			yield return null;
+		}
+
+		blocking = false;
+	}
+
 	void Update()
 	{
-		blocking = false;
+		if (!blocking && input.block)
+		{
+			blocking = true;
+
+			stancePicker.Stop();
+			windup.Stop();
+			attacker.Stop();
+			retract.Stop();
+			stagger.Stop();
+			StartCoroutine(BlockTimingRoutine());
+			arms.combatState = WeaponsOfficer.CombatState.Block;
+		}
 
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
 		{
-			blocking = true;
-			idealBlock = DecideBlockStance(tempEnemy.weaponsOfficer.stancePicker.stance);
+			idealBlock = DecideBlockStance(tempEnemy.weaponsOfficer.attacker.dir);
 
 			if (autoBlock)
 			{
@@ -156,7 +219,7 @@ public class Blocker : MechComponent
 
 			targetPose = GetTargetPose(blockStance);
 			
-			AdjustPosition();
+			//AdjustPosition();
 
 			//Only for the sake of maintaining crouch height atm
 			arms.StoreTargets();

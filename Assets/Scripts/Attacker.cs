@@ -10,7 +10,7 @@ public class Attacker : MechComponent
 	[SerializeField] IKPose trTransform2, tlTransform2, brTransform2, blTransform2, topTransform2;
 	public IKPose targetPose { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
-	bool cachedAttack;
+	public bool attacking { get; private set; }
 
 	protected override void OnAwake()
 	{
@@ -25,14 +25,16 @@ public class Attacker : MechComponent
 
 	void OnSwordCollision(Collision col)
 	{
-		if (col.transform.GetComponent<Sword>())
+		Sword otherSword = col.transform.GetComponent<Sword>();
+		if (otherSword)
 		{
+			//If I get blocked
 			if (arms.combatState == WeaponsOfficer.CombatState.Attack)
 			{
-				//StopAllCoroutines();
-				arms.combatState = WeaponsOfficer.CombatState.Stance;
 				Stop();
-				stancePicker.StartCoroutine(stancePicker.ForceStanceRoutine());
+				arms.combatState = WeaponsOfficer.CombatState.Stagger;
+				arms.stagger.GetStaggered(dir);
+				//stancePicker.StartCoroutine(stancePicker.ForceStanceRoutine());
 				//Stagger?
 			}
 		}
@@ -86,11 +88,13 @@ public class Attacker : MechComponent
 
 	public void Stop()
 	{
+		attacking = false;
 		StopAllCoroutines();
 	}
 
-	IEnumerator Attack(WeaponsOfficer.CombatDir dir)
+	IEnumerator AttackRoutine(WeaponsOfficer.CombatDir dir)
 	{
+		attacking = true;
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
 		targetPose = DecideAttackTransform(dir);
 		IKPose finalPose = DecideAttackTransform2(dir);
@@ -121,9 +125,16 @@ public class Attacker : MechComponent
 			arms.InterpolateIKPose(finalPose, attackTimer / duration);
 
 			yield return null;
-		}	
+		}
 
+		attacking = false;
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
+	}
+
+	public void AttackInstantly(WeaponsOfficer.CombatDir dir)
+	{
+		StopAllCoroutines();
+		StartCoroutine(AttackRoutine(dir));
 	}
 
 	void Update()
@@ -137,28 +148,9 @@ public class Attacker : MechComponent
 					dir = windup.dir;
 
 					StopAllCoroutines();
-					StartCoroutine(Attack(dir));
+					StartCoroutine(AttackRoutine(dir));
 				}
 			}
-
-			//Save the attack for later
-			//if (arms.stancePicker.changingStance)
-			//{
-			//	if (input.attack)
-			//	{
-			//		cachedAttack = true;
-			//	}
-			//}
-
-			////Released the saved up attack
-			//if (cachedAttack && !arms.stancePicker.changingStance)
-			//{
-			//	dir = stancePicker.stance;
-			//	cachedAttack = false;
-
-			//	StopAllCoroutines();
-			//	StartCoroutine(Attack(dir));
-			//}
 		}
 	}
 }

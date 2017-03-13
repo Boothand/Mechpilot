@@ -8,6 +8,7 @@ public class Windup : MechComponent
 	public IKPose targetTransform { get; private set; }
 	public bool windingUp { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
+	bool cachedAttack;
 
 	protected override void OnAwake()
 	{
@@ -41,6 +42,7 @@ public class Windup : MechComponent
 	{
 		StopAllCoroutines();
 		windingUp = false;
+		cachedAttack = false;
 	}
 
 	IEnumerator WindupRoutine(WeaponsOfficer.CombatDir dir)
@@ -77,7 +79,10 @@ public class Windup : MechComponent
 		{
 			if (!windingUp
 				&& !stancePicker.changingStance
-				&& !dodger.dodging)
+				&& !dodger.dodging
+				&& !attacker.attacking
+				&& !retract.retracting
+				&& !stagger.staggering)
 			{
 				if (input.attack)
 				{
@@ -85,8 +90,30 @@ public class Windup : MechComponent
 
 					StopAllCoroutines();
 					StartCoroutine(WindupRoutine(dir));
+
 				}
 			}
+
+			//Save the attack for later
+			if (arms.stancePicker.changingStance)
+			{
+				if (input.attack)
+				{
+					cachedAttack = true;
+				}
+			}
+
+			////Released the saved up attack
+			if (cachedAttack && !arms.stancePicker.changingStance)
+			{
+				dir = stancePicker.stance;
+				cachedAttack = false;
+
+				StopAllCoroutines();
+				StartCoroutine(WindupRoutine(dir));
+			}
 		}
+
+		//print(windingUp);
 	}
 }

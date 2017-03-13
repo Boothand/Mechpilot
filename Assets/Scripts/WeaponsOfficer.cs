@@ -11,8 +11,9 @@ public class WeaponsOfficer : MechComponent
 	public ArmAttackState armAttackState { get; private set; }
 	public ArmStaggerState armStaggerState { get; private set; }
 
-	public enum CombatState { Stance, Block, Windup, Attack, Retract }
+	public enum CombatState { Stance, Block, Windup, Attack, Stagger, Retract }
 	public CombatState combatState;
+	public CombatState prevCombatState;
 	public enum CombatDir { TopRight, TopLeft, BottomRight, BottomLeft, Top }
 
 	public Vector3 inputVec { get; private set; }
@@ -31,6 +32,7 @@ public class WeaponsOfficer : MechComponent
 	[SerializeField] Transform bodyTarget;
 
 	[SerializeField] bool alwaysBlock;
+	[SerializeField] bool alwaysAttack;
 
 	Vector3 fromRhandPos, fromRElbowPos, fromLElbowPos, fromRShoulderPos, fromLShoulderPos, fromBodyPos;
 	Quaternion fromRhandRot;
@@ -85,6 +87,7 @@ public class WeaponsOfficer : MechComponent
 
 	public void StoreTargets()
 	{
+		//print("Targets were stored.");
 		fromRhandPos = rHandIKTarget.position;
 		fromRhandRot = rHandIKTarget.rotation;
 
@@ -252,32 +255,37 @@ public class WeaponsOfficer : MechComponent
 		if (alwaysBlock)
 			input.block = true;
 
+		
+		if (alwaysAttack)
+		{
+			if (input.attack)
+				input.attack = false;
+			else
+			{
+				input.attack = true;
+			}
+			
+		}
+
 		if (Input.GetKeyDown(KeyCode.R))
 		{
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 
-		//Setting the state to block, and properly ending the other states
-		if (!blocker.blocking && input.block)
-		{
-			stancePicker.Stop();
-			windup.Stop();
-			attacker.Stop();
-			retract.Stop();
-			combatState = CombatState.Block;
-		}
-
 		//When to set state to stance
-		if (!input.block && combatState != CombatState.Attack &&
-			combatState != CombatState.Retract &&
-			combatState != CombatState.Windup)
+		if (!blocker.blocking
+			&& combatState != CombatState.Attack
+			&& combatState != CombatState.Retract
+			&& combatState != CombatState.Windup
+			&& combatState != CombatState.Stagger)
 		{
 			combatState = CombatState.Stance;
 		}
 
 		//Turn off collider when not blocking or attacking
 		if (combatState == CombatState.Attack
-			|| combatState == CombatState.Block)
+			|| combatState == CombatState.Block
+			|| combatState == CombatState.Stagger)
 		{
 			weapon.EnableCollider(true);
 		}
@@ -285,5 +293,7 @@ public class WeaponsOfficer : MechComponent
 		{
 			weapon.EnableCollider(false);
 		}
+
+		prevCombatState = combatState;
 	}
 }

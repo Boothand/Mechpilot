@@ -7,17 +7,34 @@ public class PlayerInput : AbstractInput
 	protected Player armsPlayer;
 	[SerializeField] int pilotID = 0;
 	[SerializeField] int armsID = 1;
+	[SerializeField] float deadzone = 0.01f;
 
 	void Awake()
 	{
 		pilotPlayer = ReInput.players.GetPlayer(pilotID);
 		armsPlayer = ReInput.players.GetPlayer(armsID);
 	}
+
+	void SetDeadZone(ref float value, float deadzone)
+	{
+		if (value > 0f)
+		{
+			if (value < deadzone)
+				value = 0f;
+		}
+		else if (value < 0f)
+		{
+			if (value > -deadzone)
+				value = 0f;
+		}
+	}
 	
 	void Update ()
 	{
 		moveHorz = pilotPlayer.GetAxis("Move Horizontal");
+		SetDeadZone(ref moveHorz, deadzone);
 		moveVert = pilotPlayer.GetAxis("Move Vertical");
+		SetDeadZone(ref moveVert, deadzone);
 		lookHorz = pilotPlayer.GetAxis("Look Horizontal");
 		lookVert = pilotPlayer.GetAxis("Look Vertical");
 		turnBodyHorz = pilotPlayer.GetAxis("Turn Body Horz");

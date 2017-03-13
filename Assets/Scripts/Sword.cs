@@ -51,11 +51,18 @@ public class Sword : Collidable
 	protected override void RunCollisionEvent(Collision col)
 	{
 		base.RunCollisionEvent(col);
-
-		if (col.transform.GetComponent<Sword>())
+		Sword otherSword = col.transform.GetComponent<Sword>();
+		
+		if (otherSword)
 		{
-			float magnitude = col.relativeVelocity.magnitude;
-			PlayClashSound(magnitude * 0.15f);
+			if (arms.prevCombatState == WeaponsOfficer.CombatState.Attack
+			|| arms.prevCombatState == WeaponsOfficer.CombatState.Block
+			&& (otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Attack
+				|| otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Block))
+			{
+				float magnitude = col.relativeVelocity.magnitude;
+				PlayClashSound(magnitude * 0.15f);
+			}
 		}
 	}
 
