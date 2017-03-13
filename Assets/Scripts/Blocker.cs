@@ -167,7 +167,7 @@ public class Blocker : MechComponent
 
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
 		{
-			idealBlock = DecideBlockStance(tempEnemy.weaponsOfficer.stancePicker.stance);
+			idealBlock = DecideBlockStance(tempEnemy.weaponsOfficer.attacker.dir);
 
 			if (autoBlock)
 			{
