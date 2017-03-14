@@ -27,5 +27,10 @@ public class Pilot : MechComponent
 		{
 			Application.LoadLevel(Application.loadedLevel);
 		}
+
+		if (healthManager.dead)
+		{
+			input.enabled = false;
+		}
 	}
 }

@@ -19,8 +19,8 @@ public class WeaponsOfficer : MechComponent
 	public Vector3 inputVec { get; private set; }
 	public float inputVecMagnitude { get; private set; }
 
-	FullBodyBipedIK fbbik;
-	PuppetMaster puppet;
+	public FullBodyBipedIK fbbik { get; private set; }
+	public PuppetMaster puppet { get; private set; }
 
 	[SerializeField] Sword weapon;
 	[SerializeField] Transform rHandIKTarget;
@@ -214,7 +214,7 @@ public class WeaponsOfficer : MechComponent
 		return inDir;
 	}
 
-	IEnumerator SetPinWeightUpperBodyRoutine(float fromWeight, float toWeight, float duration)
+	IEnumerator SetPinWeightUpperBodyRoutine(float fromWeight, float toWeight, float duration, HumanBodyBones rootBone = HumanBodyBones.Spine)
 	{
 		float startPinWeight = puppet.pinWeight;
 
@@ -239,7 +239,7 @@ public class WeaponsOfficer : MechComponent
 			timer += Time.deltaTime;
 
 			interpolationWeight = Mathf.Lerp(fromWeight, toWeight, timer / duration);
-			puppet.SetMuscleWeightsRecursive(HumanBodyBones.Spine, 1f, interpolationWeight);
+			puppet.SetMuscleWeightsRecursive(rootBone, 1f, interpolationWeight);
 
 			yield return null;
 		}
@@ -253,9 +253,39 @@ public class WeaponsOfficer : MechComponent
 		getWeapon.GetComponent<Rigidbody>().mass = weaponStartMass;
 	}
 
+	IEnumerator SetPinWeightWholeBodyRoutine(float fromWeight, float toWeight, float time)
+	{
+		float timer = 0f;
+
+		while (timer < time)
+		{
+			timer += Time.deltaTime;
+
+			puppet.pinWeight = Mathf.Lerp(fromWeight, toWeight, timer / time);
+
+			yield return null;
+		}
+
+		puppet.pinWeight = toWeight;
+	}
+
 	public void SetPinWeightUpperBody(float fromWeight, float toWeight, float time)
 	{
 		StartCoroutine(SetPinWeightUpperBodyRoutine(fromWeight, toWeight, time));
+	}
+
+	public void SetPinWeightWholeBody(float fromWeight, float toWeight, float time)
+	{
+		StartCoroutine(SetPinWeightWholeBodyRoutine(fromWeight, toWeight, time));
+	}
+
+	public void KillPuppet()
+	{
+		//PuppetMaster.StateSettings settings = new PuppetMaster.StateSettings(1f, 0.01f, 2f, 0.02f, false, true, true);
+		//puppet.Kill(settings);
+
+		puppet.muscleWeight = 0.1f;
+		puppet.pinWeight = 0f;
 	}
 
 	void Update ()
@@ -299,7 +329,8 @@ public class WeaponsOfficer : MechComponent
 		//Turn off collider when not blocking or attacking
 		if (combatState == CombatState.Attack
 			|| combatState == CombatState.Block
-			|| combatState == CombatState.Stagger)
+			|| combatState == CombatState.Stagger
+			|| healthManager.dead)
 		{
 			weapon.EnableCollider(true);
 		}
