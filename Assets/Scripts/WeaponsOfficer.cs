@@ -339,6 +339,20 @@ public class WeaponsOfficer : MechComponent
 			weapon.EnableCollider(false);
 		}
 
+		if (combatState == CombatState.Attack
+			|| combatState == CombatState.Retract)
+		{
+			weapon.SetCollisionWithIrrelevant(true);
+		}
+		else
+		{
+			weapon.SetCollisionWithIrrelevant(false);
+			if (transform.root.name == "Walk_Test Root")
+				print(combatState);
+		}
+
+		
+
 		prevCombatState = combatState;
 	}
 }
