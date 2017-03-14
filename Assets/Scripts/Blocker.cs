@@ -63,6 +63,12 @@ public class Blocker : MechComponent
 		}
 	}
 
+	public void Stop()
+	{
+		StopAllCoroutines();
+		blocking = false;
+	}
+
 	IKPose GetTargetPose(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
@@ -223,7 +229,7 @@ public class Blocker : MechComponent
 
 			//Only for the sake of maintaining crouch height atm
 			arms.StoreTargets();
-			arms.InterpolateIKPose(targetPose, targetPosOffset, Time.deltaTime * blendSpeed);
+			arms.InterpolateIKPose2(targetPose, targetPosOffset, Time.deltaTime * blendSpeed);
 		}
 	}
 }

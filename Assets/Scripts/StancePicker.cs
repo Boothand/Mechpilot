@@ -12,6 +12,7 @@ public class StancePicker : MechComponent
 	[SerializeField] float blendSpeed = 4f;
 	[SerializeField] float switchTime = 0.5f;
 	public bool changingStance { get; private set; }
+	public WeaponsOfficer.CombatDir startStance;
 	
 
 	protected override void OnAwake()
@@ -21,6 +22,7 @@ public class StancePicker : MechComponent
 
 	void Start()
 	{
+		stance = startStance;
 		targetPose = GetStancePose(stance);
 		StartCoroutine(ChangeStanceRoutine(stance));
 	}

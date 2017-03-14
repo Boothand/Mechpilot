@@ -24,6 +24,7 @@ public class Stagger : MechComponent
 		windup.Stop();
 		attacker.Stop();
 		retract.Stop();
+		blocker.Stop();
 		GetStaggered(stancePicker.stance);
 	}
 
