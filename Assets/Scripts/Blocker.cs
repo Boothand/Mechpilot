@@ -51,13 +51,13 @@ public class Blocker : MechComponent
 		{
 			timer += Time.deltaTime;
 
-			if (input.attack)
-			{
-				StopAllCoroutines();
-				blocking = false;
-				attacker.AttackInstantly(blockStance);
-				break;
-			}
+			//if (input.attack)
+			//{
+			//	StopAllCoroutines();
+			//	blocking = false;
+			//	attacker.AttackInstantly(blockStance);
+			//	break;
+			//}
 
 			yield return null;
 		}
