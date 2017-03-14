@@ -23,6 +23,9 @@ public class Pilot : MechComponent
 
 	void Update ()
 	{
-
+		if (input.restartScene)
+		{
+			Application.LoadLevel(Application.loadedLevel);
+		}
 	}
 }

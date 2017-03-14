@@ -31,6 +31,8 @@ public class PlayerInput : AbstractInput
 	
 	void Update ()
 	{
+		restartScene = pilotPlayer.GetButtonDown("Restart Scene") ||
+						armsPlayer.GetButtonDown("Restart Scene");
 		moveHorz = pilotPlayer.GetAxis("Move Horizontal");
 		SetDeadZone(ref moveHorz, deadzone);
 		moveVert = pilotPlayer.GetAxis("Move Vertical");
