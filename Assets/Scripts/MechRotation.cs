@@ -13,7 +13,7 @@ public class MechRotation : MechComponent
 	Vector3 forwardDir;
 
 	[SerializeField] bool lockOn = true;
-	bool lockedOn;
+	public bool lockedOn { get; private set; }
 
 	protected override void OnAwake()
 	{
@@ -41,10 +41,10 @@ public class MechRotation : MechComponent
 			forwardDir = Quaternion.Euler(0, angle, 0) * forwardDir;
 
 			//Don't lock on anymore if you look too much away
-			if (angle > lockonAngleLimit)
-			{
-				lockedOn = false;
-			}
+			//if (Mathf.Abs(angle) > lockonAngleLimit)
+			//{
+			//	lockedOn = false;
+			//}
 		}
 		else
 		{

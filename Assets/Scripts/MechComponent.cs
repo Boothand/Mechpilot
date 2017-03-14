@@ -24,6 +24,7 @@ public class MechComponent : ManagedMechBehaviour
 	public Retract retract { get; private set; }
 	public Dodge dodger { get; private set; }
 	public Stagger stagger { get; private set; }
+	public CameraFollow cameraFollow { get; private set; }
 
 	protected const int PILOT_INDEX = 0;
 	protected const int WEAPONOFFICER_INDEX = 1;
@@ -57,6 +58,7 @@ public class MechComponent : ManagedMechBehaviour
 		dodger = mech.transform.root.GetComponentInChildren<Dodge>();
 		stagger = mech.transform.root.GetComponentInChildren<Stagger>();
 		scaleFactor = transform.root.localScale.y;
+		cameraFollow = transform.root.GetComponentInChildren<CameraFollow>();
 		base.OnAwake();
 	}
 }
