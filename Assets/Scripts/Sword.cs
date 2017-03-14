@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Sword : Collidable
@@ -15,7 +16,8 @@ public class Sword : Collidable
 	public Transform getLeftHandTarget { get { return leftHandTarget; } }
 	public Transform getMidPoint { get { return midPoint; } }
 	Collider swordCollider;
-	Vector3 lastPos;
+	List<Vector3> velocityList = new List<Vector3>();
+	Vector3 averagePosition;
 
 	protected override void OnAwake()
 	{
@@ -66,11 +68,29 @@ public class Sword : Collidable
 		}
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
-		swordTipVelocity = swordTip.position - lastPos;
+		swordTipVelocity = (swordTip.position - averagePosition) * Time.deltaTime;
 		swordTipVelocity *= scaleFactor;
 
-		lastPos = swordTip.position;
+		if (velocityList.Count < 5)
+		{
+			velocityList.Add(swordTip.position);
+		}
+		else
+		{
+			velocityList.RemoveAt(0);
+		}
+
+		averagePosition = Vector3.zero;
+
+		for (int i = 0; i < velocityList.Count; i++)
+		{
+			averagePosition += velocityList[i];
+		}
+
+		averagePosition /= velocityList.Count;
+
+		//Debug.DrawRay(swordTip.position, swordTipVelocity, Color.red);
 	}
 }

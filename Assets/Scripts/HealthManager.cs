@@ -30,14 +30,17 @@ public class HealthManager : MonoBehaviour
 
 	public void GetHit(BodyPart.BodyGroup group, Vector3 velocity)
 	{
-		float impact = velocity.magnitude;
-
+		float impact = velocity.magnitude * 10f;
+		//print("Impact: " + impact);
+		impact = Mathf.Clamp(impact, 0.5f, 1.5f);
 		//print(impact);
 		int index = (int)group;
 		bodyGroupStats[index].hitCount++;
 		//print(bodyGroupStats[index].name + " got hit by a sword for the " + bodyGroupStats[index].hitCount + ". time.");
 		int finalDamage = (int)(bodyGroupStats[index].damage * impact);
 		health -= finalDamage;
+
+		//print(group + ", " + impact + ", " + finalDamage);
 
 		health = Mathf.Clamp(health, 0, maxHealth);
 
