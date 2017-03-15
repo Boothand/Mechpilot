@@ -193,6 +193,7 @@ public class Blocker : MechComponent
 		}
 
 		blocking = false;
+		arms.combatState = WeaponsOfficer.CombatState.Stance;
 	}
 
 	void Update()

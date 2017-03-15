@@ -18,8 +18,8 @@ public class Sword : Collidable
 	Collider swordCollider;
 	List<Vector3> velocityList = new List<Vector3>();
 	Vector3 averagePosition;
-	[SerializeField] LayerMask nonAttackIgnoreLayers;
-	int ignoreLayerNum;
+	int bodyLayer = 9;
+	int defaultLayer = 0;
 
 	protected override void OnAwake()
 	{
@@ -29,7 +29,14 @@ public class Sword : Collidable
 
 	void Start()
 	{
-		ignoreLayerNum = GetLayerFromLayerMask(nonAttackIgnoreLayers);
+		StartCoroutine(CorrectWeaponLayerRoutine());
+	}
+
+	IEnumerator CorrectWeaponLayerRoutine()
+	{
+		//Hack to set the layer one frame after start, overriding the layer set by PuppetMaster
+		yield return null;
+		gameObject.layer = 10;
 	}
 
 	public void PlayClashSound(float impact = 1f)
@@ -61,9 +68,10 @@ public class Sword : Collidable
 		swordCollider.enabled = truth;
 	}
 
-	public void SetCollisionWithIrrelevant(bool truth)
+	public void SetCollisionWithBodyAndDefault(bool truth)
 	{
-		Physics.IgnoreLayerCollision(swordCollider.gameObject.layer, ignoreLayerNum, !truth);
+		Physics.IgnoreLayerCollision(swordCollider.gameObject.layer, bodyLayer, !truth);
+		Physics.IgnoreLayerCollision(swordCollider.gameObject.layer, defaultLayer, !truth);
 	}
 
 	IEnumerator PlaySoundRoutine(AudioClip clip, float volume)
@@ -126,5 +134,31 @@ public class Sword : Collidable
 	{
 		//Calculate sword tip velocity
 		CalculateSwordTipVelocity();
+	}
+
+	void Update()
+	{
+		//Turn off collider when not blocking or attacking
+		if (arms.combatState == WeaponsOfficer.CombatState.Attack
+			|| arms.combatState == WeaponsOfficer.CombatState.Block
+			|| arms.combatState == WeaponsOfficer.CombatState.Stagger
+			|| healthManager.dead)
+		{
+			EnableCollider(true);
+		}
+		else
+		{
+			EnableCollider(false);
+		}
+
+		if (arms.combatState == WeaponsOfficer.CombatState.Attack
+			|| arms.combatState == WeaponsOfficer.CombatState.Retract)
+		{
+			SetCollisionWithBodyAndDefault(true);
+		}
+		else
+		{
+			SetCollisionWithBodyAndDefault(false);
+		}
 	}
 }
