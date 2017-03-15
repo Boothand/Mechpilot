@@ -75,10 +75,8 @@ public class Dodge : MechComponent
 			animator.CrossFade("Dodge Back", 0.25f);
 		}
 
-		print(dodgeDir);
-
 		//Gradually turn off IK targets to let animation play out
-		arms.TweenIKWeight(0f, 0.5f);
+		arms.TweenIKWeight(0f, 1f);
 
 		float dodgeTimer = 0f;
 
@@ -109,6 +107,9 @@ public class Dodge : MechComponent
 		//If you should do a slash after the dodge
 		if (slashOnWayBack)
 		{
+
+			arms.combatState = WeaponsOfficer.CombatState.Attack;
+
 			//Play correct animation
 			switch (dodgeDir)
 			{
@@ -127,6 +128,8 @@ public class Dodge : MechComponent
 
 			float animDuration = 1f;
 			yield return new WaitForSeconds(animDuration);
+
+			arms.combatState = WeaponsOfficer.CombatState.Stance;
 		}
 
 		//Transition back to idle if no slash
@@ -144,13 +147,23 @@ public class Dodge : MechComponent
 	void Update()
 	{
 		if (!dodging && input.dodge
-			&& arms.combatState != WeaponsOfficer.CombatState.Windup
-			&& arms.combatState != WeaponsOfficer.CombatState.Attack)
+			//&& arms.combatState != WeaponsOfficer.CombatState.Windup
+			//&& arms.combatState != WeaponsOfficer.CombatState.Attack
+			)
 		{
 			if (Mathf.Abs(input.turnBodyHorz) > 0.4f ||
 				Mathf.Abs(input.turnBodyVert) > 0.4f)
 			{
-				StartCoroutine(DodgeRoutine());
+				if (!animator.IsInTransition(0))
+				{
+					arms.stancePicker.Stop();
+					arms.windup.Stop();
+					arms.attacker.Stop();
+					//arms.retract.Stop();
+					//arms.stagger.Stop();
+					arms.combatState = WeaponsOfficer.CombatState.Stance;
+					StartCoroutine(DodgeRoutine());
+				}
 			}
 		}
 	}
