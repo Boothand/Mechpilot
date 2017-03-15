@@ -70,8 +70,14 @@ public class Sword : Collidable
 
 	public void SetCollisionWithBodyAndDefault(bool truth)
 	{
-		Physics.IgnoreLayerCollision(swordCollider.gameObject.layer, bodyLayer, !truth);
-		Physics.IgnoreLayerCollision(swordCollider.gameObject.layer, defaultLayer, !truth);
+		if (truth)
+		{
+			gameObject.layer = 10;
+		}
+		else
+		{
+			gameObject.layer = 13;
+		}
 	}
 
 	IEnumerator PlaySoundRoutine(AudioClip clip, float volume)

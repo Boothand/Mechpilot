@@ -296,14 +296,16 @@ public class WeaponsOfficer : MechComponent
 		lHandIKTarget.position = weapon.getLeftHandTarget.position;
 		lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
 
-#if true
+
 		if (alwaysBlock)
 			input.block = true;
 		
 		if (alwaysAttack)
 		{
 			if (input.attack)
+			{
 				input.attack = false;
+			}
 			else
 			{
 				input.attack = true;
@@ -314,7 +316,7 @@ public class WeaponsOfficer : MechComponent
 		{
 			Cursor.lockState = CursorLockMode.Locked;
 		}
-#endif
+
 
 		prevCombatState = combatState;
 	}
