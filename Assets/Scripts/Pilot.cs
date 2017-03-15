@@ -23,6 +23,14 @@ public class Pilot : MechComponent
 
 	void Update ()
 	{
+		if (input.restartScene)
+		{
+			Application.LoadLevel(Application.loadedLevel);
+		}
 
+		if (healthManager.dead)
+		{
+			input.enabled = false;
+		}
 	}
 }

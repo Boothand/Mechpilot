@@ -4,6 +4,7 @@
 //Each field corresponds to an input that can be bound to anything on the controller.
 public class AbstractInput : MonoBehaviour
 {
+	public bool restartScene;
 	//---------- PILOT ---------- \\
 
 	//Leg movement

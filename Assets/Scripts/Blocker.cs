@@ -51,16 +51,22 @@ public class Blocker : MechComponent
 		{
 			timer += Time.deltaTime;
 
-			if (input.attack)
-			{
-				StopAllCoroutines();
-				blocking = false;
-				attacker.AttackInstantly(blockStance);
-				break;
-			}
+			//if (input.attack)
+			//{
+			//	StopAllCoroutines();
+			//	blocking = false;
+			//	attacker.AttackInstantly(blockStance);
+			//	break;
+			//}
 
 			yield return null;
 		}
+	}
+
+	public void Stop()
+	{
+		StopAllCoroutines();
+		blocking = false;
 	}
 
 	IKPose GetTargetPose(WeaponsOfficer.CombatDir dir)
@@ -223,7 +229,7 @@ public class Blocker : MechComponent
 
 			//Only for the sake of maintaining crouch height atm
 			arms.StoreTargets();
-			arms.InterpolateIKPose(targetPose, targetPosOffset, Time.deltaTime * blendSpeed);
+			arms.InterpolateIKPose2(targetPose, targetPosOffset, Time.deltaTime * blendSpeed);
 		}
 	}
 }
