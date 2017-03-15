@@ -130,11 +130,12 @@ public class StancePicker : MechComponent
 
 	public void ForceStance()
 	{
-		if (prevStance != stance)
-		{
-			StopAllCoroutines();
-			StartCoroutine(ChangeStanceRoutine(stance));
-		}
+		prevStance = stance;
+		//if (prevStance != stance)
+		//{
+		//	StopAllCoroutines();
+		//	StartCoroutine(ChangeStanceRoutine(stance));
+		//}
 		//StopAllCoroutines();
 		//StartCoroutine(ForceStanceRoutine());
 	}
