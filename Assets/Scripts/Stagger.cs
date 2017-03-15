@@ -6,6 +6,7 @@ public class Stagger : MechComponent
 	[SerializeField] IKPose tlPose, trPose, blPose, brPose, topPose;
 	[SerializeField] float duration = 1f;
 	public bool staggering { get; private set; }
+	public float staggerTimer { get; private set; }
 
 	protected override void OnAwake()
 	{
@@ -59,7 +60,7 @@ public class Stagger : MechComponent
 		staggering = true;
 		arms.StoreTargets();
 		IKPose targetPose = GetPose(dir);
-		IKPose targetPose2 = stancePicker.GetStancePose(dir);
+		IKPose targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
 
 		float timer = 0f;
 
@@ -68,19 +69,24 @@ public class Stagger : MechComponent
 		while (timer < durationToUse)
 		{
 			timer += Time.deltaTime;
+			staggerTimer = timer / durationToUse / 2;
 
 			arms.InterpolateIKPose(targetPose, timer / durationToUse);
+			targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
 			//print(timer / duration);
 			yield return null;
 		}
 
 		timer = 0f;
 		arms.StoreTargets();
+		targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
+		float lastStaggerTimer = staggerTimer;
 
 		while (timer < durationToUse)
 		{
 			timer += Time.deltaTime;
 
+			staggerTimer = timer / durationToUse / 2 + lastStaggerTimer;
 			arms.InterpolateIKPose(targetPose2, timer / durationToUse);
 			yield return null;
 		}

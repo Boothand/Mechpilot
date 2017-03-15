@@ -94,26 +94,31 @@ public class Windup : MechComponent
 				}
 			}
 
-			//Save the attack for later
-			if (arms.stancePicker.changingStance)
-			{
-				if (input.attack)
-				{
-					cachedAttack = true;
-				}
-			}
+		//print(windingUp);
+	}
 
-			////Released the saved up attack
-			if (cachedAttack && !arms.stancePicker.changingStance)
+		//Save the attack for later
+		if (arms.stancePicker.changingStance
+			|| (arms.combatState == WeaponsOfficer.CombatState.Stagger
+				&& arms.stagger.staggerTimer > 0.5f)
+			|| arms.combatState == WeaponsOfficer.CombatState.Retract)
+		{
+			if (input.attack)
 			{
-				dir = stancePicker.stance;
-				cachedAttack = false;
-
-				StopAllCoroutines();
-				StartCoroutine(WindupRoutine(dir));
+				cachedAttack = true;
 			}
 		}
 
-		//print(windingUp);
+		////Released the saved up attack
+		if (cachedAttack
+			&& !arms.stancePicker.changingStance
+			&& arms.combatState == WeaponsOfficer.CombatState.Stance)
+		{
+			dir = stancePicker.stance;
+			cachedAttack = false;
+
+			StopAllCoroutines();
+			StartCoroutine(WindupRoutine(dir));
+		}
 	}
 }
