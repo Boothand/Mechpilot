@@ -81,6 +81,7 @@ public class Stagger : MechComponent
 		arms.StoreTargets();
 		targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
 		float lastStaggerTimer = staggerTimer;
+		WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
 
 		while (timer < durationToUse)
 		{
@@ -92,7 +93,7 @@ public class Stagger : MechComponent
 		}
 
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
-		stancePicker.ForceStance();
+		stancePicker.ForceStance(stanceToUse);
 
 		staggering = false;
 	}

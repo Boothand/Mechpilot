@@ -128,9 +128,10 @@ public class StancePicker : MechComponent
 		}
 	}
 
-	public void ForceStance()
+	public void ForceStance(WeaponsOfficer.CombatDir newStance)
 	{
-		prevStance = stance;
+		stance = newStance;
+		prevStance = newStance;
 		//if (prevStance != stance)
 		//{
 		//	StopAllCoroutines();
