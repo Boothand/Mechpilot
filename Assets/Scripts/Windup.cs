@@ -82,11 +82,14 @@ public class Windup : MechComponent
 				&& !dodger.dodging
 				&& !attacker.attacking
 				&& !retract.retracting
-				&& !stagger.staggering)
+				&& !stagger.staggering
+				)
 			{
 				if (input.attack)
 				{
 					dir = stancePicker.stance;
+
+					cachedAttack = false;
 
 					StopAllCoroutines();
 					StartCoroutine(WindupRoutine(dir));
