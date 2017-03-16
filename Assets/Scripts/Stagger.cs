@@ -54,7 +54,7 @@ public class Stagger : MechComponent
 		staggering = false;
 	}
 
-	IEnumerator StaggerRoutine(WeaponsOfficer.CombatDir dir)
+	IEnumerator StaggerRoutine(WeaponsOfficer.CombatDir dir, float durationModifier = 1f)
 	{
 		arms.combatState = WeaponsOfficer.CombatState.Stagger;
 		staggering = true;
@@ -65,6 +65,7 @@ public class Stagger : MechComponent
 		float timer = 0f;
 
 		float durationToUse = duration / 2;
+		durationToUse *= durationModifier;
 
 		while (timer < durationToUse)
 		{
@@ -72,7 +73,6 @@ public class Stagger : MechComponent
 			staggerTimer = timer / durationToUse / 2;
 
 			arms.InterpolateIKPose(targetPose, timer / durationToUse);
-			targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
 			//print(timer / duration);
 			yield return null;
 		}
@@ -98,10 +98,10 @@ public class Stagger : MechComponent
 		staggering = false;
 	}
 
-	public void GetStaggered(WeaponsOfficer.CombatDir dir)
+	public void GetStaggered(WeaponsOfficer.CombatDir dir, float durationModifier = 1f)
 	{
 		StopAllCoroutines();
-		StartCoroutine(StaggerRoutine(dir));
+		StartCoroutine(StaggerRoutine(dir, durationModifier));
 	}
 
 	void Update()
