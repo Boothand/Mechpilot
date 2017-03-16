@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class StancePicker : MechComponent
 {
-	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform, bottomMidPose;
+	[SerializeField] public IKPose trTransform, tlTransform, brTransform, blTransform, topTransform, bottomMidPose;
 	public WeaponsOfficer.CombatDir stance { get; private set; }
-	WeaponsOfficer.CombatDir prevStance;
+	public WeaponsOfficer.CombatDir prevStance { get; private set; }
 
 	public IKPose targetPose { get; private set; }
 
@@ -128,13 +128,15 @@ public class StancePicker : MechComponent
 		}
 	}
 
-	public void ForceStance()
+	public void ForceStance(WeaponsOfficer.CombatDir newStance)
 	{
-		if (prevStance != stance)
-		{
-			StopAllCoroutines();
-			StartCoroutine(ChangeStanceRoutine(stance));
-		}
+		stance = newStance;
+		prevStance = newStance;
+		//if (prevStance != stance)
+		//{
+		//	StopAllCoroutines();
+		//	StartCoroutine(ChangeStanceRoutine(stance));
+		//}
 		//StopAllCoroutines();
 		//StartCoroutine(ForceStanceRoutine());
 	}
@@ -150,7 +152,9 @@ public class StancePicker : MechComponent
 		{
 			targetPose = GetStancePose(stance);
 
-			if (!changingStance && prevStance != stance)
+			if (!changingStance && prevStance != stance
+				&& !blocker.blocking
+				)
 			{
 				StopAllCoroutines();
 				StartCoroutine(ChangeStanceRoutine(stance));

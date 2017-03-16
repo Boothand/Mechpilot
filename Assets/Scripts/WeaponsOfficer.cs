@@ -62,7 +62,7 @@ public class WeaponsOfficer : MechComponent
 	void Start()
 	{
 		//IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
-	}
+	}	
 
 	IEnumerator TweenIKWeightRoutine(float weight, float time)
 	{
@@ -296,19 +296,20 @@ public class WeaponsOfficer : MechComponent
 		lHandIKTarget.position = weapon.getLeftHandTarget.position;
 		lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
 
+
 		if (alwaysBlock)
 			input.block = true;
-
 		
 		if (alwaysAttack)
 		{
 			if (input.attack)
+			{
 				input.attack = false;
+			}
 			else
 			{
 				input.attack = true;
 			}
-			
 		}
 
 		if (Input.GetKeyDown(KeyCode.R))
@@ -316,42 +317,6 @@ public class WeaponsOfficer : MechComponent
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 
-		//When to set state to stance
-		if (!blocker.blocking
-			&& combatState != CombatState.Attack
-			&& combatState != CombatState.Retract
-			&& combatState != CombatState.Windup
-			&& combatState != CombatState.Stagger)
-		{
-			combatState = CombatState.Stance;
-		}
-
-		//Turn off collider when not blocking or attacking
-		if (combatState == CombatState.Attack
-			|| combatState == CombatState.Block
-			|| combatState == CombatState.Stagger
-			|| healthManager.dead)
-		{
-			weapon.EnableCollider(true);
-		}
-		else
-		{
-			weapon.EnableCollider(false);
-		}
-
-		if (combatState == CombatState.Attack
-			|| combatState == CombatState.Retract)
-		{
-			weapon.SetCollisionWithIrrelevant(true);
-		}
-		else
-		{
-			weapon.SetCollisionWithIrrelevant(false);
-			if (transform.root.name == "Walk_Test Root")
-				print(combatState);
-		}
-
-		
 
 		prevCombatState = combatState;
 	}

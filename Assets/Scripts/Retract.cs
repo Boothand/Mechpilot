@@ -46,15 +46,11 @@ public class Retract : MechComponent
 	{
 		retracting = true;
 
-		IKPose targetPose = GetRetractPose(arms.attacker.dir);
-		IKPose targetPose2 = arms.stancePicker.GetStancePose(arms.attacker.dir);
-
-		//Transform rIK = arms.getRhandIKTarget;
+		IKPose targetPose = GetRetractPose(stancePicker.stance);// arms.attacker.dir);
+		IKPose targetPose2 = arms.stancePicker.GetStancePose(stancePicker.stance);
 
 		float duration = retractDuration / 2;
 		
-		//Vector3 fromPos = rIK.position;
-		//Quaternion fromRot = rIK.rotation;
 		float retractTimer = 0f;
 
 		arms.StoreTargets();
@@ -63,6 +59,7 @@ public class Retract : MechComponent
 		{
 			retractTimer += Time.deltaTime;
 
+			targetPose2 = arms.stancePicker.GetStancePose(stancePicker.stance);
 			arms.InterpolateIKPose(targetPose, retractTimer / duration);
 
 			yield return null;
@@ -71,18 +68,19 @@ public class Retract : MechComponent
 		retractTimer = 0f;
 
 		arms.StoreTargets();
+		targetPose2 = arms.stancePicker.GetStancePose(stancePicker.stance);
+		WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
 
 		while (retractTimer < duration)
 		{
 			retractTimer += Time.deltaTime;
-			//targetPose2 = arms.stancePicker.GetStancePose();
 			arms.InterpolateIKPose(targetPose2, retractTimer / duration);
 
 			yield return null;
 		}
 
 		retracting = false;
-		stancePicker.ForceStance();
+		stancePicker.ForceStance(stanceToUse);
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
 	}
 

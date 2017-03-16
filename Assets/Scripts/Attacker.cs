@@ -26,6 +26,8 @@ public class Attacker : MechComponent
 	void OnSwordCollision(Collision col)
 	{
 		Sword otherSword = col.transform.GetComponent<Sword>();
+		BodyPart bodyPart = col.transform.GetComponent<BodyPart>();
+
 		if (otherSword)
 		{
 			//If I get blocked
@@ -34,6 +36,18 @@ public class Attacker : MechComponent
 				Stop();
 				arms.combatState = WeaponsOfficer.CombatState.Stagger;
 				arms.stagger.GetStaggered(dir);
+				//stancePicker.StartCoroutine(stancePicker.ForceStanceRoutine());
+				//Stagger?
+			}
+		}
+		else if (bodyPart)
+		{
+			//If I hit someone
+			if (arms.combatState == WeaponsOfficer.CombatState.Attack)
+			{
+				Stop();
+				arms.combatState = WeaponsOfficer.CombatState.Stagger;
+				arms.stagger.GetStaggered(dir, 0.8f);
 				//stancePicker.StartCoroutine(stancePicker.ForceStanceRoutine());
 				//Stagger?
 			}

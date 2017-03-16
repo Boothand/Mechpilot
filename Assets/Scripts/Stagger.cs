@@ -6,6 +6,7 @@ public class Stagger : MechComponent
 	[SerializeField] IKPose tlPose, trPose, blPose, brPose, topPose;
 	[SerializeField] float duration = 1f;
 	public bool staggering { get; private set; }
+	public float staggerTimer { get; private set; }
 
 	protected override void OnAwake()
 	{
@@ -53,21 +54,23 @@ public class Stagger : MechComponent
 		staggering = false;
 	}
 
-	IEnumerator StaggerRoutine(WeaponsOfficer.CombatDir dir)
+	IEnumerator StaggerRoutine(WeaponsOfficer.CombatDir dir, float durationModifier = 1f)
 	{
 		arms.combatState = WeaponsOfficer.CombatState.Stagger;
 		staggering = true;
 		arms.StoreTargets();
 		IKPose targetPose = GetPose(dir);
-		IKPose targetPose2 = stancePicker.GetStancePose(dir);
+		IKPose targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
 
 		float timer = 0f;
 
 		float durationToUse = duration / 2;
+		durationToUse *= durationModifier;
 
 		while (timer < durationToUse)
 		{
 			timer += Time.deltaTime;
+			staggerTimer = timer / durationToUse / 2;
 
 			arms.InterpolateIKPose(targetPose, timer / durationToUse);
 			//print(timer / duration);
@@ -76,25 +79,29 @@ public class Stagger : MechComponent
 
 		timer = 0f;
 		arms.StoreTargets();
+		targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
+		float lastStaggerTimer = staggerTimer;
+		WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
 
 		while (timer < durationToUse)
 		{
 			timer += Time.deltaTime;
 
+			staggerTimer = timer / durationToUse / 2 + lastStaggerTimer;
 			arms.InterpolateIKPose(targetPose2, timer / durationToUse);
 			yield return null;
 		}
 
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
-		stancePicker.ForceStance();
+		stancePicker.ForceStance(stanceToUse);
 
 		staggering = false;
 	}
 
-	public void GetStaggered(WeaponsOfficer.CombatDir dir)
+	public void GetStaggered(WeaponsOfficer.CombatDir dir, float durationModifier = 1f)
 	{
 		StopAllCoroutines();
-		StartCoroutine(StaggerRoutine(dir));
+		StartCoroutine(StaggerRoutine(dir, durationModifier));
 	}
 
 	void Update()
