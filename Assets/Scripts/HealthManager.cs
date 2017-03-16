@@ -34,29 +34,42 @@ public class HealthManager : MechComponent
 		health = maxHealth;
 	}
 
-	public void GetHit(BodyPart.BodyGroup group, Vector3 velocity)
+	public void GetHit(BodyPart.BodyGroup group, Vector3 velocity, Vector3 hitPoint)
 	{
-		float impact = velocity.magnitude * 10f;
+		int index = (int)group;
+		float velocityMagnitude = velocity.magnitude;
+		//Impact should be roughly in the range 0.5 to 1.5 (like a multiplier),
+		//decided by the tip of the sword's velocity.
+		float impact = velocityMagnitude * 15f;
 		//print("Impact: " + impact);
 		impact = Mathf.Clamp(impact, 0.5f, 1.5f);
-		//print(impact);
-		int index = (int)group;
-		bodyGroupStats[index].hitCount++;
-		//print(bodyGroupStats[index].name + " got hit by a sword for the " + bodyGroupStats[index].hitCount + ". time.");
+
+		//Subtract the relevant damage from health, modified by the impact
 		int finalDamage = (int)(bodyGroupStats[index].damage * impact);
 		health -= finalDamage;
-		mechSounds.PlayBodyHitSound(1f);
 
-		if (dead)
+
+		//If we need to detect how many hits a bodypart has.
+		bodyGroupStats[index].hitCount++;
+		//print(bodyGroupStats[index].name + " got hit by a sword for the " + bodyGroupStats[index].hitCount + ". time.");
+		
+		//Play a hit sound, modified by the velocity of the other's sword
+		mechSounds.PlayBodyHitSound(0.8f * velocityMagnitude);
+
+		//Make upper body more floppy when hit, so it's visible that it impacted us.
+		if (!dead)
 		{
-			arms.SetPinWeightUpperBody(1f, 0.4f, 0f);
-			arms.SetPinWeightUpperBody(0.4f, 2f, 1f);
+			arms.SetPinWeightUpperBody(1f, 0.2f, 0f);
+			arms.puppet.muscles[arms.puppet.GetMuscleIndex(HumanBodyBones.Spine)].rigidbody.AddForceAtPosition(velocity * 5000f, hitPoint, ForceMode.Impulse);
+
+			arms.SetPinWeightUpperBody(0.2f, 1f, 2f);
+
 		}
 
+		//If we die from the damage
 		if (health <= 0f)
 		{
 			Die();
-			dead = true;
 		}
 
 		health = Mathf.Clamp(health, 0, maxHealth);
@@ -78,8 +91,8 @@ public class HealthManager : MechComponent
 
 	public void Die()
 	{
+		dead = true;
 		StartCoroutine(DieRoutine());
-		//arms.KillPuppet();
 	}
 
 	void Update()
