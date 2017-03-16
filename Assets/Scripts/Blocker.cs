@@ -4,20 +4,24 @@ using UnityEngine;
 public class Blocker : MechComponent
 {
 	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
+	[SerializeField] IKPose bl2br, bl2bl, br2br;
 	IKPose targetPose;
 	Vector3 targetPosOffset;
 	Quaternion targetRotOffset;
 	WeaponsOfficer.CombatDir blockStance;
 	WeaponsOfficer.CombatDir idealBlock;
+	WeaponsOfficer.CombatDir prevBlockStance;
 
 	[SerializeField] float minBlockTime = 0.5f;
 
-	[SerializeField] float blendSpeed = 1f;
+	[SerializeField] float blockDuration = 0.75f;
 
 	[SerializeField] bool autoBlock;
 	public bool blocking { get; private set; }
+	bool switchingBlockStance;
 
 	public Mech tempEnemy;
+	Coroutine blockRoutine;
 
 	protected override void OnAwake()
 	{
@@ -167,27 +171,80 @@ public class Blocker : MechComponent
 		}
 	}
 
+	IKPose GetTransitionStance(WeaponsOfficer.CombatDir prev, WeaponsOfficer.CombatDir current)
+	{
+		if (prev == WeaponsOfficer.CombatDir.BottomLeft && current == WeaponsOfficer.CombatDir.BottomRight)
+			return bl2br;
+
+		if (prev == WeaponsOfficer.CombatDir.BottomRight && current == WeaponsOfficer.CombatDir.BottomLeft)
+			return bl2br;
+
+		if (stancePicker.prevStance == WeaponsOfficer.CombatDir.BottomLeft && current == WeaponsOfficer.CombatDir.BottomLeft)
+			return bl2bl;
+
+		if (stancePicker.prevStance == WeaponsOfficer.CombatDir.BottomRight && current == WeaponsOfficer.CombatDir.BottomRight)
+			return br2br;
+
+		if (prev == WeaponsOfficer.CombatDir.Top && current == WeaponsOfficer.CombatDir.BottomLeft)
+			return bl2br;
+
+		if (prev == WeaponsOfficer.CombatDir.BottomLeft && current == WeaponsOfficer.CombatDir.Top)
+			return bl2br;
+
+		return null;
+	}
+
 	IEnumerator BlockRoutine()
 	{
+		switchingBlockStance = true;
+		IKPose midPose = stancePicker.bottomMidPose;
+
+		//Find out whether to use a middle pose or not
+		midPose = GetTransitionStance(prevBlockStance, blockStance);
+
+		prevBlockStance = blockStance;
+		float durationToUse = blockDuration;
+
+		if (midPose != null)
+		{
+			durationToUse /= 2;
+			arms.StoreTargets();
+
+			float timer2 = 0f;
+
+			while (timer2 < durationToUse)
+			{
+				timer2 += Time.deltaTime;
+				arms.InterpolateIKPose(midPose, timer2 / durationToUse);
+				yield return null;
+			}
+		}
+
+
 		arms.StoreTargets();
+		targetPose = GetTargetPose(blockStance);
 
 		float timer = 0f;
-		float duration = 0.75f;
 
-		while (timer < duration)
+		while (timer < durationToUse)
 		{
 			timer += Time.deltaTime;
 
-			arms.InterpolateIKPose(targetPose, timer / duration);
+			arms.InterpolateIKPose(targetPose, timer / durationToUse);
 			yield return null;
 		}
+
+		switchingBlockStance = false;
+		stancePicker.ForceStance(blockStance);
+
 	}
 
 	IEnumerator BlockTimingRoutine()
 	{
 		yield return new WaitForSeconds(minBlockTime);
 
-		while (input.block)
+		while (input.block
+			|| switchingBlockStance)
 		{
 			yield return null;
 		}
@@ -198,6 +255,12 @@ public class Blocker : MechComponent
 
 	void Update()
 	{
+		//Check if prev block state == block state.
+		//Start changing block stance:
+			//Check if it's necessary to go via another stance.
+			//Do so in half the time
+
+		//Initiate the block
 		if (!blocking && input.block)
 		{
 			blocking = true;
@@ -207,16 +270,26 @@ public class Blocker : MechComponent
 			attacker.Stop();
 			retract.Stop();
 			stagger.Stop();
-			StartCoroutine(BlockTimingRoutine());
 			arms.combatState = WeaponsOfficer.CombatState.Block;
+
+			//Check when we are allowed to stop blocking:
+			StartCoroutine(BlockTimingRoutine());
+
+			blockStance = stancePicker.stance;
+			//Enter the block pose:
+			if (blockRoutine != null)
+			{
+				StopCoroutine(blockRoutine);
+			}
+
+			blockRoutine = StartCoroutine(BlockRoutine());
 		}
 
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
 		{
-			idealBlock = DecideBlockStance(tempEnemy.weaponsOfficer.attacker.dir);
-
 			if (autoBlock)
 			{
+				idealBlock = DecideBlockStance(tempEnemy.weaponsOfficer.attacker.dir);
 				blockStance = idealBlock;
 			}
 			else
@@ -224,13 +297,24 @@ public class Blocker : MechComponent
 				blockStance = stancePicker.stance;
 			}
 
-			targetPose = GetTargetPose(blockStance);
+			if (prevBlockStance != blockStance)
+			{
+				//Enter the block pose:
+				if (blockRoutine != null)
+				{
+					StopCoroutine(blockRoutine);
+				}
+
+				blockRoutine = StartCoroutine(BlockRoutine());
+			}
+
+			//targetPose = GetTargetPose(blockStance);
 			
 			//AdjustPosition();
 
 			//Only for the sake of maintaining crouch height atm
-			arms.StoreTargets();
-			arms.InterpolateIKPose2(targetPose, targetPosOffset, Time.deltaTime * blendSpeed);
+			//arms.StoreTargets();
+			//arms.InterpolateIKPose2(targetPose, targetPosOffset, Time.deltaTime * blendSpeed);
 		}
 	}
 }
