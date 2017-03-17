@@ -18,7 +18,7 @@ public class BodyPart : Collidable
 
 	IEnumerator GetHitBySword(Sword swordHittingMe)
 	{
-		healthManager.GetHit(bodyGroup, swordHittingMe.swordTipVelocity);
+		healthManager.GetHit(bodyGroup, swordHittingMe.swordTipVelocity, swordHittingMe.getSwordTip.position);
 
 		//Play body hit sound
 

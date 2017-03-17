@@ -6,8 +6,8 @@ public class Blocker : MechComponent
 	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
 	[SerializeField] IKPose bl2br, bl2bl, br2br;
 	IKPose targetPose;
-	Vector3 targetPosOffset;
-	Quaternion targetRotOffset;
+	//Quaternion targetPosOffset;
+	public Quaternion targetRotOffset;
 	WeaponsOfficer.CombatDir blockStance;
 	WeaponsOfficer.CombatDir idealBlock;
 	WeaponsOfficer.CombatDir prevBlockStance;
@@ -115,61 +115,61 @@ public class Blocker : MechComponent
 		return WeaponsOfficer.CombatDir.Top;
 	}
 
-	void AdjustPosition()
-	{
-		Transform rIK = arms.getRhandIKTarget;
+	//void AdjustPosition()
+	//{
+	//	Transform rIK = arms.getRhandIKTarget;
 
-		Vector3 myMidPoint = arms.getWeapon.getMidPoint.position;
-		Vector3 otherMidPoint = tempEnemy.weaponsOfficer.getWeapon.getMidPoint.position;
+	//	Vector3 myMidPoint = arms.getWeapon.getMidPoint.position;
+	//	Vector3 otherMidPoint = tempEnemy.weaponsOfficer.getWeapon.getMidPoint.position;
 
 		
-		if (tempEnemy.weaponsOfficer.combatState == WeaponsOfficer.CombatState.Attack &&
-			blockStance == idealBlock)
-		{
-			//Up/down
-			if (myMidPoint.y < otherMidPoint.y)
-			{
-				targetPosOffset += Vector3.up * Time.deltaTime * 2f;
-			}
-			else if (myMidPoint.y > otherMidPoint.y)
-			{
-				targetPosOffset -= Vector3.up * Time.deltaTime * 2f;
-			}
+	//	if (tempEnemy.weaponsOfficer.combatState == WeaponsOfficer.CombatState.Attack &&
+	//		blockStance == idealBlock)
+	//	{
+	//		//Up/down
+	//		if (myMidPoint.y < otherMidPoint.y)
+	//		{
+	//			targetPosOffset += Vector3.up * Time.deltaTime * 2f;
+	//		}
+	//		else if (myMidPoint.y > otherMidPoint.y)
+	//		{
+	//			targetPosOffset -= Vector3.up * Time.deltaTime * 2f;
+	//		}
 
-			Vector3 localMyPoint = mech.transform.InverseTransformPoint(myMidPoint);
-			Vector3 localOtherPoint = mech.transform.InverseTransformPoint(otherMidPoint);
-			//tempEnemy.weaponsOfficer.getWeapon.getSwordTip
+	//		Vector3 localMyPoint = mech.transform.InverseTransformPoint(myMidPoint);
+	//		Vector3 localOtherPoint = mech.transform.InverseTransformPoint(otherMidPoint);
+	//		//tempEnemy.weaponsOfficer.getWeapon.getSwordTip
 
-			//Left/right
-			if (localMyPoint.x < localOtherPoint.x)
-			{
-				targetPosOffset += mech.transform.right * Time.deltaTime * 2f;
-				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(50f, 0, 0f);
-			}
-			else if (localMyPoint.x > localOtherPoint.x)
-			{
-				targetPosOffset -= mech.transform.right * Time.deltaTime * 2f;
-				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(-50f, 0f, 0f);
-			}
+	//		//Left/right
+	//		if (localMyPoint.x < localOtherPoint.x)
+	//		{
+	//			targetPosOffset += mech.transform.right * Time.deltaTime * 2f;
+	//			//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(50f, 0, 0f);
+	//		}
+	//		else if (localMyPoint.x > localOtherPoint.x)
+	//		{
+	//			targetPosOffset -= mech.transform.right * Time.deltaTime * 2f;
+	//			//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(-50f, 0f, 0f);
+	//		}
 
-			//Forward/back
-			if (localMyPoint.z < localOtherPoint.z)
-			{
-				targetPosOffset += mech.transform.forward * Time.deltaTime * 2f;
-				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(50f, 0, 0f);
-			}
-			else if (localMyPoint.z > localOtherPoint.z)
-			{
-				targetPosOffset -= mech.transform.forward * Time.deltaTime * 2f;
-				//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(-50f, 0f, 0f);
-			}
-		}
-		else
-		{
-			targetPosOffset = Vector3.Lerp(targetPosOffset, Vector3.zero, Time.deltaTime * 3f);
-			targetRotOffset = Quaternion.Lerp(targetRotOffset, Quaternion.identity, Time.deltaTime * 3f);
-		}
-	}
+	//		//Forward/back
+	//		if (localMyPoint.z < localOtherPoint.z)
+	//		{
+	//			targetPosOffset += mech.transform.forward * Time.deltaTime * 2f;
+	//			//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(50f, 0, 0f);
+	//		}
+	//		else if (localMyPoint.z > localOtherPoint.z)
+	//		{
+	//			targetPosOffset -= mech.transform.forward * Time.deltaTime * 2f;
+	//			//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(-50f, 0f, 0f);
+	//		}
+	//	}
+	//	else
+	//	{
+	//		targetPosOffset = Vector3.Lerp(targetPosOffset, Vector3.zero, Time.deltaTime * 3f);
+	//		targetRotOffset = Quaternion.Lerp(targetRotOffset, Quaternion.identity, Time.deltaTime * 3f);
+	//	}
+	//}
 
 	IKPose GetTransitionStance(WeaponsOfficer.CombatDir prev, WeaponsOfficer.CombatDir current)
 	{
@@ -308,13 +308,18 @@ public class Blocker : MechComponent
 				blockRoutine = StartCoroutine(BlockRoutine());
 			}
 
+			if (!switchingBlockStance)
+			{
+				arms.StoreTargets();
+				arms.InterpolateIKPose2(targetPose, targetRotOffset, Time.deltaTime * 4f);
+			}
+
 			//targetPose = GetTargetPose(blockStance);
-			
+
 			//AdjustPosition();
 
 			//Only for the sake of maintaining crouch height atm
-			//arms.StoreTargets();
-			//arms.InterpolateIKPose2(targetPose, targetPosOffset, Time.deltaTime * blendSpeed);
+
 		}
 	}
 }

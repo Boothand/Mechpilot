@@ -30,7 +30,7 @@ public class Kicker : MechComponent
 		if (bodypartIKicked && !dealingDamage)
 		{
 			BodyPart.BodyGroup group = bodypartIKicked.getBodyGroup;
-			bodypartIKicked.arms.healthManager.GetHit(group, Vector3.one * 10f);
+			bodypartIKicked.arms.healthManager.GetHit(group, Vector3.one * 10f, col.contacts[0].point);
 			dealingDamage = true;
 		}
 	}

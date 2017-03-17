@@ -128,10 +128,10 @@ public class WeaponsOfficer : MechComponent
 		bodyTarget.position = Vector3.Lerp(fromBodyPos, pose.body.position, timer);
 	}
 
-	public void InterpolateIKPose2(IKPose pose, Vector3 handOffset, float timer)
+	public void InterpolateIKPose2(IKPose pose, Quaternion handRotOffset, float timer)
 	{
-		rHandIKTarget.position = Vector3.MoveTowards(fromRhandPos, pose.rHand.position + handOffset, timer);
-		rHandIKTarget.rotation = Quaternion.RotateTowards(fromRhandRot, pose.rHand.rotation, timer * 100f);
+		rHandIKTarget.position = Vector3.MoveTowards(fromRhandPos, pose.rHand.position, timer);
+		rHandIKTarget.rotation = Quaternion.RotateTowards(fromRhandRot, pose.rHand.rotation * handRotOffset, timer * 100f);
 
 		rElbowTarget.position = Vector3.Lerp(fromRElbowPos, pose.rElbow.position, timer);
 		lElbowTarget.position = Vector3.Lerp(fromLElbowPos, pose.lElbow.position, timer);

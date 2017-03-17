@@ -36,8 +36,6 @@ public class Attacker : MechComponent
 				Stop();
 				arms.combatState = WeaponsOfficer.CombatState.Stagger;
 				arms.stagger.GetStaggered(dir);
-				//stancePicker.StartCoroutine(stancePicker.ForceStanceRoutine());
-				//Stagger?
 			}
 		}
 		else if (bodyPart)
@@ -45,11 +43,12 @@ public class Attacker : MechComponent
 			//If I hit someone
 			if (arms.combatState == WeaponsOfficer.CombatState.Attack)
 			{
-				Stop();
-				arms.combatState = WeaponsOfficer.CombatState.Stagger;
-				arms.stagger.GetStaggered(dir, 0.8f);
-				//stancePicker.StartCoroutine(stancePicker.ForceStanceRoutine());
-				//Stagger?
+				if (bodyPart.healthManager.takingDamage)
+				{
+					Stop();
+					arms.combatState = WeaponsOfficer.CombatState.Stagger;
+					arms.stagger.GetStaggered(dir, 0.8f);
+				}
 			}
 		}
 	}
