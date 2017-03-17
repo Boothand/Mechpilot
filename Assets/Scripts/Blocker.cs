@@ -23,6 +23,9 @@ public class Blocker : MechComponent
 	public Mech tempEnemy;
 	Coroutine blockRoutine;
 
+	public delegate void NoParam();
+	public event NoParam OnBlockBegin;
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -196,6 +199,9 @@ public class Blocker : MechComponent
 
 	IEnumerator BlockRoutine()
 	{
+		if (OnBlockBegin != null)
+			OnBlockBegin();
+
 		switchingBlockStance = true;
 		IKPose midPose = stancePicker.bottomMidPose;
 

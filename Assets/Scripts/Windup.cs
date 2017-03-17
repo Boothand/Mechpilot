@@ -9,6 +9,9 @@ public class Windup : MechComponent
 	public bool windingUp { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 	bool cachedAttack;
+	public float windupTimer { get; private set; }
+	public delegate void NoParam();
+	public event NoParam OnWindupBegin;
 
 	protected override void OnAwake()
 	{
@@ -47,6 +50,9 @@ public class Windup : MechComponent
 
 	IEnumerator WindupRoutine(WeaponsOfficer.CombatDir dir)
 	{
+		if (OnWindupBegin != null)
+			OnWindupBegin();
+
 		windingUp = true;
 		arms.combatState = WeaponsOfficer.CombatState.Windup;
 
@@ -56,9 +62,13 @@ public class Windup : MechComponent
 
 		arms.StoreTargets();
 
+		windupTimer = 0f;
+
 		while (timer < windupTime)
 		{
 			timer += Time.deltaTime;
+
+			windupTimer += Time.deltaTime;
 
 			arms.InterpolateIKPose(targetTransform, timer / windupTime);
 
@@ -67,6 +77,10 @@ public class Windup : MechComponent
 
 		while (input.attack)
 		{
+			windupTimer += Time.deltaTime;
+
+			windupTimer = Mathf.Clamp(windupTimer, 0f, 2f);
+
 			yield return null;
 		}
 

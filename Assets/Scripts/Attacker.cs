@@ -12,6 +12,9 @@ public class Attacker : MechComponent
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 	public bool attacking { get; private set; }
 
+	public delegate void NoParam();
+	public event NoParam OnAttackBegin, OnAttackEnd;
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -107,6 +110,9 @@ public class Attacker : MechComponent
 
 	IEnumerator AttackRoutine(WeaponsOfficer.CombatDir dir)
 	{
+		if (OnAttackBegin != null)
+			OnAttackBegin();
+
 		attacking = true;
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
 		targetPose = DecideAttackTransform(dir);
@@ -142,6 +148,9 @@ public class Attacker : MechComponent
 
 		attacking = false;
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
+
+		if (OnAttackEnd != null)
+			OnAttackEnd();
 	}
 
 	public void AttackInstantly(WeaponsOfficer.CombatDir dir)
