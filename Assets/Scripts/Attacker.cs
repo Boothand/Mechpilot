@@ -15,6 +15,9 @@ public class Attacker : MechComponent
 	public delegate void NoParam();
 	public event NoParam OnAttackBegin, OnAttackEnd;
 
+	[SerializeField] float staminaAmount;
+	public float getStaminaAmount { get { return staminaAmount; } }
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -112,6 +115,8 @@ public class Attacker : MechComponent
 	{
 		if (OnAttackBegin != null)
 			OnAttackBegin();
+
+		energyManager.SpendStamina(staminaAmount);
 
 		attacking = true;
 		arms.combatState = WeaponsOfficer.CombatState.Attack;

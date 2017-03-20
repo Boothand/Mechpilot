@@ -7,6 +7,8 @@ public class Dodge : MechComponent
 	[SerializeField] float duration = 1f;
 	enum DodgeDir { Left, Right, Back, Forward }
 
+	[SerializeField] float staminaAmount = 15f;
+
 
 	protected override void OnAwake()
 	{
@@ -54,6 +56,8 @@ public class Dodge : MechComponent
 
 	IEnumerator DodgeRoutine()
 	{
+		energyManager.SpendStamina(staminaAmount);
+
 		dodging = true;
 		DodgeDir dodgeDir = DodgeDir.Right;
 		bool slashOnWayBack = false;
@@ -147,6 +151,8 @@ public class Dodge : MechComponent
 	void Update()
 	{
 		if (!dodging && input.dodge
+			&& !dasher.inDash
+			&& energyManager.CanSpendStamina(staminaAmount)
 			//&& arms.combatState != WeaponsOfficer.CombatState.Windup
 			//&& arms.combatState != WeaponsOfficer.CombatState.Attack
 			)

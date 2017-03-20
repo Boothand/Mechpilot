@@ -87,11 +87,20 @@ public class Windup : MechComponent
 		windingUp = false;
 	}
 
+	public void WindupInstantly()
+	{
+		StopAllCoroutines();
+		dir = stancePicker.stance;
+		//stancePicker.ForceStance(stancePicker.stance);
+		StartCoroutine(WindupRoutine(stancePicker.stance));
+	}
+
 	void Update()
 	{
 		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
 			if (!windingUp
+				&& energyManager.CanSpendStamina(15f)
 				&& !stancePicker.changingStance
 				&& !dodger.dodging
 				&& !attacker.attacking
@@ -129,6 +138,7 @@ public class Windup : MechComponent
 		////Released the saved up attack
 		if (cachedAttack
 			&& !arms.stancePicker.changingStance
+			&& energyManager.CanSpendStamina(attacker.getStaminaAmount)
 			&& arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
 			dir = stancePicker.stance;
