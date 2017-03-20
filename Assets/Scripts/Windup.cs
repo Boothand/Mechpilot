@@ -18,6 +18,25 @@ public class Windup : MechComponent
 		base.OnAwake();
 	}
 
+	string AnimFromStance(WeaponsOfficer.CombatDir dir)
+	{
+		switch (dir)
+		{
+			case WeaponsOfficer.CombatDir.BottomLeft:
+				return "Windup Bottom Left";
+			case WeaponsOfficer.CombatDir.BottomRight:
+				return "Windup Bottom Right";
+			case WeaponsOfficer.CombatDir.Top:
+				return "Windup Top";
+			case WeaponsOfficer.CombatDir.TopLeft:
+				return "Windup Top Left";
+			case WeaponsOfficer.CombatDir.TopRight:
+				return "Windup Top Right";
+		}
+
+		return "Windup Top Right";
+	}
+
 	IKPose DecideWindupTransform()
 	{
 		switch (stancePicker.stance)
@@ -63,6 +82,8 @@ public class Windup : MechComponent
 		arms.StoreTargets();
 
 		windupTimer = 0f;
+
+		animator.CrossFade(AnimFromStance(stancePicker.stance), windupTime);
 
 		while (timer < windupTime)
 		{

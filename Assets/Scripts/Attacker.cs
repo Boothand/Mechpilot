@@ -11,11 +11,12 @@ public class Attacker : MechComponent
 	public IKPose targetPose { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 	public bool attacking { get; private set; }
+	public float attackStrength { get; private set; }
 
 	public delegate void NoParam();
 	public event NoParam OnAttackBegin, OnAttackEnd;
 
-	[SerializeField] float staminaAmount;
+	[SerializeField] float staminaAmount = 1.5f;
 	public float getStaminaAmount { get { return staminaAmount; } }
 
 	protected override void OnAwake()
@@ -57,6 +58,25 @@ public class Attacker : MechComponent
 				}
 			}
 		}
+	}
+
+	string AnimFromStance(WeaponsOfficer.CombatDir dir)
+	{
+		switch (dir)
+		{
+			case WeaponsOfficer.CombatDir.BottomLeft:
+				return "Attack Bottom Left";
+			case WeaponsOfficer.CombatDir.BottomRight:
+				return "Attack Bottom Right";
+			case WeaponsOfficer.CombatDir.Top:
+				return "Attack Top";
+			case WeaponsOfficer.CombatDir.TopLeft:
+				return "Attack Top Left";
+			case WeaponsOfficer.CombatDir.TopRight:
+				return "Attack Top Right";
+		}
+
+		return "Windup Top Right";
 	}
 
 	IKPose DecideAttackTransform(WeaponsOfficer.CombatDir dir)
@@ -116,7 +136,10 @@ public class Attacker : MechComponent
 		if (OnAttackBegin != null)
 			OnAttackBegin();
 
-		energyManager.SpendStamina(staminaAmount);
+		attackStrength = windup.windupTimer;
+		attackStrength = Mathf.Clamp(attackStrength, 0.5f, 2f);
+
+		energyManager.SpendStamina(staminaAmount * attackStrength);
 
 		attacking = true;
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
@@ -129,6 +152,8 @@ public class Attacker : MechComponent
 		float duration = attackDuration;			
 
 		float acceleration = 0f;
+
+		animator.CrossFade(AnimFromStance(dir), duration);
 
 		while (attackTimer < duration)
 		{

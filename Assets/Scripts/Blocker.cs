@@ -46,6 +46,7 @@ public class Blocker : MechComponent
 			if (arms.combatState == WeaponsOfficer.CombatState.Block
 				|| stancePicker.changingStance)
 			{
+				energyManager.SpendStamina(15f * otherSword.attacker.attackStrength);
 				StartCoroutine(CheckCounterAttackRoutine());
 			}
 		}
