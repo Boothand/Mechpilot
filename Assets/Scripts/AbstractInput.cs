@@ -4,7 +4,7 @@
 //Each field corresponds to an input that can be bound to anything on the controller.
 public class AbstractInput : MonoBehaviour
 {
-	public bool restartScene;
+	[HideInInspector] public bool restartScene;
 	//---------- PILOT ---------- \\
 
 	//Leg movement
@@ -26,6 +26,9 @@ public class AbstractInput : MonoBehaviour
 
 	[HideInInspector] public bool giveToWeapons;
 	[HideInInspector] public bool takeFromWeapons;
+
+	//Camera control
+	[HideInInspector] public bool camLeft, camRight, camBehind, camFP;
 
 
 	//---------- WEAPONS OFFICER ---------- \\
