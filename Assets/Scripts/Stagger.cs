@@ -7,6 +7,8 @@ public class Stagger : MechComponent
 	[SerializeField] float duration = 1f;
 	public bool staggering { get; private set; }
 	public float staggerTimer { get; private set; }
+	public delegate void NoParam();
+	public event NoParam OnStaggerBegin;
 
 	protected override void OnAwake()
 	{
@@ -56,6 +58,9 @@ public class Stagger : MechComponent
 
 	IEnumerator StaggerRoutine(WeaponsOfficer.CombatDir dir, float durationModifier = 1f)
 	{
+		if (OnStaggerBegin != null)
+			OnStaggerBegin();
+
 		arms.combatState = WeaponsOfficer.CombatState.Stagger;
 		staggering = true;
 		arms.StoreTargets();

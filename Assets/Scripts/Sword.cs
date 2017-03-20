@@ -148,6 +148,7 @@ public class Sword : Collidable
 		if (arms.combatState == WeaponsOfficer.CombatState.Attack
 			|| arms.combatState == WeaponsOfficer.CombatState.Block
 			|| arms.combatState == WeaponsOfficer.CombatState.Stagger
+			|| stancePicker.changingStance
 			|| healthManager.dead)
 		{
 			EnableCollider(true);

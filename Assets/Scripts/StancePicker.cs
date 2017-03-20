@@ -6,6 +6,7 @@ public class StancePicker : MechComponent
 	[SerializeField] public IKPose trTransform, tlTransform, brTransform, blTransform, topTransform, bottomMidPose;
 	public WeaponsOfficer.CombatDir stance { get; private set; }
 	public WeaponsOfficer.CombatDir prevStance { get; private set; }
+	WeaponsOfficer.CombatState prevState;
 
 	public IKPose targetPose { get; private set; }
 
@@ -13,6 +14,9 @@ public class StancePicker : MechComponent
 	[SerializeField] float switchTime = 0.5f;
 	public bool changingStance { get; private set; }
 	public WeaponsOfficer.CombatDir startStance;
+
+	public delegate void NoParam();
+	public event NoParam OnStanceBegin;
 	
 
 	protected override void OnAwake()
@@ -150,6 +154,13 @@ public class StancePicker : MechComponent
 
 		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
+			//Run event for others
+			if (prevState != WeaponsOfficer.CombatState.Stance)
+			{
+				if (OnStanceBegin != null)
+					OnStanceBegin();
+			}
+
 			targetPose = GetStancePose(stance);
 
 			if (!changingStance && prevStance != stance
@@ -166,5 +177,7 @@ public class StancePicker : MechComponent
 				arms.InterpolateIKPose(targetPose, Time.deltaTime * 5f);
 			}
 		}
+
+		prevState = arms.combatState;
 	}
 }

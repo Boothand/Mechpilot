@@ -5,6 +5,8 @@ public class Retract : MechComponent
 {
 	[SerializeField] float retractDuration = 0.75f;
 	public bool retracting { get; private set; }
+	public delegate void NoParam();
+	public event NoParam OnRetractBegin;
 
 	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
 
@@ -44,6 +46,9 @@ public class Retract : MechComponent
 
 	IEnumerator RetractRoutine()
 	{
+		if (OnRetractBegin != null)
+			OnRetractBegin();
+
 		retracting = true;
 
 		IKPose targetPose = GetRetractPose(stancePicker.stance);// arms.attacker.dir);
