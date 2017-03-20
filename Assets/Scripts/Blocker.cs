@@ -43,7 +43,8 @@ public class Blocker : MechComponent
 		if (otherSword && otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Attack)
 		{
 			//If I block the other
-			if (arms.combatState == WeaponsOfficer.CombatState.Block)
+			if (arms.combatState == WeaponsOfficer.CombatState.Block
+				|| stancePicker.changingStance)
 			{
 				StartCoroutine(CheckCounterAttackRoutine());
 			}
@@ -58,13 +59,12 @@ public class Blocker : MechComponent
 		{
 			timer += Time.deltaTime;
 
-			//if (input.attack)
-			//{
-			//	StopAllCoroutines();
-			//	blocking = false;
-			//	attacker.AttackInstantly(blockStance);
-			//	break;
-			//}
+			if (input.attack)
+			{
+				Stop();
+				windup.WindupInstantly();
+				break;
+			}
 
 			yield return null;
 		}
