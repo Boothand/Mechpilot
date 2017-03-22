@@ -1,59 +1,112 @@
-﻿//using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
+public class CameraOffset
+{
+	public Vector3 posOffset;
+	public Vector3 dirOffset;
+}
 public class CameraFollow : MechComponent
 {
 	[SerializeField] Transform target;
-	[SerializeField] Vector3 posOffset = new Vector3(0f, 5, -10f);
-	[SerializeField] Vector3 dirOffset = new Vector3(0f, 0f, 0f);
-	[SerializeField] bool useDamp;
-	[SerializeField] float cameraDamp = 1f;
 
-	[SerializeField] Vector3 lockonPosOffset, lockonDirOffset;
+	//The time to switch between presets
+	[SerializeField] float switchTime = 0.5f;
 
-	Vector3 startPosOffset, startDirOffset;
+	[SerializeField] CameraOffset behind, left, right, firstperson;
+	CameraOffset currentOffset;
+	CameraOffset prevOffset;
+	bool switching;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
+		currentOffset = behind;
 	}
 
-	void Start ()
+	IEnumerator SwitchRoutine()
 	{
-		startPosOffset = posOffset;
-		startDirOffset = dirOffset;
-		//transform.SetParent(null);
+		switching = true;
+
+		Vector3 fromPos = transform.position;
+		Vector3 fromForward = transform.forward;
+
+		//Store a reference to the target transform, so it persists through the routine,
+		//even if the target transform is changed on the outside.
+		CameraOffset toOffset = currentOffset;
+
+		//Store this so it can be compared next time you switch camera preset.
+		prevOffset = currentOffset;
+
+		float timer = 0f;
+
+		//Interpolate position and forward axis to the targets
+		while (timer < switchTime)
+		{
+			timer += Time.deltaTime;
+			float smoothTime = Mathf.SmoothStep(0f, 1f, timer / switchTime);
+			transform.position = Vector3.Lerp(fromPos, TargetPlusOffset(toOffset.posOffset), smoothTime);
+			transform.forward = Vector3.Lerp(fromForward, TargetPlusOffset(toOffset.dirOffset) - transform.position, smoothTime);
+
+			//Since we are calling from LateUpdate:
+			yield return new WaitForEndOfFrame();
+		}
+
+		switching = false;
+	}
+
+	Vector3 TargetPlusOffset(Vector3 offset)
+	{
+		//Returns the target position plus an offset to the target transform,
+		//relative to the mech transform
+		return target.position + mech.transform.TransformDirection(offset);
 	}
 
 	void LateUpdate()
 	{
-		if (pilot.headRotation.lockedOn)
+		//Switch camera preset depending on keypress
+		if (input.camLeft)
 		{
-			if (useDamp)
+			currentOffset = left;
+		}
+		else if (input.camRight)
+		{
+			currentOffset = right;
+		}
+		else if (input.camBehind)
+		{
+			currentOffset = behind;
+		}
+		else if (input.camFP)
+		{
+			currentOffset = firstperson;
+		}
+
+		//If not already switching preset,
+		//and the preset is different from the last:
+		if (!switching
+			&& prevOffset != currentOffset)
+		{
+			//Start switching
+			StopAllCoroutines();
+			StartCoroutine(SwitchRoutine());
+		}
+
+		//When not switching, set the position and rotation to the target preset.
+		if (!switching)
+		{
+			if (pilot.headRotation.lockedOn)
 			{
-				Vector3 targetPos = target.position + target.TransformDirection(posOffset + lockonPosOffset);
-				transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * cameraDamp * 40f);
-				transform.forward = Vector3.Lerp(transform.forward, (target.position + target.TransformDirection(dirOffset) - transform.position).normalized, Time.deltaTime * cameraDamp * 40f);
-			}
-			else
-			{
-				Vector3 targetPos = target.position + target.TransformDirection(posOffset + lockonPosOffset);
+				Vector3 targetPos = TargetPlusOffset(currentOffset.posOffset);
 
 				transform.position = targetPos;
-				transform.forward = (target.position + target.TransformDirection(dirOffset + lockonDirOffset) - transform.position).normalized;
-			}
-		}
-		else
-		{
-			if (useDamp)
-			{
-				transform.position = Vector3.Lerp(transform.position, target.position + target.TransformDirection(posOffset), Time.deltaTime * cameraDamp * 40f);
-				transform.forward = Vector3.Lerp(transform.forward, (target.position + target.TransformDirection(dirOffset) - transform.position).normalized, Time.deltaTime * cameraDamp * 40f);
+				transform.forward = TargetPlusOffset(currentOffset.dirOffset) - transform.position;
 			}
 			else
 			{
-				transform.position = target.position + target.TransformDirection(posOffset);
-				transform.forward = (target.position + target.TransformDirection(dirOffset) - transform.position).normalized;
+				transform.position = TargetPlusOffset(currentOffset.posOffset);
+				transform.forward = TargetPlusOffset(currentOffset.dirOffset) - transform.position;
 			}
 		}
 	}
