@@ -143,38 +143,41 @@ public class Attacker : MechComponent
 
 		attacking = true;
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
-		targetPose = DecideAttackTransform(dir);
-		IKPose finalPose = DecideAttackTransform2(dir);
+		//targetPose = DecideAttackTransform(dir);
+		//IKPose finalPose = DecideAttackTransform2(dir);
 		
-		arms.StoreTargets();
-		float attackTimer = 0f;
+		//arms.StoreTargets();
+		//float attackTimer = 0f;
 
 		float duration = attackDuration;			
 
-		float acceleration = 0f;
+		//float acceleration = 0f;
 
-		animator.CrossFade(AnimFromStance(dir), duration);
+		animator.CrossFade(AnimFromStance(dir), 0.25f);
 
-		while (attackTimer < duration)
-		{
-			acceleration += Time.deltaTime * 0.5f;
-			attackTimer += acceleration;
-			arms.InterpolateIKPose(targetPose, attackTimer / duration);
+		yield return new WaitForSeconds(duration);
 
-			yield return null;
-		}
+		//while (attackTimer < duration)
+		//{
+		//	acceleration += Time.deltaTime * 0.5f;
+		//	attackTimer += acceleration;
+		//	arms.InterpolateIKPose(targetPose, attackTimer / duration);
 
-		attackTimer = 0f;
-		arms.StoreTargets();
+		//	yield return null;
+		//}
 
-		while (attackTimer < duration)
-		{
-			acceleration += Time.deltaTime * 0.5f;
-			attackTimer += acceleration;
-			arms.InterpolateIKPose(finalPose, attackTimer / duration);
+		//attackTimer = 0f;
+		//arms.StoreTargets();
 
-			yield return null;
-		}
+		//yield return new WaitForSeconds(duration);
+		//while (attackTimer < duration)
+		//{
+		//	acceleration += Time.deltaTime * 0.5f;
+		//	attackTimer += acceleration;
+		//	arms.InterpolateIKPose(finalPose, attackTimer / duration);
+
+		//	yield return null;
+		//}
 
 		attacking = false;
 		arms.combatState = WeaponsOfficer.CombatState.Retract;

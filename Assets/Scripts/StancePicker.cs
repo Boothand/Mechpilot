@@ -12,6 +12,7 @@ public class StancePicker : MechComponent
 
 	[SerializeField] float blendSpeed = 4f;
 	[SerializeField] float switchTime = 0.5f;
+	public float getSwitchTime { get { return switchTime; } }
 	public bool changingStance { get; private set; }
 	public WeaponsOfficer.CombatDir startStance;
 
@@ -32,7 +33,7 @@ public class StancePicker : MechComponent
 		animator.CrossFade(AnimForStance(stance), 0.25f);
 	}
 
-	string AnimForStance(WeaponsOfficer.CombatDir dir)
+	public string AnimForStance(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
 		{
@@ -84,53 +85,54 @@ public class StancePicker : MechComponent
 	IEnumerator ChangeStanceRoutine(WeaponsOfficer.CombatDir newStance)
 	{
 		changingStance = true;
-		bool goToMid = false;
-		float timer = 0f;
+		//bool goToMid = false;
+		//float timer = 0f;
 
 		float switchTimeToUse = switchTime;
 
 
-		if (prevStance != WeaponsOfficer.CombatDir.Top && newStance != WeaponsOfficer.CombatDir.Top)
-		{
-			if (prevStance == WeaponsOfficer.CombatDir.BottomLeft && newStance == WeaponsOfficer.CombatDir.BottomRight ||
-				prevStance == WeaponsOfficer.CombatDir.BottomRight && newStance == WeaponsOfficer.CombatDir.BottomLeft ||
-				prevStance == WeaponsOfficer.CombatDir.TopLeft && newStance == WeaponsOfficer.CombatDir.TopRight ||
-				prevStance == WeaponsOfficer.CombatDir.TopRight && newStance == WeaponsOfficer.CombatDir.TopLeft ||
-				prevStance == WeaponsOfficer.CombatDir.BottomLeft && newStance == WeaponsOfficer.CombatDir.TopRight ||
-				prevStance == WeaponsOfficer.CombatDir.BottomRight && newStance == WeaponsOfficer.CombatDir.TopLeft ||
-				prevStance == WeaponsOfficer.CombatDir.TopLeft && newStance == WeaponsOfficer.CombatDir.BottomRight ||
-				prevStance == WeaponsOfficer.CombatDir.TopRight && newStance == WeaponsOfficer.CombatDir.BottomLeft)
-			{
-				//goToMid = true;
-				switchTimeToUse /= 2f;
-			}
-		}
+		//if (prevStance != WeaponsOfficer.CombatDir.Top && newStance != WeaponsOfficer.CombatDir.Top)
+		//{
+		//	if (prevStance == WeaponsOfficer.CombatDir.BottomLeft && newStance == WeaponsOfficer.CombatDir.BottomRight ||
+		//		prevStance == WeaponsOfficer.CombatDir.BottomRight && newStance == WeaponsOfficer.CombatDir.BottomLeft ||
+		//		prevStance == WeaponsOfficer.CombatDir.TopLeft && newStance == WeaponsOfficer.CombatDir.TopRight ||
+		//		prevStance == WeaponsOfficer.CombatDir.TopRight && newStance == WeaponsOfficer.CombatDir.TopLeft ||
+		//		prevStance == WeaponsOfficer.CombatDir.BottomLeft && newStance == WeaponsOfficer.CombatDir.TopRight ||
+		//		prevStance == WeaponsOfficer.CombatDir.BottomRight && newStance == WeaponsOfficer.CombatDir.TopLeft ||
+		//		prevStance == WeaponsOfficer.CombatDir.TopLeft && newStance == WeaponsOfficer.CombatDir.BottomRight ||
+		//		prevStance == WeaponsOfficer.CombatDir.TopRight && newStance == WeaponsOfficer.CombatDir.BottomLeft)
+		//	{
+		//		//goToMid = true;
+		//		switchTimeToUse /= 2f;
+		//	}
+		//}
 
-		arms.StoreTargets();
+		//arms.StoreTargets();
 
-		if (goToMid)
-		{
-			while (timer < switchTimeToUse)
-			{
-				timer += Time.deltaTime;
-				arms.InterpolateIKPose(bottomMidPose, timer / switchTimeToUse);
+		//if (goToMid)
+		//{
+		//	while (timer < switchTimeToUse)
+		//	{
+		//		timer += Time.deltaTime;
+		//		arms.InterpolateIKPose(bottomMidPose, timer / switchTimeToUse);
 
-				yield return null;
-			}
+		//		yield return null;
+		//	}
 
-			arms.StoreTargets();
-		}
+		//	arms.StoreTargets();
+		//}
 
-		timer = 0f;
+		//timer = 0f;
 		animator.CrossFade(AnimForStance(stance), switchTimeToUse);
 
-		while (timer < switchTimeToUse)
-		{
-			timer += Time.deltaTime;
-			arms.InterpolateIKPose(targetPose, timer / switchTimeToUse);
+		yield return new WaitForSeconds(switchTimeToUse);
+		//while (timer < switchTimeToUse)
+		//{
+		//	timer += Time.deltaTime;
+		//	arms.InterpolateIKPose(targetPose, timer / switchTimeToUse);
 
-			yield return null;
-		}
+		//	yield return null;
+		//}
 
 		prevStance = stance;
 		changingStance = false;
@@ -165,6 +167,8 @@ public class StancePicker : MechComponent
 		//StartCoroutine(ForceStanceRoutine());
 	}
 
+	
+
 	void Update()
 	{
 		if (!changingStance)
@@ -179,6 +183,9 @@ public class StancePicker : MechComponent
 			{
 				if (OnStanceBegin != null)
 					OnStanceBegin();
+
+				//print("OK");
+				animator.CrossFade(AnimForStance(stance), switchTime);
 			}
 
 			targetPose = GetStancePose(stance);
