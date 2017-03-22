@@ -210,6 +210,15 @@ public class WeaponsOfficer : MechComponent
 			return WeaponsOfficer.CombatDir.TopLeft;
 		}
 
+		if (inputVec.y < -0.1f && Mathf.Abs(inputVec.x) < 0.1f)
+		{
+			if (inDir == CombatDir.TopLeft)
+				return CombatDir.BottomLeft;
+
+			if (inDir == CombatDir.TopRight)
+				return CombatDir.BottomRight;
+		}
+
 		//Default
 		return inDir;
 	}
