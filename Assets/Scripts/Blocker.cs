@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class Blocker : MechComponent
 {
-	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
-	[SerializeField] IKPose bl2br, bl2bl, br2br;
-	IKPose targetPose;
 	//Quaternion targetPosOffset;
 	public Quaternion targetRotOffset;
 	WeaponsOfficer.CombatDir blockStance;
@@ -77,29 +74,6 @@ public class Blocker : MechComponent
 		blocking = false;
 	}
 
-	IKPose GetTargetPose(WeaponsOfficer.CombatDir dir)
-	{
-		switch (dir)
-		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return blTransform;
-
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return brTransform;
-
-			case WeaponsOfficer.CombatDir.Top:
-				return topTransform;
-
-			case WeaponsOfficer.CombatDir.TopLeft:
-				return tlTransform;
-
-			case WeaponsOfficer.CombatDir.TopRight:
-				return trTransform;
-		}
-
-		return topTransform;
-	}
-
 	WeaponsOfficer.CombatDir DecideBlockStance(WeaponsOfficer.CombatDir enemyAttackDir)
 	{
 		switch (enemyAttackDir)
@@ -119,83 +93,23 @@ public class Blocker : MechComponent
 		return WeaponsOfficer.CombatDir.Top;
 	}
 
-	//void AdjustPosition()
-	//{
-	//	Transform rIK = arms.getRhandIKTarget;
-
-	//	Vector3 myMidPoint = arms.getWeapon.getMidPoint.position;
-	//	Vector3 otherMidPoint = tempEnemy.weaponsOfficer.getWeapon.getMidPoint.position;
-
-		
-	//	if (tempEnemy.weaponsOfficer.combatState == WeaponsOfficer.CombatState.Attack &&
-	//		blockStance == idealBlock)
-	//	{
-	//		//Up/down
-	//		if (myMidPoint.y < otherMidPoint.y)
-	//		{
-	//			targetPosOffset += Vector3.up * Time.deltaTime * 2f;
-	//		}
-	//		else if (myMidPoint.y > otherMidPoint.y)
-	//		{
-	//			targetPosOffset -= Vector3.up * Time.deltaTime * 2f;
-	//		}
-
-	//		Vector3 localMyPoint = mech.transform.InverseTransformPoint(myMidPoint);
-	//		Vector3 localOtherPoint = mech.transform.InverseTransformPoint(otherMidPoint);
-	//		//tempEnemy.weaponsOfficer.getWeapon.getSwordTip
-
-	//		//Left/right
-	//		if (localMyPoint.x < localOtherPoint.x)
-	//		{
-	//			targetPosOffset += mech.transform.right * Time.deltaTime * 2f;
-	//			//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(50f, 0, 0f);
-	//		}
-	//		else if (localMyPoint.x > localOtherPoint.x)
-	//		{
-	//			targetPosOffset -= mech.transform.right * Time.deltaTime * 2f;
-	//			//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(-50f, 0f, 0f);
-	//		}
-
-	//		//Forward/back
-	//		if (localMyPoint.z < localOtherPoint.z)
-	//		{
-	//			targetPosOffset += mech.transform.forward * Time.deltaTime * 2f;
-	//			//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(50f, 0, 0f);
-	//		}
-	//		else if (localMyPoint.z > localOtherPoint.z)
-	//		{
-	//			targetPosOffset -= mech.transform.forward * Time.deltaTime * 2f;
-	//			//targetRotOffset *= Quaternion.Inverse(mech.transform.rotation) * Quaternion.Euler(-50f, 0f, 0f);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		targetPosOffset = Vector3.Lerp(targetPosOffset, Vector3.zero, Time.deltaTime * 3f);
-	//		targetRotOffset = Quaternion.Lerp(targetRotOffset, Quaternion.identity, Time.deltaTime * 3f);
-	//	}
-	//}
-
-	IKPose GetTransitionStance(WeaponsOfficer.CombatDir prev, WeaponsOfficer.CombatDir current)
+	string AnimFromStance(WeaponsOfficer.CombatDir dir)
 	{
-		if (prev == WeaponsOfficer.CombatDir.BottomLeft && current == WeaponsOfficer.CombatDir.BottomRight)
-			return bl2br;
+		switch (dir)
+		{
+			case WeaponsOfficer.CombatDir.BottomLeft:
+				return "Block BL";
+			case WeaponsOfficer.CombatDir.BottomRight:
+				return "Block BR";
+			case WeaponsOfficer.CombatDir.Top:
+				return "Block Top";
+			case WeaponsOfficer.CombatDir.TopLeft:
+				return "Block TL";
+			case WeaponsOfficer.CombatDir.TopRight:
+				return "Block TR";
+		}
 
-		if (prev == WeaponsOfficer.CombatDir.BottomRight && current == WeaponsOfficer.CombatDir.BottomLeft)
-			return bl2br;
-
-		if (stancePicker.prevStance == WeaponsOfficer.CombatDir.BottomLeft && current == WeaponsOfficer.CombatDir.BottomLeft)
-			return bl2bl;
-
-		if (stancePicker.prevStance == WeaponsOfficer.CombatDir.BottomRight && current == WeaponsOfficer.CombatDir.BottomRight)
-			return br2br;
-
-		if (prev == WeaponsOfficer.CombatDir.Top && current == WeaponsOfficer.CombatDir.BottomLeft)
-			return bl2br;
-
-		if (prev == WeaponsOfficer.CombatDir.BottomLeft && current == WeaponsOfficer.CombatDir.Top)
-			return bl2br;
-
-		return null;
+		return "Block Top";
 	}
 
 	IEnumerator BlockRoutine()
@@ -204,46 +118,26 @@ public class Blocker : MechComponent
 			OnBlockBegin();
 
 		switchingBlockStance = true;
-		//IKPose midPose = stancePicker.bottomMidPose;
-
-		//Find out whether to use a middle pose or not
-		//midPose = GetTransitionStance(prevBlockStance, blockStance);
 
 		prevBlockStance = blockStance;
 		float durationToUse = blockDuration;
 
-		//if (midPose != null)
+		//float timer = 0f;
+
+		animator.CrossFade(AnimFromStance(blockStance), 0.5f);
+
+		yield return new WaitForSeconds(durationToUse);
+
+		//while (timer < durationToUse)
 		//{
-		//	durationToUse /= 2;
-		//	arms.StoreTargets();
+		//	timer += Time.deltaTime;
 
-		//	float timer2 = 0f;
-
-		//	while (timer2 < durationToUse)
-		//	{
-		//		timer2 += Time.deltaTime;
-		//		arms.InterpolateIKPose(midPose, timer2 / durationToUse);
-		//		yield return null;
-		//	}
+		//	//arms.InterpolateIKPose(targetPose, timer / durationToUse);
+		//	yield return null;
 		//}
-
-
-		//arms.StoreTargets();
-		//targetPose = GetTargetPose(blockStance);
-
-		float timer = 0f;
-
-		while (timer < durationToUse)
-		{
-			timer += Time.deltaTime;
-
-			//arms.InterpolateIKPose(targetPose, timer / durationToUse);
-			yield return null;
-		}
 
 		switchingBlockStance = false;
 		stancePicker.ForceStance(blockStance);
-
 	}
 
 	IEnumerator BlockTimingRoutine()
