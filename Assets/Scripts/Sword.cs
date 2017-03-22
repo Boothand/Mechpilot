@@ -159,7 +159,8 @@ public class Sword : Collidable
 		}
 
 		if (arms.combatState == WeaponsOfficer.CombatState.Attack
-			|| arms.combatState == WeaponsOfficer.CombatState.Retract)
+			|| arms.combatState == WeaponsOfficer.CombatState.Retract
+			|| arms.combatState == WeaponsOfficer.CombatState.Stagger)
 		{
 			SetCollisionWithBodyAndDefault(true);
 		}
