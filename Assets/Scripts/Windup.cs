@@ -4,8 +4,6 @@ using UnityEngine;
 public class Windup : MechComponent
 {
 	[SerializeField] float windupTime = 0.5f;
-	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
-	public IKPose targetTransform { get; private set; }
 	public bool windingUp { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 	bool cachedAttack;
@@ -37,29 +35,6 @@ public class Windup : MechComponent
 		return "Windup Top Right";
 	}
 
-	IKPose DecideWindupTransform()
-	{
-		switch (stancePicker.stance)
-		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return blTransform;
-
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return brTransform;
-
-			case WeaponsOfficer.CombatDir.Top:
-				return topTransform;
-
-			case WeaponsOfficer.CombatDir.TopLeft:
-				return tlTransform;
-
-			case WeaponsOfficer.CombatDir.TopRight:
-				return trTransform;
-		}
-
-		return trTransform;
-	}
-
 	public void Stop()
 	{
 		StopAllCoroutines();
@@ -75,8 +50,6 @@ public class Windup : MechComponent
 		windingUp = true;
 		arms.combatState = WeaponsOfficer.CombatState.Windup;
 
-		targetTransform = DecideWindupTransform();
-
 		float timer = 0f;
 
 		arms.StoreTargets();
@@ -88,10 +61,7 @@ public class Windup : MechComponent
 		while (timer < windupTime)
 		{
 			timer += Time.deltaTime;
-
 			windupTimer += Time.deltaTime;
-
-			arms.InterpolateIKPose(targetTransform, timer / windupTime);
 
 			yield return null;
 		}

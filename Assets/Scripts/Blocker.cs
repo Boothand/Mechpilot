@@ -204,32 +204,32 @@ public class Blocker : MechComponent
 			OnBlockBegin();
 
 		switchingBlockStance = true;
-		IKPose midPose = stancePicker.bottomMidPose;
+		//IKPose midPose = stancePicker.bottomMidPose;
 
 		//Find out whether to use a middle pose or not
-		midPose = GetTransitionStance(prevBlockStance, blockStance);
+		//midPose = GetTransitionStance(prevBlockStance, blockStance);
 
 		prevBlockStance = blockStance;
 		float durationToUse = blockDuration;
 
-		if (midPose != null)
-		{
-			durationToUse /= 2;
-			arms.StoreTargets();
+		//if (midPose != null)
+		//{
+		//	durationToUse /= 2;
+		//	arms.StoreTargets();
 
-			float timer2 = 0f;
+		//	float timer2 = 0f;
 
-			while (timer2 < durationToUse)
-			{
-				timer2 += Time.deltaTime;
-				arms.InterpolateIKPose(midPose, timer2 / durationToUse);
-				yield return null;
-			}
-		}
+		//	while (timer2 < durationToUse)
+		//	{
+		//		timer2 += Time.deltaTime;
+		//		arms.InterpolateIKPose(midPose, timer2 / durationToUse);
+		//		yield return null;
+		//	}
+		//}
 
 
-		arms.StoreTargets();
-		targetPose = GetTargetPose(blockStance);
+		//arms.StoreTargets();
+		//targetPose = GetTargetPose(blockStance);
 
 		float timer = 0f;
 
@@ -237,7 +237,7 @@ public class Blocker : MechComponent
 		{
 			timer += Time.deltaTime;
 
-			arms.InterpolateIKPose(targetPose, timer / durationToUse);
+			//arms.InterpolateIKPose(targetPose, timer / durationToUse);
 			yield return null;
 		}
 
@@ -315,11 +315,11 @@ public class Blocker : MechComponent
 				blockRoutine = StartCoroutine(BlockRoutine());
 			}
 
-			if (!switchingBlockStance)
-			{
-				arms.StoreTargets();
-				arms.InterpolateIKPose2(targetPose, targetRotOffset, Time.deltaTime * 4f);
-			}
+			//if (!switchingBlockStance)
+			//{
+			//	arms.StoreTargets();
+			//	arms.InterpolateIKPose2(targetPose, targetRotOffset, Time.deltaTime * 4f);
+			//}
 
 			//targetPose = GetTargetPose(blockStance);
 
