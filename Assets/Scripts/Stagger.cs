@@ -63,39 +63,42 @@ public class Stagger : MechComponent
 
 		arms.combatState = WeaponsOfficer.CombatState.Stagger;
 		staggering = true;
-		arms.StoreTargets();
-		IKPose targetPose = GetPose(dir);
-		IKPose targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
+		//arms.StoreTargets();
+		//IKPose targetPose = GetPose(dir);
+		//IKPose targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
 
-		float timer = 0f;
+		//float timer = 0f;
 
-		float durationToUse = duration / 2;
+		float durationToUse = duration;// / 2;
 		durationToUse *= durationModifier;
 
-		while (timer < durationToUse)
-		{
-			timer += Time.deltaTime;
-			staggerTimer = timer / durationToUse / 2;
+		animator.CrossFade(stancePicker.AnimForStance(stancePicker.stance), stancePicker.getSwitchTime);
 
-			arms.InterpolateIKPose(targetPose, timer / durationToUse);
-			//print(timer / duration);
-			yield return null;
-		}
+		yield return new WaitForSeconds(durationToUse);
+		//while (timer < durationToUse)
+		//{
+		//	timer += Time.deltaTime;
+		//	staggerTimer = timer / durationToUse / 2;
 
-		timer = 0f;
-		arms.StoreTargets();
-		targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
-		float lastStaggerTimer = staggerTimer;
+		//	arms.InterpolateIKPose(targetPose, timer / durationToUse);
+		//	//print(timer / duration);
+		//	yield return null;
+		//}
+
+		//timer = 0f;
+		//arms.StoreTargets();
+		//targetPose2 = stancePicker.GetStancePose(stancePicker.stance);
+		//float lastStaggerTimer = staggerTimer;
 		WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
 
-		while (timer < durationToUse)
-		{
-			timer += Time.deltaTime;
+		//while (timer < durationToUse)
+		//{
+		//	timer += Time.deltaTime;
 
-			staggerTimer = timer / durationToUse / 2 + lastStaggerTimer;
-			arms.InterpolateIKPose(targetPose2, timer / durationToUse);
-			yield return null;
-		}
+		//	staggerTimer = timer / durationToUse / 2 + lastStaggerTimer;
+		//	arms.InterpolateIKPose(targetPose2, timer / durationToUse);
+		//	yield return null;
+		//}
 
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
 		stancePicker.ForceStance(stanceToUse);
