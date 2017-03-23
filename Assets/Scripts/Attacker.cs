@@ -6,16 +6,14 @@ public class Attacker : MechComponent
 	[SerializeField] float attackDuration = 0.75f;
 	Vector3 inputVec;
 	float inputVecMagnitude;
-	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
-	[SerializeField] IKPose trTransform2, tlTransform2, brTransform2, blTransform2, topTransform2;
-	public IKPose targetPose { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 	public bool attacking { get; private set; }
+	public float attackStrength { get; private set; }
 
 	public delegate void NoParam();
 	public event NoParam OnAttackBegin, OnAttackEnd;
 
-	[SerializeField] float staminaAmount;
+	[SerializeField] float staminaAmount = 1.5f;
 	public float getStaminaAmount { get { return staminaAmount; } }
 
 	protected override void OnAwake()
@@ -59,50 +57,23 @@ public class Attacker : MechComponent
 		}
 	}
 
-	IKPose DecideAttackTransform(WeaponsOfficer.CombatDir dir)
+	string AnimFromStance(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
 		{
 			case WeaponsOfficer.CombatDir.BottomLeft:
-				return blTransform;
-
+				return "Attack Bottom Left";
 			case WeaponsOfficer.CombatDir.BottomRight:
-				return brTransform;
-
+				return "Attack Bottom Right";
 			case WeaponsOfficer.CombatDir.Top:
-				return topTransform;
-
+				return "Attack Top";
 			case WeaponsOfficer.CombatDir.TopLeft:
-				return tlTransform;
-
+				return "Attack Top Left";
 			case WeaponsOfficer.CombatDir.TopRight:
-				return trTransform;
+				return "Attack Top Right";
 		}
 
-		return trTransform;
-	}
-
-	IKPose DecideAttackTransform2(WeaponsOfficer.CombatDir dir)
-	{
-		switch (dir)
-		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return blTransform2;
-
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return brTransform2;
-
-			case WeaponsOfficer.CombatDir.Top:
-				return topTransform2;
-
-			case WeaponsOfficer.CombatDir.TopLeft:
-				return tlTransform2;
-
-			case WeaponsOfficer.CombatDir.TopRight:
-				return trTransform2;
-		}
-
-		return trTransform2;
+		return "Windup Top Right";
 	}
 
 	public void Stop()
@@ -116,40 +87,19 @@ public class Attacker : MechComponent
 		if (OnAttackBegin != null)
 			OnAttackBegin();
 
-		energyManager.SpendStamina(staminaAmount);
+		attackStrength = windup.windupTimer;
+		attackStrength = Mathf.Clamp(attackStrength, 0.5f, 2f);
+
+		energyManager.SpendStamina(staminaAmount * attackStrength);
 
 		attacking = true;
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
-		targetPose = DecideAttackTransform(dir);
-		IKPose finalPose = DecideAttackTransform2(dir);
-		
-		arms.StoreTargets();
-		float attackTimer = 0f;
 
-		float duration = attackDuration;			
+		float duration = attackDuration;
 
-		float acceleration = 0f;
+		animator.CrossFade(AnimFromStance(dir), 0.25f);
 
-		while (attackTimer < duration)
-		{
-			acceleration += Time.deltaTime * 0.5f;
-			attackTimer += acceleration;
-			arms.InterpolateIKPose(targetPose, attackTimer / duration);
-
-			yield return null;
-		}
-
-		attackTimer = 0f;
-		arms.StoreTargets();
-
-		while (attackTimer < duration)
-		{
-			acceleration += Time.deltaTime * 0.5f;
-			attackTimer += acceleration;
-			arms.InterpolateIKPose(finalPose, attackTimer / duration);
-
-			yield return null;
-		}
+		yield return new WaitForSeconds(duration);
 
 		attacking = false;
 		arms.combatState = WeaponsOfficer.CombatState.Retract;

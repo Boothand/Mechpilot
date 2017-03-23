@@ -47,6 +47,11 @@ public class PlayerInput : AbstractInput
 		kick = pilotPlayer.GetButtonDown("Kick");
 		run = pilotPlayer.GetAxis("Run");
 
+		camLeft = pilotPlayer.GetButtonDown("Camera Left");
+		camRight = pilotPlayer.GetButtonDown("Camera Right");
+		camBehind = pilotPlayer.GetButtonDown("Camera Behind");
+		camFP = pilotPlayer.GetButtonDown("Camera Firstperson");
+
 		lArmHorz = armsPlayer.GetAxis("Move Left Arm X");
 		lArmVert = armsPlayer.GetAxis("Move Left Arm Y");
 		rArmHorz = armsPlayer.GetAxis("Move Right Arm X");

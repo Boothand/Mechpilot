@@ -8,34 +8,9 @@ public class Retract : MechComponent
 	public delegate void NoParam();
 	public event NoParam OnRetractBegin;
 
-	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
-
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-	}
-
-	IKPose GetRetractPose(WeaponsOfficer.CombatDir dir)
-	{
-		switch (dir)
-		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return blTransform;
-
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return brTransform;
-
-			case WeaponsOfficer.CombatDir.Top:
-				return topTransform;
-
-			case WeaponsOfficer.CombatDir.TopLeft:
-				return tlTransform;
-
-			case WeaponsOfficer.CombatDir.TopRight:
-				return trTransform;
-		}
-
-		return trTransform;
 	}
 
 	public void Stop()
@@ -44,49 +19,43 @@ public class Retract : MechComponent
 		StopAllCoroutines();
 	}
 
+	string AnimFromStance(WeaponsOfficer.CombatDir dir)
+	{
+		switch (dir)
+		{
+			case WeaponsOfficer.CombatDir.BottomLeft:
+				return "Retract BL";
+			case WeaponsOfficer.CombatDir.BottomRight:
+				return "Retract BR";
+			case WeaponsOfficer.CombatDir.Top:
+				return "Retract Top";
+			case WeaponsOfficer.CombatDir.TopLeft:
+				return "Retract TL";
+			case WeaponsOfficer.CombatDir.TopRight:
+				return "Retract TR";
+		}
+
+		return "Retract Top";
+	}
+
 	IEnumerator RetractRoutine()
 	{
+		//print("Begin retract");
 		if (OnRetractBegin != null)
 			OnRetractBegin();
 
 		retracting = true;
 
-		IKPose targetPose = GetRetractPose(stancePicker.stance);// arms.attacker.dir);
-		IKPose targetPose2 = arms.stancePicker.GetStancePose(stancePicker.stance);
+		animator.CrossFade(stancePicker.AnimForStance(stancePicker.stance), stancePicker.getSwitchTime);
+		//WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
 
-		float duration = retractDuration / 2;
-		
-		float retractTimer = 0f;
-
-		arms.StoreTargets();
-
-		while (retractTimer < duration)
-		{
-			retractTimer += Time.deltaTime;
-
-			targetPose2 = arms.stancePicker.GetStancePose(stancePicker.stance);
-			arms.InterpolateIKPose(targetPose, retractTimer / duration);
-
-			yield return null;
-		}
-		
-		retractTimer = 0f;
-
-		arms.StoreTargets();
-		targetPose2 = arms.stancePicker.GetStancePose(stancePicker.stance);
-		WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
-
-		while (retractTimer < duration)
-		{
-			retractTimer += Time.deltaTime;
-			arms.InterpolateIKPose(targetPose2, retractTimer / duration);
-
-			yield return null;
-		}
+		yield return new WaitForSeconds(retractDuration);
 
 		retracting = false;
-		stancePicker.ForceStance(stanceToUse);
+		stancePicker.ForceStance(stancePicker.stance);
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
+		//print("End retract");
+		yield return null;
 	}
 
 	void Update()

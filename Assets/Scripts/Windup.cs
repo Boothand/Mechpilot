@@ -4,8 +4,6 @@ using UnityEngine;
 public class Windup : MechComponent
 {
 	[SerializeField] float windupTime = 0.5f;
-	[SerializeField] IKPose trTransform, tlTransform, brTransform, blTransform, topTransform;
-	public IKPose targetTransform { get; private set; }
 	public bool windingUp { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 	bool cachedAttack;
@@ -18,27 +16,23 @@ public class Windup : MechComponent
 		base.OnAwake();
 	}
 
-	IKPose DecideWindupTransform()
+	string AnimFromStance(WeaponsOfficer.CombatDir dir)
 	{
-		switch (stancePicker.stance)
+		switch (dir)
 		{
 			case WeaponsOfficer.CombatDir.BottomLeft:
-				return blTransform;
-
+				return "Windup Bottom Left";
 			case WeaponsOfficer.CombatDir.BottomRight:
-				return brTransform;
-
+				return "Windup Bottom Right";
 			case WeaponsOfficer.CombatDir.Top:
-				return topTransform;
-
+				return "Windup Top";
 			case WeaponsOfficer.CombatDir.TopLeft:
-				return tlTransform;
-
+				return "Windup Top Left";
 			case WeaponsOfficer.CombatDir.TopRight:
-				return trTransform;
+				return "Windup Top Right";
 		}
 
-		return trTransform;
+		return "Windup Top Right";
 	}
 
 	public void Stop()
@@ -56,21 +50,18 @@ public class Windup : MechComponent
 		windingUp = true;
 		arms.combatState = WeaponsOfficer.CombatState.Windup;
 
-		targetTransform = DecideWindupTransform();
-
 		float timer = 0f;
 
 		arms.StoreTargets();
 
 		windupTimer = 0f;
 
+		animator.CrossFade(AnimFromStance(stancePicker.stance), windupTime);
+
 		while (timer < windupTime)
 		{
 			timer += Time.deltaTime;
-
 			windupTimer += Time.deltaTime;
-
-			arms.InterpolateIKPose(targetTransform, timer / windupTime);
 
 			yield return null;
 		}
