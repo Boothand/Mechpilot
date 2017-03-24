@@ -7,23 +7,24 @@ public class SwordRotationOffset : MechComponent
 	[SerializeField] float speed = 5f;
 	[SerializeField] float maxDegreesX = 20f;
 	[SerializeField] float maxDegreesY = 20f;
-	float doneRotX, doneRotY;
+	float rotX, rotY;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 	}
 
-	void Update()
+	void LateUpdate()
 	{
 		Transform rIK = arms.getRhandIKTarget;
 		float rotInputX = Mathf.Clamp(-input.lArmHorz, -1f, 1f);
 		float rotInputY = Mathf.Clamp(input.lArmVert, -1f, 1f);
 
-		doneRotX = Mathf.Lerp(doneRotX, rotInputX * maxDegreesX, Time.deltaTime * speed);
-		doneRotY = Mathf.Lerp(doneRotY, rotInputY * maxDegreesY, Time.deltaTime * speed);
+		rotX = Mathf.Lerp(rotX, rotInputX * maxDegreesX, Time.deltaTime * speed);
+		rotY = Mathf.Lerp(rotY, rotInputY * maxDegreesY, Time.deltaTime * speed);
 
-		blocker.targetRotOffset = Quaternion.Euler(doneRotX, doneRotY, 0f);
+		//blocker.targetRotOffset = Quaternion.Euler(doneRotX, doneRotY, 0f);
+		hierarchy.rhand.rotation *= Quaternion.Euler(rotX, rotY, 0f);
 
 #if false
 		float speedFactor = speed * Time.deltaTime;

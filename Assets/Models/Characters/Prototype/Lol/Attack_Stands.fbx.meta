@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 74cbd8261e14a5b4db9ad1b3a6cf5a57
-timeCreated: 1490194044
+guid: 2e32c2003419b2a4aaa398f20adb6228
+timeCreated: 1490283415
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -137,11 +137,11 @@ ModelImporter:
     400126: Mech_handfix_Ref:toes_r
     400128: Mech_handfix_Ref:upperarm_l
     400130: Mech_handfix_Ref:upperarm_r
-    7400000: Block Top
-    7400002: Block TR
-    7400004: Block TL
-    7400006: Block BR
-    7400008: Block BL
+    7400000: Attack Top
+    7400002: Attack TR
+    7400004: Attack TL
+    7400006: Attack BR
+    7400008: Attack BL
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -155,7 +155,7 @@ ModelImporter:
     motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length
-      in copied configuration does not match position in animation file\nBlock_Stands\nClip
+      in copied configuration does not match position in animation file\nAttack_Stands\nClip
       'Take 001' has import animation warnings that might lower retargeting quality:\nNote:
       Activate translation DOF on avatar to improve retargeting quality.\n\t'Mech_handfix_Ref:upperarm_r'
       has translation animation that will be discarded.\n\t'Mech_handfix_Ref:upperarm_l'
@@ -170,18 +170,18 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Block Top
+      name: Attack Top
       takeName: Take 001
-      firstFrame: 3
-      lastFrame: 4
+      firstFrame: 12
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -328,20 +328,20 @@ ModelImporter:
         weight: 0
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0.96
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Block TR
+      name: Attack TR
       takeName: Take 001
-      firstFrame: 5
-      lastFrame: 6
+      firstFrame: 31
+      lastFrame: 36
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -488,20 +488,20 @@ ModelImporter:
         weight: 0
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0.96
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Block TL
+      name: Attack TL
       takeName: Take 001
-      firstFrame: 7
-      lastFrame: 8
+      firstFrame: 50
+      lastFrame: 55
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -648,20 +648,20 @@ ModelImporter:
         weight: 0
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0.96
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Block BR
+      name: Attack BR
       takeName: Take 001
-      firstFrame: 9
-      lastFrame: 10
+      firstFrame: 69
+      lastFrame: 74
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -808,20 +808,20 @@ ModelImporter:
         weight: 0
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0.96
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Block BL
+      name: Attack BL
       takeName: Take 001
-      firstFrame: 11
-      lastFrame: 12
+      firstFrame: 88
+      lastFrame: 93
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -968,7 +968,7 @@ ModelImporter:
         weight: 0
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0.96
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
