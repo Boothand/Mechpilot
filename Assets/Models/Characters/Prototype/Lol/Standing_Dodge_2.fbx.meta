@@ -167,7 +167,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Dodge Right
       takeName: Take 001
-      firstFrame: 1
+      firstFrame: 5
       lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
@@ -327,7 +327,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Dodge Left
       takeName: Take 001
-      firstFrame: 22
+      firstFrame: 28
       lastFrame: 44
       wrapMode: 0
       orientationOffsetY: 0

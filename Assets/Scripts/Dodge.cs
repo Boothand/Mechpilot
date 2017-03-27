@@ -63,20 +63,20 @@ public class Dodge : MechComponent
 		bool slashOnWayBack = false;
 
 		//Which way should we dodge? Play animation
-		if (input.turnBodyHorz < -0.3f)
+		if (input.lookHorz < -0.3f)
 		{
 			dodgeDir = DodgeDir.Left;
-			animator.CrossFade("Dodge Left", 0.25f);
+			animator.CrossFade("Dodge Left", 0.15f);
 		}
-		else if (input.turnBodyHorz > 0.3f)
+		else if (input.lookHorz > 0.3f)
 		{
 			dodgeDir = DodgeDir.Right;
-			animator.CrossFade("Dodge Right", 0.25f);
+			animator.CrossFade("Dodge Right", 0.15f);
 		}
 		else
 		{
 			dodgeDir = DodgeDir.Back;
-			animator.CrossFade("Dodge Back", 0.25f);
+			animator.CrossFade("Dodge Back", 0.15f);
 		}
 
 		//Gradually turn off IK targets to let animation play out
@@ -150,15 +150,16 @@ public class Dodge : MechComponent
 
 	void Update()
 	{
-		if (!dodging && input.dodge
+		if (!dodging
+			//&& input.dodge
 			&& !dasher.inDash
 			&& energyManager.CanSpendStamina(staminaAmount)
 			//&& arms.combatState != WeaponsOfficer.CombatState.Windup
 			//&& arms.combatState != WeaponsOfficer.CombatState.Attack
 			)
 		{
-			if (Mathf.Abs(input.turnBodyHorz) > 0.4f ||
-				Mathf.Abs(input.turnBodyVert) > 0.4f)
+			if (Mathf.Abs(input.lookHorz) > 0.4f ||
+				Mathf.Abs(input.lookVert) > 0.4f)
 			{
 				if (!animator.IsInTransition(0))
 				{

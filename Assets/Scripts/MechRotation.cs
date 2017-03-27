@@ -24,14 +24,14 @@ public class MechRotation : MechComponent
 	void Update()
 	{
 		//Gradually increase/decrease view angle according to input
-		if (Mathf.Abs(input.lookHorz) > 0.1f)
-		{
-			angle += Mathf.Sign(input.lookHorz) * Time.deltaTime * turnSpeed;
-		}
-		else
-		{
-			angle = Mathf.Lerp(angle, 0f, Time.deltaTime * stopTurnSpeed);
-		}
+		//if (Mathf.Abs(input.lookHorz) > 0.1f)
+		//{
+		//	angle += Mathf.Sign(input.lookHorz) * Time.deltaTime * turnSpeed;
+		//}
+		//else
+		//{
+		//	angle = Mathf.Lerp(angle, 0f, Time.deltaTime * stopTurnSpeed);
+		//}
 
 		//If locked on, look towards the enemy when you're not turning
 		if (lockOn && lockedOn
