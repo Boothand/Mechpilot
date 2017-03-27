@@ -9,6 +9,8 @@ public class Dodge : MechComponent
 
 	[SerializeField] float staminaAmount = 15f;
 
+	public float dodgeSlashWindupTimer { get; private set; }
+	public bool dodgeSlash { get; private set; }
 
 	protected override void OnAwake()
 	{
@@ -60,7 +62,6 @@ public class Dodge : MechComponent
 
 		dodging = true;
 		DodgeDir dodgeDir = DodgeDir.Right;
-		bool slashOnWayBack = false;
 
 		//Which way should we dodge? Play animation
 		if (input.lookHorz < -0.3f)
@@ -88,11 +89,11 @@ public class Dodge : MechComponent
 		while (dodgeTimer < duration)
 		{
 			dodgeTimer += Time.deltaTime;
-
+			dodgeSlashWindupTimer = dodgeTimer / duration;	//Read by other classes
 			//If you press attack with the correct stance, set flag
-			if (!slashOnWayBack && input.attack)
+			if (!dodgeSlash && input.attack)
 			{
-				slashOnWayBack = SlashOnWayBack(dodgeDir);
+				dodgeSlash = SlashOnWayBack(dodgeDir);
 			}
 
 			yield return null;
@@ -109,7 +110,7 @@ public class Dodge : MechComponent
 		}
 
 		//If you should do a slash after the dodge
-		if (slashOnWayBack)
+		if (dodgeSlash)
 		{
 			arms.combatState = WeaponsOfficer.CombatState.Attack;
 
@@ -156,7 +157,7 @@ public class Dodge : MechComponent
 		}
 
 		//Transition back to idle if no slash
-		if (!slashOnWayBack)
+		if (!dodgeSlash)
 		{
 			animator.CrossFade("Walk/Crouch", 1f);
 		}
@@ -165,6 +166,7 @@ public class Dodge : MechComponent
 		arms.TweenIKWeight(1f, 0.5f);
 
 		dodging = false;
+		dodgeSlash = false;
 	}
 
 	void Update()
