@@ -111,27 +111,46 @@ public class Dodge : MechComponent
 		//If you should do a slash after the dodge
 		if (slashOnWayBack)
 		{
-
 			arms.combatState = WeaponsOfficer.CombatState.Attack;
 
 			//Play correct animation
 			switch (dodgeDir)
 			{
 				case DodgeDir.Left:
-					animator.CrossFade("Dodge Left Slash", 0.25f);
+					animator.CrossFade("Dodge Left Slash", 0.35f);
 					break;
 				case DodgeDir.Right:
-					animator.CrossFade("Dodge Right Slash", 0.25f);
+					animator.CrossFade("Dodge Right Slash", 0.35f);
 					break;
 				case DodgeDir.Back:
-					animator.CrossFade("Dodge Back Slash", 0.25f);
+					animator.CrossFade("Dodge Back Slash", 0.35f);
 					break;
 				case DodgeDir.Forward:
 					break;
 			}
 
 			float animDuration = 1f;
-			yield return new WaitForSeconds(animDuration);
+			float animDurationTimer = 0f;
+
+			//Tune down layer 1's weight
+			while (animDurationTimer < 0.3f)
+			{
+				animDurationTimer += Time.deltaTime;
+				float value = Mathf.Lerp(1f, 0f, animDurationTimer / 0.3f);
+				print(value);
+				animator.SetLayerWeight(1, value);
+				yield return null;
+			}
+			yield return new WaitForSeconds(animDuration - 0.6f);
+
+			animDurationTimer = 0f;
+			//Tune up layer 1's weight
+			while (animDurationTimer < 0.3f)
+			{
+				animDurationTimer += Time.deltaTime;
+				animator.SetLayerWeight(1, Mathf.Lerp(0f, 1f, animDurationTimer / 0.3f));
+				yield return null;
+			}
 
 			arms.combatState = WeaponsOfficer.CombatState.Stance;
 		}
