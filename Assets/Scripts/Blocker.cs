@@ -53,7 +53,7 @@ public class Blocker : MechComponent
 	{
 		float timer = 0f;
 
-		while (timer < 0.5f)
+		while (timer < 0.75f)
 		{
 			timer += Time.deltaTime;
 
@@ -162,7 +162,9 @@ public class Blocker : MechComponent
 			//Do so in half the time
 
 		//Initiate the block
-		if (!blocking && input.block)
+		if (!blocking
+			&& input.block
+			&& !windup.inCounterAttack)
 		{
 			blocking = true;
 
