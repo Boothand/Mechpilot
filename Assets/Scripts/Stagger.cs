@@ -47,9 +47,14 @@ public class Stagger : MechComponent
 		float durationToUse = duration;// / 2;
 		durationToUse *= durationModifier;
 
-		//Let's try without animating for now, so it stays planted on them.
+		//Wait 0.3 seconds before returning from the attack, so it stays planted a little bit.
+		if (attacker.dir == WeaponsOfficer.CombatDir.BottomLeft)
+			animator.CrossFade(stancePicker.AnimForStance(stancePicker.stance), stancePicker.getSwitchTime);
+
 		yield return new WaitForSeconds(0.3f);
-		animator.CrossFade(stancePicker.AnimForStance(stancePicker.stance), stancePicker.getSwitchTime);
+
+		if (attacker.dir != WeaponsOfficer.CombatDir.BottomLeft)
+			animator.CrossFade(stancePicker.AnimForStance(stancePicker.stance), stancePicker.getSwitchTime);
 
 		yield return new WaitForSeconds(durationToUse - 0.3f);
 
