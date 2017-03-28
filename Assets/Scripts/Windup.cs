@@ -10,6 +10,7 @@ public class Windup : MechComponent
 	public float windupTimer { get; private set; }
 	public delegate void NoParam();
 	public event NoParam OnWindupBegin;
+	public bool inCounterAttack { get; private set; }
 
 	protected override void OnAwake()
 	{
@@ -76,12 +77,14 @@ public class Windup : MechComponent
 		}
 
 		windingUp = false;
+		inCounterAttack = false;
 	}
 
 	public void WindupInstantly()
 	{
 		StopAllCoroutines();
 		dir = stancePicker.stance;
+		inCounterAttack = true;
 		//stancePicker.ForceStance(stancePicker.stance);
 		StartCoroutine(WindupRoutine(stancePicker.stance));
 	}

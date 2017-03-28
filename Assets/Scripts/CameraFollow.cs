@@ -22,7 +22,7 @@ public class CameraFollow : MechComponent
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		currentOffset = behind;
+		currentOffset = right;
 	}
 
 	IEnumerator SwitchRoutine()

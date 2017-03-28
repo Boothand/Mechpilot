@@ -123,5 +123,10 @@ public class SwordColorChanger : MechComponent
 		{
 			nonWindupEmission = rnd.materials[2].GetColor("_EmissionColor");
 		}
+
+		if (dodger.dodgeSlash)
+		{
+			TweenToAttackColor(dodger.dodgeSlashWindupTimer);
+		}
 	}
 }
