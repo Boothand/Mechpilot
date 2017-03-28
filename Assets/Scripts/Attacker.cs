@@ -23,8 +23,8 @@ public class Attacker : MechComponent
 
 	void Start()
 	{
-		arms.getWeapon.OnCollision -= OnSwordCollision;
-		arms.getWeapon.OnCollision += OnSwordCollision;
+		arms.getWeapon.OnCollisionEnterEvent -= OnSwordCollision;
+		arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
 	}
 
 	void OnSwordCollision(Collision col)

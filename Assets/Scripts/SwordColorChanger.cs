@@ -95,8 +95,6 @@ public class SwordColorChanger : MechComponent
 		{
 			swordLight.intensity = 1f;
 		}
-		//StopAllCoroutines();
-		//StartCoroutine(ChangeColorRoutine( glowAttackColor, 8f, baseDuration * 2f));
 	}
 
 	float FlickerLerp(float value)
@@ -115,11 +113,15 @@ public class SwordColorChanger : MechComponent
 		{
 			TweenToAttackColor(windup.windupTimer);
 		}
-		else if (arms.combatState == WeaponsOfficer.CombatState.Attack)
+
+		if (arms.combatState == WeaponsOfficer.CombatState.Attack)
 		{
 			swordLight.intensity = Mathf.Lerp(swordLight.intensity, 0.2f, Time.deltaTime * 4f);
 		}
-		else
+
+
+		if (arms.combatState != WeaponsOfficer.CombatState.Windup
+			&& arms.combatState != WeaponsOfficer.CombatState.Attack)
 		{
 			nonWindupEmission = rnd.materials[2].GetColor("_EmissionColor");
 		}
