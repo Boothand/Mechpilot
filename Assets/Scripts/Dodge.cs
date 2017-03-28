@@ -102,9 +102,33 @@ public class Dodge : MechComponent
 		dodgeTimer = 0f;
 
 		//How long to hold the dodge pose
+
+		bool releasedDodge = false;
 		
-		while (dodgeTimer < 0.75f && input.dodge)
+		while (dodgeTimer < 0.75f
+			&& !releasedDodge
+			&& (Mathf.Abs(input.lookHorz) > 0.4f
+			|| Mathf.Abs(input.lookVert) > 0.4f)
+			)
 		{
+			if (dodgeDir == DodgeDir.Right
+				&& input.lookHorz < 0.4f)
+			{
+				releasedDodge = true;
+			}
+
+			if (dodgeDir == DodgeDir.Left
+				&& input.lookHorz > -0.4f)
+			{
+				releasedDodge = true;
+			}
+
+			if (dodgeDir == DodgeDir.Back
+				&& input.lookVert > -0.4f)
+			{
+				releasedDodge = true;
+			}
+
 			dodgeTimer += Time.deltaTime;
 			yield return null;
 		}
