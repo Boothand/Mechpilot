@@ -17,12 +17,15 @@ public class Kicker : MechComponent
 
 	void Start()
 	{
-		kickCheck.OnCollision -= FootHitSomething;
-		kickCheck.OnCollision += FootHitSomething;
+		kickCheck.OnTriggerEnterEvent -= FootHitSomething;
+		kickCheck.OnTriggerEnterEvent += FootHitSomething;
 	}
 
-	void FootHitSomething(Collision col)
+	void FootHitSomething(Collider col)
 	{
+		if (!kicking)
+			return;
+
 		hitSomething = true;
 
 		BodyPart bodypartIKicked = col.transform.GetComponent<BodyPart>();
@@ -30,7 +33,7 @@ public class Kicker : MechComponent
 		if (bodypartIKicked && !dealingDamage)
 		{
 			BodyPart.BodyGroup group = bodypartIKicked.getBodyGroup;
-			bodypartIKicked.arms.healthManager.GetHit(group, Vector3.one * 10f, col.contacts[0].point);
+			bodypartIKicked.arms.healthManager.GetHit(group, Vector3.one * 0.06f, kickCheck.transform.position, 10);
 			dealingDamage = true;
 		}
 	}
@@ -44,10 +47,13 @@ public class Kicker : MechComponent
 		if (!hitSomething)
 		{
 			animator.CrossFade("Kick Miss", 0.35f);
+			energyManager.SpendStamina(20f);
+
 		}
 		else
 		{
 			animator.CrossFade("Kick Hit", 0.25f);
+			energyManager.SpendStamina(10f);
 		}
 
 		kicking = false;

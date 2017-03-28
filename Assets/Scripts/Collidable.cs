@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Collidable : MechComponent
 {
-	public delegate void Collide(Collision col);
-	public event Collide OnCollision;
+	public delegate void CollisionEvent(Collision col);
+	public delegate void TriggerEvent(Collider col);
+	public event CollisionEvent OnCollisionEnterEvent;
+	public event TriggerEvent OnTriggerEnterEvent;
 
 	[SerializeField] protected LayerMask layerMask;
 
@@ -31,23 +33,19 @@ public class Collidable : MechComponent
 			IsInLayerMask(obj, layerMask);
 	}
 
-	//protected virtual void OnTriggerEnter(Collider col)
-	//{
-	//	if (col.transform.root != transform.root &&
-	//		IsInLayerMask(col.gameObject, layerMask))
-	//	{
-	//		if (OnCollision != null)
-	//		{
-	//			OnCollision(col);
-	//		}
-	//	}
-	//}
+	protected virtual void RunTriggerEvent(Collider col)
+	{
+		if (OnTriggerEnterEvent != null)
+		{
+			OnTriggerEnterEvent(col);
+		}
+	}
 
 	protected virtual void RunCollisionEvent(Collision col)
 	{
-		if (OnCollision != null)
+		if (OnCollisionEnterEvent != null)
 		{
-			OnCollision(col);
+			OnCollisionEnterEvent(col);
 		}
 	}
 
@@ -59,19 +57,13 @@ public class Collidable : MechComponent
 		}
 	}
 
-	//void OnCollisionEnter(Collision col)
-	//{
-	//	if (/*col.transform.root != transform.root &&*/
-	//		IsInLayerMask(col.gameObject, layerMask))
-	//	{
-	//		print("Calling event, hit " + col.transform.name);
-
-	//		if (OnCollision != null)
-	//		{
-	//			OnCollision(col);
-	//		}
-	//	}
-	//}
+	protected virtual void OnTriggerEnter(Collider col)
+	{
+		if (IsValid(col.gameObject))
+		{
+			RunTriggerEvent(col);
+		}
+	}
 
 	void Update()
 	{
