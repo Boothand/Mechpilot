@@ -93,7 +93,7 @@ public class Blocker : MechComponent
 		return WeaponsOfficer.CombatDir.Top;
 	}
 
-	string AnimFromStance(WeaponsOfficer.CombatDir dir)
+	string AnimFromStance(WeaponsOfficer.CombatDir dir, bool alternate = false)
 	{
 		switch (dir)
 		{
@@ -102,6 +102,9 @@ public class Blocker : MechComponent
 			case WeaponsOfficer.CombatDir.BottomRight:
 				return "Block BR";
 			case WeaponsOfficer.CombatDir.Top:
+				if (alternate)
+					return "Block Top 2";
+
 				return "Block Top";
 			case WeaponsOfficer.CombatDir.TopLeft:
 				return "Block TL";
@@ -119,12 +122,20 @@ public class Blocker : MechComponent
 
 		switchingBlockStance = true;
 
+		bool alternateBlock = false;
+		if (prevBlockStance == WeaponsOfficer.CombatDir.TopLeft
+			|| prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
+			)
+		{
+			alternateBlock = true;
+		}
+
 		prevBlockStance = blockStance;
 		float durationToUse = blockDuration;
 
 		//float timer = 0f;
 
-		animator.CrossFade(AnimFromStance(blockStance), 0.5f);
+		animator.CrossFade(AnimFromStance(blockStance, alternateBlock), 0.5f);
 
 		yield return new WaitForSeconds(durationToUse);
 
