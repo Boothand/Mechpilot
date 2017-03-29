@@ -17,38 +17,52 @@ public class Kicker : MechComponent
 
 	void Start()
 	{
-		kickCheck.OnCollision -= FootHitSomething;
-		kickCheck.OnCollision += FootHitSomething;
+		kickCheck.OnTriggerEnterEvent -= FootHitSomething;
+		kickCheck.OnTriggerEnterEvent += FootHitSomething;
 	}
 
-	void FootHitSomething(Collision col)
+	void FootHitSomething(Collider col)
 	{
+		if (!kicking)
+			return;
+
 		hitSomething = true;
 
 		BodyPart bodypartIKicked = col.transform.GetComponent<BodyPart>();
 
 		if (bodypartIKicked && !dealingDamage)
 		{
+			//animator.CrossFade("Walk/Crouch", 0.6f);
+			float time = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+			animator.CrossFade("Kick Hit 2", 0.1f, 0, 1f - time);
+
 			BodyPart.BodyGroup group = bodypartIKicked.getBodyGroup;
-			bodypartIKicked.arms.healthManager.GetHit(group, Vector3.one * 10f, col.contacts[0].point);
+			bodypartIKicked.arms.healthManager.GetHit(group, Vector3.one * 0.06f, kickCheck.transform.position, 10);
 			dealingDamage = true;
 		}
 	}
 
 	IEnumerator KickRoutine()
 	{
+		kicking = true;
 		animator.SetTrigger("Kick");
 
 		yield return new WaitForSeconds(kickDuration);
 
 		if (!hitSomething)
 		{
-			animator.CrossFade("Kick Miss", 0.35f);
+			animator.CrossFade("Walk/Crouch", 0.3f);
+
+			//animator.CrossFade("Kick Miss", 0.35f);
+			energyManager.SpendStamina(20f);
+
 		}
 		else
 		{
-			animator.CrossFade("Kick Hit", 0.25f);
+			animator.CrossFade("Walk/Crouch", 0.3f);
+			energyManager.SpendStamina(10f);
 		}
+
 
 		kicking = false;
 		hitSomething = false;
@@ -59,7 +73,6 @@ public class Kicker : MechComponent
 	{
 		if (input.kick && !kicking)
 		{
-			kicking = true;
 			StartCoroutine(KickRoutine());
 		}
 	}

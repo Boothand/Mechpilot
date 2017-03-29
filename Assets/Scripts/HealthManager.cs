@@ -34,8 +34,8 @@ public class HealthManager : MechComponent
 		health = maxHealth;
 	}
 
-	public void GetHit(BodyPart.BodyGroup group, Vector3 velocity, Vector3 hitPoint)
-	{
+	public void GetHit(BodyPart.BodyGroup group, Vector3 velocity, Vector3 hitPoint, int overrideDamage = -1)
+		{
 		int index = (int)group;
 		float velocityMagnitude = velocity.magnitude;
 		//Impact should be roughly in the range 0.5 to 1.5 (like a multiplier),
@@ -46,6 +46,11 @@ public class HealthManager : MechComponent
 
 		//Subtract the relevant damage from health, modified by the impact
 		int finalDamage = (int)(bodyGroupStats[index].damage * impact);
+
+		if (overrideDamage > 0)
+		{
+			finalDamage = overrideDamage;
+		}
 		health -= finalDamage;
 
 
