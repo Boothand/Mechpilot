@@ -54,13 +54,13 @@ public class Kicker : MechComponent
 			animator.CrossFade("Walk/Crouch", 0.3f);
 
 			//animator.CrossFade("Kick Miss", 0.35f);
-			energyManager.SpendStamina(20f);
+			energyManager.SpendStamina(35f);
 
 		}
 		else
 		{
 			animator.CrossFade("Walk/Crouch", 0.3f);
-			energyManager.SpendStamina(10f);
+			energyManager.SpendStamina(25f);
 		}
 
 
@@ -71,7 +71,9 @@ public class Kicker : MechComponent
 
 	void Update()
 	{
-		if (input.kick && !kicking)
+		if (input.kick
+			&& !kicking
+			&& energyManager.CanSpendStamina(25f))
 		{
 			StartCoroutine(KickRoutine());
 		}
