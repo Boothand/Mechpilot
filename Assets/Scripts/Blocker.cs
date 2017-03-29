@@ -121,7 +121,7 @@ public class Blocker : MechComponent
 			OnBlockBegin();
 
 		switchingBlockStance = true;
-
+		bool transition = false;
 		bool alternateBlock = false;
 		if (prevBlockStance == WeaponsOfficer.CombatDir.TopLeft
 			|| prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
@@ -130,22 +130,29 @@ public class Blocker : MechComponent
 			alternateBlock = true;
 		}
 
+		if (prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
+			&& blockStance == WeaponsOfficer.CombatDir.BottomRight)
+		{
+			animator.CrossFade("BL2BR", 0.5f);
+			transition = true;
+		}
+
+		if (prevBlockStance == WeaponsOfficer.CombatDir.BottomRight
+			&& blockStance == WeaponsOfficer.CombatDir.BottomLeft)
+		{
+			animator.CrossFade("BR2BL", 0.5f);
+			transition = true;
+		}
+
 		prevBlockStance = blockStance;
 		float durationToUse = blockDuration;
 
-		//float timer = 0f;
-
-		animator.CrossFade(AnimFromStance(blockStance, alternateBlock), 0.5f);
+		if (!transition)
+		{
+			animator.CrossFade(AnimFromStance(blockStance, alternateBlock), 0.25f);
+		}
 
 		yield return new WaitForSeconds(durationToUse);
-
-		//while (timer < durationToUse)
-		//{
-		//	timer += Time.deltaTime;
-
-		//	//arms.InterpolateIKPose(targetPose, timer / durationToUse);
-		//	yield return null;
-		//}
 
 		switchingBlockStance = false;
 		stancePicker.ForceStance(blockStance);
