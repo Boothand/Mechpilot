@@ -17,6 +17,9 @@ public class DeathTrigger : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(LoadLevel);
+        if(other.GetComponent<Mech>())
+        {
+            SceneManager.LoadScene(LoadLevel);
+        }
     }
 }
