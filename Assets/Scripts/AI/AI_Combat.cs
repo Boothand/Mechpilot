@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AI_Combat : AI_MechComponent
 {
+#if LEGACY
 	[SerializeField] float combatDistance = 45f;
 	[SerializeField] float swingDistance = 32f;
 	[SerializeField] float impatienceTime = 3f;
@@ -42,7 +43,7 @@ public class AI_Combat : AI_MechComponent
 		activeBlockMethod = confidentBlock;
 	}
 
-	#region Helper functions
+#region Helper functions
 	public void MoveHandsToPos(Vector3 localPos)
 	{
 		Transform rIK = arms.getRhandIKTarget;
@@ -271,7 +272,7 @@ public class AI_Combat : AI_MechComponent
 		input.moveVert = 0f;
 	}
 
-	#endregion
+#endregion
 
 	public IEnumerator AttackRoutine()
 	{
@@ -399,4 +400,5 @@ public class AI_Combat : AI_MechComponent
 			activeBlockMethod.RunComponent();
 		}
 	}
+#endif
 }

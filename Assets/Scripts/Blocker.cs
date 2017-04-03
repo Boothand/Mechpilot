@@ -78,10 +78,10 @@ public class Blocker : MechComponent
 	{
 		switch (enemyAttackDir)
 		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return WeaponsOfficer.CombatDir.BottomRight;
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return WeaponsOfficer.CombatDir.BottomLeft;
+			//case WeaponsOfficer.CombatDir.BottomLeft:
+			//	return WeaponsOfficer.CombatDir.BottomRight;
+			//case WeaponsOfficer.CombatDir.BottomRight:
+			//	return WeaponsOfficer.CombatDir.BottomLeft;
 			case WeaponsOfficer.CombatDir.Top:
 				return WeaponsOfficer.CombatDir.Top;
 			case WeaponsOfficer.CombatDir.TopLeft:
@@ -97,10 +97,10 @@ public class Blocker : MechComponent
 	{
 		switch (dir)
 		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return "Block BL";
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return "Block BR";
+			//case WeaponsOfficer.CombatDir.BottomLeft:
+			//	return "Block BL";
+			//case WeaponsOfficer.CombatDir.BottomRight:
+			//	return "Block BR";
 			case WeaponsOfficer.CombatDir.Top:
 				if (alternate)
 					return "Block Top 2";
@@ -121,36 +121,36 @@ public class Blocker : MechComponent
 			OnBlockBegin();
 
 		switchingBlockStance = true;
-		bool transition = false;
+		//bool transition = false;
 		bool alternateBlock = false;
 		if (prevBlockStance == WeaponsOfficer.CombatDir.TopLeft
-			|| prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
+			//|| prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
 			)
 		{
 			alternateBlock = true;
 		}
 
-		if (prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
-			&& blockStance == WeaponsOfficer.CombatDir.BottomRight)
-		{
-			animator.CrossFade("BL2BR", 0.5f);
-			transition = true;
-		}
+		//if (prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
+		//	&& blockStance == WeaponsOfficer.CombatDir.BottomRight)
+		//{
+		//	animator.CrossFade("BL2BR", 0.5f);
+		//	transition = true;
+		//}
 
-		if (prevBlockStance == WeaponsOfficer.CombatDir.BottomRight
-			&& blockStance == WeaponsOfficer.CombatDir.BottomLeft)
-		{
-			animator.CrossFade("BR2BL", 0.5f);
-			transition = true;
-		}
+		//if (prevBlockStance == WeaponsOfficer.CombatDir.BottomRight
+		//	&& blockStance == WeaponsOfficer.CombatDir.BottomLeft)
+		//{
+		//	animator.CrossFade("BR2BL", 0.5f);
+		//	transition = true;
+		//}
 
 		prevBlockStance = blockStance;
 		float durationToUse = blockDuration;
 
-		if (!transition)
-		{
+		//if (!transition)
+		//{
 			animator.CrossFade(AnimFromStance(blockStance, alternateBlock), 0.25f);
-		}
+		//}
 
 		yield return new WaitForSeconds(durationToUse);
 

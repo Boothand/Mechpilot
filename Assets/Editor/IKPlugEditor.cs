@@ -6,6 +6,7 @@ using RootMotion.FinalIK;
 [CustomEditor(typeof(IKGroup))]
 public class IKPlugEditor : Editor
 {
+#if LEGACY
 	FullBodyBipedIK ik;
 	LookAtIK lookIK;
 
@@ -72,4 +73,5 @@ public class IKPlugEditor : Editor
 			ik.solver.bodyEffector.target = ikGroup.transform.root.Find("Walk_Test").FindChild("bodyIKTarget");
 		}
 	}
+#endif
 }

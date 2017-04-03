@@ -61,10 +61,10 @@ public class Attacker : MechComponent
 	{
 		switch (dir)
 		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return "Attack Bottom Left";
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return "Attack Bottom Right";
+			//case WeaponsOfficer.CombatDir.BottomLeft:
+			//	return "Attack Bottom Left";
+			//case WeaponsOfficer.CombatDir.BottomRight:
+			//	return "Attack Bottom Right";
 			case WeaponsOfficer.CombatDir.Top:
 				return "Attack Top";
 			case WeaponsOfficer.CombatDir.TopLeft:

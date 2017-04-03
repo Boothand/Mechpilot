@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AI_ConfidentBlock : AI_BlockMethod
 {
-
+#if LEGACY
 
 	protected override void OnAwake()
 	{
@@ -57,4 +57,5 @@ public class AI_ConfidentBlock : AI_BlockMethod
 	{
 		base.Update();
 	}
+#endif
 }

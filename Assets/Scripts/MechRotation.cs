@@ -5,10 +5,10 @@ public class MechRotation : MechComponent
 {
 	public Vector3 getForwardDir { get { return forwardDir;/* aimBaseX.forward;*/ } }
 	[SerializeField] float lockonAngleLimit = 60f;
-	[SerializeField] float turnSpeed = 60f;
-	[SerializeField] float stopTurnSpeed = 10f;
+	//[SerializeField] float turnSpeed = 60f;
+	//[SerializeField] float stopTurnSpeed = 10f;
 	float rotationAmount;
-	float angle;
+	//float angle;
 
 	Vector3 forwardDir;
 
@@ -38,7 +38,7 @@ public class MechRotation : MechComponent
 			&& arms.combatState != WeaponsOfficer.CombatState.Attack)
 		{
 			forwardDir = blocker.tempEnemy.transform.position - mech.transform.position;
-			forwardDir = Quaternion.Euler(0, angle, 0) * forwardDir;
+			/*forwardDir = Quaternion.Euler(0f, angle, 0f) * forwardDir;*/
 
 			//Don't lock on anymore if you look too much away
 			//if (Mathf.Abs(angle) > lockonAngleLimit)
@@ -49,7 +49,7 @@ public class MechRotation : MechComponent
 		else
 		{
 			//If not locked on, rotate normally on your own
-			forwardDir = Quaternion.Euler(0, angle, 0) * mech.transform.forward;
+			forwardDir = /*Quaternion.Euler(0f, angle, 0f) **/ mech.transform.forward;
 		}
 
 		forwardDir.y = 0f;

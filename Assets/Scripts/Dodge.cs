@@ -22,16 +22,18 @@ public class Dodge : MechComponent
 		switch (dir)
 		{
 			case DodgeDir.Left:
-				if (stancePicker.stance == WeaponsOfficer.CombatDir.TopRight ||
-					stancePicker.stance == WeaponsOfficer.CombatDir.BottomRight)
+				if (stancePicker.stance == WeaponsOfficer.CombatDir.TopRight
+					//|| stancePicker.stance == WeaponsOfficer.CombatDir.BottomRight
+					)
 				{
 					return true;
 				}
 				break;
 
 			case DodgeDir.Right:
-				if (stancePicker.stance == WeaponsOfficer.CombatDir.TopLeft ||
-					stancePicker.stance == WeaponsOfficer.CombatDir.BottomLeft)
+				if (stancePicker.stance == WeaponsOfficer.CombatDir.TopLeft
+					//|| stancePicker.stance == WeaponsOfficer.CombatDir.BottomLeft
+					)
 				{
 					return true;
 				}

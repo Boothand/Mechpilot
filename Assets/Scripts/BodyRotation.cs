@@ -7,7 +7,7 @@ public class BodyRotation : MechComponent
 	[SerializeField] float xAngle = 90f;
 	[SerializeField] float yAngle = 90f;
 	[SerializeField] float blendSpeed = 6f;
-	[SerializeField] float rotationSpeed = 0.05f;
+	//[SerializeField] float rotationSpeed = 0.05f;
 	Vector3 angle;
 
 	//float inputXPersist, inputYPersist;

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ArmBlockState : MechComponent
 {
+	#if LEGACY
 	[Header("Position")]
 	[SerializeField] float idleMoveSpeed = 1.25f;
 	[Range(-1f, 1f)] [SerializeField] float armHeight = 0.2f;
@@ -63,7 +64,7 @@ public class ArmBlockState : MechComponent
 
 		float inputVecMagnitude = inputVec.magnitude;
 
-		#region Event Stuff
+#region Event Stuff
 		if (!movingArm && inputVecMagnitude > 0.1f)
 		{
 			movingArm = true;
@@ -80,7 +81,7 @@ public class ArmBlockState : MechComponent
 			movingArm = false;
 			if (OnMoveArmEnd != null) { OnMoveArmEnd(); }
 		}
-		#endregion
+#endregion
 
 		//Limit arm's reach on local XY axis
 		//rArmPos = Vector3.ClampMagnitude(rArmPos, armReach * scaleFactor);
@@ -285,4 +286,5 @@ public class ArmBlockState : MechComponent
 		//return localRotation;
 		return rotToUse;
 	}
+#endif
 }

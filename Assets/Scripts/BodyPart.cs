@@ -6,14 +6,14 @@ public class BodyPart : Collidable
 	public enum BodyGroup { Head, Body, Arms, Legs, NumBodyGroups }	
 	[SerializeField] BodyGroup bodyGroup;
 	public BodyGroup getBodyGroup { get; private set; }
-	Rigidbody rbody;
+	//Rigidbody rbody;
 
 
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		rbody = GetComponent<Rigidbody>();
+		//rbody = GetComponent<Rigidbody>();
 	}
 
 	IEnumerator GetHitBySword(Sword swordHittingMe)

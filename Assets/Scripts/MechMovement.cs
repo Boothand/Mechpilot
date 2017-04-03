@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MechMovement : MechComponent
 {
-	CapsuleCollider capsuleCol;
+	//CapsuleCollider capsuleCol;
 
 	//Physic materials to prevent sliding
 	[SerializeField] PhysicMaterial physMat_stillStanding;
@@ -15,7 +15,7 @@ public class MechMovement : MechComponent
 	Vector3 worldMoveDir;
 	public Vector3 getWorldMoveDir { get { return worldMoveDir; } }
 	Vector3 velocity;
-	Vector3 lastPos;
+	//Vector3 lastPos;
 	[SerializeField] float animBlendSpeed = 5f;
 
 	public Vector3 getVelocity { get { return velocity; } }
@@ -25,7 +25,7 @@ public class MechMovement : MechComponent
 
 	[Header("Values")]
 	[SerializeField] float moveSpeed = 25f;
-	[SerializeField] float maxSlopeAngle = 45f;
+	//[SerializeField] float maxSlopeAngle = 45f;
 	[SerializeField] float accelerationSpeed = 0.5f;
 	[SerializeField] float animationSpeedFactor = 0.4f;
 
@@ -38,7 +38,7 @@ public class MechMovement : MechComponent
 	{
 		base.OnAwake();
 
-		capsuleCol = mech.GetComponent<CapsuleCollider>();
+		//capsuleCol = mech.GetComponent<CapsuleCollider>();
 	}
 
 	void OnCollisionStay()
@@ -196,7 +196,7 @@ public class MechMovement : MechComponent
 		}
 		animator.SetFloat("MoveSpeed", animSpeed);
 
-		lastPos = mech.transform.position;
+		//lastPos = mech.transform.position;
 	}
 
 	void FixedUpdate()

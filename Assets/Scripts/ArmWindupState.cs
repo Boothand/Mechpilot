@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ArmWindupState : MechComponent
 {
+#if LEGACY
 	[Header("Position")]
 	[SerializeField] float windupPullBackDistance = 0.19f;
 
@@ -106,4 +107,5 @@ public class ArmWindupState : MechComponent
 		//return blockPos + dir * length;
 		return posToUse;
 	}
+#endif
 }

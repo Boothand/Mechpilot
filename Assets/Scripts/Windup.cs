@@ -21,10 +21,10 @@ public class Windup : MechComponent
 	{
 		switch (dir)
 		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return "Windup Bottom Left";
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return "Windup Bottom Right";
+			//case WeaponsOfficer.CombatDir.BottomLeft:
+			//	return "Windup Bottom Left";
+			//case WeaponsOfficer.CombatDir.BottomRight:
+			//	return "Windup Bottom Right";
 			case WeaponsOfficer.CombatDir.Top:
 				return "Windup Top";
 			case WeaponsOfficer.CombatDir.TopLeft:

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AI_LowStaminaBlock : AI_BlockMethod
 {
-
+#if LEGACY
 
 	protected override void OnAwake()
 	{
@@ -36,4 +36,5 @@ public class AI_LowStaminaBlock : AI_BlockMethod
 	{
 		base.Update();
 	}
+#endif
 }

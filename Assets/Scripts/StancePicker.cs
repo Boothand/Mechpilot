@@ -7,7 +7,7 @@ public class StancePicker : MechComponent
 	public WeaponsOfficer.CombatDir prevStance { get; private set; }
 	WeaponsOfficer.CombatState prevState;
 
-	[SerializeField] float blendSpeed = 4f;
+	//[SerializeField] float blendSpeed = 4f;
 	[SerializeField] float switchTime = 0.5f;
 	public float getSwitchTime { get { return switchTime; } }
 	public bool changingStance { get; private set; }
@@ -33,10 +33,10 @@ public class StancePicker : MechComponent
 	{
 		switch (dir)
 		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return "Stance_BL";
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return "Stance_BR";
+			//case WeaponsOfficer.CombatDir.BottomLeft:
+			//	return "Stance_BL";
+			//case WeaponsOfficer.CombatDir.BottomRight:
+			//	return "Stance_BR";
 			case WeaponsOfficer.CombatDir.Top:
 				return "Stance_Top";
 			case WeaponsOfficer.CombatDir.TopLeft:
