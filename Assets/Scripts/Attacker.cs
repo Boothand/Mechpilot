@@ -10,6 +10,9 @@ public class Attacker : MechComponent
 	public bool attacking { get; private set; }
 	public float attackStrength { get; private set; }
 
+	[SerializeField] float forwardMoveAmount = 2f;
+	[SerializeField] float forwardStickThreshold = 0.4f;
+
 	public delegate void NoParam();
 	public event NoParam OnAttackBegin, OnAttackEnd;
 
@@ -25,6 +28,18 @@ public class Attacker : MechComponent
 	{
 		arms.getWeapon.OnCollisionEnterEvent -= OnSwordCollision;
 		arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
+
+		pilot.move.ProcessVelocity -= TakeStepForward;
+		pilot.move.ProcessVelocity += TakeStepForward;
+	}
+
+	void TakeStepForward(ref Vector3 velocity)
+	{
+		if (attacking
+			&& pilot.move.inputVec.z > forwardStickThreshold)
+		{
+			velocity = mech.transform.forward * forwardMoveAmount;
+		}
 	}
 
 	void OnSwordCollision(Collision col)
