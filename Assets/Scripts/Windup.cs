@@ -118,28 +118,29 @@ public class Windup : MechComponent
 	}
 
 		//Save the attack for later
-		//if (arms.stancePicker.changingStance
-		//	|| (arms.combatState == WeaponsOfficer.CombatState.Stagger
-		//		&& arms.stagger.staggerTimer > 0.5f)
-		//	|| arms.combatState == WeaponsOfficer.CombatState.Retract)
-		//{
-		//	if (input.attack)
-		//	{
-		//		cachedAttack = true;
-		//	}
-		//}
+		if (
+			//arms.stancePicker.changingStance
+			/*|| */(arms.combatState == WeaponsOfficer.CombatState.Stagger
+				&& arms.stagger.staggerTimer > 0.5f)
+			|| arms.combatState == WeaponsOfficer.CombatState.Retract)
+		{
+			if (input.attack)
+			{
+				cachedAttack = true;
+			}
+		}
 
-		//////Released the saved up attack
-		//if (cachedAttack
-		//	&& !arms.stancePicker.changingStance
-		//	&& energyManager.CanSpendStamina(attacker.getStaminaAmount)
-		//	&& arms.combatState == WeaponsOfficer.CombatState.Stance)
-		//{
-		//	dir = stancePicker.stance;
-		//	cachedAttack = false;
+		////Released the saved up attack
+		if (cachedAttack
+			//&& !arms.stancePicker.changingStance
+			&& energyManager.CanSpendStamina(attacker.getStaminaAmount)
+			&& arms.combatState == WeaponsOfficer.CombatState.Stance)
+		{
+			dir = stancePicker.stance;
+			cachedAttack = false;
 
-		//	StopAllCoroutines();
-		//	StartCoroutine(WindupRoutine(dir));
-		//}
+			StopAllCoroutines();
+			StartCoroutine(WindupRoutine(dir));
+		}
 	}
 }
