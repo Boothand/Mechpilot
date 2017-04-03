@@ -6,18 +6,34 @@ public class BodyPart : Collidable
 	public enum BodyGroup { Head, Body, Arms, Legs, NumBodyGroups }	
 	[SerializeField] BodyGroup bodyGroup;
 	public BodyGroup getBodyGroup { get; private set; }
-	Rigidbody rbody;
+	//Rigidbody rbody;
 
+	bool beingHit;
 
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		rbody = GetComponent<Rigidbody>();
+		//rbody = GetComponent<Rigidbody>();
+	}
+
+	void Start()
+	{
+		pilot.move.ProcessVelocity -= MoveBackWhenHit;
+		pilot.move.ProcessVelocity += MoveBackWhenHit;
+	}
+
+	public void MoveBackWhenHit(ref Vector3 velocity)
+	{
+		if (beingHit)
+		{
+			velocity = -mech.transform.forward * 2f;
+		}
 	}
 
 	IEnumerator GetHitBySword(Sword swordHittingMe)
 	{
+		beingHit = true;
 		healthManager.GetHit(bodyGroup, swordHittingMe.swordTipVelocity * swordHittingMe.attacker.attackStrength, swordHittingMe.getSwordTip.position);
 		//Play body hit sound
 
@@ -43,6 +59,9 @@ public class BodyPart : Collidable
 		//animator.SetFloat("XImpact", xImpact);
 		//animator.SetFloat("YImpact", yImpact);
 		//animator.SetTrigger("Impact Hit");
+
+		yield return new WaitForSeconds(0.1f);
+		beingHit = false;
 
 		yield return new WaitForSeconds(1f);
 

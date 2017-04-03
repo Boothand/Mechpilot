@@ -14,7 +14,7 @@ public class WeaponsOfficer : MechComponent
 	public enum CombatState { Stance, Block, Windup, Attack, Stagger, Retract }
 	public CombatState combatState;
 	public CombatState prevCombatState;
-	public enum CombatDir { TopRight, TopLeft, BottomRight, BottomLeft, Top }
+	public enum CombatDir { TopRight, TopLeft, /*BottomRight, BottomLeft,*/ Top }
 
 	public Vector3 inputVec { get; private set; }
 	public float inputVecMagnitude { get; private set; }
@@ -188,36 +188,36 @@ public class WeaponsOfficer : MechComponent
 
 		if (inputVec.x > 0.1f)
 		{
-			if (inputVec.y < -0f)
-			{
-				//Top right
-				return WeaponsOfficer.CombatDir.BottomRight;
-			}
+			//if (inputVec.y < -0f)
+			//{
+			//	//Bottom right
+			//	return WeaponsOfficer.CombatDir.BottomRight;
+			//}
 
-			//Bottom right
+			//Top right
 			return WeaponsOfficer.CombatDir.TopRight;
 		}
 
 		if (inputVec.x < -0.1f)
 		{
-			if (inputVec.y < -0f)
-			{
-				//Bottom left
-				return WeaponsOfficer.CombatDir.BottomLeft;
-			}
+			//if (inputVec.y < -0f)
+			//{
+			//	//Bottom left
+			//	return WeaponsOfficer.CombatDir.BottomLeft;
+			//}
 
 			//Top left
 			return WeaponsOfficer.CombatDir.TopLeft;
 		}
 
-		if (inputVec.y < -0.1f && Mathf.Abs(inputVec.x) < 0.1f)
-		{
-			if (inDir == CombatDir.TopLeft)
-				return CombatDir.BottomLeft;
+		//if (inputVec.y < -0.1f && Mathf.Abs(inputVec.x) < 0.1f)
+		//{
+		//	if (inDir == CombatDir.TopLeft)
+		//		return CombatDir.BottomLeft;
 
-			if (inDir == CombatDir.TopRight)
-				return CombatDir.BottomRight;
-		}
+		//	if (inDir == CombatDir.TopRight)
+		//		return CombatDir.BottomRight;
+		//}
 
 		//Default
 		return inDir;
@@ -225,12 +225,12 @@ public class WeaponsOfficer : MechComponent
 
 	IEnumerator SetPinWeightUpperBodyRoutine(float fromWeight, float toWeight, float duration, HumanBodyBones rootBone = HumanBodyBones.Spine)
 	{
-		float startPinWeight = puppet.pinWeight;
+		//float startPinWeight = puppet.pinWeight;
 
 		float timer = 0f;
 		float interpolationWeight = 0f;
 
-		//HACKY :D
+		//HACKY
 		float rhandStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightHand)].rigidbody.mass;
 		float rarmStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightLowerArm)].rigidbody.mass;
 		float rupperArmStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightUpperArm)].rigidbody.mass;

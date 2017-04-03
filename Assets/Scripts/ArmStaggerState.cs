@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ArmStaggerState : MechComponent
 {
+#if LEGACY
 	[SerializeField] float staggerBeginRotSpeed = 3f;
 	[SerializeField] float staggerEndRotSpeed = 3f;
 
@@ -63,4 +64,5 @@ public class ArmStaggerState : MechComponent
 	{
 		
 	}
+#endif
 }

@@ -33,9 +33,6 @@ public class SwordColorChanger : MechComponent
 
 	bool CompareColor(Color col1, Color col2)
 	{
-		float r1 = Mathf.Floor(col1.r * 1000f) / 1000f;
-		float r2 = Mathf.Floor(col2.r * 1000f) / 1000f;
-
 		if (Mathf.Floor(col1.r * 1000f) / 1000f == Mathf.Floor(col2.r * 1000f) / 1000f
 			&& Mathf.Floor(col1.g * 1000f) / 1000f == Mathf.Floor(col2.g * 1000f) / 1000f
 			&& Mathf.Floor(col1.b * 1000f) / 1000f == Mathf.Floor(col2.b * 1000f) / 1000f)
@@ -126,9 +123,9 @@ public class SwordColorChanger : MechComponent
 			nonWindupEmission = rnd.materials[2].GetColor("_EmissionColor");
 		}
 
-		if (dodger.dodgeSlash)
-		{
-			TweenToAttackColor(dodger.dodgeSlashWindupTimer);
-		}
+		//if (dodger.dodgeSlash)
+		//{
+		//	TweenToAttackColor(dodger.dodgeSlashWindupTimer);
+		//}
 	}
 }

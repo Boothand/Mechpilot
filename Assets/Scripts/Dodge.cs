@@ -9,8 +9,8 @@ public class Dodge : MechComponent
 
 	[SerializeField] float staminaAmount = 15f;
 
-	public float dodgeSlashWindupTimer { get; private set; }
-	public bool dodgeSlash { get; private set; }
+	//public float dodgeSlashWindupTimer { get; private set; }
+	//public bool dodgeSlash { get; private set; }
 
 	protected override void OnAwake()
 	{
@@ -22,16 +22,18 @@ public class Dodge : MechComponent
 		switch (dir)
 		{
 			case DodgeDir.Left:
-				if (stancePicker.stance == WeaponsOfficer.CombatDir.TopRight ||
-					stancePicker.stance == WeaponsOfficer.CombatDir.BottomRight)
+				if (stancePicker.stance == WeaponsOfficer.CombatDir.TopRight
+					//|| stancePicker.stance == WeaponsOfficer.CombatDir.BottomRight
+					)
 				{
 					return true;
 				}
 				break;
 
 			case DodgeDir.Right:
-				if (stancePicker.stance == WeaponsOfficer.CombatDir.TopLeft ||
-					stancePicker.stance == WeaponsOfficer.CombatDir.BottomLeft)
+				if (stancePicker.stance == WeaponsOfficer.CombatDir.TopLeft
+					//|| stancePicker.stance == WeaponsOfficer.CombatDir.BottomLeft
+					)
 				{
 					return true;
 				}
@@ -89,12 +91,12 @@ public class Dodge : MechComponent
 		while (dodgeTimer < duration)
 		{
 			dodgeTimer += Time.deltaTime;
-			dodgeSlashWindupTimer = dodgeTimer / duration;	//Read by other classes
+			//dodgeSlashWindupTimer = dodgeTimer / duration;	//Read by other classes
 			//If you press attack with the correct stance, set flag
-			if (!dodgeSlash && input.attack)
-			{
-				dodgeSlash = SlashOnWayBack(dodgeDir);
-			}
+			//if (!dodgeSlash && input.attack)
+			//{
+			//	dodgeSlash = SlashOnWayBack(dodgeDir);
+			//}
 
 			yield return null;
 		}
@@ -134,63 +136,63 @@ public class Dodge : MechComponent
 		}
 
 		//If you should do a slash after the dodge
-		if (dodgeSlash)
-		{
-			arms.combatState = WeaponsOfficer.CombatState.Attack;
+		//if (dodgeSlash)
+		//{
+		//	arms.combatState = WeaponsOfficer.CombatState.Attack;
 
-			//Play correct animation
-			switch (dodgeDir)
-			{
-				case DodgeDir.Left:
-					animator.CrossFade("Dodge Left Slash", 0.35f);
-					break;
-				case DodgeDir.Right:
-					animator.CrossFade("Dodge Right Slash", 0.35f);
-					break;
-				case DodgeDir.Back:
-					animator.CrossFade("Dodge Back Slash", 0.35f);
-					break;
-				case DodgeDir.Forward:
-					break;
-			}
+		//	//Play correct animation
+		//	switch (dodgeDir)
+		//	{
+		//		case DodgeDir.Left:
+		//			animator.CrossFade("Dodge Left Slash", 0.35f);
+		//			break;
+		//		case DodgeDir.Right:
+		//			animator.CrossFade("Dodge Right Slash", 0.35f);
+		//			break;
+		//		case DodgeDir.Back:
+		//			animator.CrossFade("Dodge Back Slash", 0.35f);
+		//			break;
+		//		case DodgeDir.Forward:
+		//			break;
+		//	}
 
-			float animDuration = 1f;
-			float animDurationTimer = 0f;
+		//	float animDuration = 1f;
+		//	float animDurationTimer = 0f;
 
-			//Tune down layer 1's weight
-			while (animDurationTimer < 0.3f)
-			{
-				animDurationTimer += Time.deltaTime;
-				float value = Mathf.Lerp(1f, 0f, animDurationTimer / 0.3f);
-				print(value);
-				animator.SetLayerWeight(1, value);
-				yield return null;
-			}
-			yield return new WaitForSeconds(animDuration - 0.6f);
+		//	//Tune down layer 1's weight
+		//	while (animDurationTimer < 0.3f)
+		//	{
+		//		animDurationTimer += Time.deltaTime;
+		//		float value = Mathf.Lerp(1f, 0f, animDurationTimer / 0.3f);
+		//		print(value);
+		//		animator.SetLayerWeight(1, value);
+		//		yield return null;
+		//	}
+		//	yield return new WaitForSeconds(animDuration - 0.6f);
 
-			animDurationTimer = 0f;
-			//Tune up layer 1's weight
-			while (animDurationTimer < 0.3f)
-			{
-				animDurationTimer += Time.deltaTime;
-				animator.SetLayerWeight(1, Mathf.Lerp(0f, 1f, animDurationTimer / 0.3f));
-				yield return null;
-			}
+		//	animDurationTimer = 0f;
+		//	//Tune up layer 1's weight
+		//	while (animDurationTimer < 0.3f)
+		//	{
+		//		animDurationTimer += Time.deltaTime;
+		//		animator.SetLayerWeight(1, Mathf.Lerp(0f, 1f, animDurationTimer / 0.3f));
+		//		yield return null;
+		//	}
 
-			arms.combatState = WeaponsOfficer.CombatState.Stance;
-		}
+		//	arms.combatState = WeaponsOfficer.CombatState.Stance;
+		//}
 
 		//Transition back to idle if no slash
-		if (!dodgeSlash)
-		{
+		//if (!dodgeSlash)
+		//{
 			animator.CrossFade("Walk/Crouch", 1f);
-		}
+		//}
 
 		//Turn IK weights back up
 		arms.TweenIKWeight(1f, 0.5f);
 
 		dodging = false;
-		dodgeSlash = false;
+		//dodgeSlash = false;
 	}
 
 	void Update()
@@ -208,12 +210,12 @@ public class Dodge : MechComponent
 			{
 				if (!animator.IsInTransition(0))
 				{
-					arms.stancePicker.Stop();
-					arms.windup.Stop();
-					arms.attacker.Stop();
+					//arms.stancePicker.Stop();
+					//arms.windup.Stop();
+					//arms.attacker.Stop();
 					//arms.retract.Stop();
 					//arms.stagger.Stop();
-					arms.combatState = WeaponsOfficer.CombatState.Stance;
+					//arms.combatState = WeaponsOfficer.CombatState.Stance;
 					StartCoroutine(DodgeRoutine());
 				}
 			}

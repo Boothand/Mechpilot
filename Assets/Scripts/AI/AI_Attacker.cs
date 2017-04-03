@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AI_Attacker : AI_MechComponent
 {
-
+#if LEGACY
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -48,4 +48,5 @@ public class AI_Attacker : AI_MechComponent
 		//	}
 		//}
 	}
+#endif
 }

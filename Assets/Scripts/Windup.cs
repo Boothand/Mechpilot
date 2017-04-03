@@ -21,10 +21,10 @@ public class Windup : MechComponent
 	{
 		switch (dir)
 		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return "Windup Bottom Left";
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return "Windup Bottom Right";
+			//case WeaponsOfficer.CombatDir.BottomLeft:
+			//	return "Windup Bottom Left";
+			//case WeaponsOfficer.CombatDir.BottomRight:
+			//	return "Windup Bottom Right";
 			case WeaponsOfficer.CombatDir.Top:
 				return "Windup Top";
 			case WeaponsOfficer.CombatDir.TopLeft:
@@ -95,8 +95,8 @@ public class Windup : MechComponent
 		{
 			if (!windingUp
 				&& energyManager.CanSpendStamina(15f)
-				&& !stancePicker.changingStance
-				&& !dodger.dodging
+				//&& !stancePicker.changingStance
+				//&& !dodger.dodging
 				&& !attacker.attacking
 				&& !retract.retracting
 				&& !stagger.staggering

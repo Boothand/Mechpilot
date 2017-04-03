@@ -18,8 +18,8 @@ public class Sword : Collidable
 	Collider swordCollider;
 	List<Vector3> velocityList = new List<Vector3>();
 	Vector3 averagePosition;
-	int bodyLayer = 9;
-	int defaultLayer = 0;
+	//int bodyLayer = 9;
+	//int defaultLayer = 0;
 
 	protected override void OnAwake()
 	{

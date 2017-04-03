@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AI_AggressiveAttack : AI_AttackMethod
 {
+#if LEGACY
 	float patienceTimer;
 
 	protected override void OnAwake()
@@ -50,4 +51,5 @@ public class AI_AggressiveAttack : AI_AttackMethod
 			aiCombat.SetBlockMethod(aiCombat.getConfidentBlock);
 		}
 	}
+#endif
 }

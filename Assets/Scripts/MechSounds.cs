@@ -9,6 +9,8 @@ public class MechSounds : MechComponent
 	[SerializeField] AudioClip moveArmSound;
 	[SerializeField] AudioClip moveArmEndSound;
 	[SerializeField] AudioClip bodyHitSound;
+	[SerializeField] AudioClip swordSwingSound;
+	[SerializeField] AudioClip footstepSound;
 
 	protected override void OnAwake()
 	{
@@ -54,7 +56,7 @@ public class MechSounds : MechComponent
 		impact *= 20f;
 		singleSource.volume = impact;
 		//print(impact);
-		singleSource.pitch = RandomPitch(1, 0.2f);
+		singleSource.pitch = RandomPitch(1f, 0.2f);
 		singleSource.PlayOneShot(bodyHitSound);
 	}
 
@@ -68,6 +70,20 @@ public class MechSounds : MechComponent
 		}
 
 		loopSource.Stop();
+	}
+
+	public void PlaySwordSwingSound()
+	{
+		singleSource.pitch = RandomPitch(1f, 0.2f);
+		singleSource.volume = 1f;
+		singleSource.PlayOneShot(swordSwingSound);
+	}
+
+	public void PlayFootStepSound()
+	{
+		singleSource.pitch = RandomPitch(1f, 0.2f);
+		singleSource.volume = 0.4f * mech.pilot.move.getVelocity.magnitude;
+		singleSource.PlayOneShot(footstepSound);
 	}
 
 	void Update()

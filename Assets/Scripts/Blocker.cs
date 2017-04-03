@@ -16,6 +16,7 @@ public class Blocker : MechComponent
 	[SerializeField] bool autoBlock;
 	public bool blocking { get; private set; }
 	bool switchingBlockStance;
+	bool holdingBlockButton;
 
 	public Mech tempEnemy;
 	Coroutine blockRoutine;
@@ -78,10 +79,10 @@ public class Blocker : MechComponent
 	{
 		switch (enemyAttackDir)
 		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return WeaponsOfficer.CombatDir.BottomRight;
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return WeaponsOfficer.CombatDir.BottomLeft;
+			//case WeaponsOfficer.CombatDir.BottomLeft:
+			//	return WeaponsOfficer.CombatDir.BottomRight;
+			//case WeaponsOfficer.CombatDir.BottomRight:
+			//	return WeaponsOfficer.CombatDir.BottomLeft;
 			case WeaponsOfficer.CombatDir.Top:
 				return WeaponsOfficer.CombatDir.Top;
 			case WeaponsOfficer.CombatDir.TopLeft:
@@ -97,10 +98,10 @@ public class Blocker : MechComponent
 	{
 		switch (dir)
 		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return "Block BL";
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return "Block BR";
+			//case WeaponsOfficer.CombatDir.BottomLeft:
+			//	return "Block BL";
+			//case WeaponsOfficer.CombatDir.BottomRight:
+			//	return "Block BR";
 			case WeaponsOfficer.CombatDir.Top:
 				if (alternate)
 					return "Block Top 2";
@@ -121,31 +122,38 @@ public class Blocker : MechComponent
 			OnBlockBegin();
 
 		switchingBlockStance = true;
-
+		//bool transition = false;
 		bool alternateBlock = false;
 		if (prevBlockStance == WeaponsOfficer.CombatDir.TopLeft
-			|| prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
+			//|| prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
 			)
 		{
 			alternateBlock = true;
 		}
 
+		//if (prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
+		//	&& blockStance == WeaponsOfficer.CombatDir.BottomRight)
+		//{
+		//	animator.CrossFade("BL2BR", 0.5f);
+		//	transition = true;
+		//}
+
+		//if (prevBlockStance == WeaponsOfficer.CombatDir.BottomRight
+		//	&& blockStance == WeaponsOfficer.CombatDir.BottomLeft)
+		//{
+		//	animator.CrossFade("BR2BL", 0.5f);
+		//	transition = true;
+		//}
+
 		prevBlockStance = blockStance;
 		float durationToUse = blockDuration;
 
-		//float timer = 0f;
-
-		animator.CrossFade(AnimFromStance(blockStance, alternateBlock), 0.5f);
+		//if (!transition)
+		//{
+			animator.CrossFade(AnimFromStance(blockStance, alternateBlock), 0.4f);
+		//}
 
 		yield return new WaitForSeconds(durationToUse);
-
-		//while (timer < durationToUse)
-		//{
-		//	timer += Time.deltaTime;
-
-		//	//arms.InterpolateIKPose(targetPose, timer / durationToUse);
-		//	yield return null;
-		//}
 
 		switchingBlockStance = false;
 		stancePicker.ForceStance(blockStance);
@@ -179,6 +187,12 @@ public class Blocker : MechComponent
 		{
 			blocking = true;
 
+			if (!holdingBlockButton)
+			{
+				energyManager.SpendStamina(10f);
+				holdingBlockButton = true;
+			}
+
 			stancePicker.Stop();
 			windup.Stop();
 			attacker.Stop();
@@ -197,6 +211,11 @@ public class Blocker : MechComponent
 			}
 
 			blockRoutine = StartCoroutine(BlockRoutine());
+		}
+
+		if (!input.block)
+		{
+			holdingBlockButton = false;
 		}
 
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)

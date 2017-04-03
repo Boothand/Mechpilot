@@ -10,6 +10,9 @@ public class Attacker : MechComponent
 	public bool attacking { get; private set; }
 	public float attackStrength { get; private set; }
 
+	[SerializeField] float forwardMoveAmount = 2f;
+	[SerializeField] float forwardStickThreshold = 0.4f;
+
 	public delegate void NoParam();
 	public event NoParam OnAttackBegin, OnAttackEnd;
 
@@ -25,6 +28,18 @@ public class Attacker : MechComponent
 	{
 		arms.getWeapon.OnCollisionEnterEvent -= OnSwordCollision;
 		arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
+
+		pilot.move.ProcessVelocity -= TakeStepForward;
+		pilot.move.ProcessVelocity += TakeStepForward;
+	}
+
+	void TakeStepForward(ref Vector3 velocity)
+	{
+		if (attacking
+			&& pilot.move.inputVec.z > forwardStickThreshold)
+		{
+			velocity = mech.transform.forward * forwardMoveAmount;
+		}
 	}
 
 	void OnSwordCollision(Collision col)
@@ -61,10 +76,10 @@ public class Attacker : MechComponent
 	{
 		switch (dir)
 		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return "Attack Bottom Left";
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return "Attack Bottom Right";
+			//case WeaponsOfficer.CombatDir.BottomLeft:
+			//	return "Attack Bottom Left";
+			//case WeaponsOfficer.CombatDir.BottomRight:
+			//	return "Attack Bottom Right";
 			case WeaponsOfficer.CombatDir.Top:
 				return "Attack Top";
 			case WeaponsOfficer.CombatDir.TopLeft:
@@ -87,6 +102,7 @@ public class Attacker : MechComponent
 		if (OnAttackBegin != null)
 			OnAttackBegin();
 
+		mechSounds.PlaySwordSwingSound();
 		attackStrength = windup.windupTimer;
 		attackStrength = Mathf.Clamp(attackStrength, 0.5f, 2f);
 

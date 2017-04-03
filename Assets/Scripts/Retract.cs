@@ -23,10 +23,10 @@ public class Retract : MechComponent
 	{
 		switch (dir)
 		{
-			case WeaponsOfficer.CombatDir.BottomLeft:
-				return "Retract BL";
-			case WeaponsOfficer.CombatDir.BottomRight:
-				return "Retract BR";
+			//case WeaponsOfficer.CombatDir.BottomLeft:
+			//	return "Retract BL";
+			//case WeaponsOfficer.CombatDir.BottomRight:
+			//	return "Retract BR";
 			case WeaponsOfficer.CombatDir.Top:
 				return "Retract Top";
 			case WeaponsOfficer.CombatDir.TopLeft:

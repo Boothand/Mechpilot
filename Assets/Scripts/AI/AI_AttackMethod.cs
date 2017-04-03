@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AI_AttackMethod : AI_MechComponent
 {
-
+#if LEGACY
 
 	protected override void OnAwake()
 	{
@@ -20,4 +20,5 @@ public class AI_AttackMethod : AI_MechComponent
 	{
 		base.Update();
 	}
+#endif
 }

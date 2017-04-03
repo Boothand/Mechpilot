@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AI_MechComponent : MechComponent
 {
+#if LEGACY
 	protected Mech enemy;
 	protected AI_Combat aiCombat;
 	protected AI_Movement aiMovement;
@@ -66,4 +67,5 @@ public class AI_MechComponent : MechComponent
 		dirToEnemy = (enemy.transform.position - mech.transform.position).normalized;
 		distanceToEnemy = (enemy.transform.position - mech.transform.position).magnitude;
 	}
+#endif
 }
