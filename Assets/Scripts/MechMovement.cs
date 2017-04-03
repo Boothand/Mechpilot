@@ -16,6 +16,7 @@ public class MechMovement : MechComponent
 	public Vector3 getWorldMoveDir { get { return worldMoveDir; } }
 	Vector3 velocity;
 	Vector3 lastPos;
+	[SerializeField] float animBlendSpeed = 5f;
 
 	public Vector3 getVelocity { get { return velocity; } }
 
@@ -170,7 +171,7 @@ public class MechMovement : MechComponent
 
 	void DoWalkAnimation()
 	{
-		float blendSpeed = 2f;
+		float blendSpeed = animBlendSpeed;
 
 		//Transform world velocity to local space, to map forward and side values in animator
 		Vector3 animationVector = mech.transform.InverseTransformDirection(velocity);
