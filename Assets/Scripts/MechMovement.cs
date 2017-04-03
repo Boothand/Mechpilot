@@ -34,6 +34,9 @@ public class MechMovement : MechComponent
 	public bool running { get; private set; }
 	public bool grounded { get; private set; }
 
+	public delegate void VectorReference(ref Vector3 vec);
+	public event VectorReference ProcessVelocity;
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -119,7 +122,12 @@ public class MechMovement : MechComponent
 		//Send velocity to run function for potential modification
 		CheckRun(ref worldMoveDir);
 
+		//Send velocity to dodger function for potential modification
 		dodger.DodgeVelocityModification(ref velocity);
+
+		//Run event for anyone to use to modify velocity before it is applied.
+		if (ProcessVelocity != null)
+			ProcessVelocity(ref velocity);
 
 		if (running)
 		{
