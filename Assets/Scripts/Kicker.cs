@@ -6,6 +6,8 @@ public class Kicker : MechComponent
 	KickCheck kickCheck;
 	public bool kicking { get; private set; }
 	[SerializeField] float kickDuration = 1f;
+	[SerializeField] float staminaHitUsage = 25f;
+	[SerializeField] float staminaMissUsage = 35f;
 	bool hitSomething;
 	bool dealingDamage;
 
@@ -54,13 +56,13 @@ public class Kicker : MechComponent
 			animator.CrossFade("Walk/Crouch", 0.3f);
 
 			//animator.CrossFade("Kick Miss", 0.35f);
-			energyManager.SpendStamina(35f);
+			energyManager.SpendStamina(staminaMissUsage);
 
 		}
 		else
 		{
 			animator.CrossFade("Walk/Crouch", 0.3f);
-			energyManager.SpendStamina(25f);
+			energyManager.SpendStamina(staminaHitUsage);
 		}
 
 
@@ -73,7 +75,7 @@ public class Kicker : MechComponent
 	{
 		if (input.kick
 			&& !kicking
-			&& energyManager.CanSpendStamina(25f))
+			&& energyManager.CanSpendStamina(staminaHitUsage))
 		{
 			StartCoroutine(KickRoutine());
 		}
