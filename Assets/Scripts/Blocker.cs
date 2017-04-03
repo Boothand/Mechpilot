@@ -16,6 +16,7 @@ public class Blocker : MechComponent
 	[SerializeField] bool autoBlock;
 	public bool blocking { get; private set; }
 	bool switchingBlockStance;
+	bool holdingBlockButton;
 
 	public Mech tempEnemy;
 	Coroutine blockRoutine;
@@ -149,7 +150,7 @@ public class Blocker : MechComponent
 
 		//if (!transition)
 		//{
-			animator.CrossFade(AnimFromStance(blockStance, alternateBlock), 0.25f);
+			animator.CrossFade(AnimFromStance(blockStance, alternateBlock), 0.4f);
 		//}
 
 		yield return new WaitForSeconds(durationToUse);
@@ -186,6 +187,12 @@ public class Blocker : MechComponent
 		{
 			blocking = true;
 
+			if (!holdingBlockButton)
+			{
+				energyManager.SpendStamina(10f);
+				holdingBlockButton = true;
+			}
+
 			stancePicker.Stop();
 			windup.Stop();
 			attacker.Stop();
@@ -204,6 +211,11 @@ public class Blocker : MechComponent
 			}
 
 			blockRoutine = StartCoroutine(BlockRoutine());
+		}
+
+		if (!input.block)
+		{
+			holdingBlockButton = false;
 		}
 
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
