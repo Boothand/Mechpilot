@@ -9,6 +9,7 @@ public class Attacker : MechComponent
 	public WeaponsOfficer.CombatDir dir { get; private set; }
 	public bool attacking { get; private set; }
 	public float attackStrength { get; private set; }
+	bool canTakeForwardStep;
 
 	[SerializeField] float forwardMoveAmount = 2f;
 	[SerializeField] float forwardStickThreshold = 0.4f;
@@ -35,7 +36,7 @@ public class Attacker : MechComponent
 
 	void TakeStepForward(ref Vector3 velocity)
 	{
-		if (attacking
+		if (canTakeForwardStep
 			&& pilot.move.inputVec.z > forwardStickThreshold)
 		{
 			velocity = mech.transform.forward * forwardMoveAmount;
@@ -102,6 +103,8 @@ public class Attacker : MechComponent
 		if (OnAttackBegin != null)
 			OnAttackBegin();
 
+		canTakeForwardStep = true;
+
 		mechSounds.PlaySwordSwingSound();
 		attackStrength = windup.windupTimer;
 		attackStrength = Mathf.Clamp(attackStrength, 0.5f, 2f);
@@ -115,7 +118,10 @@ public class Attacker : MechComponent
 
 		animator.CrossFade(AnimFromStance(dir), 0.25f);
 
-		yield return new WaitForSeconds(duration);
+
+		yield return new WaitForSeconds(0.1f);
+		canTakeForwardStep = false;
+		yield return new WaitForSeconds(duration - 0.1f);
 
 		attacking = false;
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
