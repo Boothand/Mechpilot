@@ -87,6 +87,7 @@ public class Attacker : MechComponent
 		if (OnAttackBegin != null)
 			OnAttackBegin();
 
+		mechSounds.PlaySwordSwingSound();
 		attackStrength = windup.windupTimer;
 		attackStrength = Mathf.Clamp(attackStrength, 0.5f, 2f);
 
