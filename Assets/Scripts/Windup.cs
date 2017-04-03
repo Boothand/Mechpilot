@@ -95,8 +95,8 @@ public class Windup : MechComponent
 		{
 			if (!windingUp
 				&& energyManager.CanSpendStamina(15f)
-				&& !stancePicker.changingStance
-				&& !dodger.dodging
+				//&& !stancePicker.changingStance
+				//&& !dodger.dodging
 				&& !attacker.attacking
 				&& !retract.retracting
 				&& !stagger.staggering
