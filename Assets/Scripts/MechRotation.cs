@@ -37,7 +37,7 @@ public class MechRotation : MechComponent
 		if (lockOn && lockedOn
 			&& arms.combatState != WeaponsOfficer.CombatState.Attack)
 		{
-			forwardDir = blocker.tempEnemy.transform.position - mech.transform.position;
+			forwardDir = mech.tempEnemy.transform.position - mech.transform.position;
 			/*forwardDir = Quaternion.Euler(0f, angle, 0f) * forwardDir;*/
 
 			//Don't lock on anymore if you look too much away

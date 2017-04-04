@@ -189,7 +189,7 @@ public class Dodge : MechComponent
 		//}
 
 		//Turn IK weights back up
-		arms.TweenIKWeight(1f, 0.5f);
+		//arms.TweenIKWeight(1f, 0.5f);
 
 		dodging = false;
 		//dodgeSlash = false;

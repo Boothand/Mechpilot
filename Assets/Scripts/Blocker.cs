@@ -18,7 +18,6 @@ public class Blocker : MechComponent
 	bool switchingBlockStance;
 	bool holdingBlockButton;
 
-	public Mech tempEnemy;
 	Coroutine blockRoutine;
 
 	public delegate void NoParam();
@@ -222,7 +221,7 @@ public class Blocker : MechComponent
 		{
 			if (autoBlock)
 			{
-				idealBlock = DecideBlockStance(tempEnemy.weaponsOfficer.attacker.dir);
+				idealBlock = DecideBlockStance(mech.tempEnemy.weaponsOfficer.attacker.dir);
 				blockStance = idealBlock;
 			}
 			else
