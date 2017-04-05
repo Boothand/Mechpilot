@@ -73,7 +73,7 @@ public class Attacker : MechComponent
 		}
 	}
 
-	string AnimFromStance(WeaponsOfficer.CombatDir dir)
+	string AnimFromStance(WeaponsOfficer.CombatDir dir, Vector3 moveDir)
 	{
 		switch (dir)
 		{
@@ -84,8 +84,20 @@ public class Attacker : MechComponent
 			case WeaponsOfficer.CombatDir.Top:
 				return "Attack Top";
 			case WeaponsOfficer.CombatDir.TopLeft:
+				if (moveDir.z > 0.4f)
+				{
+					//arms.TweenLayerWeight(0f, 1, 0.1f);
+					animator.CrossFade("Attack TL Step", 0.25f, 0);
+					return "Attack TL Step";
+				}
 				return "Attack Top Left";
 			case WeaponsOfficer.CombatDir.TopRight:
+				if (moveDir.z > 0.4f)
+				{
+					//arms.TweenLayerWeight(0f, 1, 0.1f);
+					animator.CrossFade("Attack TR Step", 0.25f, 0);
+					return "Attack TR Step";
+				}
 				return "Attack Top Right";
 		}
 
@@ -116,7 +128,7 @@ public class Attacker : MechComponent
 
 		float duration = attackDuration;
 
-		animator.CrossFade(AnimFromStance(dir), 0.25f);
+		animator.CrossFade(AnimFromStance(dir, pilot.move.inputVec), 0.25f, 1);
 
 
 		yield return new WaitForSeconds(0.1f);
@@ -125,6 +137,7 @@ public class Attacker : MechComponent
 
 		attacking = false;
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
+		//arms.TweenLayerWeight(1f, 1, 0.3f);
 
 		if (OnAttackEnd != null)
 			OnAttackEnd();

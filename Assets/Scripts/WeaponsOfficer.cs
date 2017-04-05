@@ -85,6 +85,27 @@ public class WeaponsOfficer : MechComponent
 		StartCoroutine(TweenIKWeightRoutine(weight, time));
 	}
 
+	IEnumerator TweenLayerWeightRoutine(float weight, int layer, float time)
+	{
+		float timer = 0f;
+		float fromWeight = animator.GetLayerWeight(layer);
+
+		while (timer < time)
+		{
+			timer += Time.deltaTime;
+
+			animator.SetLayerWeight(layer, Mathf.Lerp(fromWeight, weight, timer / time));
+			yield return null;
+		}
+
+		animator.SetLayerWeight(layer, weight);
+	}
+
+	public void TweenLayerWeight(float weight, int layer, float time)
+	{
+		StartCoroutine(TweenLayerWeightRoutine(weight, layer, time));
+	}
+
 	public void StoreTargets()
 	{
 		//print("Targets were stored.");
