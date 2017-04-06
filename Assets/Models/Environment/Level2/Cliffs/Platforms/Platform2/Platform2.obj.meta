@@ -19,6 +19,7 @@ ModelImporter:
     100022: MED_top
     100024: LO_grp_LO_middle1L
     100026: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    100028: LO_grp_LO_Middle1R
     400000: autoUnwrapFaces_Platform2_LO_LO_bottom
     400002: LO_middle5_Platform2_LO
     400004: //RootNode
@@ -33,6 +34,7 @@ ModelImporter:
     400022: MED_top
     400024: LO_grp_LO_middle1L
     400026: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    400028: LO_grp_LO_Middle1R
     2300000: autoUnwrapFaces_Platform2_LO_LO_bottom
     2300002: LO_middle5_Platform2_LO
     2300004: Platform2_LO_LO_middle1L_polySurface8
@@ -46,6 +48,7 @@ ModelImporter:
     2300020: MED_top
     2300022: LO_grp_LO_middle1L
     2300024: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    2300026: LO_grp_LO_Middle1R
     3300000: autoUnwrapFaces_Platform2_LO_LO_bottom
     3300002: LO_middle5_Platform2_LO
     3300004: Platform2_LO_LO_middle1L_polySurface8
@@ -59,6 +62,7 @@ ModelImporter:
     3300020: MED_top
     3300022: LO_grp_LO_middle1L
     3300024: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    3300026: LO_grp_LO_Middle1R
     4300000: autoUnwrapFaces_Platform2_LO_LO_bottom
     4300002: LO_middle5_Platform2_LO
     4300004: Platform2_LO_LO_middle1L_polySurface8
@@ -72,6 +76,7 @@ ModelImporter:
     4300020: MED_top
     4300022: LO_grp_LO_middle1L
     4300024: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    4300026: LO_grp_LO_Middle1R
     6400000: autoUnwrapFaces_Platform2_LO_LO_bottom
     6400002: LO_middle5_Platform2_LO
     6400004: Platform2_LO_LO_middle1L_polySurface8
@@ -85,6 +90,7 @@ ModelImporter:
     6400020: MED_top
     6400022: LO_grp_LO_middle1L
     6400024: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    6400026: LO_grp_LO_Middle1R
   materials:
     importMaterials: 1
     materialName: 0
