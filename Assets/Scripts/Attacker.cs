@@ -27,8 +27,11 @@ public class Attacker : MechComponent
 
 	void Start()
 	{
-		arms.getWeapon.OnCollisionEnterEvent -= OnSwordCollision;
-		arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
+		if (arms.getWeapon != null)
+		{
+			arms.getWeapon.OnCollisionEnterEvent -= OnSwordCollision;
+			arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
+		}
 
 		pilot.move.ProcessVelocity -= TakeStepForward;
 		pilot.move.ProcessVelocity += TakeStepForward;
@@ -47,6 +50,8 @@ public class Attacker : MechComponent
 	{
 		Sword otherSword = col.transform.GetComponent<Sword>();
 		BodyPart bodyPart = col.transform.GetComponent<BodyPart>();
+
+		
 
 		if (otherSword)
 		{

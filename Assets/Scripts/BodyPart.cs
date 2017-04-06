@@ -27,7 +27,7 @@ public class BodyPart : Collidable
 	{
 		if (beingHit)
 		{
-			velocity = -mech.transform.forward * 2f;
+			velocity = -mech.transform.forward * 1f;
 		}
 	}
 

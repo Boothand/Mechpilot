@@ -30,8 +30,11 @@ public class Blocker : MechComponent
 
 	void Start()
 	{
-		arms.getWeapon.OnCollisionEnterEvent -= OnSwordCollision;
-		arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
+		if (arms.getWeapon != null)
+		{
+			arms.getWeapon.OnCollisionEnterEvent -= OnSwordCollision;
+			arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
+		}
 	}
 
 	void OnSwordCollision(Collision col)
