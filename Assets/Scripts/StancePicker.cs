@@ -13,6 +13,9 @@ public class StancePicker : MechComponent
 	public bool changingStance { get; private set; }
 	public WeaponsOfficer.CombatDir startStance;
 
+	public enum Orientation { Right, Left }
+	public Orientation orientation { get; private set; }
+
 	public delegate void NoParam();
 	public event NoParam OnStanceBegin;
 	
@@ -55,12 +58,40 @@ public class StancePicker : MechComponent
 		changingStance = false;
 	}
 
+	public string OrientationAnim()
+	{
+		if (orientation == Orientation.Left)
+			return "Walk/Crouch L";
+
+		return "Walk/Crouch R";
+	}
+
 	IEnumerator ChangeStanceRoutine(WeaponsOfficer.CombatDir newStance)
 	{
 		changingStance = true;
 
-		float switchTimeToUse = switchTime;
+		if (newStance == WeaponsOfficer.CombatDir.TopRight)
+			orientation = Orientation.Right;
+		else if (newStance == WeaponsOfficer.CombatDir.TopLeft)
+			orientation = Orientation.Left;
 
+		animator.SetInteger("Orientation", (int)orientation);
+
+		if (!pilot.move.moving)
+		{
+			if (prevStance == WeaponsOfficer.CombatDir.TopLeft
+				&& newStance == WeaponsOfficer.CombatDir.TopRight)
+			{
+				animator.CrossFade("Idle Switch L2R", 0.15f);
+			}
+			else if (prevStance == WeaponsOfficer.CombatDir.TopRight
+				&& newStance == WeaponsOfficer.CombatDir.TopLeft)
+			{
+				animator.CrossFade("Idle Switch R2L", 0.15f);
+			}
+		}
+
+		float switchTimeToUse = switchTime;
 
 		animator.CrossFade(AnimForStance(stance), switchTimeToUse);
 

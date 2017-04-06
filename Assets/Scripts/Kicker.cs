@@ -53,7 +53,7 @@ public class Kicker : MechComponent
 
 		if (!hitSomething)
 		{
-			animator.CrossFade("Walk/Crouch", 0.3f);
+			animator.CrossFade(stancePicker.OrientationAnim(), 0.3f);
 
 			//animator.CrossFade("Kick Miss", 0.35f);
 			energyManager.SpendStamina(staminaMissUsage);
@@ -61,7 +61,7 @@ public class Kicker : MechComponent
 		}
 		else
 		{
-			animator.CrossFade("Walk/Crouch", 0.3f);
+			animator.CrossFade(stancePicker.OrientationAnim(), 0.3f);
 			energyManager.SpendStamina(staminaHitUsage);
 		}
 
