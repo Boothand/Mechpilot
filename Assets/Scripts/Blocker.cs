@@ -152,7 +152,15 @@ public class Blocker : MechComponent
 
 		//if (!transition)
 		//{
-			animator.CrossFade(AnimFromStance(blockStance, alternateBlock), 0.4f);
+		float blendTime = 0.4f;
+
+		if (arms.prevCombatState == WeaponsOfficer.CombatState.Windup)
+		{
+			blendTime = 1f;
+			print("OK");
+		}
+
+			animator.CrossFade(AnimFromStance(blockStance, alternateBlock), blendTime);
 		//}
 
 		yield return new WaitForSeconds(durationToUse);
