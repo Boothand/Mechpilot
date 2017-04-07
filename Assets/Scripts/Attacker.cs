@@ -124,7 +124,6 @@ public class Attacker : MechComponent
 
 		canTakeForwardStep = true;
 
-		mechSounds.PlaySwordSwingSound();
 		attackStrength = windup.windupTimer;
 		attackStrength = Mathf.Clamp(attackStrength, 0.5f, 2f);
 
@@ -139,8 +138,13 @@ public class Attacker : MechComponent
 
 
 		yield return new WaitForSeconds(0.1f);
+
 		canTakeForwardStep = false;
-		yield return new WaitForSeconds(duration - 0.1f);
+
+		yield return new WaitForSeconds(0.1f);
+		mechSounds.PlaySwordSwingSound();
+
+		yield return new WaitForSeconds(duration - 0.2f);
 
 		attacking = false;
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
