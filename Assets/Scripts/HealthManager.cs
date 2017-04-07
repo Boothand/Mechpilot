@@ -11,7 +11,8 @@ public class BodyGroupStats
 
 public class HealthManager : MechComponent
 {
-	int health = 100;
+	int health;
+	[SerializeField] int startHealth = 100;
 	[SerializeField] int maxHealth = 100;
 	public int getHealth { get { return health; } }
 	public int getMaxHealth { get { return maxHealth; } }
@@ -31,7 +32,7 @@ public class HealthManager : MechComponent
 
 	void Start()
 	{
-		health = maxHealth;
+		health = startHealth;
 	}
 
 	public void GetHit(BodyPart.BodyGroup group, Vector3 velocity, Vector3 hitPoint, int overrideDamage = -1)
@@ -88,8 +89,13 @@ public class HealthManager : MechComponent
 	IEnumerator DieRoutine()
 	{
 		arms.SetPinWeightWholeBody(1f, 0f, 0.3f);
+		//float originalFixedDeltaTime = Time.fixedDeltaTime;
+		//Time.timeScale = 0.2f;
+		//Time.fixedDeltaTime *= 2f;
 
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSecondsRealtime(0.5f);
+		//Time.timeScale = 1f;
+		//Time.fixedDeltaTime = originalFixedDeltaTime;
 
 		arms.KillPuppet();
 	}

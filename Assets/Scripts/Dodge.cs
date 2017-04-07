@@ -69,17 +69,17 @@ public class Dodge : MechComponent
 		if (input.lookHorz < -0.3f)
 		{
 			dodgeDir = DodgeDir.Left;
-			animator.CrossFade("Dodge Left", 0.15f);
+			animator.CrossFadeInFixedTime("Dodge Left", 0.15f);
 		}
 		else if (input.lookHorz > 0.3f)
 		{
 			dodgeDir = DodgeDir.Right;
-			animator.CrossFade("Dodge Right", 0.15f);
+			animator.CrossFadeInFixedTime("Dodge Right", 0.15f);
 		}
 		else
 		{
 			dodgeDir = DodgeDir.Back;
-			animator.CrossFade("Dodge Back", 0.15f);
+			animator.CrossFadeInFixedTime("Dodge Back", 0.15f);
 		}
 
 		//Gradually turn off IK targets to let animation play out
@@ -185,7 +185,7 @@ public class Dodge : MechComponent
 		//Transition back to idle if no slash
 		//if (!dodgeSlash)
 		//{
-			animator.CrossFade(stancePicker.OrientationAnim(), 1f);
+			animator.CrossFadeInFixedTime(stancePicker.OrientationAnim(), 1f);
 		//}
 
 		//Turn IK weights back up
