@@ -36,7 +36,7 @@ public class Kicker : MechComponent
 		{
 			//animator.CrossFade("Walk/Crouch", 0.6f);
 			float time = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-			animator.CrossFade("Kick Hit 2", 0.1f, 0, 1f - time);
+			animator.CrossFadeInFixedTime("Kick Hit 2", 0.1f, 0, 1f - time);
 
 			BodyPart.BodyGroup group = bodypartIKicked.getBodyGroup;
 			bodypartIKicked.arms.healthManager.GetHit(group, Vector3.one * 0.06f, kickCheck.transform.position, 10);
@@ -53,7 +53,7 @@ public class Kicker : MechComponent
 
 		if (!hitSomething)
 		{
-			animator.CrossFade(stancePicker.OrientationAnim(), 0.3f);
+			animator.CrossFadeInFixedTime(stancePicker.OrientationAnim(), 0.3f);
 
 			//animator.CrossFade("Kick Miss", 0.35f);
 			energyManager.SpendStamina(staminaMissUsage);
@@ -61,7 +61,7 @@ public class Kicker : MechComponent
 		}
 		else
 		{
-			animator.CrossFade(stancePicker.OrientationAnim(), 0.3f);
+			animator.CrossFadeInFixedTime(stancePicker.OrientationAnim(), 0.3f);
 			energyManager.SpendStamina(staminaHitUsage);
 		}
 

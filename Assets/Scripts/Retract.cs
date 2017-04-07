@@ -4,6 +4,7 @@ using UnityEngine;
 public class Retract : MechComponent
 {
 	[SerializeField] float retractDuration = 0.75f;
+	[SerializeField] float blendTime = 0.5f;
 	public bool retracting { get; private set; }
 	public delegate void NoParam();
 	public event NoParam OnRetractBegin;
@@ -46,7 +47,7 @@ public class Retract : MechComponent
 
 		retracting = true;
 
-		animator.CrossFade(stancePicker.AnimForStance(stancePicker.stance), stancePicker.getSwitchTime);
+		animator.CrossFadeInFixedTime(stancePicker.AnimForStance(stancePicker.stance), blendTime);
 		//WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
 
 		yield return new WaitForSeconds(retractDuration);

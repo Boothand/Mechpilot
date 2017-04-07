@@ -4,6 +4,8 @@ using UnityEngine;
 public class Attacker : MechComponent
 {
 	[SerializeField] float attackDuration = 0.75f;
+	[SerializeField] float blendTime = 0.1f;
+	[SerializeField] float blendTimeFeet = 0.25f;
 	Vector3 inputVec;
 	float inputVecMagnitude;
 	public WeaponsOfficer.CombatDir dir { get; private set; }
@@ -49,9 +51,7 @@ public class Attacker : MechComponent
 	void OnSwordCollision(Collision col)
 	{
 		Sword otherSword = col.transform.GetComponent<Sword>();
-		BodyPart bodyPart = col.transform.GetComponent<BodyPart>();
-
-		
+		BodyPart bodyPart = col.transform.GetComponent<BodyPart>();		
 
 		if (otherSword)
 		{
@@ -76,6 +76,8 @@ public class Attacker : MechComponent
 				}
 			}
 		}
+
+
 	}
 
 	string AnimFromStance(WeaponsOfficer.CombatDir dir, Vector3 moveDir)
@@ -92,7 +94,7 @@ public class Attacker : MechComponent
 				if (moveDir.z > 0.4f)
 				{
 					//arms.TweenLayerWeight(0f, 1, 0.1f);
-					animator.CrossFade("Attack TL Step", 0.25f, 0);
+					animator.CrossFadeInFixedTime("Attack TL Step", blendTimeFeet, 0);
 					return "Attack TL Step";
 				}
 				return "Attack Top Left";
@@ -100,7 +102,7 @@ public class Attacker : MechComponent
 				if (moveDir.z > 0.4f)
 				{
 					//arms.TweenLayerWeight(0f, 1, 0.1f);
-					animator.CrossFade("Attack TR Step", 0.25f, 0);
+					animator.CrossFadeInFixedTime("Attack TR Step", blendTimeFeet, 0);
 					return "Attack TR Step";
 				}
 				return "Attack Top Right";
@@ -133,7 +135,7 @@ public class Attacker : MechComponent
 
 		float duration = attackDuration;
 
-		animator.CrossFade(AnimFromStance(dir, pilot.move.inputVec), 0.25f, 1);
+		animator.CrossFadeInFixedTime(AnimFromStance(dir, pilot.move.inputVec), blendTime, 1);
 
 
 		yield return new WaitForSeconds(0.1f);
