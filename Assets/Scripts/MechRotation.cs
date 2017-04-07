@@ -34,8 +34,10 @@ public class MechRotation : MechComponent
 		//}
 
 		//If locked on, look towards the enemy when you're not turning
-		if (lockOn && lockedOn
-			&& arms.combatState != WeaponsOfficer.CombatState.Attack)
+		if (lockOn
+			&& lockedOn
+			&& arms.combatState != WeaponsOfficer.CombatState.Attack
+			&& mech.tempEnemy)
 		{
 			forwardDir = mech.tempEnemy.transform.position - mech.transform.position;
 			/*forwardDir = Quaternion.Euler(0f, angle, 0f) * forwardDir;*/
