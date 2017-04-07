@@ -20,6 +20,7 @@ public class Sword : Collidable
 	Vector3 averagePosition;
 	//int bodyLayer = 9;
 	//int defaultLayer = 0;
+	bool anglesLocked;
 
 	protected override void OnAwake()
 	{
@@ -110,6 +111,9 @@ public class Sword : Collidable
 				PlayClashSound(magnitude * 0.15f);
 			}
 		}
+
+		LockSwordAngularMotion(false);
+		anglesLocked = false;
 	}
 
 	void CalculateSwordTipVelocity()
@@ -134,6 +138,22 @@ public class Sword : Collidable
 		}
 
 		averagePosition /= velocityList.Count;
+	}
+
+	public void LockSwordAngularMotion(bool truth)
+	{
+		if (truth)
+		{
+			GetComponent<ConfigurableJoint>().angularXMotion = ConfigurableJointMotion.Locked;
+			GetComponent<ConfigurableJoint>().angularYMotion = ConfigurableJointMotion.Locked;
+			GetComponent<ConfigurableJoint>().angularZMotion = ConfigurableJointMotion.Locked;
+		}
+		else
+		{
+			GetComponent<ConfigurableJoint>().angularXMotion = ConfigurableJointMotion.Free;
+			GetComponent<ConfigurableJoint>().angularYMotion = ConfigurableJointMotion.Free;
+			GetComponent<ConfigurableJoint>().angularZMotion = ConfigurableJointMotion.Free;
+		}
 	}
 
 	void FixedUpdate()
@@ -167,6 +187,13 @@ public class Sword : Collidable
 		else
 		{
 			SetCollisionWithBodyAndDefault(false);
+		}
+
+		if (!anglesLocked
+			&& arms.combatState == WeaponsOfficer.CombatState.Stance)
+		{
+			LockSwordAngularMotion(true);
+			anglesLocked = true;
 		}
 	}
 }

@@ -45,6 +45,9 @@ public class SwordColorChanger : MechComponent
 
 	IEnumerator ChangeColorRoutine(Color newGlowColor, float emission, float duration = 1f, float newLightIntensity = 1f)
 	{
+		if (!rnd)
+			yield break;
+
 		float timer = 0f;
 		Color oldGlowColor = rnd.materials[2].GetColor("_EmissionColor");
 		float oldLightIntensity = swordLight.intensity;
@@ -118,7 +121,8 @@ public class SwordColorChanger : MechComponent
 
 
 		if (arms.combatState != WeaponsOfficer.CombatState.Windup
-			&& arms.combatState != WeaponsOfficer.CombatState.Attack)
+			&& arms.combatState != WeaponsOfficer.CombatState.Attack
+			&& rnd != null)
 		{
 			nonWindupEmission = rnd.materials[2].GetColor("_EmissionColor");
 		}

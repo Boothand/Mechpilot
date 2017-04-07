@@ -185,7 +185,7 @@ public class Dodge : MechComponent
 		//Transition back to idle if no slash
 		//if (!dodgeSlash)
 		//{
-			animator.CrossFade("Walk/Crouch", 1f);
+			animator.CrossFade(stancePicker.OrientationAnim(), 1f);
 		//}
 
 		//Turn IK weights back up

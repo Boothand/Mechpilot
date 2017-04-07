@@ -62,7 +62,14 @@ public class WeaponsOfficer : MechComponent
 	void Start()
 	{
 		//IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
-	}	
+		StartCoroutine(LockWeaponMotionRoutine());
+	}
+
+	IEnumerator LockWeaponMotionRoutine()
+	{
+		yield return null;
+		weapon.LockSwordAngularMotion(true);
+	}
 
 	IEnumerator TweenIKWeightRoutine(float weight, float time)
 	{
@@ -323,9 +330,11 @@ public class WeaponsOfficer : MechComponent
 		inputVec = new Vector3(input.rArmHorz, input.rArmVert).normalized;
 		inputVecMagnitude = inputVec.magnitude;
 
-		lHandIKTarget.position = weapon.getLeftHandTarget.position;
-		lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
-
+		if (weapon != null)
+		{
+			lHandIKTarget.position = weapon.getLeftHandTarget.position;
+			lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
+		}
 
 		if (alwaysBlock)
 			input.block = true;
