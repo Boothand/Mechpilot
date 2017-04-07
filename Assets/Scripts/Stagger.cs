@@ -21,7 +21,7 @@ public class Stagger : MechComponent
 		healthManager.OnGetHit += GetHit;
 	}
 
-	void GetHit()
+	void GetHit(Vector3 location)
 	{
 		stancePicker.Stop();
 		windup.Stop();

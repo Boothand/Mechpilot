@@ -21,6 +21,7 @@ public class Sword : Collidable
 	//int bodyLayer = 9;
 	//int defaultLayer = 0;
 	bool anglesLocked;
+	public System.Action<Vector3, Sword> OnClashWithSword;
 
 	protected override void OnAwake()
 	{
@@ -108,6 +109,9 @@ public class Sword : Collidable
 				|| otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Block))
 			{
 				float magnitude = col.relativeVelocity.magnitude;
+
+				if (OnClashWithSword != null)
+					OnClashWithSword(col.contacts[0].point, otherSword);
 				PlayClashSound(magnitude * 0.15f);
 			}
 		}

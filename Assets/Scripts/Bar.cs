@@ -22,7 +22,7 @@ public class Bar : MechComponent
 			startColor = img.color;
 	}
 
-	protected void Blink()
+	protected void Blink(Vector3 location)
 	{
 		if (img)
 		{
