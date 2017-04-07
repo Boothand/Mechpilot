@@ -1,22 +1,28 @@
 ﻿//using System.Collections;
 using UnityEngine;
 
-public class HealthBar : MechComponent
+public class HealthBar : Bar
 {
-	[SerializeField] Transform healthBar;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 	}
 
+	protected override void Start()
+	{
+		base.Start();
+		
+		healthManager.OnGetHit += Blink;
+	}
+
 	void Update()
 	{
-		Vector3 healthScale = healthBar.transform.localScale;
+		Vector3 healthScale = bar.transform.localScale;
 
 		float targetScale = (float)healthManager.getHealth / (float)healthManager.getMaxHealth;
 		healthScale.y = Mathf.Lerp(healthScale.y, targetScale, Time.deltaTime * 4f);
 
-		healthBar.localScale = healthScale;
+		bar.localScale = healthScale;
 	}
 }
