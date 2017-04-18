@@ -22,11 +22,14 @@ public class Sword : Collidable
 	//int defaultLayer = 0;
 	bool anglesLocked;
 	public System.Action<Vector3, Sword> OnClashWithSword;
+	ConfigurableJoint configJoint;
+	float timeSinceLastClash;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 		swordCollider = GetComponent<Collider>();
+		configJoint = GetComponent<ConfigurableJoint>();
 	}
 
 	void Start()
@@ -110,9 +113,15 @@ public class Sword : Collidable
 			{
 				float magnitude = col.relativeVelocity.magnitude;
 
-				if (OnClashWithSword != null)
-					OnClashWithSword(col.contacts[0].point, otherSword);
-				PlayClashSound(magnitude * 0.15f);
+				if (timeSinceLastClash > 0.5f)
+				{
+					timeSinceLastClash = 0f;
+
+					if (OnClashWithSword != null)
+						OnClashWithSword(col.contacts[0].point, otherSword);
+
+					PlayClashSound(magnitude * 0.15f);
+				}
 			}
 		}
 
@@ -148,15 +157,15 @@ public class Sword : Collidable
 	{
 		if (truth)
 		{
-			GetComponent<ConfigurableJoint>().angularXMotion = ConfigurableJointMotion.Locked;
-			GetComponent<ConfigurableJoint>().angularYMotion = ConfigurableJointMotion.Locked;
-			GetComponent<ConfigurableJoint>().angularZMotion = ConfigurableJointMotion.Locked;
+			configJoint.angularXMotion = ConfigurableJointMotion.Locked;
+			configJoint.angularYMotion = ConfigurableJointMotion.Locked;
+			configJoint.angularZMotion = ConfigurableJointMotion.Locked;
 		}
 		else
 		{
-			GetComponent<ConfigurableJoint>().angularXMotion = ConfigurableJointMotion.Free;
-			GetComponent<ConfigurableJoint>().angularYMotion = ConfigurableJointMotion.Free;
-			GetComponent<ConfigurableJoint>().angularZMotion = ConfigurableJointMotion.Free;
+			configJoint.angularXMotion = ConfigurableJointMotion.Free;
+			configJoint.angularYMotion = ConfigurableJointMotion.Free;
+			configJoint.angularZMotion = ConfigurableJointMotion.Free;
 		}
 	}
 
@@ -199,5 +208,7 @@ public class Sword : Collidable
 			LockSwordAngularMotion(true);
 			anglesLocked = true;
 		}
+
+		timeSinceLastClash += Time.deltaTime;
 	}
 }
