@@ -172,8 +172,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Block Top Idle R
       takeName: Take 001
-      firstFrame: 3
-      lastFrame: 101
+      firstFrame: 5
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -333,7 +333,7 @@ ModelImporter:
       name: Block Top Idle L
       takeName: Take 001
       firstFrame: 104
-      lastFrame: 200
+      lastFrame: 198
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -493,7 +493,7 @@ ModelImporter:
       name: Block TR Idle
       takeName: Take 001
       firstFrame: 202
-      lastFrame: 299
+      lastFrame: 297
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -653,7 +653,7 @@ ModelImporter:
       name: Block TL Idle
       takeName: Take 001
       firstFrame: 301
-      lastFrame: 398
+      lastFrame: 397
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
