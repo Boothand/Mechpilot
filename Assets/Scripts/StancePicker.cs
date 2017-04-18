@@ -15,12 +15,12 @@ public class StancePicker : MechComponent
 	public WeaponsOfficer.CombatDir startStance;
 
 	public enum Orientation { Right, Left }
-	public Orientation orientation { get; private set; }
+	public Orientation orientation { get; set; }
 	public Orientation prevOrientation { get; private set; }
-
-	public delegate void NoParam();
-	public event NoParam OnStanceBegin;
 	
+	public System.Action OnStanceBegin;
+	public System.Action OnSwitchBegin;
+
 
 	protected override void OnAwake()
 	{
@@ -74,26 +74,10 @@ public class StancePicker : MechComponent
 
 		prevOrientation = orientation;
 
-		if (newStance == WeaponsOfficer.CombatDir.TopRight)
-			orientation = Orientation.Right;
-		else if (newStance == WeaponsOfficer.CombatDir.TopLeft)
-			orientation = Orientation.Left;
+		if (OnSwitchBegin != null)
+			OnSwitchBegin();
 
-		animator.SetInteger("Orientation", (int)orientation);
-
-		if (!pilot.move.moving)
-		{
-			if (prevOrientation == Orientation.Left
-				&& orientation == Orientation.Right)
-			{
-				animator.CrossFadeInFixedTime("Idle Switch L2R", 0.15f);
-			}
-			else if (prevOrientation == Orientation.Right
-				&& orientation == Orientation.Left)
-			{
-				animator.CrossFadeInFixedTime("Idle Switch R2L", 0.15f);
-			}
-		}
+		footStanceSwitcher.CheckSwitchStance(prevStance, stance);
 
 		float switchTimeToUse = switchTime;
 

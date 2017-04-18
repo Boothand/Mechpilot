@@ -146,6 +146,8 @@ public class Blocker : MechComponent
 			alternateBlock = true;
 		}
 
+		footStanceSwitcher.CheckSwitchStance(prevBlockStance, blockStance);
+
 		//if (prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
 		//	&& blockStance == WeaponsOfficer.CombatDir.BottomRight)
 		//{
@@ -160,6 +162,11 @@ public class Blocker : MechComponent
 		//	transition = true;
 		//}
 
+		if (blockStance == WeaponsOfficer.CombatDir.TopRight)
+			stancePicker.orientation = StancePicker.Orientation.Right;
+		else if (blockStance == WeaponsOfficer.CombatDir.TopLeft)
+			stancePicker.orientation = StancePicker.Orientation.Left;
+
 		prevBlockStance = blockStance;
 		float durationToUse = blockDuration;
 		float blendTimeToUse = blendStance;
@@ -170,7 +177,7 @@ public class Blocker : MechComponent
 		{
 			blendTimeToUse = blendStance;
 		}
-		if (arms.prevCombatState == WeaponsOfficer.CombatState.Windup)
+		else if (arms.prevCombatState == WeaponsOfficer.CombatState.Windup)
 		{
 			blendTimeToUse = blendWindup;
 		}
