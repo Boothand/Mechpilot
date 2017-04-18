@@ -91,7 +91,8 @@ public class Attacker : MechComponent
 			case WeaponsOfficer.CombatDir.Top:
 				return "Attack Top";
 			case WeaponsOfficer.CombatDir.TopLeft:
-				if (moveDir.z > 0.4f)
+				if (moveDir.z > 0.4f
+					&& !croucher.crouching)
 				{
 					//arms.TweenLayerWeight(0f, 1, 0.1f);
 					animator.CrossFadeInFixedTime("Attack TL Step", blendTimeFeet, 0);
@@ -99,7 +100,8 @@ public class Attacker : MechComponent
 				}
 				return "Attack Top Left";
 			case WeaponsOfficer.CombatDir.TopRight:
-				if (moveDir.z > 0.4f)
+				if (moveDir.z > 0.4f
+					&& !croucher.crouching)
 				{
 					//arms.TweenLayerWeight(0f, 1, 0.1f);
 					animator.CrossFadeInFixedTime("Attack TR Step", blendTimeFeet, 0);

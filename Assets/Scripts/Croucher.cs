@@ -9,6 +9,9 @@ public class Croucher : MechComponent
 	[SerializeField] float crouchHeight = 0.5f;
 	float actualCrouchHeight;
 
+	public bool crouching
+	{ get { return animCrouchHeight > 0.5f; } }
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();

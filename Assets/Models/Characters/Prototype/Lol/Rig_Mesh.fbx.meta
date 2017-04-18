@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3c578c8b577d4ae4881f27769280e48e
-timeCreated: 1491468528
+timeCreated: 1492504612
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -431,7 +431,7 @@ ModelImporter:
   humanDescription:
     serializedVersion: 2
     human:
-    - boneName: Mech_handfix_Ref:Root
+    - boneName: Mech_handfix_Ref:hips
       humanName: Hips
       limit:
         min: {x: 0, y: 0, z: 0}
