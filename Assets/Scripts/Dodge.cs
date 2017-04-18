@@ -82,8 +82,8 @@ public class Dodge : MechComponent
 			animator.CrossFadeInFixedTime("Dodge Back", 0.15f);
 		}
 
-		//Gradually turn off IK targets to let animation play out
-		arms.TweenIKWeight(0f, 1f);
+		//Gradually turn off IK targets to let animation play out - ////OLD
+		//arms.TweenIKWeight(0f, 1f);
 
 		float dodgeTimer = 0f;
 
@@ -185,7 +185,7 @@ public class Dodge : MechComponent
 		//Transition back to idle if no slash
 		//if (!dodgeSlash)
 		//{
-			animator.CrossFadeInFixedTime(stancePicker.OrientationAnim(), 1f);
+			animator.CrossFadeInFixedTime(stancePicker.OrientationAnim(), 0.4f);
 		//}
 
 		//Turn IK weights back up
