@@ -12,8 +12,8 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public float moveVert;
 
 	//Looking
-	[HideInInspector] public float lookHorz;
-	[HideInInspector] public float lookVert;
+	[HideInInspector] public float dodgeHorz;
+	[HideInInspector] public float dodgeVert;
 
 	[HideInInspector] public float turnBodyHorz;
 	[HideInInspector] public float turnBodyVert;
@@ -26,6 +26,8 @@ public class AbstractInput : MonoBehaviour
 
 	[HideInInspector] public bool giveToWeapons;
 	[HideInInspector] public bool takeFromWeapons;
+
+	[HideInInspector] public bool lockOn;
 
 	//Camera control
 	[HideInInspector] public bool camLeft, camRight, camBehind, camFP;

@@ -96,7 +96,7 @@ public class CameraFollow : MechComponent
 		//When not switching, set the position and rotation to the target preset.
 		if (!switching)
 		{
-			if (pilot.headRotation.lockedOn)
+			if (lockOn.lockedOn)
 			{
 				Vector3 targetPos = TargetPlusOffset(currentOffset.posOffset);
 

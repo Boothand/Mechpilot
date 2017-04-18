@@ -27,6 +27,7 @@ public class MechComponent : ManagedMechBehaviour
 	public CameraFollow cameraFollow { get; private set; }
 	public SwordClashParticles swordClashParticles { get; private set; }
 	public FootStanceSwitcher footStanceSwitcher { get; private set; }
+	public Lockon lockOn { get; private set; }
 
 	protected const int PILOT_INDEX = 0;
 	protected const int WEAPONOFFICER_INDEX = 1;
@@ -63,6 +64,7 @@ public class MechComponent : ManagedMechBehaviour
 		cameraFollow = transform.root.GetComponentInChildren<CameraFollow>();
 		swordClashParticles = transform.root.GetComponentInChildren<SwordClashParticles>();
 		footStanceSwitcher = transform.root.GetComponentInChildren<FootStanceSwitcher>();
+		lockOn = transform.root.GetComponentInChildren<Lockon>();
 		base.OnAwake();
 	}
 }

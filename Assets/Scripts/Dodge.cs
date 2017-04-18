@@ -66,12 +66,12 @@ public class Dodge : MechComponent
 		DodgeDir dodgeDir = DodgeDir.Right;
 
 		//Which way should we dodge? Play animation
-		if (input.lookHorz < -0.3f)
+		if (input.dodgeHorz < -0.3f)
 		{
 			dodgeDir = DodgeDir.Left;
 			animator.CrossFadeInFixedTime("Dodge Left", 0.15f);
 		}
-		else if (input.lookHorz > 0.3f)
+		else if (input.dodgeHorz > 0.3f)
 		{
 			dodgeDir = DodgeDir.Right;
 			animator.CrossFadeInFixedTime("Dodge Right", 0.15f);
@@ -109,24 +109,24 @@ public class Dodge : MechComponent
 		
 		while (dodgeTimer < 0.75f
 			&& !releasedDodge
-			&& (Mathf.Abs(input.lookHorz) > 0.4f
-			|| Mathf.Abs(input.lookVert) > 0.4f)
+			&& (Mathf.Abs(input.dodgeHorz) > 0.4f
+			|| Mathf.Abs(input.dodgeVert) > 0.4f)
 			)
 		{
 			if (dodgeDir == DodgeDir.Right
-				&& input.lookHorz < 0.4f)
+				&& input.dodgeHorz < 0.4f)
 			{
 				releasedDodge = true;
 			}
 
 			if (dodgeDir == DodgeDir.Left
-				&& input.lookHorz > -0.4f)
+				&& input.dodgeHorz > -0.4f)
 			{
 				releasedDodge = true;
 			}
 
 			if (dodgeDir == DodgeDir.Back
-				&& input.lookVert > -0.4f)
+				&& input.dodgeVert > -0.4f)
 			{
 				releasedDodge = true;
 			}
@@ -205,8 +205,8 @@ public class Dodge : MechComponent
 			//&& arms.combatState != WeaponsOfficer.CombatState.Attack
 			)
 		{
-			if (Mathf.Abs(input.lookHorz) > 0.4f ||
-				Mathf.Abs(input.lookVert) > 0.4f)
+			if (Mathf.Abs(input.dodgeHorz) > 0.4f ||
+				Mathf.Abs(input.dodgeVert) > 0.4f)
 			{
 				if (!animator.IsInTransition(0))
 				{
