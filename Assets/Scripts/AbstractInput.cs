@@ -12,8 +12,6 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public float moveVert;
 
 	//Looking
-	[HideInInspector] public float dodgeHorz;
-	[HideInInspector] public float dodgeVert;
 
 	[HideInInspector] public float turnBodyHorz;
 	[HideInInspector] public float turnBodyVert;
@@ -22,7 +20,7 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public bool dodge;
 	[HideInInspector] public bool dash;
 	[HideInInspector] public bool kick;
-	[HideInInspector] public float run;
+	[HideInInspector] public bool run;
 
 	[HideInInspector] public bool giveToWeapons;
 	[HideInInspector] public bool takeFromWeapons;

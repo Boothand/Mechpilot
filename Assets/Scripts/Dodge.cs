@@ -66,17 +66,20 @@ public class Dodge : MechComponent
 		DodgeDir dodgeDir = DodgeDir.Right;
 
 		//Which way should we dodge? Play animation
-		if (input.dodgeHorz < -0.3f)
+		if (input.dodge &&
+			input.moveHorz < -0.3f)
 		{
 			dodgeDir = DodgeDir.Left;
 			animator.CrossFadeInFixedTime("Dodge Left", 0.15f);
 		}
-		else if (input.dodgeHorz > 0.3f)
+		else if (input.dodge &&
+			input.moveHorz > 0.3f)
 		{
 			dodgeDir = DodgeDir.Right;
 			animator.CrossFadeInFixedTime("Dodge Right", 0.15f);
 		}
-		else
+		else if(input.dodge &&
+			input.moveVert < -0.3f)
 		{
 			dodgeDir = DodgeDir.Back;
 			animator.CrossFadeInFixedTime("Dodge Back", 0.15f);
@@ -109,24 +112,26 @@ public class Dodge : MechComponent
 		
 		while (dodgeTimer < 0.75f
 			&& !releasedDodge
-			&& (Mathf.Abs(input.dodgeHorz) > 0.4f
-			|| Mathf.Abs(input.dodgeVert) > 0.4f)
+			&& input.dodge
+			&& (Mathf.Abs(input.moveHorz) > 0.4f
+			|| Mathf.Abs(input.moveHorz) > 0.4f
+			|| Mathf.Abs(input.moveVert) > 0.4f)
 			)
 		{
 			if (dodgeDir == DodgeDir.Right
-				&& input.dodgeHorz < 0.4f)
+				&& input.moveHorz < 0.4f)
 			{
 				releasedDodge = true;
 			}
 
 			if (dodgeDir == DodgeDir.Left
-				&& input.dodgeHorz > -0.4f)
+				&& input.moveHorz > -0.4f)
 			{
 				releasedDodge = true;
 			}
 
 			if (dodgeDir == DodgeDir.Back
-				&& input.dodgeVert > -0.4f)
+				&& input.moveVert > -0.4f)
 			{
 				releasedDodge = true;
 			}
@@ -198,15 +203,15 @@ public class Dodge : MechComponent
 	void Update()
 	{
 		if (!dodging
-			//&& input.dodge
+			&& input.dodge
 			&& !dasher.inDash
 			&& energyManager.CanSpendStamina(staminaAmount)
 			//&& arms.combatState != WeaponsOfficer.CombatState.Windup
 			//&& arms.combatState != WeaponsOfficer.CombatState.Attack
 			)
 		{
-			if (Mathf.Abs(input.dodgeHorz) > 0.4f ||
-				Mathf.Abs(input.dodgeVert) > 0.4f)
+			if (Mathf.Abs(input.moveHorz) > 0.4f ||
+				Mathf.Abs(input.moveVert) > 0.4f)
 			{
 				if (!animator.IsInTransition(0))
 				{
