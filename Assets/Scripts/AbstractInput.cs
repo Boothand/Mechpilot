@@ -21,6 +21,7 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public bool dash;
 	[HideInInspector] public bool kick;
 	[HideInInspector] public bool run;
+	[HideInInspector] public bool jump;
 
 	[HideInInspector] public bool giveToWeapons;
 	[HideInInspector] public bool takeFromWeapons;

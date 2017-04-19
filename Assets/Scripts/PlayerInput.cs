@@ -43,6 +43,7 @@ public class PlayerInput : AbstractInput
 		dash = pilotPlayer.GetButtonDown("Dash");
 		dodge = pilotPlayer.GetButton("Dodge");
 		kick = pilotPlayer.GetButtonDown("Kick");
+		jump = pilotPlayer.GetButtonDown("Jump");
 		run = pilotPlayer.GetButton("Run");
 		lockOn = pilotPlayer.GetButtonDown("Lock On");
 
