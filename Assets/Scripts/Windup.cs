@@ -11,6 +11,7 @@ public class Windup : MechComponent
 	public delegate void NoParam();
 	public event NoParam OnWindupBegin;
 	public bool inCounterAttack { get; private set; }
+	[SerializeField] float blendTime = 0.1f;
 
 	protected override void OnAwake()
 	{
@@ -57,7 +58,7 @@ public class Windup : MechComponent
 
 		windupTimer = 0f;
 
-		animator.CrossFade(AnimFromStance(stancePicker.stance), windupTime);
+		animator.CrossFadeInFixedTime(AnimFromStance(stancePicker.stance), blendTime);
 
 		while (timer < windupTime)
 		{

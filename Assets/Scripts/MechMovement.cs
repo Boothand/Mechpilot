@@ -244,11 +244,5 @@ public class MechMovement : MechComponent
 
 		//Walk animation
 		DoWalkAnimation();
-
-		//Gradually tween mech's forward direction towards head's aim direction
-		if (true)//inputVec.magnitude > 0.01f && moving)
-		{
-			mech.transform.forward = Vector3.Lerp(mech.transform.forward, pilot.headRotation.getForwardDir, Time.deltaTime * 2f);
-		}
 	}
 }

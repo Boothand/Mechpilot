@@ -66,24 +66,24 @@ public class Dodge : MechComponent
 		DodgeDir dodgeDir = DodgeDir.Right;
 
 		//Which way should we dodge? Play animation
-		if (input.lookHorz < -0.3f)
+		if (input.dodgeHorz < -0.3f)
 		{
 			dodgeDir = DodgeDir.Left;
-			animator.CrossFade("Dodge Left", 0.15f);
+			animator.CrossFadeInFixedTime("Dodge Left", 0.15f);
 		}
-		else if (input.lookHorz > 0.3f)
+		else if (input.dodgeHorz > 0.3f)
 		{
 			dodgeDir = DodgeDir.Right;
-			animator.CrossFade("Dodge Right", 0.15f);
+			animator.CrossFadeInFixedTime("Dodge Right", 0.15f);
 		}
 		else
 		{
 			dodgeDir = DodgeDir.Back;
-			animator.CrossFade("Dodge Back", 0.15f);
+			animator.CrossFadeInFixedTime("Dodge Back", 0.15f);
 		}
 
-		//Gradually turn off IK targets to let animation play out
-		arms.TweenIKWeight(0f, 1f);
+		//Gradually turn off IK targets to let animation play out - ////OLD
+		//arms.TweenIKWeight(0f, 1f);
 
 		float dodgeTimer = 0f;
 
@@ -109,24 +109,24 @@ public class Dodge : MechComponent
 		
 		while (dodgeTimer < 0.75f
 			&& !releasedDodge
-			&& (Mathf.Abs(input.lookHorz) > 0.4f
-			|| Mathf.Abs(input.lookVert) > 0.4f)
+			&& (Mathf.Abs(input.dodgeHorz) > 0.4f
+			|| Mathf.Abs(input.dodgeVert) > 0.4f)
 			)
 		{
 			if (dodgeDir == DodgeDir.Right
-				&& input.lookHorz < 0.4f)
+				&& input.dodgeHorz < 0.4f)
 			{
 				releasedDodge = true;
 			}
 
 			if (dodgeDir == DodgeDir.Left
-				&& input.lookHorz > -0.4f)
+				&& input.dodgeHorz > -0.4f)
 			{
 				releasedDodge = true;
 			}
 
 			if (dodgeDir == DodgeDir.Back
-				&& input.lookVert > -0.4f)
+				&& input.dodgeVert > -0.4f)
 			{
 				releasedDodge = true;
 			}
@@ -185,7 +185,7 @@ public class Dodge : MechComponent
 		//Transition back to idle if no slash
 		//if (!dodgeSlash)
 		//{
-			animator.CrossFade(stancePicker.OrientationAnim(), 1f);
+			animator.CrossFadeInFixedTime(stancePicker.OrientationAnim(), 0.4f);
 		//}
 
 		//Turn IK weights back up
@@ -205,8 +205,8 @@ public class Dodge : MechComponent
 			//&& arms.combatState != WeaponsOfficer.CombatState.Attack
 			)
 		{
-			if (Mathf.Abs(input.lookHorz) > 0.4f ||
-				Mathf.Abs(input.lookVert) > 0.4f)
+			if (Mathf.Abs(input.dodgeHorz) > 0.4f ||
+				Mathf.Abs(input.dodgeVert) > 0.4f)
 			{
 				if (!animator.IsInTransition(0))
 				{

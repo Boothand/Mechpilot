@@ -8,6 +8,7 @@ public class Stagger : MechComponent
 	public float staggerTimer { get; private set; }
 	public delegate void NoParam();
 	public event NoParam OnStaggerBegin;
+	[SerializeField] float blendTime = 0.5f;
 
 	protected override void OnAwake()
 	{
@@ -20,7 +21,7 @@ public class Stagger : MechComponent
 		healthManager.OnGetHit += GetHit;
 	}
 
-	void GetHit()
+	void GetHit(Vector3 location)
 	{
 		stancePicker.Stop();
 		windup.Stop();
@@ -54,7 +55,7 @@ public class Stagger : MechComponent
 		yield return new WaitForSeconds(0.3f);
 
 		//if (attacker.dir != WeaponsOfficer.CombatDir.BottomLeft)
-			animator.CrossFade(stancePicker.AnimForStance(stancePicker.stance), stancePicker.getSwitchTime);
+			animator.CrossFadeInFixedTime(stancePicker.AnimForStance(stancePicker.stance), blendTime);
 
 		yield return new WaitForSeconds(durationToUse - 0.3f);
 

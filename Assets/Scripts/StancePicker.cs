@@ -9,16 +9,18 @@ public class StancePicker : MechComponent
 
 	//[SerializeField] float blendSpeed = 4f;
 	[SerializeField] float switchTime = 0.5f;
+	[SerializeField] float blendTime = 0.5f;
 	public float getSwitchTime { get { return switchTime; } }
 	public bool changingStance { get; private set; }
 	public WeaponsOfficer.CombatDir startStance;
 
 	public enum Orientation { Right, Left }
-	public Orientation orientation { get; private set; }
-
-	public delegate void NoParam();
-	public event NoParam OnStanceBegin;
+	public Orientation orientation { get; set; }
+	public Orientation prevOrientation { get; private set; }
 	
+	public System.Action OnStanceBegin;
+	public System.Action OnSwitchBegin;
+
 
 	protected override void OnAwake()
 	{
@@ -29,7 +31,7 @@ public class StancePicker : MechComponent
 	{
 		stance = startStance;
 		StartCoroutine(ChangeStanceRoutine(stance));
-		animator.CrossFade(AnimForStance(stance), 0.25f);
+		animator.CrossFadeInFixedTime(AnimForStance(stance), blendTime);
 	}
 
 	public string AnimForStance(WeaponsOfficer.CombatDir dir)
@@ -70,30 +72,16 @@ public class StancePicker : MechComponent
 	{
 		changingStance = true;
 
-		if (newStance == WeaponsOfficer.CombatDir.TopRight)
-			orientation = Orientation.Right;
-		else if (newStance == WeaponsOfficer.CombatDir.TopLeft)
-			orientation = Orientation.Left;
+		prevOrientation = orientation;
 
-		animator.SetInteger("Orientation", (int)orientation);
+		if (OnSwitchBegin != null)
+			OnSwitchBegin();
 
-		if (!pilot.move.moving)
-		{
-			if (prevStance == WeaponsOfficer.CombatDir.TopLeft
-				&& newStance == WeaponsOfficer.CombatDir.TopRight)
-			{
-				animator.CrossFade("Idle Switch L2R", 0.15f);
-			}
-			else if (prevStance == WeaponsOfficer.CombatDir.TopRight
-				&& newStance == WeaponsOfficer.CombatDir.TopLeft)
-			{
-				animator.CrossFade("Idle Switch R2L", 0.15f);
-			}
-		}
+		footStanceSwitcher.CheckSwitchStance(prevStance, stance);
 
 		float switchTimeToUse = switchTime;
 
-		animator.CrossFade(AnimForStance(stance), switchTimeToUse);
+		animator.CrossFadeInFixedTime(AnimForStance(stance), blendTime);
 
 		yield return new WaitForSeconds(switchTimeToUse);
 
@@ -124,7 +112,7 @@ public class StancePicker : MechComponent
 					OnStanceBegin();
 
 				//print("OK");
-				animator.CrossFade(AnimForStance(stance), switchTime);
+				animator.CrossFadeInFixedTime(AnimForStance(stance), blendTime);
 			}
 
 			if (!changingStance && prevStance != stance

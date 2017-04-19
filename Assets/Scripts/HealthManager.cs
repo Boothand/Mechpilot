@@ -11,7 +11,8 @@ public class BodyGroupStats
 
 public class HealthManager : MechComponent
 {
-	int health = 100;
+	int health;
+	[SerializeField] int startHealth = 100;
 	[SerializeField] int maxHealth = 100;
 	public int getHealth { get { return health; } }
 	public int getMaxHealth { get { return maxHealth; } }
@@ -20,7 +21,7 @@ public class HealthManager : MechComponent
 
 	[SerializeField] BodyGroupStats[] bodyGroupStats;
 
-	public delegate void Hit();
+	public delegate void Hit(Vector3 location);
 	public event Hit OnGetHit;
 
 
@@ -31,11 +32,11 @@ public class HealthManager : MechComponent
 
 	void Start()
 	{
-		health = maxHealth;
+		health = startHealth;
 	}
 
 	public void GetHit(BodyPart.BodyGroup group, Vector3 velocity, Vector3 hitPoint, int overrideDamage = -1)
-		{
+	{
 		int index = (int)group;
 		float velocityMagnitude = velocity.magnitude;
 		//Impact should be roughly in the range 0.5 to 1.5 (like a multiplier),
@@ -57,7 +58,7 @@ public class HealthManager : MechComponent
 		//If we need to detect how many hits a bodypart has.
 		bodyGroupStats[index].hitCount++;
 		//print(bodyGroupStats[index].name + " got hit by a sword for the " + bodyGroupStats[index].hitCount + ". time.");
-		
+
 		//Play a hit sound, modified by the velocity of the other's sword
 		mechSounds.PlayBodyHitSound(0.8f * velocityMagnitude);
 
@@ -81,15 +82,20 @@ public class HealthManager : MechComponent
 
 		if (OnGetHit != null)
 		{
-			OnGetHit();
+			OnGetHit(hitPoint);
 		}
 	}
 
 	IEnumerator DieRoutine()
 	{
 		arms.SetPinWeightWholeBody(1f, 0f, 0.3f);
+		//float originalFixedDeltaTime = Time.fixedDeltaTime;
+		//Time.timeScale = 0.2f;
+		//Time.fixedDeltaTime *= 2f;
 
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSecondsRealtime(0.5f);
+		//Time.timeScale = 1f;
+		//Time.fixedDeltaTime = originalFixedDeltaTime;
 
 		arms.KillPuppet();
 	}

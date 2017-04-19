@@ -8,7 +8,10 @@ public class Blocker : MechComponent
 	WeaponsOfficer.CombatDir blockStance;
 	WeaponsOfficer.CombatDir idealBlock;
 	WeaponsOfficer.CombatDir prevBlockStance;
-
+	[SerializeField] float blendStance = 0.75f;
+	[SerializeField] float blendWindup = 0.75f;
+	[SerializeField] float blendBlock = 0.75f;
+	[SerializeField] float blendAttack = 0.75f;
 	[SerializeField] float minBlockTime = 0.5f;
 
 	[SerializeField] float blockDuration = 0.75f;
@@ -17,6 +20,7 @@ public class Blocker : MechComponent
 	public bool blocking { get; private set; }
 	bool switchingBlockStance;
 	bool holdingBlockButton;
+	bool attackInterrupted;
 
 	Coroutine blockRoutine;
 
@@ -118,6 +122,15 @@ public class Blocker : MechComponent
 		return "Block Top";
 	}
 
+	IEnumerator InterruptAttackRoutine()
+	{
+		attackInterrupted = true;
+
+		yield return new WaitForSeconds(0.55f);
+
+		attackInterrupted = false;
+	}
+
 	IEnumerator BlockRoutine()
 	{
 		if (OnBlockBegin != null)
@@ -133,6 +146,8 @@ public class Blocker : MechComponent
 			alternateBlock = true;
 		}
 
+		footStanceSwitcher.CheckSwitchStance(prevBlockStance, blockStance);
+
 		//if (prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
 		//	&& blockStance == WeaponsOfficer.CombatDir.BottomRight)
 		//{
@@ -147,20 +162,41 @@ public class Blocker : MechComponent
 		//	transition = true;
 		//}
 
+		if (blockStance == WeaponsOfficer.CombatDir.TopRight)
+			stancePicker.orientation = StancePicker.Orientation.Right;
+		else if (blockStance == WeaponsOfficer.CombatDir.TopLeft)
+			stancePicker.orientation = StancePicker.Orientation.Left;
+
 		prevBlockStance = blockStance;
 		float durationToUse = blockDuration;
-
+		float blendTimeToUse = blendStance;
 		//if (!transition)
 		//{
-		float blendTime = 0.4f;
-
-		if (arms.prevCombatState == WeaponsOfficer.CombatState.Windup)
+		
+		if (arms.prevCombatState == WeaponsOfficer.CombatState.Stance)
 		{
-			blendTime = 1f;
-			print("OK");
+			blendTimeToUse = blendStance;
+		}
+		else if (arms.prevCombatState == WeaponsOfficer.CombatState.Windup)
+		{
+			blendTimeToUse = blendWindup;
+		}
+		else if (arms.prevCombatState == WeaponsOfficer.CombatState.Block)
+		{
+			blendTimeToUse = blendBlock;
+		}
+		else if (arms.prevCombatState == WeaponsOfficer.CombatState.Attack)
+		{
+			//if (!attackInterrupted)
+			//	StartCoroutine(InterruptAttackRoutine());
 		}
 
-			animator.CrossFade(AnimFromStance(blockStance, alternateBlock), blendTime);
+		if (attackInterrupted)
+		{
+			blendTimeToUse = blendAttack;
+		}
+
+		animator.CrossFadeInFixedTime(AnimFromStance(blockStance, alternateBlock), blendTimeToUse);
 		//}
 
 		yield return new WaitForSeconds(durationToUse);
@@ -230,7 +266,8 @@ public class Blocker : MechComponent
 
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
 		{
-			if (autoBlock)
+			if (autoBlock
+				&& mech.tempEnemy)
 			{
 				idealBlock = DecideBlockStance(mech.tempEnemy.weaponsOfficer.attacker.dir);
 				blockStance = idealBlock;

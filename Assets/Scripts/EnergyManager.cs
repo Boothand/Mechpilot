@@ -9,7 +9,7 @@ public class EnergyManager : MechComponent
 
 	public float getMaxStamina { get { return maxStamina; } }
 
-	public System.Action OnSpendStamina;
+	public System.Action<Vector3> OnSpendStamina;
 
 	protected override void OnAwake()
 	{
@@ -26,7 +26,7 @@ public class EnergyManager : MechComponent
 		stamina -= amount;
 
 		if (OnSpendStamina != null)
-			OnSpendStamina();
+			OnSpendStamina(Vector3.zero);
 	}
 
 	public bool CanSpendStamina(float amount)
