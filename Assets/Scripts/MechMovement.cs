@@ -32,6 +32,7 @@ public class MechMovement : MechComponent
 	//Flags
 	public bool moving { get; private set; }
 	public bool running { get; private set; }
+	public bool inRunCoolDown { get; private set; }
 	public bool grounded { get; private set; }
 
 	public delegate void VectorReference(ref Vector3 vec);
@@ -144,20 +145,36 @@ public class MechMovement : MechComponent
 	void CheckRun(ref Vector3 velocity)
 	{
 		running = false;
+		float staminaAmount = 35f * Time.deltaTime;
 
-		if (input.run > 0.3f &&
-			input.moveVert > 0.2f &&
-			Mathf.Abs(input.moveHorz) < 0.3f)
+		if (
+			//!lockOn.lockedOn &&
+			input.run &&
+			!inRunCoolDown
+			/*&& input.moveVert > 0.2f
+			&& Mathf.Abs(input.moveHorz) < 0.3f*/)
 		{
+			//print("Run");
 			//Plan: Ta en viss start-stamina for å begynde å springe.
 			//Sakte akselerasjon og deselerasjon
 			running = true;
 
-			velocity *= 2.5f * input.run;
-
-			float staminaAmount = velocity.magnitude * Time.deltaTime * 10f;
+			velocity *= 2.5f * inputVecMagnitude;
 
 			energyManager.SpendStamina(staminaAmount);
+
+			if (energyManager.stamina < 0.01f)
+			{
+				inRunCoolDown = true;
+			}
+		}
+
+		if (inRunCoolDown)
+		{
+			if (energyManager.stamina > 25f)
+			{
+				inRunCoolDown = false;
+			}
 		}
 
 		float animSpeed = rb.velocity.magnitude / 60;
