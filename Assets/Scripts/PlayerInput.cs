@@ -37,15 +37,14 @@ public class PlayerInput : AbstractInput
 		SetDeadZone(ref moveHorz, deadzone);
 		moveVert = pilotPlayer.GetAxis("Move Vertical");
 		SetDeadZone(ref moveVert, deadzone);
-		dodgeHorz = pilotPlayer.GetAxis("Dodge Horz");
-		dodgeVert = pilotPlayer.GetAxis("Dodge Vert");
 		turnBodyHorz = pilotPlayer.GetAxis("Turn Body Horz");
 		turnBodyVert = pilotPlayer.GetAxis("Turn Body Vert");
 		crouchAxis = pilotPlayer.GetAxis("Crouch");
 		dash = pilotPlayer.GetButtonDown("Dash");
 		dodge = pilotPlayer.GetButton("Dodge");
 		kick = pilotPlayer.GetButtonDown("Kick");
-		run = pilotPlayer.GetAxis("Run");
+		jump = pilotPlayer.GetButtonDown("Jump");
+		run = pilotPlayer.GetButton("Run");
 		lockOn = pilotPlayer.GetButtonDown("Lock On");
 
 		camLeft = pilotPlayer.GetButtonDown("Camera Left");

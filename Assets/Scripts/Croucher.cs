@@ -17,6 +17,19 @@ public class Croucher : MechComponent
 		base.OnAwake();
 	}
 
+	void Start()
+	{
+		pilot.move.ProcessVelocity += WalkSlower;
+	}
+
+	void WalkSlower(ref Vector3 velocity)
+	{
+		if (crouching)
+		{
+			velocity *= 0.85f;
+		}
+	}
+
 	void Update()
 	{
 		float crouchInput = Mathf.Clamp01(input.crouchAxis);
