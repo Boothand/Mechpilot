@@ -5,14 +5,14 @@ using System.Collections;
 public class Pilot : MechComponent
 {
 	//Auto-find references
-	public HeadRotation headRotation { get; private set; }
+	public MechRotation headRotation { get; private set; }
 	public MechMovement move { get; private set; }
 
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		headRotation = GetComponentInChildren<HeadRotation>();
+		headRotation = GetComponentInChildren<MechRotation>();
 		move = GetComponentInChildren<MechMovement>();
 	}
 
@@ -23,11 +23,14 @@ public class Pilot : MechComponent
 
 	void Update ()
 	{
-		//------------------ MOVING / TURNING THE BODY ------------------\\
+		if (input.restartScene)
+		{
+			Application.LoadLevel(Application.loadedLevel);
+		}
 
-		//move.RunComponent();
-
-		//------------------ LOOKING AROUND / ROTATING HEAD ------------------\\
-		headRotation.RunComponent();
+		if (healthManager.dead)
+		{
+			input.enabled = false;
+		}
 	}
 }

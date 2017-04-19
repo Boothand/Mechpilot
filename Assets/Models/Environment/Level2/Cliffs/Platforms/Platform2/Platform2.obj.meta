@@ -1,0 +1,221 @@
+fileFormatVersion: 2
+guid: 16ee17baf8d299f4d98036deba59b71f
+timeCreated: 1489582832
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: autoUnwrapFaces_Platform2_LO_LO_bottom
+    100002: LO_middle5_Platform2_LO
+    100004: //RootNode
+    100006: Platform2_LO_LO_middle1L_polySurface8
+    100008: Platform2_LO_LO_middle2L_Platform2_middle2L
+    100010: Platform2_LO_LO_middle3
+    100012: Platform2_LO_LO_middle4
+    100014: Platform2_LO_LO_top
+    100016: Platform2_LO_Platform2_middle2L_LO_middle2R
+    100018: Platform2_LO_polySurface8_LO_middle1R
+    100020: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_MED_top
+    100022: MED_top
+    100024: LO_grp_LO_middle1L
+    100026: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    100028: LO_grp_LO_Middle1R
+    100030: LO_grp_LO_Middle2L
+    100032: LO_grp_Platform2_middle2R_lo
+    100034: LO_grp_Middle1L_LO
+    100036: LO_grp_Middle1R_LO
+    100038: LO_grp_Middle2L_LO
+    100040: LO_grp_Middle2R_LO
+    100042: Middle3_LO_LO_grp
+    100044: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
+    100046: LO_grp_Middle4_LO
+    100048: LO_grp_Middle5_LO
+    400000: autoUnwrapFaces_Platform2_LO_LO_bottom
+    400002: LO_middle5_Platform2_LO
+    400004: //RootNode
+    400006: Platform2_LO_LO_middle1L_polySurface8
+    400008: Platform2_LO_LO_middle2L_Platform2_middle2L
+    400010: Platform2_LO_LO_middle3
+    400012: Platform2_LO_LO_middle4
+    400014: Platform2_LO_LO_top
+    400016: Platform2_LO_Platform2_middle2L_LO_middle2R
+    400018: Platform2_LO_polySurface8_LO_middle1R
+    400020: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_MED_top
+    400022: MED_top
+    400024: LO_grp_LO_middle1L
+    400026: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    400028: LO_grp_LO_Middle1R
+    400030: LO_grp_LO_Middle2L
+    400032: LO_grp_Platform2_middle2R_lo
+    400034: LO_grp_Middle1L_LO
+    400036: LO_grp_Middle1R_LO
+    400038: LO_grp_Middle2L_LO
+    400040: LO_grp_Middle2R_LO
+    400042: Middle3_LO_LO_grp
+    400044: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
+    400046: LO_grp_Middle4_LO
+    400048: LO_grp_Middle5_LO
+    2300000: autoUnwrapFaces_Platform2_LO_LO_bottom
+    2300002: LO_middle5_Platform2_LO
+    2300004: Platform2_LO_LO_middle1L_polySurface8
+    2300006: Platform2_LO_LO_middle2L_Platform2_middle2L
+    2300008: Platform2_LO_LO_middle3
+    2300010: Platform2_LO_LO_middle4
+    2300012: Platform2_LO_LO_top
+    2300014: Platform2_LO_Platform2_middle2L_LO_middle2R
+    2300016: Platform2_LO_polySurface8_LO_middle1R
+    2300018: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_MED_top
+    2300020: MED_top
+    2300022: LO_grp_LO_middle1L
+    2300024: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    2300026: LO_grp_LO_Middle1R
+    2300028: LO_grp_LO_Middle2L
+    2300030: LO_grp_Platform2_middle2R_lo
+    2300032: LO_grp_Middle1L_LO
+    2300034: LO_grp_Middle1R_LO
+    2300036: LO_grp_Middle2L_LO
+    2300038: LO_grp_Middle2R_LO
+    2300040: Middle3_LO_LO_grp
+    2300042: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
+    2300044: LO_grp_Middle4_LO
+    2300046: LO_grp_Middle5_LO
+    3300000: autoUnwrapFaces_Platform2_LO_LO_bottom
+    3300002: LO_middle5_Platform2_LO
+    3300004: Platform2_LO_LO_middle1L_polySurface8
+    3300006: Platform2_LO_LO_middle2L_Platform2_middle2L
+    3300008: Platform2_LO_LO_middle3
+    3300010: Platform2_LO_LO_middle4
+    3300012: Platform2_LO_LO_top
+    3300014: Platform2_LO_Platform2_middle2L_LO_middle2R
+    3300016: Platform2_LO_polySurface8_LO_middle1R
+    3300018: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_MED_top
+    3300020: MED_top
+    3300022: LO_grp_LO_middle1L
+    3300024: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    3300026: LO_grp_LO_Middle1R
+    3300028: LO_grp_LO_Middle2L
+    3300030: LO_grp_Platform2_middle2R_lo
+    3300032: LO_grp_Middle1L_LO
+    3300034: LO_grp_Middle1R_LO
+    3300036: LO_grp_Middle2L_LO
+    3300038: LO_grp_Middle2R_LO
+    3300040: Middle3_LO_LO_grp
+    3300042: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
+    3300044: LO_grp_Middle4_LO
+    3300046: LO_grp_Middle5_LO
+    4300000: autoUnwrapFaces_Platform2_LO_LO_bottom
+    4300002: LO_middle5_Platform2_LO
+    4300004: Platform2_LO_LO_middle1L_polySurface8
+    4300006: Platform2_LO_LO_middle2L_Platform2_middle2L
+    4300008: Platform2_LO_LO_middle3
+    4300010: Platform2_LO_LO_middle4
+    4300012: Platform2_LO_LO_top
+    4300014: Platform2_LO_Platform2_middle2L_LO_middle2R
+    4300016: Platform2_LO_polySurface8_LO_middle1R
+    4300018: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_MED_top
+    4300020: MED_top
+    4300022: LO_grp_LO_middle1L
+    4300024: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    4300026: LO_grp_LO_Middle1R
+    4300028: LO_grp_LO_Middle2L
+    4300030: LO_grp_Platform2_middle2R_lo
+    4300032: LO_grp_Middle1L_LO
+    4300034: LO_grp_Middle1R_LO
+    4300036: LO_grp_Middle2L_LO
+    4300038: LO_grp_Middle2R_LO
+    4300040: Middle3_LO_LO_grp
+    4300042: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
+    4300044: LO_grp_Middle4_LO
+    4300046: LO_grp_Middle5_LO
+    6400000: autoUnwrapFaces_Platform2_LO_LO_bottom
+    6400002: LO_middle5_Platform2_LO
+    6400004: Platform2_LO_LO_middle1L_polySurface8
+    6400006: Platform2_LO_LO_middle2L_Platform2_middle2L
+    6400008: Platform2_LO_LO_middle3
+    6400010: Platform2_LO_LO_middle4
+    6400012: Platform2_LO_LO_top
+    6400014: Platform2_LO_Platform2_middle2L_LO_middle2R
+    6400016: Platform2_LO_polySurface8_LO_middle1R
+    6400018: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_MED_top
+    6400020: MED_top
+    6400022: LO_grp_LO_middle1L
+    6400024: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_top_LO_grp
+    6400026: LO_grp_LO_Middle1R
+    6400028: LO_grp_LO_Middle2L
+    6400030: LO_grp_Platform2_middle2R_lo
+    6400032: LO_grp_Middle1L_LO
+    6400034: LO_grp_Middle1R_LO
+    6400036: LO_grp_Middle2L_LO
+    6400038: LO_grp_Middle2R_LO
+    6400040: Middle3_LO_LO_grp
+    6400042: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
+    6400044: LO_grp_Middle4_LO
+    6400046: LO_grp_Middle5_LO
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

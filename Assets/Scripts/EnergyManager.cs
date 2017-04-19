@@ -9,6 +9,8 @@ public class EnergyManager : MechComponent
 
 	public float getMaxStamina { get { return maxStamina; } }
 
+	public System.Action<Vector3> OnSpendStamina;
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -22,6 +24,9 @@ public class EnergyManager : MechComponent
 	public void SpendStamina(float amount)
 	{
 		stamina -= amount;
+
+		if (OnSpendStamina != null)
+			OnSpendStamina(Vector3.zero);
 	}
 
 	public bool CanSpendStamina(float amount)
@@ -34,8 +39,7 @@ public class EnergyManager : MechComponent
 		//Regenerate
 		if (stamina < maxStamina)
 		{
-			if (arms.armControl.state != ArmControl.State.Attack &&
-				arms.armControl.state != ArmControl.State.AttackRetract)
+			if (arms.combatState != WeaponsOfficer.CombatState.Attack)
 			{
 				stamina += Time.deltaTime * regenerationSpeed;
 			}

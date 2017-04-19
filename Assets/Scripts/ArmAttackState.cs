@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ArmAttackState : MechComponent
 {
+#if LEGACY
 	[Header("Position")]
 	[SerializeField] float attackForwardDistance = 0.25f;
 
@@ -18,7 +19,6 @@ public class ArmAttackState : MechComponent
 	public float getForwardDistance { get { return attackForwardDistance; } }
 	public float getSwingAcceleration { get { return swingAcceleration; } }
 	public float getStaminaAmount { get { return staminaAmount; } }
-
 
 	protected override void OnAwake()
 	{
@@ -39,4 +39,5 @@ public class ArmAttackState : MechComponent
 
 		return blockPos + dir * distance;
 	}
+#endif
 }

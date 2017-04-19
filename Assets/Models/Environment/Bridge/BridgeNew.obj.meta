@@ -1,0 +1,149 @@
+fileFormatVersion: 2
+guid: 9fb6f3bdf41a3a14a80512f5f8d69335
+timeCreated: 1487692295
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bridge_top_backL_geo_Bridge_top_grp_MilitaryBridge_grp
+    100002: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_backR_geo
+    100004: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontL_geo
+    100006: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontR_geo
+    100008: //RootNode
+    100010: MilitaryBridge_grp_Bridge_bottom_frontL_geo_Bridge_bottom_grp
+    100012: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backL_geo
+    100014: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backR_geo
+    100016: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_frontR_geo
+    100018: MilitaryBridge_grp_Bridge_middle_backL_geo_Bridge_middle_grp
+    100020: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_backR_geo
+    100022: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontL_geo
+    100024: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontR_geo
+    400000: Bridge_top_backL_geo_Bridge_top_grp_MilitaryBridge_grp
+    400002: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_backR_geo
+    400004: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontL_geo
+    400006: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontR_geo
+    400008: //RootNode
+    400010: MilitaryBridge_grp_Bridge_bottom_frontL_geo_Bridge_bottom_grp
+    400012: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backL_geo
+    400014: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backR_geo
+    400016: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_frontR_geo
+    400018: MilitaryBridge_grp_Bridge_middle_backL_geo_Bridge_middle_grp
+    400020: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_backR_geo
+    400022: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontL_geo
+    400024: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontR_geo
+    2300000: Bridge_top_backL_geo_Bridge_top_grp_MilitaryBridge_grp
+    2300002: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_backR_geo
+    2300004: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontL_geo
+    2300006: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontR_geo
+    2300008: MilitaryBridge_grp_Bridge_bottom_frontL_geo_Bridge_bottom_grp
+    2300010: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backL_geo
+    2300012: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backR_geo
+    2300014: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_frontR_geo
+    2300016: MilitaryBridge_grp_Bridge_middle_backL_geo_Bridge_middle_grp
+    2300018: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_backR_geo
+    2300020: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontL_geo
+    2300022: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontR_geo
+    3300000: Bridge_top_backL_geo_Bridge_top_grp_MilitaryBridge_grp
+    3300002: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_backR_geo
+    3300004: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontL_geo
+    3300006: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontR_geo
+    3300008: MilitaryBridge_grp_Bridge_bottom_frontL_geo_Bridge_bottom_grp
+    3300010: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backL_geo
+    3300012: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backR_geo
+    3300014: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_frontR_geo
+    3300016: MilitaryBridge_grp_Bridge_middle_backL_geo_Bridge_middle_grp
+    3300018: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_backR_geo
+    3300020: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontL_geo
+    3300022: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontR_geo
+    4300000: Bridge_top_backL_geo_Bridge_top_grp_MilitaryBridge_grp
+    4300002: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_backR_geo
+    4300004: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontL_geo
+    4300006: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontR_geo
+    4300008: MilitaryBridge_grp_Bridge_bottom_frontL_geo_Bridge_bottom_grp
+    4300010: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backL_geo
+    4300012: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backR_geo
+    4300014: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_frontR_geo
+    4300016: MilitaryBridge_grp_Bridge_middle_backL_geo_Bridge_middle_grp
+    4300018: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_backR_geo
+    4300020: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontL_geo
+    4300022: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontR_geo
+    6400000: Bridge_top_backL_geo_Bridge_top_grp_MilitaryBridge_grp
+    6400002: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_backR_geo
+    6400004: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontL_geo
+    6400006: Bridge_top_grp_MilitaryBridge_grp_Bridge_top_frontR_geo
+    6400008: MilitaryBridge_grp_Bridge_bottom_frontL_geo_Bridge_bottom_grp
+    6400010: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backL_geo
+    6400012: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_backR_geo
+    6400014: MilitaryBridge_grp_Bridge_bottom_grp_Bridge_bottom_frontR_geo
+    6400016: MilitaryBridge_grp_Bridge_middle_backL_geo_Bridge_middle_grp
+    6400018: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_backR_geo
+    6400020: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontL_geo
+    6400022: MilitaryBridge_grp_Bridge_middle_grp_Bridge_middle_frontR_geo
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

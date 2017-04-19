@@ -4,6 +4,7 @@
 //Each field corresponds to an input that can be bound to anything on the controller.
 public class AbstractInput : MonoBehaviour
 {
+	[HideInInspector] public bool restartScene;
 	//---------- PILOT ---------- \\
 
 	//Leg movement
@@ -11,8 +12,11 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public float moveVert;
 
 	//Looking
-	[HideInInspector] public float lookHorz;
-	[HideInInspector] public float lookVert;
+	[HideInInspector] public float dodgeHorz;
+	[HideInInspector] public float dodgeVert;
+
+	[HideInInspector] public float turnBodyHorz;
+	[HideInInspector] public float turnBodyVert;
 
 	[HideInInspector] public float crouchAxis;
 	[HideInInspector] public bool dodge;
@@ -22,6 +26,11 @@ public class AbstractInput : MonoBehaviour
 
 	[HideInInspector] public bool giveToWeapons;
 	[HideInInspector] public bool takeFromWeapons;
+
+	[HideInInspector] public bool lockOn;
+
+	//Camera control
+	[HideInInspector] public bool camLeft, camRight, camBehind, camFP;
 
 
 	//---------- WEAPONS OFFICER ---------- \\
@@ -37,6 +46,7 @@ public class AbstractInput : MonoBehaviour
 	[HideInInspector] public float rArmRot;
 
 	[HideInInspector] public bool attack;
+	[HideInInspector] public bool block;
 
 	[HideInInspector] public bool giveToPilot;
 	[HideInInspector] public bool takeFromPilot;

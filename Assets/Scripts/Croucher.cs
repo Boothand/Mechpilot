@@ -3,8 +3,14 @@ using UnityEngine;
 
 public class Croucher : MechComponent
 {
-	public float crouchHeight { get; private set; }
-	[SerializeField] float crouchSpeed = 1.3f;
+	public float animCrouchHeight { get; private set; }
+	[SerializeField] float animCrouchSpeed = 1.3f;
+	[SerializeField] float crouchSpeed = 20f;
+	[SerializeField] float crouchHeight = 0.5f;
+	float actualCrouchHeight;
+
+	public bool crouching
+	{ get { return animCrouchHeight > 0.5f; } }
 
 	protected override void OnAwake()
 	{
@@ -15,8 +21,13 @@ public class Croucher : MechComponent
 	{
 		float crouchInput = Mathf.Clamp01(input.crouchAxis);
 
-		crouchHeight = Mathf.MoveTowards(crouchHeight, crouchInput, Time.deltaTime * crouchSpeed);
+		animCrouchHeight = Mathf.MoveTowards(animCrouchHeight, crouchInput, Time.deltaTime * animCrouchSpeed);
+		animator.SetFloat("Crouch", animCrouchHeight);
 
-		animator.SetFloat("Crouch", crouchHeight);
+		actualCrouchHeight = Mathf.MoveTowards(actualCrouchHeight, crouchHeight * crouchInput, Time.deltaTime * crouchSpeed);
+
+		Vector3 offset = Vector3.down * actualCrouchHeight;
+
+		arms.OffsetIKTargets(offset, crouchSpeed);
 	}
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AI_ConfidentBlock : AI_BlockMethod
 {
-
+#if LEGACY
 
 	protected override void OnAwake()
 	{
@@ -16,11 +16,40 @@ public class AI_ConfidentBlock : AI_BlockMethod
 
 		print("In confident block");
 
-		float rotDir = 1f;
-
 		if (aiCombat.combatState == AI_Combat.CombatState.Defend)
 		{
-			aiCombat.CrossEnemySwordDir(rotDir);
+			aiCombat.CrossEnemySwordDir();
+		}
+
+		if (aiCombat.GetState(enemy) != ArmControl.State.WindUp &&
+			aiCombat.GetState(enemy) != ArmControl.State.WindedUp &&
+			aiCombat.GetState(enemy) != ArmControl.State.Attack)
+		{
+			if (!aiCombat.LowStamina(mech) && !aiCombat.LowHealth(mech))
+			{
+				aiCombat.SetAttackMethod(aiCombat.getAggressiveAttack);
+			}
+
+			if (aiCombat.LowHealth(mech))
+			{
+				aiCombat.SetBlockMethod(aiCombat.getLowHealthBlock);
+			}
+
+			if (aiCombat.LowStamina(mech))
+			{
+				aiCombat.SetBlockMethod(aiCombat.getLowStaminaBlock);
+			}
+		}
+
+		//Distance management
+		if (IsWithinSwingDistance())
+		{
+			aiCombat.WalkBackward();
+		}
+
+		if (!IsWithinCombatDistance())
+		{
+			aiCombat.WalkForward();
 		}
 	}
 
@@ -28,4 +57,5 @@ public class AI_ConfidentBlock : AI_BlockMethod
 	{
 		base.Update();
 	}
+#endif
 }

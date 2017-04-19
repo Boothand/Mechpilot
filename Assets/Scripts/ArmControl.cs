@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class ArmControl : MechComponent
 {
-	#region Variables/References
+#if LEGACY
+#region Variables/References
 	//The IK targets to move and rotate around
 	[Header("References")]
 	[SerializeField] Transform rHandIKTarget;
-	[SerializeField] Transform lHandIKTarget;
+	[SerializeField] public Transform lHandIKTarget;
 	[SerializeField] Transform lHandTarget;	//Where to put the left hand (if longsword)
 	public Transform getRhandIKTarget { get { return rHandIKTarget; } }
 
@@ -69,7 +70,7 @@ public class ArmControl : MechComponent
 	public event SwordCollision Clash;
 	public event SwordCollision Block;
 	public event SwordCollision HitOpponent;
-	#endregion
+#endregion
 
 
 
@@ -81,8 +82,8 @@ public class ArmControl : MechComponent
 
 	void Start()
 	{
-		arms.getWeapon.OnCollision -= SwordCollide;
-		arms.getWeapon.OnCollision += SwordCollide;
+		//arms.getWeapon.OnCollision -= SwordCollide;
+		//arms.getWeapon.OnCollision += SwordCollide;
 		healthManager.OnGetHit -= OnGetHit;
 		healthManager.OnGetHit += OnGetHit;
 	}
@@ -104,7 +105,7 @@ public class ArmControl : MechComponent
 		{
 			if (other is Sword)
 			{
-				#region Sword collides with sword
+#region Sword collides with sword
 
 				Sword otherSword = other as Sword;
 				State otherPrevState = otherSword.arms.armControl.prevState;
@@ -158,7 +159,7 @@ public class ArmControl : MechComponent
 						StartCoroutine(StaggerRoutine(otherSword, stagg.getBlockMultiplier, stagg.getBlockStaggerEndRotSpeed / 2, true));
 					}
 				}
-				#endregion
+#endregion
 			}
 			else
 			{
@@ -432,10 +433,13 @@ public class ArmControl : MechComponent
 		//------------ ROTATION ------------\\
 		Quaternion finalTargetRotation = Quaternion.Lerp(fromRotation, toRotation, rotationTimer);	//Interpolate
 		finalRotation = Quaternion.Lerp(finalRotation, finalTargetRotation, Time.deltaTime * rotationBlendSpeed * scaleFactor);   //Smooth
-		
+
 		//Set final rotation
-		rHandIKTarget.localRotation = finalRotation;
+		//rHandIKTarget.localRotation = finalRotation;
+		rHandIKTarget.rotation = finalRotation;
+
 
 		lHandIKTarget.rotation = lHandTarget.rotation;
 	}
+#endif
 }

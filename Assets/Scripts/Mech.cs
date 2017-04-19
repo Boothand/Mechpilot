@@ -6,6 +6,7 @@ public class Mech : MonoBehaviour
 {
 	public Pilot pilot { get; private set; }
 	public WeaponsOfficer weaponsOfficer { get; private set; }
+	public Mech tempEnemy;
 	//Arms
 	//Engineer
 

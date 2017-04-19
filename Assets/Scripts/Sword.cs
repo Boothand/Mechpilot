@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Sword : Collidable
@@ -10,19 +11,78 @@ public class Sword : Collidable
 	public bool playingSwordSound { get; private set; }
 	public Transform getSwordTip { get { return swordTip; } }
 	public Vector3 swordTipVelocity { get; private set; }
-
-	Vector3 lastPos;
+	[SerializeField] Transform leftHandTarget;
+	[SerializeField] Transform midPoint;
+	public Transform getLeftHandTarget { get { return leftHandTarget; } }
+	public Transform getMidPoint { get { return midPoint; } }
+	Collider swordCollider;
+	List<Vector3> velocityList = new List<Vector3>();
+	Vector3 averagePosition;
+	//int bodyLayer = 9;
+	//int defaultLayer = 0;
+	bool anglesLocked;
+	public System.Action<Vector3, Sword> OnClashWithSword;
+	ConfigurableJoint configJoint;
+	float timeSinceLastClash;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
+		swordCollider = GetComponent<Collider>();
+		configJoint = GetComponent<ConfigurableJoint>();
 	}
 
-	public void PlayClashSound(float impact = 1)
+	void Start()
+	{
+		StartCoroutine(CorrectWeaponLayerRoutine());
+	}
+
+	IEnumerator CorrectWeaponLayerRoutine()
+	{
+		//Hack to set the layer one frame after start, overriding the layer set by PuppetMaster
+		yield return null;
+		gameObject.layer = 10;
+	}
+
+	public void PlayClashSound(float impact = 1f)
 	{
 		AudioClip randomClash = clashes[Random.Range(0, clashes.Length)];
 
 		StartCoroutine(PlaySoundRoutine(randomClash, impact));
+	}
+
+	int GetLayerFromLayerMask(LayerMask mask)
+	{
+		int layerNum = 0;
+
+		int layerValue = mask.value;
+
+		while (layerValue > 0)
+		{
+			layerValue = layerValue >> 1;
+			layerNum++;
+		}
+
+		layerNum--;
+		
+		return layerNum;
+	}
+
+	public void EnableCollider(bool truth)
+	{
+		swordCollider.enabled = truth;
+	}
+
+	public void SetCollisionWithBodyAndDefault(bool truth)
+	{
+		if (truth)
+		{
+			gameObject.layer = 10;
+		}
+		else
+		{
+			gameObject.layer = 13;
+		}
 	}
 
 	IEnumerator PlaySoundRoutine(AudioClip clip, float volume)
@@ -38,11 +98,117 @@ public class Sword : Collidable
 		playingSwordSound = false;
 	}
 
-	void Update()
+	protected override void RunCollisionEvent(Collision col)
 	{
-		swordTipVelocity = swordTip.position - lastPos;
+		base.RunCollisionEvent(col);
+		Sword otherSword = col.transform.GetComponent<Sword>();
+		
+		//Play clash sound
+		if (otherSword)
+		{
+			if (arms.prevCombatState == WeaponsOfficer.CombatState.Attack
+			|| arms.prevCombatState == WeaponsOfficer.CombatState.Block
+			&& (otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Attack
+				|| otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Block))
+			{
+				float magnitude = col.relativeVelocity.magnitude;
+
+				if (timeSinceLastClash > 0.5f)
+				{
+					timeSinceLastClash = 0f;
+
+					if (OnClashWithSword != null)
+						OnClashWithSword(col.contacts[0].point, otherSword);
+
+					PlayClashSound(magnitude * 0.15f);
+				}
+			}
+		}
+
+		LockSwordAngularMotion(false);
+		anglesLocked = false;
+	}
+
+	void CalculateSwordTipVelocity()
+	{
+		swordTipVelocity = (swordTip.position - averagePosition) * Time.deltaTime;
 		swordTipVelocity *= scaleFactor;
 
-		lastPos = swordTip.position;
+		if (velocityList.Count < 5)
+		{
+			velocityList.Add(swordTip.position);
+		}
+		else
+		{
+			velocityList.RemoveAt(0);
+		}
+
+		averagePosition = Vector3.zero;
+
+		for (int i = 0; i < velocityList.Count; i++)
+		{
+			averagePosition += velocityList[i];
+		}
+
+		averagePosition /= velocityList.Count;
+	}
+
+	public void LockSwordAngularMotion(bool truth)
+	{
+		if (truth)
+		{
+			configJoint.angularXMotion = ConfigurableJointMotion.Locked;
+			configJoint.angularYMotion = ConfigurableJointMotion.Locked;
+			configJoint.angularZMotion = ConfigurableJointMotion.Locked;
+		}
+		else
+		{
+			configJoint.angularXMotion = ConfigurableJointMotion.Free;
+			configJoint.angularYMotion = ConfigurableJointMotion.Free;
+			configJoint.angularZMotion = ConfigurableJointMotion.Free;
+		}
+	}
+
+	void FixedUpdate()
+	{
+		//Calculate sword tip velocity
+		CalculateSwordTipVelocity();
+	}
+
+	void Update()
+	{
+		//Turn off collider when not blocking or attacking
+		if (arms.combatState == WeaponsOfficer.CombatState.Attack
+			|| arms.combatState == WeaponsOfficer.CombatState.Block
+			|| arms.combatState == WeaponsOfficer.CombatState.Stagger
+			|| stancePicker.changingStance
+			|| healthManager.dead)
+		{
+			EnableCollider(true);
+		}
+		else
+		{
+			EnableCollider(false);
+		}
+
+		if (arms.combatState == WeaponsOfficer.CombatState.Attack
+			|| arms.combatState == WeaponsOfficer.CombatState.Retract
+			|| arms.combatState == WeaponsOfficer.CombatState.Stagger)
+		{
+			SetCollisionWithBodyAndDefault(true);
+		}
+		else
+		{
+			SetCollisionWithBodyAndDefault(false);
+		}
+
+		if (!anglesLocked
+			&& arms.combatState == WeaponsOfficer.CombatState.Stance)
+		{
+			LockSwordAngularMotion(true);
+			anglesLocked = true;
+		}
+
+		timeSinceLastClash += Time.deltaTime;
 	}
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AI_ImpatientAttack : AI_AttackMethod
 {
-
+#if LEGACY
 
 	protected override void OnAwake()
 	{
@@ -21,4 +21,5 @@ public class AI_ImpatientAttack : AI_AttackMethod
 	{
 		base.Update();
 	}
+#endif
 }
