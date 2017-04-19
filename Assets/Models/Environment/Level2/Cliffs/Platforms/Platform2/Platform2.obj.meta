@@ -30,6 +30,7 @@ ModelImporter:
     100044: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
     100046: LO_grp_Middle4_LO
     100048: LO_grp_Middle5_LO
+    100050: LO_grp_Platform2_bottom_lo
     400000: autoUnwrapFaces_Platform2_LO_LO_bottom
     400002: LO_middle5_Platform2_LO
     400004: //RootNode
@@ -55,6 +56,7 @@ ModelImporter:
     400044: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
     400046: LO_grp_Middle4_LO
     400048: LO_grp_Middle5_LO
+    400050: LO_grp_Platform2_bottom_lo
     2300000: autoUnwrapFaces_Platform2_LO_LO_bottom
     2300002: LO_middle5_Platform2_LO
     2300004: Platform2_LO_LO_middle1L_polySurface8
@@ -79,6 +81,7 @@ ModelImporter:
     2300042: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
     2300044: LO_grp_Middle4_LO
     2300046: LO_grp_Middle5_LO
+    2300048: LO_grp_Platform2_bottom_lo
     3300000: autoUnwrapFaces_Platform2_LO_LO_bottom
     3300002: LO_middle5_Platform2_LO
     3300004: Platform2_LO_LO_middle1L_polySurface8
@@ -103,6 +106,7 @@ ModelImporter:
     3300042: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
     3300044: LO_grp_Middle4_LO
     3300046: LO_grp_Middle5_LO
+    3300048: LO_grp_Platform2_bottom_lo
     4300000: autoUnwrapFaces_Platform2_LO_LO_bottom
     4300002: LO_middle5_Platform2_LO
     4300004: Platform2_LO_LO_middle1L_polySurface8
@@ -127,6 +131,7 @@ ModelImporter:
     4300042: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
     4300044: LO_grp_Middle4_LO
     4300046: LO_grp_Middle5_LO
+    4300048: LO_grp_Platform2_bottom_lo
     6400000: autoUnwrapFaces_Platform2_LO_LO_bottom
     6400002: LO_middle5_Platform2_LO
     6400004: Platform2_LO_LO_middle1L_polySurface8
@@ -151,6 +156,7 @@ ModelImporter:
     6400042: Platform2_top_lo:LO_top_Platform2_top_lo:Platform2_LO_0_LO_grp_Top_LO
     6400044: LO_grp_Middle4_LO
     6400046: LO_grp_Middle5_LO
+    6400048: LO_grp_Platform2_bottom_lo
   materials:
     importMaterials: 1
     materialName: 0
