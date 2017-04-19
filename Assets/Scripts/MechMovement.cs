@@ -29,6 +29,8 @@ public class MechMovement : MechComponent
 	[SerializeField] float accelerationSpeed = 0.5f;
 	[SerializeField] float animationSpeedFactor = 0.4f;
 
+	[SerializeField] float runMultiplier = 1.75f;
+
 	//Flags
 	public bool moving { get; private set; }
 	public bool running { get; private set; }
@@ -43,16 +45,6 @@ public class MechMovement : MechComponent
 		base.OnAwake();
 
 		//capsuleCol = mech.GetComponent<CapsuleCollider>();
-	}
-
-	void OnCollisionStay()
-	{
-		grounded = true;
-	}
-
-	void OnCollisionExit()
-	{
-		grounded = false;
 	}
 
 	Vector3 BuildVelocity() //Return value just for increased readability in the Update-loop
@@ -145,12 +137,14 @@ public class MechMovement : MechComponent
 	void CheckRun(ref Vector3 velocity)
 	{
 		running = false;
-		float staminaAmount = 35f * Time.deltaTime;
+		float staminaAmount = 15f * Time.deltaTime;
 
 		if (
 			//!lockOn.lockedOn &&
 			input.run &&
-			!inRunCoolDown
+			!inRunCoolDown &&
+			!croucher.crouching &&
+			inputVecMagnitude > 0.2f
 			/*&& input.moveVert > 0.2f
 			&& Mathf.Abs(input.moveHorz) < 0.3f*/)
 		{
@@ -159,9 +153,23 @@ public class MechMovement : MechComponent
 			//Sakte akselerasjon og deselerasjon
 			running = true;
 
-			velocity *= 2.5f * inputVecMagnitude;
+			float runMultiplierToUse = runMultiplier;
 
-			energyManager.SpendStamina(staminaAmount);
+			Vector3 localVelocity = mech.transform.InverseTransformDirection(worldMoveDir);
+
+			if (Mathf.Abs(localVelocity.x) > 0.5f)   //Going sideways
+			{
+				runMultiplierToUse *= 0.8f; //Don't run as fast as forward
+			}
+			else if (localVelocity.z < 0f)	//Going backwards
+			{
+				runMultiplierToUse *= 0.6f;	//Don't run as fast as forward
+			}
+			//print(runMultiplierToUse);
+
+			velocity *= runMultiplierToUse;// * inputVecMagnitude;
+
+			energyManager.SpendStamina(staminaAmount * runMultiplierToUse);
 
 			if (energyManager.stamina < 0.01f)
 			{
