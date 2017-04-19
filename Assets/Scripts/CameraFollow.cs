@@ -25,6 +25,22 @@ public class CameraFollow : MechComponent
 		currentOffset = right;
 	}
 
+	void Start()
+	{
+		lockOn.OnLockOn += OnLockOn;
+		lockOn.OnLockOff += OnLockOff;
+	}
+
+	void OnLockOn()
+	{
+		currentOffset = right;
+	}
+
+	void OnLockOff()
+	{
+		currentOffset = behind;
+	}
+
 	IEnumerator SwitchRoutine()
 	{
 		switching = true;

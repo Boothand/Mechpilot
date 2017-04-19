@@ -9,6 +9,7 @@ public class MechRotation : MechComponent
 	[SerializeField] float stopTurnSpeed = 10f;
 	float rotationAmount;
 	float angle;
+	float lastHorz;
 
 	Vector3 forwardDir;
 
@@ -21,15 +22,27 @@ public class MechRotation : MechComponent
 
 	void Update()
 	{
+		float turnSpeedToUse = turnSpeed;
+
+		//if (Mathf.Abs(angle) > 10f)
+		//{
+		//	turnSpeedToUse = stopTurnSpeed;
+		//}
 		//Gradually increase/decrease view angle according to input
 		if (Mathf.Abs(input.turnBodyHorz) > 0.1f)
 		{
-			angle += Mathf.Sign(input.turnBodyHorz) * Time.deltaTime * turnSpeed;
+			angle += Mathf.Sign(input.turnBodyHorz) * Time.deltaTime * turnSpeedToUse;
 		}
 		else
 		{
+			//Lower threshold, tween angle back to 0
 			angle = Mathf.Lerp(angle, 0f, Time.deltaTime * stopTurnSpeed);
 		}
+
+		angle = Mathf.Clamp(angle, -30f, 30f);
+
+		lastHorz = input.turnBodyHorz;
+		//print(angle);
 
 		//If locked on, look towards the enemy when you're not turning
 		if (lockOn.lockedOn
@@ -50,6 +63,11 @@ public class MechRotation : MechComponent
 			//If not locked on, rotate normally on your own
 			forwardDir = Quaternion.Euler(0f, angle, 0f) * mech.transform.forward;
 		}
+
+		//if (pilot.move.running)
+		//{
+		//	forwardDir = pilot.move.getWorldMoveDir;
+		//}
 
 		forwardDir.y = 0f;
 		forwardDir.Normalize();
