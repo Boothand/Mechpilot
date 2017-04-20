@@ -24,9 +24,12 @@ public class Jumper : MechComponent
 		yield return new WaitForSeconds(0.35f);
 		rb.velocity += Vector3.up * jumpForce;
 
-		yield return new WaitForSeconds(0.6f);
+		yield return new WaitForSeconds(0.3f);
+		while (!groundCheck.grounded)
+		{
+			yield return null;
+		}
 		animator.CrossFadeInFixedTime("Land", 0.1f);
-
 
 		jumping = false;
 	}
@@ -35,7 +38,7 @@ public class Jumper : MechComponent
 	{
 		if (!jumping &&
 			input.jump
-			//&& pilot.move.grounded
+			&& groundCheck.grounded
 			)
 		{
 			StartCoroutine(JumpRoutine());
