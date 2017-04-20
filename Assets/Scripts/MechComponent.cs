@@ -30,6 +30,7 @@ public class MechComponent : ManagedMechBehaviour
 	public Lockon lockOn { get; private set; }
 	public GroundCheck groundCheck { get; private set; }
 	public Run run { get; private set; }
+	public LockonIndicator lockonIndicator { get; private set; }
 
 	protected const int PILOT_INDEX = 0;
 	protected const int WEAPONOFFICER_INDEX = 1;
@@ -69,6 +70,7 @@ public class MechComponent : ManagedMechBehaviour
 		lockOn = transform.root.GetComponentInChildren<Lockon>();
 		groundCheck = transform.root.GetComponentInChildren<GroundCheck>();
 		run = transform.root.GetComponentInChildren<Run>();
+		lockonIndicator = transform.root.GetComponentInChildren<LockonIndicator>();
 		base.OnAwake();
 	}
 }

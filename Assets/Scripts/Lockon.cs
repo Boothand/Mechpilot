@@ -7,6 +7,8 @@ public class Lockon : MechComponent
 
 	public System.Action OnLockOn;
 	public System.Action OnLockOff;
+	public System.Action OnGetLockedOn;
+	public System.Action OnGetLockedOff;
 
 	[SerializeField] bool debugAlwaysLockon;
 
@@ -28,6 +30,10 @@ public class Lockon : MechComponent
 
 				if (OnLockOn != null)
 					OnLockOn();
+
+				Lockon enemyLockon = mech.tempEnemy.pilot.lockOn;
+				if (enemyLockon.OnGetLockedOn != null)
+					enemyLockon.OnGetLockedOn();
 			}
 			//else if (lockedOn)
 			//{
@@ -45,6 +51,13 @@ public class Lockon : MechComponent
 
 			if (OnLockOff != null)
 				OnLockOff();
+
+			Lockon enemyLockon = mech.tempEnemy.pilot.lockOn;
+			if (enemyLockon != null &&
+				enemyLockon.OnGetLockedOff != null)
+			{
+				enemyLockon.OnGetLockedOff();
+			}
 		}
 
 		if (lockedOn && mech.tempEnemy == null)
@@ -53,6 +66,10 @@ public class Lockon : MechComponent
 
 			if (OnLockOff != null)
 				OnLockOff();
+
+			Lockon enemyLockon = mech.tempEnemy.pilot.lockOn;
+			if (enemyLockon.OnGetLockedOff != null)
+				enemyLockon.OnGetLockedOff();
 		}
 	}
 }
