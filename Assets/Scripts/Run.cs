@@ -6,6 +6,7 @@ public class Run : MechComponent
 	public bool running { get; private set; }
 	public bool inRunCooldown { get; private set; }
 	[SerializeField] float runMultiplier = 1.75f;
+	[SerializeField] float staminaPerSecond = 15f;
 
 	protected override void OnAwake()
 	{
@@ -20,7 +21,7 @@ public class Run : MechComponent
 	void CheckRun(ref Vector3 worldMoveDir)
 	{
 		running = false;
-		float staminaAmount = 15f * Time.deltaTime;
+		float staminaAmount = staminaPerSecond * Time.deltaTime;
 
 		if (
 			//!lockOn.lockedOn &&
