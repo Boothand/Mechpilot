@@ -8,6 +8,8 @@ public class Lockon : MechComponent
 	public System.Action OnLockOn;
 	public System.Action OnLockOff;
 
+	[SerializeField] bool debugAlwaysLockon;
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -15,6 +17,9 @@ public class Lockon : MechComponent
 
 	void Update()
 	{
+		if (debugAlwaysLockon)
+			input.lockOn = true;
+
 		if (input.lockOn)
 		{
 			if (!lockedOn && mech.tempEnemy)
@@ -24,13 +29,22 @@ public class Lockon : MechComponent
 				if (OnLockOn != null)
 					OnLockOn();
 			}
-			else if (lockedOn)
-			{
-				lockedOn = false;
+			//else if (lockedOn)
+			//{
+			//	lockedOn = false;
 
-				if (OnLockOff != null)
-					OnLockOff();
-			}
+			//	if (OnLockOff != null)
+			//		OnLockOff();
+			//}
+		}
+
+		if (!input.lockOn &&
+			lockedOn)
+		{
+			lockedOn = false;
+
+			if (OnLockOff != null)
+				OnLockOff();
 		}
 
 		if (lockedOn && mech.tempEnemy == null)

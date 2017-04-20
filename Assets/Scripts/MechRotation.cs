@@ -7,6 +7,9 @@ public class MechRotation : MechComponent
 	[SerializeField] float lockonAngleLimit = 60f;
 	[SerializeField] float turnSpeed = 60f;
 	[SerializeField] float stopTurnSpeed = 10f;
+
+	[SerializeField] float blendSpeed = 2f;
+	[SerializeField] float lockonBlendSpeed = 1f;
 	float rotationAmount;
 	float angle;
 	float lastHorz;
@@ -73,7 +76,12 @@ public class MechRotation : MechComponent
 		forwardDir.Normalize();
 
 		//Gradually tween mech's forward direction
-		mech.transform.forward = Vector3.Slerp(mech.transform.forward, forwardDir, Time.deltaTime * 2f);
+		float blendSpeedToUse = blendSpeed;
+
+		if (lockOn.lockedOn)
+			blendSpeedToUse = lockonBlendSpeed;
+
+		mech.transform.forward = Vector3.Slerp(mech.transform.forward, forwardDir, Time.deltaTime * blendSpeedToUse);
 		
 	}
 }

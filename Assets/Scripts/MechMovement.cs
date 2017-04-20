@@ -29,13 +29,8 @@ public class MechMovement : MechComponent
 	[SerializeField] float accelerationSpeed = 0.5f;
 	[SerializeField] float animationSpeedFactor = 0.4f;
 
-	[SerializeField] float runMultiplier = 1.75f;
-
 	//Flags
 	public bool moving { get; private set; }
-	public bool running { get; private set; }
-	public bool inRunCoolDown { get; private set; }
-	public bool grounded { get; private set; }
 
 	public delegate void VectorReference(ref Vector3 vec);
 	public event VectorReference ProcessVelocity;
@@ -111,8 +106,9 @@ public class MechMovement : MechComponent
 		float accelerationSpeedToUse = accelerationSpeed;
 
 		//Send velocity to dash component for potential modification
-		dasher.RunComponent(ref velocity, ref accelerationSpeedToUse);
+		dasher.ModifyVelAndAcc(ref velocity, ref accelerationSpeedToUse);
 
+		//Run event for anyone to use to modify worldMoveDir before it is applied.
 		if (ProcessWorldMoveDir != null)
 			ProcessWorldMoveDir(ref worldMoveDir);
 
@@ -120,7 +116,7 @@ public class MechMovement : MechComponent
 		if (ProcessVelocity != null)
 			ProcessVelocity(ref velocity);
 
-		if (running)
+		if (run.running)
 		{
 			accelerationSpeedToUse *= 5f;
 		}

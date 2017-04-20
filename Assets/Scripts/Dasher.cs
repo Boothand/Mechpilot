@@ -45,7 +45,7 @@ public class Dasher : MechComponent
 		inDash = false;
 	}
 
-	public void RunComponent(ref Vector3 velocity, ref float accelerationSpeed)
+	public void ModifyVelAndAcc(ref Vector3 velocity, ref float accelerationSpeed)
 	{
 		if (input.dash)
 		{

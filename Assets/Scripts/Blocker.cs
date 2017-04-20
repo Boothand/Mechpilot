@@ -12,7 +12,8 @@ public class Blocker : MechComponent
 	[SerializeField] float blendWindup = 0.75f;
 	[SerializeField] float blendBlock = 0.75f;
 	[SerializeField] float blendAttack = 0.75f;
-	[SerializeField] float minBlockTime = 0.5f;
+	[SerializeField] float minBlockTime = 0.2f;
+	[SerializeField] float minBlockTimeStagger = 0.5f;
 
 	[SerializeField] float blockDuration = 0.75f;
 
@@ -207,7 +208,14 @@ public class Blocker : MechComponent
 
 	IEnumerator BlockTimingRoutine()
 	{
-		yield return new WaitForSeconds(minBlockTime);
+		float minBlockTimeToUse = minBlockTime;
+
+		if (arms.prevCombatState == WeaponsOfficer.CombatState.Stagger)
+		{
+			minBlockTimeToUse = minBlockTimeStagger;
+		}
+
+		yield return new WaitForSeconds(minBlockTimeToUse);
 
 		while (input.block
 			|| switchingBlockStance)
