@@ -65,10 +65,10 @@ public class HealthManager : MechComponent
 		//Make upper body more floppy when hit, so it's visible that it impacted us.
 		if (!dead)
 		{
-			arms.SetPinWeightUpperBody(1f, 0.3f, 0f);
+			//arms.SetPinWeightUpperBody(1f, 0.3f, 0f);
 			arms.puppet.muscles[arms.puppet.GetMuscleIndex(HumanBodyBones.Spine)].rigidbody.AddForceAtPosition(velocity * 5000f, hitPoint, ForceMode.Impulse);
 
-			arms.SetPinWeightUpperBody(0.3f, 1f, 1f);
+			//arms.SetPinWeightUpperBody(0.3f, 1f, 1f);
 
 		}
 
