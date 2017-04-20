@@ -23,10 +23,16 @@ public class CameraFollow : MechComponent
 	{
 		base.OnAwake();
 		currentOffset = right;
+
 	}
 
 	void Start()
 	{
+		if (lockOn.lockedOn)
+			OnLockOn();
+		else
+			OnLockOff();
+
 		lockOn.OnLockOn += OnLockOn;
 		lockOn.OnLockOff += OnLockOff;
 	}

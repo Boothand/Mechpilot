@@ -28,6 +28,8 @@ public class MechComponent : ManagedMechBehaviour
 	public SwordClashParticles swordClashParticles { get; private set; }
 	public FootStanceSwitcher footStanceSwitcher { get; private set; }
 	public Lockon lockOn { get; private set; }
+	public GroundCheck groundCheck { get; private set; }
+	public Run run { get; private set; }
 
 	protected const int PILOT_INDEX = 0;
 	protected const int WEAPONOFFICER_INDEX = 1;
@@ -65,6 +67,8 @@ public class MechComponent : ManagedMechBehaviour
 		swordClashParticles = transform.root.GetComponentInChildren<SwordClashParticles>();
 		footStanceSwitcher = transform.root.GetComponentInChildren<FootStanceSwitcher>();
 		lockOn = transform.root.GetComponentInChildren<Lockon>();
+		groundCheck = transform.root.GetComponentInChildren<GroundCheck>();
+		run = transform.root.GetComponentInChildren<Run>();
 		base.OnAwake();
 	}
 }

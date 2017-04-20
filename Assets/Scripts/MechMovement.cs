@@ -29,16 +29,12 @@ public class MechMovement : MechComponent
 	[SerializeField] float accelerationSpeed = 0.5f;
 	[SerializeField] float animationSpeedFactor = 0.4f;
 
-	[SerializeField] float runMultiplier = 1.75f;
-
 	//Flags
 	public bool moving { get; private set; }
-	public bool running { get; private set; }
-	public bool inRunCoolDown { get; private set; }
-	public bool grounded { get; private set; }
 
 	public delegate void VectorReference(ref Vector3 vec);
 	public event VectorReference ProcessVelocity;
+	public event VectorReference ProcessWorldMoveDir;
 
 	protected override void OnAwake()
 	{
@@ -110,19 +106,17 @@ public class MechMovement : MechComponent
 		float accelerationSpeedToUse = accelerationSpeed;
 
 		//Send velocity to dash component for potential modification
-		dasher.RunComponent(ref velocity, ref accelerationSpeedToUse);
+		dasher.ModifyVelAndAcc(ref velocity, ref accelerationSpeedToUse);
 
-		//Send velocity to run function for potential modification
-		CheckRun(ref worldMoveDir);
-
-		//Send velocity to dodger function for potential modification
-		dodger.DodgeVelocityModification(ref velocity);
+		//Run event for anyone to use to modify worldMoveDir before it is applied.
+		if (ProcessWorldMoveDir != null)
+			ProcessWorldMoveDir(ref worldMoveDir);
 
 		//Run event for anyone to use to modify velocity before it is applied.
 		if (ProcessVelocity != null)
 			ProcessVelocity(ref velocity);
 
-		if (running)
+		if (run.running)
 		{
 			accelerationSpeedToUse *= 5f;
 		}
@@ -132,74 +126,6 @@ public class MechMovement : MechComponent
 
 		//vel = Vector3.ClampMagnitude(vel, 1f);
 		return vel;
-	}
-
-	void CheckRun(ref Vector3 velocity)
-	{
-		running = false;
-		float staminaAmount = 15f * Time.deltaTime;
-
-		if (
-			//!lockOn.lockedOn &&
-			input.run &&
-			!inRunCoolDown &&
-			!croucher.crouching &&
-			inputVecMagnitude > 0.2f
-			/*&& input.moveVert > 0.2f
-			&& Mathf.Abs(input.moveHorz) < 0.3f*/)
-		{
-			//print("Run");
-			//Plan: Ta en viss start-stamina for å begynde å springe.
-			//Sakte akselerasjon og deselerasjon
-			running = true;
-
-			float runMultiplierToUse = runMultiplier;
-
-			Vector3 localVelocity = mech.transform.InverseTransformDirection(worldMoveDir);
-
-			if (Mathf.Abs(localVelocity.x) > 0.5f)   //Going sideways
-			{
-				runMultiplierToUse *= 0.8f; //Don't run as fast as forward
-			}
-			else if (localVelocity.z < 0f)	//Going backwards
-			{
-				runMultiplierToUse *= 0.6f;	//Don't run as fast as forward
-			}
-			//print(runMultiplierToUse);
-
-			velocity *= runMultiplierToUse;// * inputVecMagnitude;
-
-			energyManager.SpendStamina(staminaAmount * runMultiplierToUse);
-
-			if (energyManager.stamina < 0.01f)
-			{
-				inRunCoolDown = true;
-			}
-		}
-
-		if (inRunCoolDown)
-		{
-			if (energyManager.stamina > 25f)
-			{
-				inRunCoolDown = false;
-			}
-		}
-
-		float animSpeed = rb.velocity.magnitude / 60;
-		//print(animSpeed);
-
-		animator.SetBool("Running", running);
-		animator.SetFloat("RunAmount", animSpeed);
-	}
-
-	PhysicMaterial GetAppropriatePhysicMaterial()
-	{
-		if (moving)
-		{
-			return physMat_moving;
-		}
-
-		return physMat_stillStanding;
 	}
 
 	void DoWalkAnimation()

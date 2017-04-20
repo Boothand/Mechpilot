@@ -5,6 +5,7 @@ public class Jumper : MechComponent
 {
 	[SerializeField] float jumpForce = 1f;
 	public bool jumping { get; private set; }
+	[SerializeField] float staminaUsage = 20f;
 
 	protected override void OnAwake()
 	{
@@ -23,10 +24,14 @@ public class Jumper : MechComponent
 
 		yield return new WaitForSeconds(0.35f);
 		rb.velocity += Vector3.up * jumpForce;
+		energyManager.SpendStamina(staminaUsage);
 
-		yield return new WaitForSeconds(0.6f);
+		yield return new WaitForSeconds(0.3f);
+		while (!groundCheck.grounded)
+		{
+			yield return null;
+		}
 		animator.CrossFadeInFixedTime("Land", 0.1f);
-
 
 		jumping = false;
 	}
@@ -35,7 +40,8 @@ public class Jumper : MechComponent
 	{
 		if (!jumping &&
 			input.jump
-			//&& pilot.move.grounded
+			&& groundCheck.grounded
+			&& energyManager.CanSpendStamina(staminaUsage)
 			)
 		{
 			StartCoroutine(JumpRoutine());

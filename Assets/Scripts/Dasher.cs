@@ -21,7 +21,7 @@ public class Dasher : MechComponent
 		animator.SetFloat("DashX", input.moveHorz);
 		animator.SetFloat("DashY", input.moveVert);
 
-		animator.SetTrigger("Dash");
+		animator.CrossFadeInFixedTime("Dash", 0.2f);
 		Vector3 inputVector = new Vector3(input.moveHorz, 0f, input.moveVert);
 		Vector3 worldDashDir = mech.transform.TransformDirection(inputVector).normalized;
 		newVel += worldDashDir * dashForce;
@@ -45,7 +45,7 @@ public class Dasher : MechComponent
 		inDash = false;
 	}
 
-	public void RunComponent(ref Vector3 velocity, ref float accelerationSpeed)
+	public void ModifyVelAndAcc(ref Vector3 velocity, ref float accelerationSpeed)
 	{
 		if (input.dash)
 		{

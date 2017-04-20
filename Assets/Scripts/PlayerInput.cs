@@ -45,7 +45,7 @@ public class PlayerInput : AbstractInput
 		kick = pilotPlayer.GetButtonDown("Kick");
 		jump = pilotPlayer.GetButtonDown("Jump");
 		run = pilotPlayer.GetButton("Run");
-		lockOn = pilotPlayer.GetButtonDown("Lock On");
+		lockOn = pilotPlayer.GetButton("Lock On");
 
 		camLeft = pilotPlayer.GetButtonDown("Camera Left");
 		camRight = pilotPlayer.GetButtonDown("Camera Right");
