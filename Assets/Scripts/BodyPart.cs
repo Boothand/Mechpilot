@@ -73,20 +73,20 @@ public class BodyPart : Collidable
 		//Play body hit sound
 		mechSounds.PlayBodyHitSound(1f);
 
-		float yImpact = 1f;
+		//float yImpact = 1f;
 
-		if (bodyGroup == BodyGroup.Body)
-			yImpact = 0.37f;
-		if (bodyGroup == BodyGroup.Arms)
-			yImpact = -0.37f;
-		if (bodyGroup == BodyGroup.Legs)
-			yImpact = -1f;
+		//if (bodyGroup == BodyGroup.Body)
+		//	yImpact = 0.37f;
+		//if (bodyGroup == BodyGroup.Arms)
+		//	yImpact = -0.37f;
+		//if (bodyGroup == BodyGroup.Legs)
+		//	yImpact = -1f;
 
-		float xImpact = Mathf.Sign(transform.localPosition.x);
+		//float xImpact = Mathf.Sign(transform.localPosition.x);
 
-		animator.SetFloat("XImpact", xImpact);
-		animator.SetFloat("YImpact", yImpact);
-		animator.SetTrigger("Impact Hit");
+		//animator.SetFloat("XImpact", xImpact);
+		//animator.SetFloat("YImpact", yImpact);
+		//animator.SetTrigger("Impact Hit");
 
 		yield return new WaitForSeconds(0.5f);
 

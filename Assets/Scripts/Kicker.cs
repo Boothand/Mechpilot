@@ -6,8 +6,9 @@ public class Kicker : MechComponent
 	KickCheck kickCheck;
 	public bool kicking { get; private set; }
 	[SerializeField] float kickDuration = 1f;
-	[SerializeField] float staminaHitUsage = 25f;
-	[SerializeField] float staminaMissUsage = 35f;
+	[SerializeField] float staminaHitUsage = 5f;
+	[SerializeField] float staminaMissUsage = 15f;
+	[SerializeField] float staminaBaseUsage = 10f;
 	bool hitSomething;
 	bool dealingDamage;
 
@@ -36,7 +37,7 @@ public class Kicker : MechComponent
 		{
 			//animator.CrossFade("Walk/Crouch", 0.6f);
 			float time = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-			animator.CrossFadeInFixedTime("Kick Hit 2", 0.1f, 0, 1f - time);
+			animator.CrossFade("Kick Hit 2", 0.1f, 0, 1f - time);
 
 			BodyPart.BodyGroup group = bodypartIKicked.getBodyGroup;
 			bodypartIKicked.arms.healthManager.GetHit(group, Vector3.one * 0.06f, kickCheck.transform.position, 10);
@@ -47,7 +48,9 @@ public class Kicker : MechComponent
 	IEnumerator KickRoutine()
 	{
 		kicking = true;
-		animator.SetTrigger("Kick");
+		animator.CrossFadeInFixedTime("Kick", 0.25f);
+
+		energyManager.SpendStamina(staminaBaseUsage);
 
 		yield return new WaitForSeconds(kickDuration);
 

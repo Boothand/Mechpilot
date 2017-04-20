@@ -17,6 +17,11 @@ public class Dodge : MechComponent
 		base.OnAwake();
 	}
 
+	void Start()
+	{
+		pilot.move.ProcessVelocity += DodgeVelocityModification;
+	}
+
 	bool SlashOnWayBack(DodgeDir dir)
 	{
 		switch (dir)
@@ -50,7 +55,7 @@ public class Dodge : MechComponent
 		return false;
 	}
 
-	public void DodgeVelocityModification(ref Vector3 velocity)
+	void DodgeVelocityModification(ref Vector3 velocity)
 	{
 		if (dodging)
 		{
