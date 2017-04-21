@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 //using System.Collections;
 
-//Base class for every component associated with a mech
+//Base class for every component associated with a mech.
+//This class was intended for classes that needed to know about the mech, but was not a part of it,
+//such as remote controlled drones.
 public class ManagedMechBehaviour : MonoBehaviour
 {
 	[Header("Auto References")]

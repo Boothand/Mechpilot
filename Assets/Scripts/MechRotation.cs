@@ -4,7 +4,7 @@ using UnityEngine;
 public class MechRotation : MechComponent
 {
 	public Vector3 getForwardDir { get { return forwardDir;/* aimBaseX.forward;*/ } }
-	[SerializeField] float lockonAngleLimit = 60f;
+	//[SerializeField] float lockonAngleLimit = 60f;
 	[SerializeField] float turnSpeed = 60f;
 	[SerializeField] float stopTurnSpeed = 10f;
 
@@ -12,7 +12,6 @@ public class MechRotation : MechComponent
 	[SerializeField] float lockonBlendSpeed = 1f;
 	float rotationAmount;
 	float angle;
-	float lastHorz;
 
 	Vector3 forwardDir;
 
@@ -43,12 +42,11 @@ public class MechRotation : MechComponent
 		}
 
 		angle = Mathf.Clamp(angle, -30f, 30f);
-
-		lastHorz = input.turnBodyHorz;
+		
 		//print(angle);
 
 		//If locked on, look towards the enemy when you're not turning
-		if (lockOn.lockedOn
+		if (pilot.lockOn.lockedOn
 			&& arms.combatState != WeaponsOfficer.CombatState.Attack
 			&& mech.tempEnemy)
 		{
@@ -78,7 +76,7 @@ public class MechRotation : MechComponent
 		//Gradually tween mech's forward direction
 		float blendSpeedToUse = blendSpeed;
 
-		if (lockOn.lockedOn)
+		if (pilot.lockOn.lockedOn)
 			blendSpeedToUse = lockonBlendSpeed;
 
 		mech.transform.forward = Vector3.Slerp(mech.transform.forward, forwardDir, Time.deltaTime * blendSpeedToUse);

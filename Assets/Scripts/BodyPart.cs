@@ -34,31 +34,31 @@ public class BodyPart : Collidable
 	IEnumerator GetHitBySword(Sword swordHittingMe)
 	{
 		beingHit = true;
-		healthManager.GetHit(bodyGroup, swordHittingMe.swordTipVelocity * swordHittingMe.attacker.attackStrength, swordHittingMe.getSwordTip.position);
+		healthManager.GetHit(bodyGroup, swordHittingMe.swordTipVelocity * swordHittingMe.arms.attacker.attackStrength, swordHittingMe.getSwordTip.position);
 		//Play body hit sound
 
 		//rbody.AddForce(swordHittingMe.swordTipVelocity * 50f, ForceMode.Impulse);
 
 
 		//Play impact animation
-		//Vector3 localSwordVelocity = mech.transform.InverseTransformDirection(swordHittingMe.swordTipVelocity);
+		Vector3 localSwordVelocity = mech.transform.InverseTransformDirection(swordHittingMe.swordTipVelocity);
 		//float swordMagnitude = localSwordVelocity.magnitude;
 
-		//float xImpact = /*swordMagnitude **/ -Mathf.Sign(localSwordVelocity.x);
+		float xImpact = /*swordMagnitude **/ -Mathf.Sign(localSwordVelocity.x);
 		//xImpact /= 65f;
 
-		//float yImpact = 1f;
+		float yImpact = 1f;
 
-		//if (bodyGroup == BodyGroup.Body)
-		//	yImpact = 0.37f;
-		//if (bodyGroup == BodyGroup.Arms)
-		//	yImpact = -0.37f;
-		//if (bodyGroup == BodyGroup.Legs)
-		//	yImpact = -1f;
+		if (bodyGroup == BodyGroup.Body)
+			yImpact = 0.37f;
+		if (bodyGroup == BodyGroup.Arms)
+			yImpact = -0.37f;
+		if (bodyGroup == BodyGroup.Legs)
+			yImpact = -1f;
 
-		//animator.SetFloat("XImpact", xImpact);
-		//animator.SetFloat("YImpact", yImpact);
-		//animator.SetTrigger("Impact Hit");
+		animator.SetFloat("XImpact", xImpact);
+		animator.SetFloat("YImpact", yImpact);
+		animator.SetTrigger("Impact Hit");
 
 		yield return new WaitForSeconds(0.1f);
 		beingHit = false;

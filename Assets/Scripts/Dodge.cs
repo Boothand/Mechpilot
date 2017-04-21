@@ -27,7 +27,7 @@ public class Dodge : MechComponent
 		switch (dir)
 		{
 			case DodgeDir.Left:
-				if (stancePicker.stance == WeaponsOfficer.CombatDir.TopRight
+				if (arms.stancePicker.stance == WeaponsOfficer.CombatDir.TopRight
 					//|| stancePicker.stance == WeaponsOfficer.CombatDir.BottomRight
 					)
 				{
@@ -36,7 +36,7 @@ public class Dodge : MechComponent
 				break;
 
 			case DodgeDir.Right:
-				if (stancePicker.stance == WeaponsOfficer.CombatDir.TopLeft
+				if (arms.stancePicker.stance == WeaponsOfficer.CombatDir.TopLeft
 					//|| stancePicker.stance == WeaponsOfficer.CombatDir.BottomLeft
 					)
 				{
@@ -45,7 +45,7 @@ public class Dodge : MechComponent
 				break;
 
 			case DodgeDir.Back:
-				if (stancePicker.stance == WeaponsOfficer.CombatDir.Top)
+				if (arms.stancePicker.stance == WeaponsOfficer.CombatDir.Top)
 				{
 					return true;
 				}
@@ -195,7 +195,7 @@ public class Dodge : MechComponent
 		//Transition back to idle if no slash
 		//if (!dodgeSlash)
 		//{
-			animator.CrossFadeInFixedTime(stancePicker.OrientationAnim(), 0.4f);
+			animator.CrossFadeInFixedTime(arms.stancePicker.OrientationAnim(), 0.4f);
 		//}
 
 		//Turn IK weights back up
@@ -209,7 +209,7 @@ public class Dodge : MechComponent
 	{
 		if (!dodging
 			&& input.dodge
-			&& !dasher.inDash
+			&& !pilot.dasher.inDash
 			&& energyManager.CanSpendStamina(staminaAmount)
 			//&& arms.combatState != WeaponsOfficer.CombatState.Windup
 			//&& arms.combatState != WeaponsOfficer.CombatState.Attack

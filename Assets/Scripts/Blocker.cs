@@ -49,9 +49,9 @@ public class Blocker : MechComponent
 		{
 			//If I block the other
 			if (arms.combatState == WeaponsOfficer.CombatState.Block
-				|| stancePicker.changingStance)
+				|| arms.stancePicker.changingStance)
 			{
-				energyManager.SpendStamina(15f * otherSword.attacker.attackStrength);
+				energyManager.SpendStamina(15f * otherSword.arms.attacker.attackStrength);
 				StartCoroutine(CheckCounterAttackRoutine());
 			}
 		}
@@ -68,7 +68,7 @@ public class Blocker : MechComponent
 			if (input.attack)
 			{
 				Stop();
-				windup.WindupInstantly();
+				arms.windup.WindupInstantly();
 				break;
 			}
 
@@ -147,7 +147,7 @@ public class Blocker : MechComponent
 			alternateBlock = true;
 		}
 
-		footStanceSwitcher.CheckSwitchStance(prevBlockStance, blockStance);
+		pilot.footStanceSwitcher.CheckSwitchStance(prevBlockStance, blockStance);
 
 		//if (prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
 		//	&& blockStance == WeaponsOfficer.CombatDir.BottomRight)
@@ -164,9 +164,9 @@ public class Blocker : MechComponent
 		//}
 
 		if (blockStance == WeaponsOfficer.CombatDir.TopRight)
-			stancePicker.orientation = StancePicker.Orientation.Right;
+			arms.stancePicker.orientation = StancePicker.Orientation.Right;
 		else if (blockStance == WeaponsOfficer.CombatDir.TopLeft)
-			stancePicker.orientation = StancePicker.Orientation.Left;
+			arms.stancePicker.orientation = StancePicker.Orientation.Left;
 
 		prevBlockStance = blockStance;
 		float durationToUse = blockDuration;
@@ -203,7 +203,7 @@ public class Blocker : MechComponent
 		yield return new WaitForSeconds(durationToUse);
 
 		switchingBlockStance = false;
-		stancePicker.ForceStance(blockStance);
+		arms.stancePicker.ForceStance(blockStance);
 	}
 
 	IEnumerator BlockTimingRoutine()
@@ -237,7 +237,7 @@ public class Blocker : MechComponent
 		//Initiate the block
 		if (!blocking
 			&& input.block
-			&& !windup.inCounterAttack)
+			&& !arms.windup.inCounterAttack)
 		{
 			blocking = true;
 
@@ -247,17 +247,17 @@ public class Blocker : MechComponent
 				holdingBlockButton = true;
 			}
 
-			stancePicker.Stop();
-			windup.Stop();
-			attacker.Stop();
-			retract.Stop();
-			stagger.Stop();
+			arms.stancePicker.Stop();
+			arms.windup.Stop();
+			arms.attacker.Stop();
+			arms.retract.Stop();
+			arms.stagger.Stop();
 			arms.combatState = WeaponsOfficer.CombatState.Block;
 
 			//Check when we are allowed to stop blocking:
 			StartCoroutine(BlockTimingRoutine());
 
-			blockStance = stancePicker.stance;
+			blockStance = arms.stancePicker.stance;
 			//Enter the block pose:
 			if (blockRoutine != null)
 			{
@@ -277,12 +277,12 @@ public class Blocker : MechComponent
 			if (autoBlock
 				&& mech.tempEnemy)
 			{
-				idealBlock = DecideBlockStance(mech.tempEnemy.weaponsOfficer.attacker.dir);
+				idealBlock = DecideBlockStance(mech.tempEnemy.weaponsOfficer.attacker.attackDir);
 				blockStance = idealBlock;
 			}
 			else
 			{
-				blockStance = stancePicker.stance;
+				blockStance = arms.stancePicker.stance;
 			}
 
 			if (prevBlockStance != blockStance)

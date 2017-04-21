@@ -106,8 +106,8 @@ public class Sword : Collidable
 		//Play clash sound
 		if (otherSword)
 		{
-			if (arms.prevCombatState == WeaponsOfficer.CombatState.Attack
-			|| arms.prevCombatState == WeaponsOfficer.CombatState.Block
+			if ( (arms.prevCombatState == WeaponsOfficer.CombatState.Attack
+			|| arms.prevCombatState == WeaponsOfficer.CombatState.Block)
 			&& (otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Attack
 				|| otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Block))
 			{
@@ -181,7 +181,7 @@ public class Sword : Collidable
 		if (arms.combatState == WeaponsOfficer.CombatState.Attack
 			|| arms.combatState == WeaponsOfficer.CombatState.Block
 			|| arms.combatState == WeaponsOfficer.CombatState.Stagger
-			|| stancePicker.changingStance
+			|| arms.stancePicker.changingStance
 			|| healthManager.dead)
 		{
 			EnableCollider(true);

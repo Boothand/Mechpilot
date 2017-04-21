@@ -77,7 +77,7 @@ public class StancePicker : MechComponent
 		if (OnSwitchBegin != null)
 			OnSwitchBegin();
 
-		footStanceSwitcher.CheckSwitchStance(prevStance, stance);
+		pilot.footStanceSwitcher.CheckSwitchStance(prevStance, stance);
 
 		float switchTimeToUse = switchTime;
 
@@ -116,7 +116,7 @@ public class StancePicker : MechComponent
 			}
 
 			if (!changingStance && prevStance != stance
-				&& !blocker.blocking
+				&& !arms.blocker.blocking
 				)
 			{
 				StopAllCoroutines();

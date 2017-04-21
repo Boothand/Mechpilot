@@ -39,8 +39,8 @@ public class Croucher : MechComponent
 
 		actualCrouchHeight = Mathf.MoveTowards(actualCrouchHeight, crouchHeight * crouchInput, Time.deltaTime * crouchSpeed);
 
-		Vector3 offset = Vector3.down * actualCrouchHeight;
+		//Vector3 offset = Vector3.down * actualCrouchHeight;
 
-		arms.OffsetIKTargets(offset, crouchSpeed);
+		//arms.OffsetIKTargets(offset, crouchSpeed);
 	}
 }

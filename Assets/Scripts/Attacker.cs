@@ -3,24 +3,39 @@ using UnityEngine;
 
 public class Attacker : MechComponent
 {
+	//How long to wait until entering the retract state:
 	[SerializeField] float attackDuration = 0.75f;
+
+	//Time in seconds to blend into the attack animation on the torso:
 	[SerializeField] float blendTime = 0.1f;
+
+	//Time in seconds to blend into the attack animation on the feet:
 	[SerializeField] float blendTimeFeet = 0.25f;
-	Vector3 inputVec;
-	float inputVecMagnitude;
-	public WeaponsOfficer.CombatDir dir { get; private set; }
-	public bool attacking { get; private set; }
-	public float attackStrength { get; private set; }
+
+	//How much stamina to drain from an attack
+	[SerializeField] float staminaAmount = 1.5f;
+
+	//The direction to attack:
+	public WeaponsOfficer.CombatDir attackDir { get; private set; }
+
+	//Influences stamina drain from you and the one who blocks, and damage taken:
+	public float attackStrength { get; private set; }	
+
+	//Decides if the character should step forward with an attack or not
 	bool canTakeForwardStep;
 
+	//How far to leap forward when doing the forward step:
 	[SerializeField] float forwardMoveAmount = 2f;
+
+	//Ignore any input less than this value when evaluating the forward step:
 	[SerializeField] float forwardStickThreshold = 0.4f;
+	
+	//Events free for other classes to make use of.
+	public System.Action OnAttackBegin, OnAttackEnd;
 
-	public delegate void NoParam();
-	public event NoParam OnAttackBegin, OnAttackEnd;
-
-	[SerializeField] float staminaAmount = 1.5f;
 	public float getStaminaAmount { get { return staminaAmount; } }
+
+
 
 	protected override void OnAwake()
 	{
@@ -51,7 +66,7 @@ public class Attacker : MechComponent
 	void OnSwordCollision(Collision col)
 	{
 		Sword otherSword = col.transform.GetComponent<Sword>();
-		BodyPart bodyPart = col.transform.GetComponent<BodyPart>();		
+		BodyPart otherBodyPart = col.transform.GetComponent<BodyPart>();		
 
 		if (otherSword)
 		{
@@ -60,19 +75,19 @@ public class Attacker : MechComponent
 			{
 				Stop();
 				arms.combatState = WeaponsOfficer.CombatState.Stagger;
-				arms.stagger.GetStaggered(dir);
+				arms.stagger.GetStaggered(attackDir);
 			}
 		}
-		else if (bodyPart)
+		else if (otherBodyPart)
 		{
 			//If I hit someone
 			if (arms.combatState == WeaponsOfficer.CombatState.Attack)
 			{
-				if (bodyPart.healthManager.takingDamage)
+				if (otherBodyPart.healthManager.takingDamage)
 				{
 					Stop();
 					arms.combatState = WeaponsOfficer.CombatState.Stagger;
-					arms.stagger.GetStaggered(dir, 0.8f);
+					arms.stagger.GetStaggered(attackDir, 0.8f);
 				}
 			}
 		}
@@ -92,7 +107,7 @@ public class Attacker : MechComponent
 				return "Attack Top";
 			case WeaponsOfficer.CombatDir.TopLeft:
 				if (moveDir.z > 0.4f
-					&& !croucher.crouching)
+					&& !pilot.croucher.crouching)
 				{
 					//arms.TweenLayerWeight(0f, 1, 0.1f);
 					animator.CrossFadeInFixedTime("Attack TL Step", blendTimeFeet, 0);
@@ -101,7 +116,7 @@ public class Attacker : MechComponent
 				return "Attack Top Left";
 			case WeaponsOfficer.CombatDir.TopRight:
 				if (moveDir.z > 0.4f
-					&& !croucher.crouching)
+					&& !pilot.croucher.crouching)
 				{
 					//arms.TweenLayerWeight(0f, 1, 0.1f);
 					animator.CrossFadeInFixedTime("Attack TR Step", blendTimeFeet, 0);
@@ -115,7 +130,6 @@ public class Attacker : MechComponent
 
 	public void Stop()
 	{
-		attacking = false;
 		StopAllCoroutines();
 	}
 
@@ -126,12 +140,11 @@ public class Attacker : MechComponent
 
 		canTakeForwardStep = true;
 
-		attackStrength = windup.windupTimer;
+		attackStrength = arms.windup.windupTimer;
 		attackStrength = Mathf.Clamp(attackStrength, 0.5f, 2f);
 
 		energyManager.SpendStamina(staminaAmount * attackStrength);
-
-		attacking = true;
+		
 		arms.combatState = WeaponsOfficer.CombatState.Attack;
 
 		float duration = attackDuration;
@@ -147,8 +160,7 @@ public class Attacker : MechComponent
 		mechSounds.PlaySwordSwingSound();
 
 		yield return new WaitForSeconds(duration - 0.2f);
-
-		attacking = false;
+		
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
 		//arms.TweenLayerWeight(1f, 1, 0.3f);
 
@@ -170,10 +182,10 @@ public class Attacker : MechComponent
 			{
 				if (!input.attack)
 				{
-					dir = windup.dir;
+					attackDir = arms.windup.dir;
 
 					StopAllCoroutines();
-					StartCoroutine(AttackRoutine(dir));
+					StartCoroutine(AttackRoutine(attackDir));
 				}
 			}
 		}

@@ -47,13 +47,13 @@ public class Retract : MechComponent
 
 		retracting = true;
 
-		animator.CrossFadeInFixedTime(stancePicker.AnimForStance(stancePicker.stance), blendTime);
+		animator.CrossFadeInFixedTime(arms.stancePicker.AnimForStance(arms.stancePicker.stance), blendTime);
 		//WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
 
 		yield return new WaitForSeconds(retractDuration);
 
 		retracting = false;
-		stancePicker.ForceStance(stancePicker.stance);
+		arms.stancePicker.ForceStance(arms.stancePicker.stance);
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
 		//print("End retract");
 		yield return null;
