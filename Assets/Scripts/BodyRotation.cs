@@ -3,16 +3,14 @@ using UnityEngine;
 
 public class BodyRotation : MechComponent
 {
-	[SerializeField] Transform chest;
-	[SerializeField] float xAngle = 90f;
-	[SerializeField] float yAngle = 90f;
+	//Limits for how far you can rotate the upper body
+	[SerializeField] float xAngle = 45f;
+	[SerializeField] float yAngle = 45f;
+
 	[SerializeField] float blendSpeed = 6f;
-	//[SerializeField] float rotationSpeed = 0.05f;
 	Vector3 angle;
 
-	//float inputXPersist, inputYPersist;
-
-	[SerializeField] bool tilt;
+	[SerializeField] bool tilt;	//Rotates on a different axis!
 
 
 	protected override void OnAwake()
@@ -20,16 +18,13 @@ public class BodyRotation : MechComponent
 		base.OnAwake();
 	}
 
+	//Apply in LateUpdate so it overrides animation transformations.
+	//Tweens the angle to the set limits according to your right stick input.
+	//Applies a rotation to the spine.
 	void LateUpdate()
 	{
 		float xInput = Mathf.Clamp(input.turnBodyHorz, -1f, 1f);
 		float yInput = Mathf.Clamp(input.turnBodyVert, -1f, 1f);
-
-		//inputXPersist += xInput * rotationSpeed;
-		//inputYPersist += yInput * rotationSpeed;
-
-		//inputXPersist = Mathf.Clamp(inputXPersist, -1f, 1f);
-		//inputYPersist = Mathf.Clamp(inputYPersist, -1f, 1f);
 
 		angle.x = Mathf.Lerp(angle.x, xInput * xAngle, Time.deltaTime * blendSpeed);
 		angle.y = Mathf.Lerp(angle.y, yInput * yAngle, Time.deltaTime * blendSpeed);
@@ -40,6 +35,6 @@ public class BodyRotation : MechComponent
 			rotOffset = Quaternion.Euler(angle.y, 0f, -angle.x);
 		}
 
-		chest.rotation *= rotOffset;
+		hierarchy.spine.rotation *= rotOffset;
 	}
 }

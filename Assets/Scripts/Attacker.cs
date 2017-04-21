@@ -18,7 +18,8 @@ public class Attacker : MechComponent
 	//The direction to attack:
 	public WeaponsOfficer.CombatDir attackDir { get; private set; }
 
-	//Influences stamina drain from you and the one who blocks, and damage taken:
+	//Influences stamina drain from you and the one who blocks, and damage taken.
+	//Winding up longer = more strength.
 	public float attackStrength { get; private set; }	
 
 	//Decides if the character should step forward with an attack or not
@@ -46,11 +47,10 @@ public class Attacker : MechComponent
 	{
 		if (arms.getWeapon != null)
 		{
-			arms.getWeapon.OnCollisionEnterEvent -= OnSwordCollision;
 			arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
 		}
-
-		pilot.move.ProcessVelocity -= TakeStepForward;
+		
+		//Function we implement to modify velocity before it is applied.
 		pilot.move.ProcessVelocity += TakeStepForward;
 	}
 
@@ -63,6 +63,8 @@ public class Attacker : MechComponent
 		}
 	}
 
+	//Callback when sword collides with something valid.
+	//Send us into stagger state depending on what we hit and when.
 	void OnSwordCollision(Collision col)
 	{
 		Sword otherSword = col.transform.GetComponent<Sword>();
@@ -91,10 +93,9 @@ public class Attacker : MechComponent
 				}
 			}
 		}
-
-
 	}
 
+	//Returns the animation to use depending on our stance/attack direction, and move di
 	string AnimFromStance(WeaponsOfficer.CombatDir dir, Vector3 moveDir)
 	{
 		switch (dir)
@@ -104,8 +105,11 @@ public class Attacker : MechComponent
 			//case WeaponsOfficer.CombatDir.BottomRight:
 			//	return "Attack Bottom Right";
 			case WeaponsOfficer.CombatDir.Top:
+
 				return "Attack Top";
+
 			case WeaponsOfficer.CombatDir.TopLeft:
+
 				if (moveDir.z > 0.4f
 					&& !pilot.croucher.crouching)
 				{
@@ -113,8 +117,11 @@ public class Attacker : MechComponent
 					animator.CrossFadeInFixedTime("Attack TL Step", blendTimeFeet, 0);
 					return "Attack TL Step";
 				}
+
 				return "Attack Top Left";
+
 			case WeaponsOfficer.CombatDir.TopRight:
+
 				if (moveDir.z > 0.4f
 					&& !pilot.croucher.crouching)
 				{
@@ -122,44 +129,52 @@ public class Attacker : MechComponent
 					animator.CrossFadeInFixedTime("Attack TR Step", blendTimeFeet, 0);
 					return "Attack TR Step";
 				}
+
 				return "Attack Top Right";
 		}
 
-		return "Windup Top Right";
+		return "Unsupported direction";
 	}
 
+	//For aborting an attack.
 	public void Stop()
 	{
 		StopAllCoroutines();
 	}
 
+	//Mainly initiates the attack animation and sets the retract state at the end
 	IEnumerator AttackRoutine(WeaponsOfficer.CombatDir dir)
 	{
+		arms.combatState = WeaponsOfficer.CombatState.Attack;
+
 		if (OnAttackBegin != null)
 			OnAttackBegin();
 
 		canTakeForwardStep = true;
 
+		//Attack strength can be half at least, double at most, depending on how
+		//long you charged the attack during windup.
 		attackStrength = arms.windup.windupTimer;
 		attackStrength = Mathf.Clamp(attackStrength, 0.5f, 2f);
 
 		energyManager.SpendStamina(staminaAmount * attackStrength);
-		
-		arms.combatState = WeaponsOfficer.CombatState.Attack;
 
-		float duration = attackDuration;
-
+		//Play animation on torso
 		animator.CrossFadeInFixedTime(AnimFromStance(dir, pilot.move.inputVec), blendTime, 1);
 
-
-		yield return new WaitForSeconds(0.1f);
-
+		//Close the window where you can step forward in the attack
+		float stepWindow = 0.1f;
+		yield return new WaitForSeconds(stepWindow);
 		canTakeForwardStep = false;
 
-		yield return new WaitForSeconds(0.1f);
+		//Play the swing sound a bit after the attack started
+		float swingSoundDelay = 0.1f;
+		yield return new WaitForSeconds(swingSoundDelay);
 		mechSounds.PlaySwordSwingSound();
 
-		yield return new WaitForSeconds(duration - 0.2f);
+		//Wait the rest of the duration minus the time we waited earlier
+		float duration = attackDuration;
+		yield return new WaitForSeconds(duration - stepWindow - swingSoundDelay);
 		
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
 		//arms.TweenLayerWeight(1f, 1, 0.3f);
@@ -168,12 +183,7 @@ public class Attacker : MechComponent
 			OnAttackEnd();
 	}
 
-	public void AttackInstantly(WeaponsOfficer.CombatDir dir)
-	{
-		StopAllCoroutines();
-		StartCoroutine(AttackRoutine(dir));
-	}
-
+	//If we are in windup and release attack, start the attack sequence.
 	void Update()
 	{
 		if (arms.combatState == WeaponsOfficer.CombatState.Windup)
