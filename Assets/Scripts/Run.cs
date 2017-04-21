@@ -27,7 +27,7 @@ public class Run : MechComponent
 			//!lockOn.lockedOn &&
 			input.run &&
 			!inRunCooldown &&
-			!croucher.crouching &&
+			!pilot.croucher.crouching &&
 			pilot.move.inputVecMagnitude > 0.2f
 			/*&& input.moveVert > 0.2f
 			&& Mathf.Abs(input.moveHorz) < 0.3f*/)

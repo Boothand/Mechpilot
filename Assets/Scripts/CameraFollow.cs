@@ -28,13 +28,13 @@ public class CameraFollow : MechComponent
 
 	void Start()
 	{
-		if (lockOn.lockedOn)
+		if (pilot.lockOn.lockedOn)
 			OnLockOn();
 		else
 			OnLockOff();
 
-		lockOn.OnLockOn += OnLockOn;
-		lockOn.OnLockOff += OnLockOff;
+		pilot.lockOn.OnLockOn += OnLockOn;
+		pilot.lockOn.OnLockOff += OnLockOff;
 	}
 
 	void OnLockOn()
@@ -118,7 +118,7 @@ public class CameraFollow : MechComponent
 		//When not switching, set the position and rotation to the target preset.
 		if (!switching)
 		{
-			if (lockOn.lockedOn)
+			if (pilot.lockOn.lockedOn)
 			{
 				Vector3 targetPos = TargetPlusOffset(currentOffset.posOffset);
 

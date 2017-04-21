@@ -121,8 +121,6 @@ public class Sword : Collidable
 						OnClashWithSword(col.contacts[0].point, otherSword);
 
 					PlayClashSound(magnitude * 0.15f);
-
-					print("Clash. But, prevState = " + arms.prevCombatState + ", otherPrevState = " + otherSword.arms.prevCombatState);
 				}
 			}
 		}
@@ -183,7 +181,7 @@ public class Sword : Collidable
 		if (arms.combatState == WeaponsOfficer.CombatState.Attack
 			|| arms.combatState == WeaponsOfficer.CombatState.Block
 			|| arms.combatState == WeaponsOfficer.CombatState.Stagger
-			|| stancePicker.changingStance
+			|| arms.stancePicker.changingStance
 			|| healthManager.dead)
 		{
 			EnableCollider(true);

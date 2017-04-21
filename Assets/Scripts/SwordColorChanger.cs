@@ -17,15 +17,15 @@ public class SwordColorChanger : MechComponent
 	void Start()
 	{
 		TweenToNeutralColor();
-		blocker.OnBlockBegin -= TweenToBlockColor;
-		blocker.OnBlockBegin += TweenToBlockColor;
+		arms.blocker.OnBlockBegin -= TweenToBlockColor;
+		arms.blocker.OnBlockBegin += TweenToBlockColor;
 
-		stancePicker.OnStanceBegin -= TweenToNeutralColor;
-		stancePicker.OnStanceBegin += TweenToNeutralColor;
-		retract.OnRetractBegin -= TweenToNeutralColor;
-		retract.OnRetractBegin += TweenToNeutralColor;
-		stagger.OnStaggerBegin -= TweenToNeutralColor;
-		stagger.OnStaggerBegin += TweenToNeutralColor;
+		arms.stancePicker.OnStanceBegin -= TweenToNeutralColor;
+		arms.stancePicker.OnStanceBegin += TweenToNeutralColor;
+		arms.retract.OnRetractBegin -= TweenToNeutralColor;
+		arms.retract.OnRetractBegin += TweenToNeutralColor;
+		arms.stagger.OnStaggerBegin -= TweenToNeutralColor;
+		arms.stagger.OnStaggerBegin += TweenToNeutralColor;
 
 		//windup.OnWindupBegin -= TweenToAttackColor;
 		//windup.OnWindupBegin += TweenToAttackColor;
@@ -111,7 +111,7 @@ public class SwordColorChanger : MechComponent
 	{
 		if (arms.combatState == WeaponsOfficer.CombatState.Windup)
 		{
-			TweenToAttackColor(windup.windupTimer);
+			TweenToAttackColor(arms.windup.windupTimer);
 		}
 
 		if (arms.combatState == WeaponsOfficer.CombatState.Attack)

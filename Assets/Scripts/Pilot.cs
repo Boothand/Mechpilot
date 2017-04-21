@@ -7,13 +7,27 @@ public class Pilot : MechComponent
 	//Auto-find references
 	public MechRotation headRotation { get; private set; }
 	public MechMovement move { get; private set; }
+	public Dasher dasher { get; private set; }
+	public Croucher croucher { get; private set; }
+	public Dodge dodger { get; private set; }
+	public FootStanceSwitcher footStanceSwitcher { get; private set; }
+	public Run run { get; private set; }
+	public LockonIndicator lockonIndicator { get; private set; }
+	public Lockon lockOn { get; private set; }
 
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		headRotation = GetComponentInChildren<MechRotation>();
-		move = GetComponentInChildren<MechMovement>();
+		headRotation = mech.transform.root.GetComponentInChildren<MechRotation>();
+		move = mech.transform.root.GetComponentInChildren<MechMovement>();
+		dasher = mech.transform.root.GetComponentInChildren<Dasher>();
+		croucher = mech.transform.root.GetComponentInChildren<Croucher>();
+		dodger = mech.transform.root.GetComponentInChildren<Dodge>();
+		footStanceSwitcher = transform.root.GetComponentInChildren<FootStanceSwitcher>();
+		run = transform.root.GetComponentInChildren<Run>();
+		lockonIndicator = transform.root.GetComponentInChildren<LockonIndicator>();
+		lockOn = transform.root.GetComponentInChildren<Lockon>();
 	}
 
 	void FixedUpdate()
@@ -27,10 +41,10 @@ public class Pilot : MechComponent
 		{
 			Application.LoadLevel(Application.loadedLevel);
 		}
-
-		if (healthManager.dead)
-		{
-			input.enabled = false;
-		}
+		
+		//if (healthManager.dead)
+		//{
+		//	input.enabled = false;
+		//}
 	}
 }

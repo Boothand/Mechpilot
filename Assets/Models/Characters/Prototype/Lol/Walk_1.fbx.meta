@@ -1266,8 +1266,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Walk Right
       takeName: Take 001
-      firstFrame: 112
-      lastFrame: 147
+      firstFrame: 113
+      lastFrame: 148
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1550,8 +1550,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Walk Forward Left
       takeName: Take 001
-      firstFrame: 148
-      lastFrame: 183
+      firstFrame: 150
+      lastFrame: 185
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1834,8 +1834,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Walk Forward Right
       takeName: Take 001
-      firstFrame: 184
-      lastFrame: 219
+      firstFrame: 187
+      lastFrame: 222
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2118,8 +2118,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Walk Back Right
       takeName: Take 001
-      firstFrame: 220
-      lastFrame: 255
+      firstFrame: 224
+      lastFrame: 259
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2402,8 +2402,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Walk Back Left
       takeName: Take 001
-      firstFrame: 256
-      lastFrame: 291
+      firstFrame: 261
+      lastFrame: 296
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

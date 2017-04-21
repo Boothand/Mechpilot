@@ -54,11 +54,9 @@ public class Windup : MechComponent
 
 		float timer = 0f;
 
-		arms.StoreTargets();
-
 		windupTimer = 0f;
 
-		animator.CrossFadeInFixedTime(AnimFromStance(stancePicker.stance), blendTime);
+		animator.CrossFadeInFixedTime(AnimFromStance(arms.stancePicker.stance), blendTime);
 
 		while (timer < windupTime)
 		{
@@ -84,10 +82,10 @@ public class Windup : MechComponent
 	public void WindupInstantly()
 	{
 		StopAllCoroutines();
-		dir = stancePicker.stance;
+		dir = arms.stancePicker.stance;
 		inCounterAttack = true;
 		//stancePicker.ForceStance(stancePicker.stance);
-		StartCoroutine(WindupRoutine(stancePicker.stance));
+		StartCoroutine(WindupRoutine(arms.stancePicker.stance));
 	}
 
 	void Update()
@@ -98,14 +96,14 @@ public class Windup : MechComponent
 				&& energyManager.CanSpendStamina(15f)
 				//&& !stancePicker.changingStance
 				//&& !dodger.dodging
-				&& !attacker.attacking
+				/*&& !attacker.attacking
 				&& !retract.retracting
-				&& !stagger.staggering
+				&& !stagger.staggering*/
 				)
 			{
 				if (input.attack)
 				{
-					dir = stancePicker.stance;
+					dir = arms.stancePicker.stance;
 
 					cachedAttack = false;
 
@@ -134,10 +132,10 @@ public class Windup : MechComponent
 		////Released the saved up attack
 		if (cachedAttack
 			//&& !arms.stancePicker.changingStance
-			&& energyManager.CanSpendStamina(attacker.getStaminaAmount)
+			&& energyManager.CanSpendStamina(arms.attacker.getStaminaAmount)
 			&& arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
-			dir = stancePicker.stance;
+			dir = arms.stancePicker.stance;
 			cachedAttack = false;
 
 			StopAllCoroutines();

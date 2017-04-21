@@ -5,11 +5,13 @@ using RootMotion.Dynamics;
 
 public class WeaponsOfficer : MechComponent
 {
-	public ArmControl armControl { get; private set; }
-	public ArmBlockState armBlockState { get; private set; }
-	public ArmWindupState armWindupState { get; private set; }
-	public ArmAttackState armAttackState { get; private set; }
-	public ArmStaggerState armStaggerState { get; private set; }
+	public Blocker blocker { get; private set; }
+	public Attacker attacker { get; private set; }
+	public StancePicker stancePicker { get; private set; }
+	public Windup windup { get; private set; }
+	public Retract retract { get; private set; }
+	public Stagger stagger { get; private set; }
+
 
 	public enum CombatState { Stance, Block, Windup, Attack, Stagger, Retract }
 	public CombatState combatState;
@@ -50,13 +52,14 @@ public class WeaponsOfficer : MechComponent
 	{
 		base.OnAwake();
 		
-		armControl = GetComponent<ArmControl>();
-		armBlockState = GetComponent<ArmBlockState>();
-		armWindupState = GetComponent<ArmWindupState>();
-		armAttackState = GetComponent<ArmAttackState>();
-		armStaggerState = GetComponent<ArmStaggerState>();
 		fbbik = transform.root.GetComponentInChildren<FullBodyBipedIK>();
 		puppet = transform.root.GetComponentInChildren<PuppetMaster>();
+		blocker = mech.transform.root.GetComponentInChildren<Blocker>();
+		attacker = mech.transform.root.GetComponentInChildren<Attacker>();
+		stancePicker = mech.transform.root.GetComponentInChildren<StancePicker>();
+		windup = mech.transform.root.GetComponentInChildren<Windup>();
+		retract = mech.transform.root.GetComponentInChildren<Retract>();
+		stagger = mech.transform.root.GetComponentInChildren<Stagger>();
 	}
 
 	void Start()
@@ -113,6 +116,7 @@ public class WeaponsOfficer : MechComponent
 		StartCoroutine(TweenLayerWeightRoutine(weight, layer, time));
 	}
 
+#if LEGACY
 	public void StoreTargets()
 	{
 		//print("Targets were stored.");
@@ -190,6 +194,7 @@ public class WeaponsOfficer : MechComponent
 
 		//bodyTarget.position = Vector3.Lerp(bodyTarget.position, bodyTarget.position + offset, Time.deltaTime * blendSpeed);
 	}
+#endif
 
 	void IgnoreHierarchyRecursive(Transform root, Collider otherCol)
 	{

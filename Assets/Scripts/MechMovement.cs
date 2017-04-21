@@ -106,7 +106,7 @@ public class MechMovement : MechComponent
 		float accelerationSpeedToUse = accelerationSpeed;
 
 		//Send velocity to dash component for potential modification
-		dasher.ModifyVelAndAcc(ref velocity, ref accelerationSpeedToUse);
+		pilot.dasher.ModifyVelAndAcc(ref velocity, ref accelerationSpeedToUse);
 
 		//Run event for anyone to use to modify worldMoveDir before it is applied.
 		if (ProcessWorldMoveDir != null)
@@ -116,7 +116,7 @@ public class MechMovement : MechComponent
 		if (ProcessVelocity != null)
 			ProcessVelocity(ref velocity);
 
-		if (run.running)
+		if (pilot.run.running)
 		{
 			accelerationSpeedToUse *= 5f;
 		}
