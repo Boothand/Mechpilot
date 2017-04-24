@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//A 'lock on' symbol placed over the head, only visible for the enemy.
 public class LockonIndicator : MechComponent
 {
 	[SerializeField] Image indicatorImg;
@@ -14,18 +15,17 @@ public class LockonIndicator : MechComponent
 
 	void Start()
 	{
+		//Start hidden.
 		HideIndicator();
 
+		//Show when locked on, hide when locked off.
 		pilot.lockOn.OnGetLockedOn += ShowIndicator;
 		pilot.lockOn.OnGetLockedOff += HideIndicator;
 	}
 
 	void ShowIndicator()
 	{
-		if (mech.tempEnemy)
-		{
-			indicatorImg.enabled = true;
-		}
+		indicatorImg.enabled = true;
 	}
 
 	void HideIndicator()

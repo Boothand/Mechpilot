@@ -24,12 +24,11 @@ public class SwordClashParticles : MechComponent
 			&& !otherSword.swordClashParticles.playingParticles)
 		{
 			playingParticles = true;
-			Debug.DrawLine(arms.getWeapon.transform.position, location, Color.red);
-			//UnityEditor.EditorApplication.isPaused = true;
 			pSystem.transform.position = location;
-			pSystem.Emit(50);
+			pSystem.Emit(50);   //Don't use Play(), places it at the wrong location.
 
-			StartCoroutine(PlayParticleDelayed());
+			//Just so it's detectable for others whether you're playing particles or not:
+			StartCoroutine(PlayParticleDelayed());	
 		}
 	}
 
@@ -38,10 +37,5 @@ public class SwordClashParticles : MechComponent
 		yield return null;
 
 		playingParticles = false;
-	}
-
-	void Update()
-	{
-		
 	}
 }

@@ -113,7 +113,6 @@ public class Attacker : MechComponent
 				if (moveDir.z > 0.4f
 					&& !pilot.croucher.crouching)
 				{
-					//arms.TweenLayerWeight(0f, 1, 0.1f);
 					animator.CrossFadeInFixedTime("Attack TL Step", blendTimeFeet, 0);
 					return "Attack TL Step";
 				}
@@ -125,7 +124,6 @@ public class Attacker : MechComponent
 				if (moveDir.z > 0.4f
 					&& !pilot.croucher.crouching)
 				{
-					//arms.TweenLayerWeight(0f, 1, 0.1f);
 					animator.CrossFadeInFixedTime("Attack TR Step", blendTimeFeet, 0);
 					return "Attack TR Step";
 				}
@@ -177,7 +175,6 @@ public class Attacker : MechComponent
 		yield return new WaitForSeconds(duration - stepWindow - swingSoundDelay);
 		
 		arms.combatState = WeaponsOfficer.CombatState.Retract;
-		//arms.TweenLayerWeight(1f, 1, 0.3f);
 
 		if (OnAttackEnd != null)
 			OnAttackEnd();

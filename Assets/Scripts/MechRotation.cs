@@ -1,21 +1,23 @@
 ﻿//using System.Collections;
 using UnityEngine;
 
+//This component is responsible for making the mech face the right direction.
+//If the mech is 'locked on', it faces the closest opponent, if not it can turn freely.
 public class MechRotation : MechComponent
 {
-	public Vector3 getForwardDir { get { return forwardDir; } }
-	//[SerializeField] float lockonAngleLimit = 60f;
-	[SerializeField] float turnSpeed = 60f;
-	[SerializeField] float stopTurnSpeed = 10f;
+	[SerializeField] float turnSpeed = 60f;	//Multiplier for turning
+	[SerializeField] float stopTurnSpeed = 10f;	//Multiplier when stopping turning
 
+	//Blend speeds for turning
 	[SerializeField] float blendSpeed = 2f;
 	[SerializeField] float lockonBlendSpeed = 1f;
-	float rotationAmount;
+
+	//How many degrees to rotate per second, before any multipliers.
 	float angle;
 
+	//Interpolated forward direction
 	Vector3 forwardDir;
 
-	//[SerializeField] bool lockOn = true;
 
 	protected override void OnAwake()
 	{
@@ -24,62 +26,48 @@ public class MechRotation : MechComponent
 
 	void Update()
 	{
-		float turnSpeedToUse = turnSpeed;
-
-		//if (Mathf.Abs(angle) > 10f)
-		//{
-		//	turnSpeedToUse = stopTurnSpeed;
-		//}
-		//Gradually increase/decrease view angle according to input
+		//Gradually increase/decrease view angle according to input.
 		if (Mathf.Abs(input.turnBodyHorz) > 0.1f)
 		{
-			angle += Mathf.Sign(input.turnBodyHorz) * Time.deltaTime * turnSpeedToUse;
+			float turnInput = Mathf.Clamp(input.turnBodyHorz, -1f, 1f);
+			angle += turnInput * Time.deltaTime * turnSpeed;
 		}
 		else
 		{
-			//Lower threshold, tween angle back to 0
+			//Lower threshold, tween angle back to 0 if no input.
 			angle = Mathf.Lerp(angle, 0f, Time.deltaTime * stopTurnSpeed);
 		}
 
+		//If you turn too fast, things will go horribly wrong, so make sure
+		//angle stays at a reasonable level.
 		angle = Mathf.Clamp(angle, -30f, 30f);
-		
-		//print(angle);
 
-		//If locked on, look towards the enemy when you're not turning
+
+		//If locked on, look towards the enemy when you're not turning.
 		if (pilot.lockOn.lockedOn
 			&& arms.combatState != WeaponsOfficer.CombatState.Attack
 			&& mech.tempEnemy)
 		{
 			forwardDir = mech.tempEnemy.transform.position - mech.transform.position;
-			/*forwardDir = Quaternion.Euler(0f, angle, 0f) * forwardDir;*/
-
-			//Don't lock on anymore if you look too much away
-			//if (Mathf.Abs(angle) > lockonAngleLimit)
-			//{
-			//	lockedOn = false;
-			//}
 		}
 		else
 		{
-			//If not locked on, rotate normally on your own
+			//If not locked on or if you're attacking, rotate normally on your own.
 			forwardDir = Quaternion.Euler(0f, angle, 0f) * mech.transform.forward;
 		}
 
-		//if (pilot.move.running)
-		//{
-		//	forwardDir = pilot.move.getWorldMoveDir;
-		//}
-
+		//Keep the forward direction straight, so we never tilt.
 		forwardDir.y = 0f;
 		forwardDir.Normalize();
 
 		//Gradually tween mech's forward direction
 		float blendSpeedToUse = blendSpeed;
 
+		//Turn a bit slower if using only lock-on, seems fair to not have perfect tracking of the opponent.
 		if (pilot.lockOn.lockedOn)
 			blendSpeedToUse = lockonBlendSpeed;
 
+		//Tween to the final forward direction
 		mech.transform.forward = Vector3.Slerp(mech.transform.forward, forwardDir, Time.deltaTime * blendSpeedToUse);
-		
 	}
 }

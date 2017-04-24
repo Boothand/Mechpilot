@@ -3,21 +3,24 @@ using UnityEngine;
 
 public class StancePicker : MechComponent
 {
-	public WeaponsOfficer.CombatDir stance { get; private set; }
-	public WeaponsOfficer.CombatDir prevStance { get; private set; }
-	WeaponsOfficer.CombatState prevState;
-
-	//[SerializeField] float blendSpeed = 4f;
+	public WeaponsOfficer.CombatDir stance { get; private set; }	//Current stance.
+	public WeaponsOfficer.CombatDir prevStance { get; private set; }	//Previous stance, for comparison.
+	
+	//How long time to use switching stance:
 	[SerializeField] float switchTime = 0.5f;
-	[SerializeField] float blendTime = 0.5f;
 	public float getSwitchTime { get { return switchTime; } }
-	public bool changingStance { get; private set; }
-	public WeaponsOfficer.CombatDir startStance;
 
+	//Time to blend into the animation.
+	[SerializeField] float blendTime = 0.5f;
+
+	public bool changingStance { get; private set; }
+	public WeaponsOfficer.CombatDir startStance;	//Mostly debug.
+
+	//Whether the mech has the sword on left or right side, so we know which idle stance to use.
 	public enum Orientation { Right, Left }
 	public Orientation orientation { get; set; }
-	public Orientation prevOrientation { get; private set; }
 	
+	//Callbacks for other classes.
 	public System.Action OnStanceBegin;
 	public System.Action OnSwitchBegin;
 
@@ -29,11 +32,12 @@ public class StancePicker : MechComponent
 
 	void Start()
 	{
-		stance = startStance;
-		StartCoroutine(ChangeStanceRoutine(stance));
-		animator.CrossFadeInFixedTime(AnimForStance(stance), blendTime);
+		//Initiate the stance..
+		StartCoroutine(ChangeStanceRoutine(startStance));
+		animator.CrossFadeInFixedTime(AnimForStance(startStance), blendTime);
 	}
 
+	//Get the stance animation
 	public string AnimForStance(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
@@ -50,9 +54,10 @@ public class StancePicker : MechComponent
 				return "Stance_TR";
 		}
 
-		return "Stance_TR";
+		return "Unsupported direction";
 	}
 
+	//Cancelling the stance switch
 	public void Stop()
 	{
 		StopAllCoroutines();
@@ -60,6 +65,7 @@ public class StancePicker : MechComponent
 		changingStance = false;
 	}
 
+	//Get the orientation anim (left or right)
 	public string OrientationAnim()
 	{
 		if (orientation == Orientation.Left)
@@ -72,15 +78,15 @@ public class StancePicker : MechComponent
 	{
 		changingStance = true;
 
-		prevOrientation = orientation;
-
 		if (OnSwitchBegin != null)
 			OnSwitchBegin();
 
+		//Check if we should switch footing.
 		pilot.footStanceSwitcher.CheckSwitchStance(prevStance, stance);
 
 		float switchTimeToUse = switchTime;
 
+		//Play the change stance animation
 		animator.CrossFadeInFixedTime(AnimForStance(stance), blendTime);
 
 		yield return new WaitForSeconds(switchTimeToUse);
@@ -98,23 +104,27 @@ public class StancePicker : MechComponent
 
 	void Update()
 	{
+		//Only update current stance when we're not switching, but regardless of state.
 		if (!changingStance)
 		{
 			stance = arms.DecideCombatDir(stance);
 		}
 
+		//Only in the stance state:
 		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
-			//Run event for others
-			if (prevState != WeaponsOfficer.CombatState.Stance)
+			//Initiate.
+			if (arms.prevCombatState != WeaponsOfficer.CombatState.Stance)
 			{
+				//Run event for others.
 				if (OnStanceBegin != null)
 					OnStanceBegin();
-
-				//print("OK");
+				
+				//Get into the stance pose.
 				animator.CrossFadeInFixedTime(AnimForStance(stance), blendTime);
 			}
 
+			//If we have picked a different stance than the current one.
 			if (!changingStance && prevStance != stance
 				&& !arms.blocker.blocking
 				)
@@ -123,7 +133,5 @@ public class StancePicker : MechComponent
 				StartCoroutine(ChangeStanceRoutine(stance));
 			}
 		}
-
-		prevState = arms.combatState;
 	}
 }
