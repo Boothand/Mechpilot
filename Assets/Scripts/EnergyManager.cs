@@ -1,6 +1,7 @@
 ﻿//using System.Collections;
 using UnityEngine;
 
+//Increases and decreases the 'stamina' or energy.
 public class EnergyManager : MechComponent
 {
 	public float stamina { get; private set; }
@@ -9,7 +10,9 @@ public class EnergyManager : MechComponent
 
 	public float getMaxStamina { get { return maxStamina; } }
 
+	//Let others know when we start spending stamina.
 	public System.Action<Vector3> OnSpendStamina;
+
 
 	protected override void OnAwake()
 	{
@@ -45,6 +48,7 @@ public class EnergyManager : MechComponent
 			}
 		}
 
+		//Don't go below 0 or above max.
 		stamina = Mathf.Clamp(stamina, 0f, maxStamina);
 	}
 }

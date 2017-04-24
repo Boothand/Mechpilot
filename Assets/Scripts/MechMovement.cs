@@ -1,37 +1,47 @@
 ﻿//using System.Collections;
 using UnityEngine;
 
+//Makes the rigidbody apply a velocity every fixed update,
+//Makes sure other components get a chance to modify the velocity
+//before it is applied by using events and referencing.
 public class MechMovement : MechComponent
 {
 	//CapsuleCollider capsuleCol;
 
-	//Physic materials to prevent sliding
-	[SerializeField] PhysicMaterial physMat_stillStanding;
-	[SerializeField] PhysicMaterial physMat_moving;
-
-	//Direction, velocity, movement
+	//Movement input, mapped to a vector.
 	public Vector3 inputVec { get; private set; }
+
+	//Calculate the magnitude once, no need to compute it every time.
 	public float inputVecMagnitude { get; private set; }
+
+	//Normalized direction we're going in, in world space. Use inputVec for local space.
 	Vector3 worldMoveDir;
 	public Vector3 getWorldMoveDir { get { return worldMoveDir; } }
-	Vector3 velocity;
-	//Vector3 lastPos;
-	[SerializeField] float animBlendSpeed = 5f;
 
+	//The velocity that is applied on X and Z in world space.
+	Vector3 velocity;
 	public Vector3 getVelocity { get { return velocity; } }
+
+	public Vector3 localVelocity { get; private set; }
+
+	//Calculate the magnitude once, no need to compute it every time.
+	public float velocityMagnitude { get; private set; }
 
 	//Animation
 	float animForward, animSide;    //Interpolating values, sent to animator
 
 	[Header("Values")]
-	[SerializeField] float moveSpeed = 25f;
+	[SerializeField] float moveSpeed = 25f;	//Movement multiplier
 	//[SerializeField] float maxSlopeAngle = 45f;
-	[SerializeField] float accelerationSpeed = 0.5f;
-	[SerializeField] float animationSpeedFactor = 0.4f;
+	[SerializeField] float accelerationSpeed = 0.5f;	//How fast to start and stop walking/running
+	[SerializeField] float animationSpeedFactor = 0.4f; //Movement animation speed multiplier
 
-	//Flags
+	//Blend speed for updating the animator's blend tree.
+	[SerializeField] float animBlendSpeed = 5f;
+
 	public bool moving { get; private set; }
 
+	//Sends a reference to a vector, so not a copy is changed, but the actual vector.
 	public delegate void VectorReference(ref Vector3 vec);
 	public event VectorReference ProcessVelocity;
 	public event VectorReference ProcessWorldMoveDir;
@@ -45,10 +55,11 @@ public class MechMovement : MechComponent
 
 	Vector3 BuildVelocity() //Return value just for increased readability in the Update-loop
 	{
-		float minimumInputSpeed = 0.2f;
 		float moveHorz = input.moveHorz;
 		float moveVert = input.moveVert;
+		float minimumInputSpeed = 0.2f;	//Walking slower than this is pointless.
 
+		//Don't walk super slow.
 		if (Mathf.Abs(input.moveHorz) > 0.001f &&
 			Mathf.Abs(input.moveHorz) < minimumInputSpeed)
 		{
@@ -64,44 +75,17 @@ public class MechMovement : MechComponent
 		inputVec = new Vector3(moveHorz, 0f, moveVert);
 		inputVecMagnitude = inputVec.magnitude;
 
-		//Transform direction from 'input' space to world space, relative to head's orientation.
+		//Transform direction from 'input' space to world space, relative to mech's orientation.
 		worldMoveDir = mech.transform.TransformDirection(inputVec);
 
-		//Keep the vector straight regardless of looking up/down
+		//Keep the movement vector straight regardless of looking up/down.
 		worldMoveDir.y = 0f;
 
-		//Don't go faster diagonally
+		//Don't go faster diagonally.
 		worldMoveDir.Normalize();
 
-		//Scale move speed with the joystick axis
-		worldMoveDir *= inputVec.magnitude;
-
-		#region Debug
-		//Debug.DrawRay(hierarchy.head.position, worldMoveDir * scaleFactor);
-
-
-		//if (true)//rb.velocity.y > 0.001f)
-		//{
-		//	Vector3 rayStartPos = mech.transform.position + Vector3.up * 0.02f * scaleFactor;
-		//	Vector3 dir = Vector3.down;
-		//	Ray ray = new Ray(rayStartPos, dir);
-		//	Debug.DrawRay(rayStartPos, dir * 0.16f * scaleFactor, Color.blue);
-		//	RaycastHit hitInfo;
-		//	Physics.Raycast(ray, out hitInfo, 0.16f * scaleFactor);
-
-		//	if (hitInfo.transform)
-		//	{
-		//		float dot = Vector3.Dot(Vector3.up, hitInfo.normal);
-
-		//		if (dot > 0.7f)
-		//		{
-		//			//worldMoveDir = Vector3.zero;
-		//			//velocity = Vector3.zero;
-		//			rb.velocity = Vector3.zero;
-		//		}
-		//	}
-		//}
-		#endregion
+		//Scale move speed with the joystick axis.
+		worldMoveDir *= inputVecMagnitude;
 
 		float accelerationSpeedToUse = accelerationSpeed;
 
@@ -122,76 +106,56 @@ public class MechMovement : MechComponent
 		}
 
 		//Move velocity towards the desired direction, with a set acceleration
-		Vector3 vel = Vector3.MoveTowards(velocity, worldMoveDir, Time.deltaTime * accelerationSpeedToUse);
+		Vector3 finalVelocity = Vector3.MoveTowards(velocity, worldMoveDir, Time.deltaTime * accelerationSpeedToUse);
+
+		velocityMagnitude = finalVelocity.magnitude;
 
 		//vel = Vector3.ClampMagnitude(vel, 1f);
-		return vel;
+		return finalVelocity;
 	}
 
 	void DoWalkAnimation()
 	{
-		float blendSpeed = animBlendSpeed;
-
-		//Transform world velocity to local space, to map forward and side values in animator
-		Vector3 animationVector = mech.transform.InverseTransformDirection(velocity);
-		//Normalize, so blend tree is mapped correctly
-		animationVector.Normalize();
-
 		//Blend smoothly to input directions
-		animForward = Mathf.MoveTowards(animForward, animationVector.z, Time.deltaTime * blendSpeed);
-		animSide = Mathf.MoveTowards(animSide, animationVector.x, Time.deltaTime * blendSpeed);
-
+		animForward = Mathf.MoveTowards(animForward, localVelocity.z, Time.deltaTime * animBlendSpeed);
+		animSide = Mathf.MoveTowards(animSide, localVelocity.x, Time.deltaTime * animBlendSpeed);
 		
+		//Map to blend tree in animator.
 		animator.SetFloat("ForwardMovement", animForward);
 		animator.SetFloat("SideMovement", animSide);
 
 		//Animation speed follows actual mech speed
 		float animSpeed = 1f;
-
-		//Vector3 actualVelocity = mech.transform.position - lastPos;
+		
+		//Sync the animation movement speed to the animator.
 		if (moving)
 		{
-			animSpeed = rb.velocity.magnitude / scaleFactor * animationSpeedFactor;
+			animSpeed = velocityMagnitude / scaleFactor * animationSpeedFactor;
 		}
-		animator.SetFloat("MoveSpeed", animSpeed);
 
-		//lastPos = mech.transform.position;
+		animator.SetFloat("MoveSpeed", animSpeed);
 	}
 
 	void FixedUpdate()
 	{
-		//------------------ MOVING ------------------\\
 		//Apply the velocity on X and Z axis, and regular y velocity (gravity) from rigidbody.
-
-		Vector3 gravityVector = Vector3.up * rb.velocity.y;
-
-		//Depending on base move speed and available energy
 		Vector3 moveVectorXZ = velocity * moveSpeed * scaleFactor * Time.deltaTime;
-		moveVectorXZ.y = 0f;
-
-		//mech.transform.position += moveVectorXZ * 0.02f;
-		//rb.MovePosition(mech.transform.position + moveVectorXZ * 0.02f);
-		gravityVector.y = Mathf.Clamp(gravityVector.y, -10f, 0f);
+		moveVectorXZ.y = 0f;	//Probably not necessary, but cancel out any y motion.
+		
 		rb.velocity = new Vector3(moveVectorXZ.x, rb.velocity.y, moveVectorXZ.z);
-		//rb.velocity = moveVectorXZ + gravityVector;
-
-		//rb.AddForce(moveVectorXZ);
 	}
 
 	void Update()
 	{
-		//------------------ MOVING ------------------\\
-
 		//Gradual velocity build-up
 		velocity = BuildVelocity();
 
 		//You are moving if velocity is greater than 0
-		//moving = rb.velocity.magnitude > 0.001f;
-		moving = velocity.magnitude > 0.001f;
+		moving = velocityMagnitude > 0.001f;
 
-
-		//Prevent unwanted sliding by switching out the physic material
-		//capsuleCol.material = GetAppropriatePhysicMaterial();
+		//Transform world velocity to local space, so others can get it (including this class).
+		localVelocity = mech.transform.InverseTransformDirection(velocity);
+		localVelocity.Normalize();
 
 		//Walk animation
 		DoWalkAnimation();

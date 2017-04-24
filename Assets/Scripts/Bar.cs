@@ -2,8 +2,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//Base class for bars like health- and stamina bars.
 public class Bar : MechComponent
 {
+	//The object to scale up and down
 	[SerializeField] protected Transform bar;
 	protected Image img;
 	protected Color startColor;
@@ -22,6 +24,7 @@ public class Bar : MechComponent
 			startColor = img.color;
 	}
 
+	//All bars should be able to blink/flash
 	protected void Blink(Vector3 location)
 	{
 		if (img)
@@ -31,6 +34,7 @@ public class Bar : MechComponent
 		}
 	}
 
+	//Tween to white and back again over a duration
 	IEnumerator BlinkRoutine()
 	{
 		float timer = 0f;
@@ -53,10 +57,5 @@ public class Bar : MechComponent
 			img.color = Color.Lerp(fromColor, startColor, timer / duration);
 			yield return null;
 		}
-	}
-
-	void Update()
-	{
-		
 	}
 }

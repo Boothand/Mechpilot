@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MechRotation : MechComponent
 {
-	public Vector3 getForwardDir { get { return forwardDir;/* aimBaseX.forward;*/ } }
+	public Vector3 getForwardDir { get { return forwardDir; } }
 	//[SerializeField] float lockonAngleLimit = 60f;
 	[SerializeField] float turnSpeed = 60f;
 	[SerializeField] float stopTurnSpeed = 10f;

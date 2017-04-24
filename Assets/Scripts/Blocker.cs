@@ -4,16 +4,18 @@ using UnityEngine;
 public class Blocker : MechComponent
 {
 	//Quaternion targetPosOffset;
-	public Quaternion targetRotOffset;
-	WeaponsOfficer.CombatDir blockStance;
-	WeaponsOfficer.CombatDir idealBlock;
-	WeaponsOfficer.CombatDir prevBlockStance;
+	WeaponsOfficer.CombatDir blockStance;		//The direction we block in.
+	WeaponsOfficer.CombatDir prevBlockStance;	//The direction we blocked in last frame.
+	WeaponsOfficer.CombatDir idealBlock;		//Used during auto-block if enabled.
+
+	//The time it takes to enter the block animation from each state:
 	[SerializeField] float blendStance = 0.75f;
 	[SerializeField] float blendWindup = 0.75f;
 	[SerializeField] float blendBlock = 0.75f;
-	[SerializeField] float blendAttack = 0.75f;
+
+	//Cannot exit a block before this time has passed:
 	[SerializeField] float minBlockTime = 0.2f;
-	[SerializeField] float minBlockTimeStagger = 0.5f;
+	[SerializeField] float minBlockTimeStagger = 0.5f;	//Special case when staggered.
 
 	[SerializeField] float blockDuration = 0.75f;
 
@@ -24,9 +26,8 @@ public class Blocker : MechComponent
 	bool attackInterrupted;
 
 	Coroutine blockRoutine;
-
-	public delegate void NoParam();
-	public event NoParam OnBlockBegin;
+	
+	public event System.Action OnBlockBegin;
 
 	protected override void OnAwake()
 	{
@@ -35,28 +36,30 @@ public class Blocker : MechComponent
 
 	void Start()
 	{
+		//Callback from sword when it collides:
 		if (arms.getWeapon != null)
-		{
-			arms.getWeapon.OnCollisionEnterEvent -= OnSwordCollision;
 			arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
-		}
 	}
 
+	//When swords collide, if the other is attacking and I block it, allow me to counter attack quickly.
 	void OnSwordCollision(Collision col)
 	{
 		Sword otherSword = col.transform.GetComponent<Sword>();
+
 		if (otherSword && otherSword.arms.prevCombatState == WeaponsOfficer.CombatState.Attack)
 		{
 			//If I block the other
 			if (arms.combatState == WeaponsOfficer.CombatState.Block
 				|| arms.stancePicker.changingStance)
 			{
+				//Drain some stamina depending on their strength
 				energyManager.SpendStamina(15f * otherSword.arms.attacker.attackStrength);
 				StartCoroutine(CheckCounterAttackRoutine());
 			}
 		}
 	}
 
+	//If you hit attack within 0.75 seconds, allow winding up instantly and not wait for stance switches etc.
 	IEnumerator CheckCounterAttackRoutine()
 	{
 		float timer = 0f;
@@ -76,12 +79,14 @@ public class Blocker : MechComponent
 		}
 	}
 
+	//For cancelling the block switch routine:
 	public void Stop()
 	{
 		StopAllCoroutines();
 		blocking = false;
 	}
 
+	//Only used for auto block, probably debug only.
 	WeaponsOfficer.CombatDir DecideBlockStance(WeaponsOfficer.CombatDir enemyAttackDir)
 	{
 		switch (enemyAttackDir)
@@ -120,92 +125,63 @@ public class Blocker : MechComponent
 				return "Block TR";
 		}
 
-		return "Block Top";
-	}
-
-	IEnumerator InterruptAttackRoutine()
-	{
-		attackInterrupted = true;
-
-		yield return new WaitForSeconds(0.55f);
-
-		attackInterrupted = false;
+		return "Unsupported direction";
 	}
 
 	IEnumerator BlockRoutine()
 	{
+		//Tell other classes
 		if (OnBlockBegin != null)
 			OnBlockBegin();
 
 		switchingBlockStance = true;
-		//bool transition = false;
-		bool alternateBlock = false;
-		if (prevBlockStance == WeaponsOfficer.CombatDir.TopLeft
-			//|| prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
-			)
-		{
-			alternateBlock = true;
-		}
-
+		
+		//Check if the feet should play an anim for switching stance:
 		pilot.footStanceSwitcher.CheckSwitchStance(prevBlockStance, blockStance);
 
-		//if (prevBlockStance == WeaponsOfficer.CombatDir.BottomLeft
-		//	&& blockStance == WeaponsOfficer.CombatDir.BottomRight)
-		//{
-		//	animator.CrossFade("BL2BR", 0.5f);
-		//	transition = true;
-		//}
-
-		//if (prevBlockStance == WeaponsOfficer.CombatDir.BottomRight
-		//	&& blockStance == WeaponsOfficer.CombatDir.BottomLeft)
-		//{
-		//	animator.CrossFade("BR2BL", 0.5f);
-		//	transition = true;
-		//}
-
+		//Update the orientation when switching block stance.
 		if (blockStance == WeaponsOfficer.CombatDir.TopRight)
 			arms.stancePicker.orientation = StancePicker.Orientation.Right;
 		else if (blockStance == WeaponsOfficer.CombatDir.TopLeft)
 			arms.stancePicker.orientation = StancePicker.Orientation.Left;
+		
+		//Set the correct blend time to go into the block animation
+		float blendTimeToUse = blendStance;
+
+		switch (arms.prevCombatState)
+		{
+			case WeaponsOfficer.CombatState.Stance:
+				blendTimeToUse = blendStance;
+				break;
+			case WeaponsOfficer.CombatState.Windup:
+				blendTimeToUse = blendWindup;
+				break;
+			case WeaponsOfficer.CombatState.Block:
+				blendTimeToUse = blendBlock;
+				break;
+		}
+
+		//Switch to a more convenient up-block anim if stance was on left side
+		bool alternateBlock = false;
+		if (prevBlockStance == WeaponsOfficer.CombatDir.TopLeft)
+			alternateBlock = true;
 
 		prevBlockStance = blockStance;
-		float durationToUse = blockDuration;
-		float blendTimeToUse = blendStance;
-		//if (!transition)
-		//{
-		
-		if (arms.prevCombatState == WeaponsOfficer.CombatState.Stance)
-		{
-			blendTimeToUse = blendStance;
-		}
-		else if (arms.prevCombatState == WeaponsOfficer.CombatState.Windup)
-		{
-			blendTimeToUse = blendWindup;
-		}
-		else if (arms.prevCombatState == WeaponsOfficer.CombatState.Block)
-		{
-			blendTimeToUse = blendBlock;
-		}
-		else if (arms.prevCombatState == WeaponsOfficer.CombatState.Attack)
-		{
-			//if (!attackInterrupted)
-			//	StartCoroutine(InterruptAttackRoutine());
-		}
 
-		if (attackInterrupted)
-		{
-			blendTimeToUse = blendAttack;
-		}
-
+		//Go into the block stance animation
 		animator.CrossFadeInFixedTime(AnimFromStance(blockStance, alternateBlock), blendTimeToUse);
-		//}
 
+		//Wait the rest of the duration
+		float durationToUse = blockDuration;
 		yield return new WaitForSeconds(durationToUse);
 
 		switchingBlockStance = false;
+
+		//Make sure the stance picker knows about the change...
 		arms.stancePicker.ForceStance(blockStance);
 	}
 
+	//Wait a minimum amount, then wait until you've released block or not currently switching stance:
 	IEnumerator BlockTimingRoutine()
 	{
 		float minBlockTimeToUse = minBlockTime;
@@ -227,13 +203,9 @@ public class Blocker : MechComponent
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
 	}
 
+
 	void Update()
 	{
-		//Check if prev block state == block state.
-		//Start changing block stance:
-			//Check if it's necessary to go via another stance.
-			//Do so in half the time
-
 		//Initiate the block
 		if (!blocking
 			&& input.block
@@ -241,12 +213,14 @@ public class Blocker : MechComponent
 		{
 			blocking = true;
 
+			//Only drain stamina the first time you enter blocking, not when switching after.
 			if (!holdingBlockButton)
 			{
 				energyManager.SpendStamina(10f);
 				holdingBlockButton = true;
 			}
 
+			//Cancel any other routines from other states.
 			arms.stancePicker.Stop();
 			arms.windup.Stop();
 			arms.attacker.Stop();
@@ -257,12 +231,13 @@ public class Blocker : MechComponent
 			//Check when we are allowed to stop blocking:
 			StartCoroutine(BlockTimingRoutine());
 
+			//Use the stance state's stance,
 			blockStance = arms.stancePicker.stance;
-			//Enter the block pose:
+
+
+			//Enter the block pose, stop the block routine (but not the block timing check routine):
 			if (blockRoutine != null)
-			{
 				StopCoroutine(blockRoutine);
-			}
 
 			blockRoutine = StartCoroutine(BlockRoutine());
 		}
@@ -272,22 +247,27 @@ public class Blocker : MechComponent
 			holdingBlockButton = false;
 		}
 
+		//Every frame while holding block:
 		if (arms.combatState == WeaponsOfficer.CombatState.Block)
 		{
+			//For auto-choosing the direction, probably debug only.
 			if (autoBlock
 				&& mech.tempEnemy)
 			{
 				idealBlock = DecideBlockStance(mech.tempEnemy.weaponsOfficer.attacker.attackDir);
 				blockStance = idealBlock;
 			}
-			else
+			
+			//Update the block stance since the stance picker still chooses directions.
+			if (!autoBlock)
 			{
 				blockStance = arms.stancePicker.stance;
 			}
 
+			//Check if the block stance has changed:
 			if (prevBlockStance != blockStance)
 			{
-				//Enter the block pose:
+				//Enter the new block pose:
 				if (blockRoutine != null)
 				{
 					StopCoroutine(blockRoutine);
@@ -295,19 +275,6 @@ public class Blocker : MechComponent
 
 				blockRoutine = StartCoroutine(BlockRoutine());
 			}
-
-			//if (!switchingBlockStance)
-			//{
-			//	arms.StoreTargets();
-			//	arms.InterpolateIKPose2(targetPose, targetRotOffset, Time.deltaTime * 4f);
-			//}
-
-			//targetPose = GetTargetPose(blockStance);
-
-			//AdjustPosition();
-
-			//Only for the sake of maintaining crouch height atm
-
 		}
 	}
 }
