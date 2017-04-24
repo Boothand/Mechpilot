@@ -36,7 +36,7 @@ public class Retract : MechComponent
 				return "Retract TR";
 		}
 
-		return "Retract Top";
+		return "Unsupported directon";
 	}
 
 	IEnumerator RetractRoutine()
@@ -47,13 +47,15 @@ public class Retract : MechComponent
 
 		retracting = true;
 
-		animator.CrossFadeInFixedTime(stancePicker.AnimForStance(stancePicker.stance), blendTime);
+		//animator.CrossFadeInFixedTime(arms.stancePicker.AnimForStance(arms.stancePicker.stance), blendTime);
+		animator.CrossFadeInFixedTime(AnimFromStance(arms.stancePicker.stance), blendTime);
+
 		//WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
 
 		yield return new WaitForSeconds(retractDuration);
 
 		retracting = false;
-		stancePicker.ForceStance(stancePicker.stance);
+		arms.stancePicker.ForceStance(arms.stancePicker.stance);
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
 		//print("End retract");
 		yield return null;

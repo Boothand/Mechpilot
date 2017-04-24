@@ -23,12 +23,12 @@ public class Stagger : MechComponent
 
 	void GetHit(Vector3 location)
 	{
-		stancePicker.Stop();
-		windup.Stop();
-		attacker.Stop();
-		retract.Stop();
-		blocker.Stop();
-		GetStaggered(stancePicker.stance);
+		arms.stancePicker.Stop();
+		arms.windup.Stop();
+		arms.attacker.Stop();
+		arms.retract.Stop();
+		arms.blocker.Stop();
+		GetStaggered(arms.stancePicker.stance);
 	}
 
 	public void Stop()
@@ -55,14 +55,14 @@ public class Stagger : MechComponent
 		yield return new WaitForSeconds(0.3f);
 
 		//if (attacker.dir != WeaponsOfficer.CombatDir.BottomLeft)
-			animator.CrossFadeInFixedTime(stancePicker.AnimForStance(stancePicker.stance), blendTime);
+			animator.CrossFadeInFixedTime(arms.stancePicker.AnimForStance(arms.stancePicker.stance), blendTime);
 
 		yield return new WaitForSeconds(durationToUse - 0.3f);
 
-		WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
+		WeaponsOfficer.CombatDir stanceToUse = arms.stancePicker.stance;
 
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
-		stancePicker.ForceStance(stanceToUse);
+		arms.stancePicker.ForceStance(stanceToUse);
 
 		staggering = false;
 	}

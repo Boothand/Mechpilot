@@ -12,8 +12,7 @@ public class FootStanceSwitcher : MechComponent
 
 	void Start()
 	{
-		//stancePicker.OnSwitchBegin += SwitchStance;
-		//blocker.OnBlockBegin += SwitchStance;
+
 	}
 
 	string AnimFromDir(WeaponsOfficer.CombatDir dir)
@@ -21,13 +20,15 @@ public class FootStanceSwitcher : MechComponent
 		switch (dir)
 		{
 			case WeaponsOfficer.CombatDir.TopRight:
-				if (croucher.crouching)
+
+				if (pilot.croucher.crouching)
 					return "Crouch Idle Switch L2R";
 
 				return "Idle Switch L2R";
 
 			case WeaponsOfficer.CombatDir.TopLeft:
-				if (croucher.crouching)
+
+				if (pilot.croucher.crouching)
 					return "Crouch Idle Switch R2L";
 
 				return "Idle Switch R2L";
@@ -36,6 +37,8 @@ public class FootStanceSwitcher : MechComponent
 		return null;
 	}
 
+	//Compares your stances, plays a foot switching anim if they are opposing directions.
+	//Updates 'orientation' so animator knows which orientation stance (left/right) to transition to.
 	public void CheckSwitchStance(WeaponsOfficer.CombatDir prev, WeaponsOfficer.CombatDir current)
 	{
 		if (!pilot.move.moving)
@@ -46,21 +49,16 @@ public class FootStanceSwitcher : MechComponent
 				&& current == WeaponsOfficer.CombatDir.TopRight)
 			{
 				animator.CrossFadeInFixedTime(animToUse, 0.15f);
-				stancePicker.orientation = StancePicker.Orientation.Right;
+				arms.stancePicker.orientation = StancePicker.Orientation.Right;
 			}
 			else if (prev == WeaponsOfficer.CombatDir.TopRight
 				&& current == WeaponsOfficer.CombatDir.TopLeft)
 			{
 				animator.CrossFadeInFixedTime(animToUse, 0.15f);
-				stancePicker.orientation = StancePicker.Orientation.Left;
+				arms.stancePicker.orientation = StancePicker.Orientation.Left;
 			}
 
-			animator.SetInteger("Orientation", (int)stancePicker.orientation);
+			animator.SetInteger("Orientation", (int)arms.stancePicker.orientation);
 		}
-	}
-
-	void Update()
-	{
-		
 	}
 }

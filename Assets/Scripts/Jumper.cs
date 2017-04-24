@@ -17,12 +17,15 @@ public class Jumper : MechComponent
 
 	}
 
+	//Play a jump animation, add some upwards velocity,
+	//wait until we are on ground, then play land animation.
 	IEnumerator JumpRoutine()
 	{
 		jumping = true;
 		animator.CrossFadeInFixedTime("Jump", 0.1f);
 
 		yield return new WaitForSeconds(0.35f);
+
 		rb.velocity += Vector3.up * jumpForce;
 		energyManager.SpendStamina(staminaUsage);
 
@@ -36,8 +39,10 @@ public class Jumper : MechComponent
 		jumping = false;
 	}
 
+	//Init the jump:
 	void Update()
 	{
+		//If we press the jump button and on the ground etc:
 		if (!jumping &&
 			input.jump
 			&& groundCheck.grounded

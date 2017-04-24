@@ -12,6 +12,7 @@ public class Croucher : MechComponent
 	public bool crouching
 	{ get { return animCrouchHeight > 0.5f; } }
 
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -19,6 +20,7 @@ public class Croucher : MechComponent
 
 	void Start()
 	{
+		//Modify velocity before it is applied
 		pilot.move.ProcessVelocity += WalkSlower;
 	}
 
@@ -30,17 +32,13 @@ public class Croucher : MechComponent
 		}
 	}
 
+	//Updates the animator's blend tree with a crouch variable, controlled by input.
 	void Update()
 	{
-		float crouchInput = Mathf.Clamp01(input.crouchAxis);
+		float crouchInput = Mathf.Clamp01(input.crouchAxis);	//0 - stand, 1 - crouch
 
+		//Tween the crouch height
 		animCrouchHeight = Mathf.MoveTowards(animCrouchHeight, crouchInput, Time.deltaTime * animCrouchSpeed);
 		animator.SetFloat("Crouch", animCrouchHeight);
-
-		actualCrouchHeight = Mathf.MoveTowards(actualCrouchHeight, crouchHeight * crouchInput, Time.deltaTime * crouchSpeed);
-
-		Vector3 offset = Vector3.down * actualCrouchHeight;
-
-		arms.OffsetIKTargets(offset, crouchSpeed);
 	}
 }

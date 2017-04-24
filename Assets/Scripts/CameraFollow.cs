@@ -2,11 +2,12 @@
 using UnityEngine;
 
 [System.Serializable]
-public class CameraOffset
+public class CameraPreset
 {
 	public Vector3 posOffset;
 	public Vector3 dirOffset;
 }
+
 public class CameraFollow : MechComponent
 {
 	[SerializeField] Transform target;
@@ -14,37 +15,40 @@ public class CameraFollow : MechComponent
 	//The time to switch between presets
 	[SerializeField] float switchTime = 0.5f;
 
-	[SerializeField] CameraOffset behind, left, right, firstperson;
-	CameraOffset currentOffset;
-	CameraOffset prevOffset;
+	[SerializeField] CameraPreset behind, left, right, firstperson;
+	CameraPreset currentPreset;	//The current preset
+	CameraPreset prevPreset;	//Used for comparison
 	bool switching;
+
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		currentOffset = right;
-
 	}
 
 	void Start()
 	{
-		if (lockOn.lockedOn)
+		//Init the preset
+		if (pilot.lockOn.lockedOn)
 			OnLockOn();
 		else
 			OnLockOff();
 
-		lockOn.OnLockOn += OnLockOn;
-		lockOn.OnLockOff += OnLockOff;
+		//Get a callback from the lockon component
+		pilot.lockOn.OnLockOn += OnLockOn;
+		pilot.lockOn.OnLockOff += OnLockOff;
 	}
 
 	void OnLockOn()
 	{
-		currentOffset = right;
+		//When locked on, the camera should auto-switch to the right preset
+		currentPreset = right;
 	}
 
 	void OnLockOff()
 	{
-		currentOffset = behind;
+		//When locked off, the camera should auto-switch to the behind preset
+		currentPreset = behind;
 	}
 
 	IEnumerator SwitchRoutine()
@@ -56,10 +60,10 @@ public class CameraFollow : MechComponent
 
 		//Store a reference to the target transform, so it persists through the routine,
 		//even if the target transform is changed on the outside.
-		CameraOffset toOffset = currentOffset;
+		CameraPreset toOffset = currentPreset;
 
 		//Store this so it can be compared next time you switch camera preset.
-		prevOffset = currentOffset;
+		prevPreset = currentPreset;
 
 		float timer = 0f;
 
@@ -85,30 +89,31 @@ public class CameraFollow : MechComponent
 		return target.position + mech.transform.TransformDirection(offset);
 	}
 
+	//Update after all other transformations:
 	void LateUpdate()
 	{
 		//Switch camera preset depending on keypress
 		if (input.camLeft)
 		{
-			currentOffset = left;
+			currentPreset = left;
 		}
 		else if (input.camRight)
 		{
-			currentOffset = right;
+			currentPreset = right;
 		}
 		else if (input.camBehind)
 		{
-			currentOffset = behind;
+			currentPreset = behind;
 		}
 		else if (input.camFP)
 		{
-			currentOffset = firstperson;
+			currentPreset = firstperson;
 		}
 
 		//If not already switching preset,
 		//and the preset is different from the last:
 		if (!switching
-			&& prevOffset != currentOffset)
+			&& prevPreset != currentPreset)
 		{
 			//Start switching
 			StopAllCoroutines();
@@ -118,17 +123,17 @@ public class CameraFollow : MechComponent
 		//When not switching, set the position and rotation to the target preset.
 		if (!switching)
 		{
-			if (lockOn.lockedOn)
+			if (pilot.lockOn.lockedOn)
 			{
-				Vector3 targetPos = TargetPlusOffset(currentOffset.posOffset);
+				Vector3 targetPos = TargetPlusOffset(currentPreset.posOffset);
 
 				transform.position = targetPos;
-				transform.forward = TargetPlusOffset(currentOffset.dirOffset) - transform.position;
+				transform.forward = TargetPlusOffset(currentPreset.dirOffset) - transform.position;
 			}
 			else
 			{
-				transform.position = TargetPlusOffset(currentOffset.posOffset);
-				transform.forward = TargetPlusOffset(currentOffset.dirOffset) - transform.position;
+				transform.position = TargetPlusOffset(currentPreset.posOffset);
+				transform.forward = TargetPlusOffset(currentPreset.dirOffset) - transform.position;
 			}
 		}
 	}

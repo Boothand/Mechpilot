@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-//This class is used to provide 'abstract' input to any class - player or AI controlled.
+//This class is used to provide 'abstract' input to any class - its main advantage is that we can simulate input with AI.
 //Each field corresponds to an input that can be bound to anything on the controller.
 public class AbstractInput : MonoBehaviour
 {
