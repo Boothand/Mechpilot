@@ -6,18 +6,22 @@ public class Windup : MechComponent
 	[SerializeField] float windupTime = 0.5f;
 	public bool windingUp { get; private set; }
 	public WeaponsOfficer.CombatDir dir { get; private set; }
+
+	//For queueing a windup, for instance if you press attack when switching stance:
 	bool cachedAttack;
 	public float windupTimer { get; private set; }
-	public delegate void NoParam();
-	public event NoParam OnWindupBegin;
+
+	public System.Action OnWindupBegin;	//Callback when you start winding up.
 	public bool inCounterAttack { get; private set; }
-	[SerializeField] float blendTime = 0.1f;
+	[SerializeField] float blendTime = 0.1f;	//Blend time for entering the animation.
+
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 	}
 
+	//Get the correct windup animation:
 	string AnimFromStance(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
@@ -34,9 +38,10 @@ public class Windup : MechComponent
 				return "Windup Top Right";
 		}
 
-		return "Windup Top Right";
+		return "Unsupported direction";
 	}
 
+	//Cancelling the windup:
 	public void Stop()
 	{
 		StopAllCoroutines();
@@ -52,20 +57,20 @@ public class Windup : MechComponent
 		windingUp = true;
 		arms.combatState = WeaponsOfficer.CombatState.Windup;
 
-		float timer = 0f;
+		windupTimer = 0f;	//Only relevant for others.
 
-		windupTimer = 0f;
-
+		//Enter the animation
 		animator.CrossFadeInFixedTime(AnimFromStance(arms.stancePicker.stance), blendTime);
 
-		while (timer < windupTime)
+		//Wait the duration of the windup.
+		while (windupTimer < windupTime)
 		{
-			timer += Time.deltaTime;
 			windupTimer += Time.deltaTime;
 
 			yield return null;
 		}
 
+		//Wait until we've released attack:
 		while (input.attack)
 		{
 			windupTimer += Time.deltaTime;
@@ -79,6 +84,7 @@ public class Windup : MechComponent
 		inCounterAttack = false;
 	}
 
+	//When blocking, then attacking immediately, skip changing stance at least:
 	public void WindupInstantly()
 	{
 		StopAllCoroutines();
@@ -90,6 +96,7 @@ public class Windup : MechComponent
 
 	void Update()
 	{
+		//Initiate the windup, if you're in stance and click attack:
 		if (arms.combatState == WeaponsOfficer.CombatState.Stance)
 		{
 			if (!windingUp
@@ -112,11 +119,9 @@ public class Windup : MechComponent
 
 				}
 			}
-
-		//print(windingUp);
 	}
 
-		//Save the attack for later
+		//Saving the attack for later if we're in the middle of something:
 		if (
 			//arms.stancePicker.changingStance
 			/*|| */(arms.combatState == WeaponsOfficer.CombatState.Stagger
@@ -129,7 +134,7 @@ public class Windup : MechComponent
 			}
 		}
 
-		////Released the saved up attack
+		//Released the saved up attack:
 		if (cachedAttack
 			//&& !arms.stancePicker.changingStance
 			&& energyManager.CanSpendStamina(arms.attacker.getStaminaAmount)

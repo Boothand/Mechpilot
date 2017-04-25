@@ -1,6 +1,7 @@
 ﻿//using System.Collections;
 using UnityEngine;
 
+//Displayed over heads and possibly somewhere else.
 public class HealthBar : Bar
 {
 
@@ -13,11 +14,13 @@ public class HealthBar : Bar
 	{
 		base.Start();
 		
+		//Run the base blink function when the mech is hit.
 		healthManager.OnGetHit += Blink;
 	}
 
 	void Update()
 	{
+		//Scale the healthbar from 0 - 1.
 		Vector3 healthScale = bar.transform.localScale;
 
 		float targetScale = (float)healthManager.getHealth / (float)healthManager.getMaxHealth;
