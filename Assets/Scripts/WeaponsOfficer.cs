@@ -54,14 +54,14 @@ public class WeaponsOfficer : MechComponent
 	void Start()
 	{
 		//IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
-		StartCoroutine(LockWeaponMotionRoutine());	//Hack: Lock it one frame after start, to override puppetmaster?
+		//StartCoroutine(LockWeaponMotionRoutine());	//Hack: Lock it one frame after start, to override puppetmaster?
 	}
 
-	IEnumerator LockWeaponMotionRoutine()
-	{
-		yield return null;
-		weapon.LockSwordAngularMotion(true);
-	}
+	//IEnumerator LockWeaponMotionRoutine()
+	//{
+	//	yield return null;
+	//	weapon.LockSwordAngularMotion(true);
+	//}
 
 	IEnumerator TweenLayerWeightRoutine(float weight, int layer, float time)
 	{
