@@ -1,25 +1,29 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+//The state after attacking while it goes back to stance.
 public class Retract : MechComponent
 {
 	[SerializeField] float retractDuration = 0.75f;
 	[SerializeField] float blendTime = 0.5f;
 	public bool retracting { get; private set; }
-	public delegate void NoParam();
-	public event NoParam OnRetractBegin;
+
+	//Callback when starting to retract.
+	public System.Action OnRetractBegin;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 	}
 
+	//For cancelling the retract..ion.
 	public void Stop()
 	{
 		retracting = false;
 		StopAllCoroutines();
 	}
 
+	//The animation to use for retracting
 	string AnimFromStance(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)
@@ -41,29 +45,29 @@ public class Retract : MechComponent
 
 	IEnumerator RetractRoutine()
 	{
-		//print("Begin retract");
 		if (OnRetractBegin != null)
 			OnRetractBegin();
 
 		retracting = true;
 
+		//Play the retract animation
 		//animator.CrossFadeInFixedTime(arms.stancePicker.AnimForStance(arms.stancePicker.stance), blendTime);
 		animator.CrossFadeInFixedTime(AnimFromStance(arms.stancePicker.stance), blendTime);
 
-		//WeaponsOfficer.CombatDir stanceToUse = stancePicker.stance;
-
+		//Wait the rest of the duration.
 		yield return new WaitForSeconds(retractDuration);
 
+		//Go back to idle.
 		retracting = false;
 		arms.stancePicker.ForceStance(arms.stancePicker.stance);
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
-		//print("End retract");
-		yield return null;
 	}
 
 	void Update()
 	{
-		if (!retracting && arms.combatState == WeaponsOfficer.CombatState.Retract)
+		//Initiate the retract routine.
+		if (!retracting &&
+			arms.combatState == WeaponsOfficer.CombatState.Retract)
 		{
 			StartCoroutine(RetractRoutine());
 		}

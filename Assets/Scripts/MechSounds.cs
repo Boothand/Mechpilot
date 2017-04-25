@@ -1,10 +1,11 @@
 ﻿//using System.Collections;
 using UnityEngine;
 
+//This component keeps track of all audio clips, and plays them on the appropriate audio source.
 public class MechSounds : MechComponent
 {
-	AudioSource singleSource;
-	[SerializeField] AudioSource loopSource;
+	AudioSource singleSource;	//For sounds that play once per action.
+	[SerializeField] AudioSource loopSource;	//For sounds that loop or play continously.
 	[SerializeField] AudioClip moveArmBeginSound;
 	[SerializeField] AudioClip moveArmSound;
 	[SerializeField] AudioClip moveArmEndSound;
@@ -46,20 +47,6 @@ public class MechSounds : MechComponent
 		
 	}
 
-	float RandomPitch(float basePitch, float maxVariance)
-	{
-		return basePitch + Random.Range(-maxVariance, maxVariance);
-	}
-
-	public void PlayBodyHitSound(float impact = 1f)
-	{
-		impact *= 20f;
-		singleSource.volume = impact;
-		//print(impact);
-		singleSource.pitch = RandomPitch(1f, 0.2f);
-		singleSource.PlayOneShot(bodyHitSound);
-	}
-
 	void PlayOnMoveEndSound()
 	{
 		if (singleSource.clip != moveArmEndSound)
@@ -70,6 +57,18 @@ public class MechSounds : MechComponent
 		}
 
 		loopSource.Stop();
+	}
+
+	float RandomPitch(float basePitch, float maxVariance)
+	{
+		return basePitch + Random.Range(-maxVariance, maxVariance);
+	}
+
+	public void PlayBodyHitSound(float impact = 1f)
+	{
+		singleSource.volume = impact;
+		singleSource.pitch = RandomPitch(1f, 0.2f);
+		singleSource.PlayOneShot(bodyHitSound);
 	}
 
 	public void PlaySwordSwingSound()

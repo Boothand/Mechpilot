@@ -3,8 +3,10 @@ using System.Collections;
 using RootMotion.FinalIK;
 using RootMotion.Dynamics;
 
+//A sort of management class for the weapons' officer
 public class WeaponsOfficer : MechComponent
 {
+	//Components specific to him:
 	public Blocker blocker { get; private set; }
 	public Attacker attacker { get; private set; }
 	public StancePicker stancePicker { get; private set; }
@@ -12,41 +14,28 @@ public class WeaponsOfficer : MechComponent
 	public Retract retract { get; private set; }
 	public Stagger stagger { get; private set; }
 
-
+	//States:
 	public enum CombatState { Stance, Block, Windup, Attack, Stagger, Retract }
 	public CombatState combatState;
 	public CombatState prevCombatState;
+
+	//Swing directions:
 	public enum CombatDir { TopRight, TopLeft, /*BottomRight, BottomLeft,*/ Top }
 
 	public Vector3 inputVec { get; private set; }
 	public float inputVecMagnitude { get; private set; }
 
+	//Plugin stuff:
 	public FullBodyBipedIK fbbik { get; private set; }
 	public PuppetMaster puppet { get; private set; }
 
 	[SerializeField] Sword weapon;
-	[SerializeField] Transform rHandIKTarget;
-	[SerializeField] Transform lHandIKTarget;
-	[SerializeField] Transform rElbowTarget;
-	[SerializeField] Transform lElbowTarget;
-	[SerializeField] Transform rShoulderTarget;
-	[SerializeField] Transform lShoulderTarget;
-	[SerializeField] Transform bodyTarget;
+	public Sword getWeapon { get { return weapon; } }
 
+	//Debug:
 	[SerializeField] bool alwaysBlock;
 	[SerializeField] bool alwaysAttack;
 
-	Vector3 fromRhandPos, fromRElbowPos, fromLElbowPos, fromRShoulderPos, fromLShoulderPos, fromBodyPos;
-	Quaternion fromRhandRot;
-
-	public Sword getWeapon { get { return weapon; } }
-	public Transform getRhandIKTarget { get { return rHandIKTarget; } }
-	public Transform getLhandIKTarget { get { return lHandIKTarget; } }
-	public Transform getRElbowTarget { get { return rElbowTarget; } }
-	public Transform getLElbowTarget { get { return lElbowTarget; } }
-	public Transform getRShoulderTarget { get { return rShoulderTarget; } }
-	public Transform getLShoulderTarget { get { return lShoulderTarget; } }
-	public Transform getBodyTarget { get { return bodyTarget; } }
 
 	protected override void OnAwake()
 	{
@@ -65,34 +54,13 @@ public class WeaponsOfficer : MechComponent
 	void Start()
 	{
 		//IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
-		StartCoroutine(LockWeaponMotionRoutine());
+		StartCoroutine(LockWeaponMotionRoutine());	//Hack: Lock it one frame after start, to override puppetmaster?
 	}
 
 	IEnumerator LockWeaponMotionRoutine()
 	{
 		yield return null;
 		weapon.LockSwordAngularMotion(true);
-	}
-
-	IEnumerator TweenIKWeightRoutine(float weight, float time)
-	{
-		float timer = 0f;
-		float fromWeight = fbbik.solver.IKPositionWeight;
-
-		while (timer < time)
-		{
-			timer += Time.deltaTime;
-
-			fbbik.solver.IKPositionWeight = Mathf.Lerp(fromWeight, weight, timer / time);
-			yield return null;
-		}
-
-		fbbik.solver.IKPositionWeight = weight;
-	}
-
-	public void TweenIKWeight(float weight, float time)
-	{
-		StartCoroutine(TweenIKWeightRoutine(weight, time));
 	}
 
 	IEnumerator TweenLayerWeightRoutine(float weight, int layer, float time)
@@ -116,86 +84,6 @@ public class WeaponsOfficer : MechComponent
 		StartCoroutine(TweenLayerWeightRoutine(weight, layer, time));
 	}
 
-#if LEGACY
-	public void StoreTargets()
-	{
-		//print("Targets were stored.");
-		fromRhandPos = rHandIKTarget.position;
-		fromRhandRot = rHandIKTarget.rotation;
-
-		fromRElbowPos = rElbowTarget.position;
-		fromLElbowPos = lElbowTarget.position;
-
-		fromRShoulderPos = rShoulderTarget.position;
-		fromLShoulderPos = lShoulderTarget.position;
-
-		fromBodyPos = bodyTarget.position;
-	}
-
-	public void InterpolateIKPose(IKPose pose, float timer)
-	{
-		rHandIKTarget.position = Vector3.Lerp(fromRhandPos, pose.rHand.position, timer);
-		rHandIKTarget.rotation = Quaternion.Lerp(fromRhandRot, pose.rHand.rotation, timer);
-
-		rElbowTarget.position = Vector3.Lerp(fromRElbowPos, pose.rElbow.position, timer);
-		lElbowTarget.position = Vector3.Lerp(fromLElbowPos, pose.lElbow.position, timer);
-
-		rShoulderTarget.position = Vector3.Lerp(fromRShoulderPos, pose.rShoulder.position, timer);
-		lShoulderTarget.position = Vector3.Lerp(fromLShoulderPos, pose.lShoulder.position, timer);
-
-		bodyTarget.position = Vector3.Lerp(fromBodyPos, pose.body.position, timer);
-	}
-
-	public void InterpolateIKPose(IKPose pose, Vector3 handOffset, float timer)
-	{
-		rHandIKTarget.position = Vector3.Lerp(fromRhandPos, pose.rHand.position + handOffset, timer);
-		rHandIKTarget.rotation = Quaternion.Lerp(fromRhandRot, pose.rHand.rotation, timer);
-
-		rElbowTarget.position = Vector3.Lerp(fromRElbowPos, pose.rElbow.position, timer);
-		lElbowTarget.position = Vector3.Lerp(fromLElbowPos, pose.lElbow.position, timer);
-
-		rShoulderTarget.position = Vector3.Lerp(fromRShoulderPos, pose.rShoulder.position, timer);
-		lShoulderTarget.position = Vector3.Lerp(fromLShoulderPos, pose.lShoulder.position, timer);
-
-		bodyTarget.position = Vector3.Lerp(fromBodyPos, pose.body.position, timer);
-	}
-
-	public void InterpolateIKPose2(IKPose pose, Quaternion handRotOffset, float timer)
-	{
-		rHandIKTarget.position = Vector3.MoveTowards(fromRhandPos, pose.rHand.position, timer);
-		rHandIKTarget.rotation = Quaternion.RotateTowards(fromRhandRot, pose.rHand.rotation * handRotOffset, timer * 100f);
-
-		rElbowTarget.position = Vector3.Lerp(fromRElbowPos, pose.rElbow.position, timer);
-		lElbowTarget.position = Vector3.Lerp(fromLElbowPos, pose.lElbow.position, timer);
-
-		rShoulderTarget.position = Vector3.Lerp(fromRShoulderPos, pose.rShoulder.position, timer);
-		lShoulderTarget.position = Vector3.Lerp(fromLShoulderPos, pose.lShoulder.position, timer);
-
-		bodyTarget.position = Vector3.Lerp(fromBodyPos, pose.body.position, timer);
-	}
-
-	public void OffsetIKTargets(Vector3 offset, float blendSpeed)
-	{
-		rHandIKTarget.position += offset;
-		rElbowTarget.position += offset;
-		lElbowTarget.position += offset;
-		rShoulderTarget.position += offset;
-		lShoulderTarget.position += offset;
-		bodyTarget.position += offset;
-
-		//rHandIKTarget.position = Vector3.Lerp(rHandIKTarget.position, rHandIKTarget.position + offset, Time.deltaTime * blendSpeed);
-		////rHandIKTarget.rotation = Quaternion.Lerp(rHandIKTarget.rotation, pose.rHand.rotation, timer);
-
-		//rElbowTarget.position = Vector3.Lerp(rElbowTarget.position, rElbowTarget.position + offset, Time.deltaTime * blendSpeed);
-		//lElbowTarget.position = Vector3.Lerp(lElbowTarget.position, lElbowTarget.position + offset, Time.deltaTime * blendSpeed);
-
-		//rShoulderTarget.position = Vector3.Lerp(rShoulderTarget.position, rShoulderTarget.position + offset, Time.deltaTime * blendSpeed);
-		//lShoulderTarget.position = Vector3.Lerp(lShoulderTarget.position, lShoulderTarget.position + offset, Time.deltaTime * blendSpeed);
-
-		//bodyTarget.position = Vector3.Lerp(bodyTarget.position, bodyTarget.position + offset, Time.deltaTime * blendSpeed);
-	}
-#endif
-
 	void IgnoreHierarchyRecursive(Transform root, Collider otherCol)
 	{
 		foreach (Transform child in root)
@@ -211,12 +99,13 @@ public class WeaponsOfficer : MechComponent
 		}
 	}
 
-	public WeaponsOfficer.CombatDir DecideCombatDir(WeaponsOfficer.CombatDir inDir)
+	//Returns a direction according to right stick input:
+	public CombatDir DecideCombatDir(CombatDir inDir)
 	{
 		if (Mathf.Abs(inputVec.x) < 0.4f &&
 			inputVec.y > 0.4f)
 		{
-			return WeaponsOfficer.CombatDir.Top;
+			return CombatDir.Top;
 		}
 
 		if (inputVec.x > 0.1f)
@@ -228,7 +117,7 @@ public class WeaponsOfficer : MechComponent
 			//}
 
 			//Top right
-			return WeaponsOfficer.CombatDir.TopRight;
+			return CombatDir.TopRight;
 		}
 
 		if (inputVec.x < -0.1f)
@@ -240,7 +129,7 @@ public class WeaponsOfficer : MechComponent
 			//}
 
 			//Top left
-			return WeaponsOfficer.CombatDir.TopLeft;
+			return CombatDir.TopLeft;
 		}
 
 		//if (inputVec.y < -0.1f && Mathf.Abs(inputVec.x) < 0.1f)
@@ -254,45 +143,6 @@ public class WeaponsOfficer : MechComponent
 
 		//Default
 		return inDir;
-	}
-
-	IEnumerator SetPinWeightUpperBodyRoutine(float fromWeight, float toWeight, float duration, HumanBodyBones rootBone = HumanBodyBones.Spine)
-	{
-		//float startPinWeight = puppet.pinWeight;
-
-		float timer = 0f;
-		float interpolationWeight = 0f;
-
-		//HACKY
-		float rhandStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightHand)].rigidbody.mass;
-		float rarmStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightLowerArm)].rigidbody.mass;
-		float rupperArmStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightUpperArm)].rigidbody.mass;
-		float weaponStartMass = getWeapon.GetComponent<Rigidbody>().mass;
-		float headStartMass = puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.Head)].rigidbody.mass;
-		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightHand)].rigidbody.mass = 1f;
-		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightLowerArm)].rigidbody.mass = 1f;
-		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightUpperArm)].rigidbody.mass = 1f;
-		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.Head)].rigidbody.mass = 200f;
-
-		getWeapon.GetComponent<Rigidbody>().mass = 1f;
-
-		while (timer < duration)
-		{
-			timer += Time.deltaTime;
-
-			interpolationWeight = Mathf.Lerp(fromWeight, toWeight, timer / duration);
-			puppet.SetMuscleWeightsRecursive(rootBone, 1f, interpolationWeight);
-
-			yield return null;
-		}
-
-		//HACKY!
-		puppet.SetMuscleWeightsRecursive(HumanBodyBones.Spine, 1f, toWeight);
-		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightHand)].rigidbody.mass = rhandStartMass;
-		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightLowerArm)].rigidbody.mass = rarmStartMass;
-		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.RightUpperArm)].rigidbody.mass = rupperArmStartMass;
-		puppet.muscles[puppet.GetMuscleIndex(HumanBodyBones.Head)].rigidbody.mass = headStartMass;
-		getWeapon.GetComponent<Rigidbody>().mass = weaponStartMass;
 	}
 
 	IEnumerator SetPinWeightWholeBodyRoutine(float fromWeight, float toWeight, float time)
@@ -311,11 +161,6 @@ public class WeaponsOfficer : MechComponent
 		puppet.pinWeight = toWeight;
 	}
 
-	public void SetPinWeightUpperBody(float fromWeight, float toWeight, float time)
-	{
-		StartCoroutine(SetPinWeightUpperBodyRoutine(fromWeight, toWeight, time));
-	}
-
 	public void SetPinWeightWholeBody(float fromWeight, float toWeight, float time)
 	{
 		StartCoroutine(SetPinWeightWholeBodyRoutine(fromWeight, toWeight, time));
@@ -332,18 +177,15 @@ public class WeaponsOfficer : MechComponent
 
 	void Update ()
 	{
+		//So others can get them without calculating it potentially several times:
 		inputVec = new Vector3(input.rArmHorz, input.rArmVert).normalized;
 		inputVecMagnitude = inputVec.magnitude;
 
-		if (weapon != null)
-		{
-			lHandIKTarget.position = weapon.getLeftHandTarget.position;
-			lHandIKTarget.rotation = weapon.getLeftHandTarget.rotation;
-		}
-
+		//Debug:
 		if (alwaysBlock)
 			input.block = true;
 		
+		//Debug:
 		if (alwaysAttack)
 		{
 			if (input.attack)
@@ -356,6 +198,7 @@ public class WeaponsOfficer : MechComponent
 			}
 		}
 
+		//Debug:
 		if (Input.GetKeyDown(KeyCode.R))
 		{
 			Cursor.lockState = CursorLockMode.Locked;

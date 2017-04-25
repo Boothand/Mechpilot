@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+//The state after you have been blocked or hit someone.
 public class Stagger : MechComponent
 {
 	[SerializeField] float duration = 1f;
 	public bool staggering { get; private set; }
 	public float staggerTimer { get; private set; }
-	public delegate void NoParam();
-	public event NoParam OnStaggerBegin;
+	public System.Action OnStaggerBegin;
 	[SerializeField] float blendTime = 0.5f;
 
 	protected override void OnAwake()
@@ -21,6 +21,7 @@ public class Stagger : MechComponent
 		healthManager.OnGetHit += GetHit;
 	}
 
+	//Getting hit also sends you into a stagger state?
 	void GetHit(Vector3 location)
 	{
 		arms.stancePicker.Stop();
@@ -31,6 +32,7 @@ public class Stagger : MechComponent
 		GetStaggered(arms.stancePicker.stance);
 	}
 
+	//For cancelling the stagger.
 	public void Stop()
 	{
 		StopAllCoroutines();
@@ -45,39 +47,40 @@ public class Stagger : MechComponent
 		arms.combatState = WeaponsOfficer.CombatState.Stagger;
 		staggering = true;
 
-		float durationToUse = duration;// / 2;
+		float durationToUse = duration;
 		durationToUse *= durationModifier;
 
+		staggerTimer = 0f;	//This is read by other classes.
+
 		//Wait 0.3 seconds before returning from the attack, so it stays planted a little bit.
-		//if (attacker.dir == WeaponsOfficer.CombatDir.BottomLeft)
-			//animator.CrossFade(stancePicker.AnimForStance(stancePicker.stance), stancePicker.getSwitchTime);
+		float plantedTime = 0.3f;
+		while (staggerTimer < plantedTime)
+		{
+			staggerTimer += Time.deltaTime;
+			yield return null;
+		}
+		
+		//Go to the stance animation in the end.
+		animator.CrossFadeInFixedTime(arms.stancePicker.AnimForStance(arms.stancePicker.stance), blendTime);
 
-		yield return new WaitForSeconds(0.3f);
+		//Wait the rest of the duration minus the other wait times.
+		while (staggerTimer < durationToUse - plantedTime)
+		{
+			staggerTimer += Time.deltaTime;
+			yield return null;
+		}
 
-		//if (attacker.dir != WeaponsOfficer.CombatDir.BottomLeft)
-			animator.CrossFadeInFixedTime(arms.stancePicker.AnimForStance(arms.stancePicker.stance), blendTime);
-
-		yield return new WaitForSeconds(durationToUse - 0.3f);
-
-		WeaponsOfficer.CombatDir stanceToUse = arms.stancePicker.stance;
-
+		//Return to stance.
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
-		arms.stancePicker.ForceStance(stanceToUse);
+		arms.stancePicker.ForceStance(arms.stancePicker.stance);
 
 		staggering = false;
 	}
 
+	//Initiate the stagger routine.
 	public void GetStaggered(WeaponsOfficer.CombatDir dir, float durationModifier = 1f)
 	{
 		StopAllCoroutines();
 		StartCoroutine(StaggerRoutine(dir, durationModifier));
-	}
-
-	void Update()
-	{
-		if (arms.combatState == WeaponsOfficer.CombatState.Stagger)
-		{
-
-		}
 	}
 }

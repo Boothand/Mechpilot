@@ -15,20 +15,21 @@ public class Run : MechComponent
 
 	void Start()
 	{
+		//Modify velocity before it is applied.
 		pilot.move.ProcessWorldMoveDir += CheckRun;
 	}
 
 	void CheckRun(ref Vector3 worldMoveDir)
 	{
 		running = false;
-		float staminaAmount = staminaPerSecond * Time.deltaTime;
 
+		//If pressing 'run' and you're allowed to run:
 		if (
-			//!lockOn.lockedOn &&
 			input.run &&
 			!inRunCooldown &&
 			!pilot.croucher.crouching &&
 			pilot.move.inputVecMagnitude > 0.2f
+			//!lockOn.lockedOn &&
 			/*&& input.moveVert > 0.2f
 			&& Mathf.Abs(input.moveHorz) < 0.3f*/)
 		{
@@ -46,18 +47,24 @@ public class Run : MechComponent
 			{
 				runMultiplierToUse *= 0.6f; //Don't run as fast as forward
 			}
-			//print(runMultiplierToUse);
 
-			worldMoveDir *= runMultiplierToUse;// * inputVecMagnitude;
+			//Apply the modification
+			worldMoveDir *= runMultiplierToUse;
 
-			energyManager.SpendStamina(staminaAmount * runMultiplierToUse);
+			//Spend some stamina every frame you run
+			float staminaAmount = staminaPerSecond * runMultiplierToUse * Time.deltaTime;
+			energyManager.SpendStamina(staminaAmount);
 
+			//If you run out of stamina, don't run every other frame as you regenerate.
+			//Instead, set a cooldown.
 			if (energyManager.stamina < 0.01f)
 			{
 				inRunCooldown = true;
 			}
 		}
 
+		//Wait until you have 25 stamina before you're allowed to run again
+		//after a cooldown
 		if (inRunCooldown)
 		{
 			if (energyManager.stamina > 25f)
@@ -66,15 +73,10 @@ public class Run : MechComponent
 			}
 		}
 
+		//Temporary stuff until run anims.
 		float animSpeed = rb.velocity.magnitude / 60;
-		//print(animSpeed);
 
 		animator.SetBool("Running", running);
 		animator.SetFloat("RunAmount", animSpeed);
-	}
-
-	void Update()
-	{
-		
 	}
 }

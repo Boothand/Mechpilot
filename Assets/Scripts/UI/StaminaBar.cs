@@ -14,11 +14,13 @@ public class StaminaBar : Bar
 	{
 		base.Start();
 		
+		//Run the base blink function when spending stamina.
 		energyManager.OnSpendStamina += Blink;
 	}	
 
 	void Update()
 	{
+		//Scale the stamina bar from 0 - 1.
 		Vector3 staminaScale = bar.transform.localScale;
 
 		float targetScale = energyManager.stamina / energyManager.getMaxStamina;
