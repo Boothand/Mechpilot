@@ -204,7 +204,7 @@ public class Blocker : MechComponent
 	}
 
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Initiate the block
 		if (!blocking

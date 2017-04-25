@@ -19,7 +19,7 @@ public class Lockon : MechComponent
 		base.OnAwake();
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		if (debugAlwaysLockon)
 			input.lockOn = true;

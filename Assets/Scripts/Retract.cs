@@ -17,10 +17,10 @@ public class Retract : MechComponent
 	}
 
 	//For cancelling the retract..ion.
-	public void Stop()
+	public override void Stop()
 	{
+		base.Stop();
 		retracting = false;
-		StopAllCoroutines();
 	}
 
 	//The animation to use for retracting
@@ -63,7 +63,7 @@ public class Retract : MechComponent
 		arms.combatState = WeaponsOfficer.CombatState.Stance;
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Initiate the retract routine.
 		if (!retracting &&

@@ -175,7 +175,7 @@ public class WeaponsOfficer : MechComponent
 		puppet.pinWeight = 0f;
 	}
 
-	void Update ()
+	protected override void OnUpdate ()
 	{
 		//So others can get them without calculating it potentially several times:
 		inputVec = new Vector3(input.rArmHorz, input.rArmVert).normalized;

@@ -4,6 +4,7 @@
 //Base class for fully aware mech components. It provides a path to any other component on the mech.
 public class MechComponent : ManagedMechBehaviour
 {
+	[SerializeField] protected bool dontStopOnDeath;
 	//Components common for both pilot and weapons officer:
 	protected Animator animator;
 	protected BodyHierarchy hierarchy;
@@ -53,4 +54,50 @@ public class MechComponent : ManagedMechBehaviour
 		
 		base.OnAwake();
 	}
+
+	public virtual void Stop()
+	{
+		StopAllCoroutines();
+	}
+
+	protected virtual void Update()
+	{
+		if (healthManager.dead &&
+			!dontStopOnDeath)
+		{
+			Stop();
+			return;
+		}
+
+		OnUpdate();
+	}
+
+	protected virtual void FixedUpdate()
+	{
+		if (healthManager.dead &&
+			!dontStopOnDeath)
+		{
+			Stop();
+			return;
+		}
+
+		OnFixedUpdate();
+	}
+
+	protected virtual void LateUpdate()
+	{
+		if (healthManager.dead &&
+			!dontStopOnDeath)
+		{
+			//print(this.ToString() + ": Dead");
+			Stop();
+			return;
+		}
+
+		OnLateUpdate();
+	}
+
+	protected virtual void OnUpdate() { }
+	protected virtual void OnFixedUpdate() { }
+	protected virtual void OnLateUpdate() { }
 }

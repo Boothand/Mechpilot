@@ -161,13 +161,13 @@ public class Sword : Collidable
 		}
 	}
 
-	void FixedUpdate()
+	protected override void OnFixedUpdate()
 	{
 		//Calculate sword tip velocity
 		CalculateSwordTipVelocity();
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Turn off collider when not blocking or attacking
 		if (arms.combatState == WeaponsOfficer.CombatState.Attack

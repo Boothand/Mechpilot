@@ -33,7 +33,7 @@ public class Croucher : MechComponent
 	}
 
 	//Updates the animator's blend tree with a crouch variable, controlled by input.
-	void Update()
+	protected override void OnUpdate()
 	{
 		float crouchInput = Mathf.Clamp01(input.crouchAxis);	//0 - stand, 1 - crouch
 

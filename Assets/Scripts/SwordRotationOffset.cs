@@ -16,7 +16,7 @@ public class SwordRotationOffset : MechComponent
 		base.OnAwake();
 	}
 
-	void LateUpdate()
+	protected override void OnLateUpdate()
 	{
 		float rotInputX = Mathf.Clamp(-input.lArmHorz, -1f, 1f);
 		float rotInputY = Mathf.Clamp(input.lArmVert, -1f, 1f);

@@ -22,7 +22,7 @@ public class FootstepSounds : MechComponent
 		}
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		timeSinceLast += Time.deltaTime;
 	}

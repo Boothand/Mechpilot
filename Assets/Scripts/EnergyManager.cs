@@ -37,7 +37,7 @@ public class EnergyManager : MechComponent
 		return stamina - amount > 0f;
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Regenerate
 		if (stamina < maxStamina)
