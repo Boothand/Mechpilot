@@ -21,14 +21,14 @@ public class Croucher : MechComponent
 	void Start()
 	{
 		//Modify velocity before it is applied
-		pilot.move.ProcessVelocity += WalkSlower;
+		pilot.move.ProcessWorldMoveDir += WalkSlower;
 	}
 
 	void WalkSlower(ref Vector3 velocity)
 	{
 		if (crouching)
 		{
-			velocity *= 0.85f;
+			velocity *= 0.7f;
 		}
 	}
 
