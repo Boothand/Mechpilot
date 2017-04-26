@@ -20,11 +20,20 @@ public class BodyPart : Collidable
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Modify velocity before it is applied
 		pilot.move.ProcessVelocity += MoveBackWhenHit;
 		dontStopOnDeath = true;
+	}
+
+	protected override void OnDead()
+	{
+		base.OnDead();
+
+		pilot.move.ProcessVelocity -= MoveBackWhenHit;
 	}
 
 	//Move backwards when getting hit.
@@ -32,7 +41,8 @@ public class BodyPart : Collidable
 	{
 		if (beingHit)
 		{
-			velocity = -mech.transform.forward * 1f;
+			velocity = -mech.transform.forward * 1.5f;
+			animator.CrossFadeInFixedTime("Step Back From Hit", 0.3f);
 		}
 	}
 

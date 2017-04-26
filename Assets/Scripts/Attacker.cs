@@ -43,8 +43,10 @@ public class Attacker : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		if (arms.getWeapon != null)
 		{
 			arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;

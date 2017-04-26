@@ -34,8 +34,10 @@ public class Blocker : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Callback from sword when it collides:
 		if (arms.getWeapon != null)
 			arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;

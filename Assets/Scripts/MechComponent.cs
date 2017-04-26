@@ -55,10 +55,21 @@ public class MechComponent : ManagedMechBehaviour
 		base.OnAwake();
 	}
 
+	protected virtual void Start()
+	{
+		//healthManager.OnDeadEvent += OnDead;
+
+		OnStart();
+	}
+
+	protected virtual void OnStart() { }
+
 	public virtual void Stop()
 	{
 		StopAllCoroutines();
 	}
+
+	protected virtual void OnDead() { }
 
 	protected virtual void Update()
 	{

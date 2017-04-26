@@ -32,8 +32,10 @@ public class Sword : Collidable
 		configJoint = GetComponent<ConfigurableJoint>();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Hack to set the layer one frame after start, overriding the layer set by PuppetMaster
 		StartCoroutine(CorrectWeaponLayerRoutine());
 	}
