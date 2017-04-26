@@ -136,7 +136,7 @@ public class MechMovement : MechComponent
 		animator.SetFloat("MoveSpeed", animSpeed);
 	}
 
-	void FixedUpdate()
+	protected override void OnFixedUpdate()
 	{
 		//Apply the velocity on X and Z axis, and regular y velocity (gravity) from rigidbody.
 		Vector3 moveVectorXZ = velocity * moveSpeed * scaleFactor * Time.deltaTime;
@@ -145,7 +145,7 @@ public class MechMovement : MechComponent
 		rb.velocity = new Vector3(moveVectorXZ.x, rb.velocity.y, moveVectorXZ.z);
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Gradual velocity build-up
 		velocity = BuildVelocity();

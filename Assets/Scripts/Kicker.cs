@@ -84,7 +84,7 @@ public class Kicker : MechComponent
 	}
 
 	//If we press kick and not already kicking:
-	void Update()
+	protected override void OnUpdate()
 	{
 		if (input.kick
 			&& !kicking

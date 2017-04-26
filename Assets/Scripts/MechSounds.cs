@@ -84,9 +84,4 @@ public class MechSounds : MechComponent
 		singleSource.volume = 0.4f * mech.pilot.move.getVelocity.magnitude;
 		singleSource.PlayOneShot(footstepSound);
 	}
-
-	void Update()
-	{
-		
-	}
 }

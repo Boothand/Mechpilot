@@ -150,7 +150,7 @@ public class Dodge : MechComponent
 	}
 
 	//Initiate the dodge:
-	void Update()
+	protected override void OnUpdate()
 	{
 		if (!dodging
 			&& input.dodge

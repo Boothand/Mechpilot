@@ -90,7 +90,7 @@ public class CameraFollow : MechComponent
 	}
 
 	//Update after all other transformations:
-	void LateUpdate()
+	protected override void OnLateUpdate()
 	{
 		//Switch camera preset depending on keypress
 		if (input.camLeft)

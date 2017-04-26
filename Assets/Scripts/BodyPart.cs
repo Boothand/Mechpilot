@@ -24,6 +24,7 @@ public class BodyPart : Collidable
 	{
 		//Modify velocity before it is applied
 		pilot.move.ProcessVelocity += MoveBackWhenHit;
+		dontStopOnDeath = true;
 	}
 
 	//Move backwards when getting hit.

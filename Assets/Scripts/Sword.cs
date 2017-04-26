@@ -112,8 +112,8 @@ public class Sword : Collidable
 		}
 
 		//If we collide with something, don't force the sword to be locked to the hand's motion.
-		LockSwordAngularMotion(false);
-		anglesLocked = false;
+		//LockSwordAngularMotion(false);
+		//anglesLocked = false;
 	}
 
 	//Check how fast the tip of the sword has moved over several frames.
@@ -145,29 +145,29 @@ public class Sword : Collidable
 	}
 
 	//Whether to fix the sword's rotation to the hand rotation or not.
-	public void LockSwordAngularMotion(bool truth)
-	{
-		if (truth)
-		{
-			configJoint.angularXMotion = ConfigurableJointMotion.Locked;
-			configJoint.angularYMotion = ConfigurableJointMotion.Locked;
-			configJoint.angularZMotion = ConfigurableJointMotion.Locked;
-		}
-		else
-		{
-			configJoint.angularXMotion = ConfigurableJointMotion.Free;
-			configJoint.angularYMotion = ConfigurableJointMotion.Free;
-			configJoint.angularZMotion = ConfigurableJointMotion.Free;
-		}
-	}
+	//public void LockSwordAngularMotion(bool truth)
+	//{
+	//	if (truth)
+	//	{
+	//		configJoint.angularXMotion = ConfigurableJointMotion.Locked;
+	//		configJoint.angularYMotion = ConfigurableJointMotion.Locked;
+	//		configJoint.angularZMotion = ConfigurableJointMotion.Locked;
+	//	}
+	//	else
+	//	{
+	//		configJoint.angularXMotion = ConfigurableJointMotion.Free;
+	//		configJoint.angularYMotion = ConfigurableJointMotion.Free;
+	//		configJoint.angularZMotion = ConfigurableJointMotion.Free;
+	//	}
+	//}
 
-	void FixedUpdate()
+	protected override void OnFixedUpdate()
 	{
 		//Calculate sword tip velocity
 		CalculateSwordTipVelocity();
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Turn off collider when not blocking or attacking
 		if (arms.combatState == WeaponsOfficer.CombatState.Attack
@@ -198,12 +198,12 @@ public class Sword : Collidable
 		}
 
 		//Lock the angles again once we're in stance.
-		if (!anglesLocked
-			&& arms.combatState == WeaponsOfficer.CombatState.Stance)
-		{
-			LockSwordAngularMotion(true);
-			anglesLocked = true;
-		}
+		//if (!anglesLocked
+		//	&& arms.combatState == WeaponsOfficer.CombatState.Stance)
+		//{
+		//	LockSwordAngularMotion(true);
+		//	anglesLocked = true;
+		//}
 
 		timeSinceLastClash += Time.deltaTime;
 	}

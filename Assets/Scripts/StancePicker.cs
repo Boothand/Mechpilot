@@ -58,9 +58,9 @@ public class StancePicker : MechComponent
 	}
 
 	//Cancelling the stance switch
-	public void Stop()
+	public override void Stop()
 	{
-		StopAllCoroutines();
+		base.Stop();
 		prevStance = stance;
 		changingStance = false;
 	}
@@ -102,7 +102,7 @@ public class StancePicker : MechComponent
 		prevStance = newStance;
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Only update current stance when we're not switching, but regardless of state.
 		if (!changingStance)

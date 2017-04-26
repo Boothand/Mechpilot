@@ -24,7 +24,7 @@ public class MechRotation : MechComponent
 		base.OnAwake();
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Gradually increase/decrease view angle according to input.
 		if (Mathf.Abs(input.turnBodyHorz) > 0.1f)

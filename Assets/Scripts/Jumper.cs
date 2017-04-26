@@ -40,7 +40,7 @@ public class Jumper : MechComponent
 	}
 
 	//Init the jump:
-	void Update()
+	protected override void OnUpdate()
 	{
 		//If we press the jump button and on the ground etc:
 		if (!jumping &&
