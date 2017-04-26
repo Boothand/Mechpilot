@@ -16,7 +16,7 @@ public class StaminaBar : Bar
 		
 		//Run the base blink function when spending stamina.
 		energyManager.OnSpendStamina += Blink;
-	}	
+	}
 
 	void Update()
 	{
@@ -24,7 +24,16 @@ public class StaminaBar : Bar
 		Vector3 staminaScale = bar.transform.localScale;
 
 		float targetScale = energyManager.stamina / energyManager.getMaxStamina;
-		staminaScale.y = Mathf.Lerp(staminaScale.y, targetScale, Time.deltaTime * 4f);
+
+		switch (axis)
+		{
+			case Axis.X:
+				staminaScale.x = Mathf.Lerp(staminaScale.x, targetScale, Time.deltaTime * 4f);
+				break;
+			case Axis.Y:
+				staminaScale.y = Mathf.Lerp(staminaScale.y, targetScale, Time.deltaTime * 4f);
+				break;
+		}
 
 		bar.localScale = staminaScale;
 	}

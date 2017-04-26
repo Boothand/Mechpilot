@@ -24,7 +24,16 @@ public class HealthBar : Bar
 		Vector3 healthScale = bar.transform.localScale;
 
 		float targetScale = (float)healthManager.getHealth / (float)healthManager.getMaxHealth;
-		healthScale.y = Mathf.Lerp(healthScale.y, targetScale, Time.deltaTime * 4f);
+
+		switch (axis)
+		{
+			case Axis.X:
+				healthScale.x = Mathf.Lerp(healthScale.x, targetScale, Time.deltaTime * 4f);
+				break;
+			case Axis.Y:
+				healthScale.y = Mathf.Lerp(healthScale.y, targetScale, Time.deltaTime * 4f);
+				break;
+		}
 
 		bar.localScale = healthScale;
 	}
