@@ -59,7 +59,8 @@ public class BodyPart : Collidable
 		animator.SetFloat("XImpact", xImpact);
 		animator.SetFloat("YImpact", yImpact);
 
-		animator.CrossFadeInFixedTime("Impact Tree", 0.1f);
+		animator.CrossFadeInFixedTime("Impact Tree", 0.1f, 0);
+		animator.CrossFadeInFixedTime("Impact Tree", 0.1f, 1);
 	}
 
 	//Takes damage, plays impact animation
@@ -89,6 +90,7 @@ public class BodyPart : Collidable
 
 	IEnumerator GetHitByFoot(KickCheck footKickingMe)
 	{
+		beingHit = true;
 		//A bit different here since it uses a trigger volume.
 		//See Kicker.FootHitSomething(), it applies the damage to us instead..
 
@@ -99,6 +101,7 @@ public class BodyPart : Collidable
 
 		yield return new WaitForSeconds(0.5f);
 
+		beingHit = false;
 		healthManager.takingDamage = false;
 	}
 
@@ -121,7 +124,7 @@ public class BodyPart : Collidable
 			StartCoroutine(GetHitBySword(swordHittingMe));
 		}
 
-		//Check if a foot is kicking us
+		//Check if a foot is kicking us - NOTE: THIS NEVER RUNS..
 		if (footKickingMe &&
 			footKickingMe.kicker.kicking &&
 			!healthManager.takingDamage)
