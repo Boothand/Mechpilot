@@ -47,7 +47,7 @@ public class Run : MechComponent
 			}
 			else if (localVelocity.z < 0f)  //Going backwards
 			{
-				runMultiplierToUse *= 0.6f; //Don't run as fast as forward
+				runMultiplierToUse *= 0.8f; //Don't run as fast as forward
 			}
 
 			//Apply the modification
@@ -76,9 +76,9 @@ public class Run : MechComponent
 		}
 
 		//Temporary stuff until run anims.
-		float animSpeed = rb.velocity.magnitude / 60;
+		//float animSpeed = rb.velocity.magnitude / 60;
 
 		animator.SetBool("Running", running);
-		animator.SetFloat("RunAmount", animSpeed);
+		//animator.SetFloat("RunAmount", animSpeed);
 	}
 }
