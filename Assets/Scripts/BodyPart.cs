@@ -31,7 +31,9 @@ public class BodyPart : Collidable
 	{
 		if (beingHit)
 		{
-			velocity = -mech.transform.forward * 1f;
+			velocity = -mech.transform.forward * 2f;
+			animator.CrossFadeInFixedTime("WalkBackWhenHit", 0.1f);
+			//accSpeed *= 0.7f;
 		}
 	}
 

@@ -17,6 +17,11 @@ public class Dasher : MechComponent
 		base.OnAwake();
 	}
 
+	void Start()
+	{
+		pilot.move.ProcessVelAndAcc += ModifyVelAndAcc;
+	}
+
 	IEnumerator DashRoutine(Vector3 origVel, System.Action<Vector3> velocity, System.Action<float> accelerationSpeed)
 	{
 		inDash = true;
@@ -62,7 +67,7 @@ public class Dasher : MechComponent
 	//Uses lambda syntax to get a callback from the coroutine. Essentially a way to
 	//get a return value from the coroutine other than IEnumerator, since we cannot use
 	//'out' parameters in coroutines.
-	public void ModifyVelAndAcc(ref Vector3 velocity, ref float accelerationSpeed)
+	void ModifyVelAndAcc(ref Vector3 velocity, ref float accelerationSpeed)
 	{
 		//If we press the dash button
 		if (input.dash)
