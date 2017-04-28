@@ -30,8 +30,10 @@ public class StancePicker : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Initiate the stance..
 		StartCoroutine(ChangeStanceRoutine(startStance));
 		animator.CrossFadeInFixedTime(AnimForStance(startStance), blendTime);

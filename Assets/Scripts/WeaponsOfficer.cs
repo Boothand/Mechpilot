@@ -51,8 +51,9 @@ public class WeaponsOfficer : MechComponent
 		stagger = mech.transform.root.GetComponentInChildren<Stagger>();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
 		//IgnoreHierarchyRecursive(transform.root, weapon.GetComponent<Collider>());
 		//StartCoroutine(LockWeaponMotionRoutine());	//Hack: Lock it one frame after start, to override puppetmaster?
 	}

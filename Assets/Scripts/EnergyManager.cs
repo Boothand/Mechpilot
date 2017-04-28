@@ -19,8 +19,10 @@ public class EnergyManager : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		stamina = maxStamina;
 	}
 

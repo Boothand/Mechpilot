@@ -14,8 +14,10 @@ public class Dodge : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Modify velocity before it is applied.
 		pilot.move.ProcessVelocity += DodgeVelocityModification;
 	}

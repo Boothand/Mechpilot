@@ -22,8 +22,10 @@ public class Kicker : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Callback when the foot trigger detects something valid.
 		kickCheck.OnTriggerEnterEvent += FootHitSomething;
 	}

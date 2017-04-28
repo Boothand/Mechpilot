@@ -19,8 +19,10 @@ public class MechSounds : MechComponent
 		singleSource = GetComponent<AudioSource>();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//arms.armBlockState.OnMoveArmBegin -= PlayOnMoveBeginSound;
 		//arms.armBlockState.OnMoveArmBegin += PlayOnMoveBeginSound;
 		//arms.armBlockState.OnMoveArm -= PlayOnMoveSound;

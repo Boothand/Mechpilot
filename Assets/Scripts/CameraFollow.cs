@@ -26,8 +26,10 @@ public class CameraFollow : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Init the preset
 		if (pilot.lockOn.lockedOn)
 			OnLockOn();

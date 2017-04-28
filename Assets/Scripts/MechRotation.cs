@@ -12,6 +12,8 @@ public class MechRotation : MechComponent
 	[SerializeField] float blendSpeed = 2f;
 	[SerializeField] float lockonBlendSpeed = 1f;
 
+	bool turning;
+
 	//How many degrees to rotate per second, before any multipliers.
 	float angle;
 
@@ -31,11 +33,20 @@ public class MechRotation : MechComponent
 		{
 			float turnInput = Mathf.Clamp(input.turnBodyHorz, -1f, 1f);
 			angle += turnInput * Time.deltaTime * turnSpeed;
+
+			if (!turning && !pilot.move.moving)
+			{
+				animator.CrossFadeInFixedTime("Idle Switch R2L", 0.25f);
+			}
+
+			turning = true;
 		}
 		else
 		{
 			//Lower threshold, tween angle back to 0 if no input.
 			angle = Mathf.Lerp(angle, 0f, Time.deltaTime * stopTurnSpeed);
+
+			turning = false;
 		}
 
 		//If you turn too fast, things will go horribly wrong, so make sure
