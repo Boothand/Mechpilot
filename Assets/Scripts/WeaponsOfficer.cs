@@ -103,7 +103,8 @@ public class WeaponsOfficer : MechComponent
 	//Returns a direction according to right stick input:
 	public CombatDir DecideCombatDir(CombatDir inDir)
 	{
-		if (Mathf.Abs(inputVec.x) < 0.4f &&
+		//print(Mathf.Abs(inputVec.x));
+		if (Mathf.Abs(inputVec.x) < 0.52f &&
 			inputVec.y > 0.4f)
 		{
 			return CombatDir.Top;
