@@ -21,7 +21,7 @@ public class BodyRotation : MechComponent
 	//Apply in LateUpdate so it overrides animation transformations.
 	//Tweens the angle to the set limits according to your right stick input.
 	//Applies a rotation to the spine.
-	void LateUpdate()
+	protected override void OnLateUpdate()
 	{
 		float xInput = Mathf.Clamp(input.turnBodyHorz, -1f, 1f);
 		float yInput = Mathf.Clamp(input.turnBodyVert, -1f, 1f);

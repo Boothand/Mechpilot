@@ -26,8 +26,10 @@ public class CameraFollow : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Init the preset
 		if (pilot.lockOn.lockedOn)
 			OnLockOn();
@@ -90,7 +92,7 @@ public class CameraFollow : MechComponent
 	}
 
 	//Update after all other transformations:
-	void LateUpdate()
+	protected override void OnLateUpdate()
 	{
 		//Switch camera preset depending on keypress
 		if (input.camLeft)

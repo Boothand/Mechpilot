@@ -19,8 +19,10 @@ public class EnergyManager : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		stamina = maxStamina;
 	}
 
@@ -37,7 +39,7 @@ public class EnergyManager : MechComponent
 		return stamina - amount > 0f;
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Regenerate
 		if (stamina < maxStamina)

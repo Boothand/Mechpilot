@@ -12,11 +12,6 @@ public class Jumper : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
-	{
-
-	}
-
 	//Play a jump animation, add some upwards velocity,
 	//wait until we are on ground, then play land animation.
 	IEnumerator JumpRoutine()
@@ -40,7 +35,7 @@ public class Jumper : MechComponent
 	}
 
 	//Init the jump:
-	void Update()
+	protected override void OnUpdate()
 	{
 		//If we press the jump button and on the ground etc:
 		if (!jumping &&

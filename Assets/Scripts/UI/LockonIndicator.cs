@@ -13,8 +13,10 @@ public class LockonIndicator : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Start hidden.
 		HideIndicator();
 
@@ -33,7 +35,7 @@ public class LockonIndicator : MechComponent
 		indicatorImg.enabled = false;
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Stay above head
 		indicatorImg.transform.position = hierarchy.head.position + Vector3.up * verticalOffset;

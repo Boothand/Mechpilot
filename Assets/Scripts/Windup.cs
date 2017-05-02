@@ -42,9 +42,9 @@ public class Windup : MechComponent
 	}
 
 	//Cancelling the windup:
-	public void Stop()
+	public override void Stop()
 	{
-		StopAllCoroutines();
+		base.Stop();
 		windingUp = false;
 		cachedAttack = false;
 	}
@@ -94,7 +94,7 @@ public class Windup : MechComponent
 		StartCoroutine(WindupRoutine(arms.stancePicker.stance));
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Initiate the windup, if you're in stance and click attack:
 		if (arms.combatState == WeaponsOfficer.CombatState.Stance)

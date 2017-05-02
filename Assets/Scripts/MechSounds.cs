@@ -19,8 +19,10 @@ public class MechSounds : MechComponent
 		singleSource = GetComponent<AudioSource>();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//arms.armBlockState.OnMoveArmBegin -= PlayOnMoveBeginSound;
 		//arms.armBlockState.OnMoveArmBegin += PlayOnMoveBeginSound;
 		//arms.armBlockState.OnMoveArm -= PlayOnMoveSound;
@@ -83,10 +85,5 @@ public class MechSounds : MechComponent
 		singleSource.pitch = RandomPitch(1f, 0.2f);
 		singleSource.volume = 0.4f * mech.pilot.move.getVelocity.magnitude;
 		singleSource.PlayOneShot(footstepSound);
-	}
-
-	void Update()
-	{
-		
 	}
 }

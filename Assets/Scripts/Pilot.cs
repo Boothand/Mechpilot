@@ -30,12 +30,12 @@ public class Pilot : MechComponent
 		lockOn = transform.root.GetComponentInChildren<Lockon>();
 	}
 
-	void FixedUpdate()
+	protected override void OnFixedUpdate()
 	{
 		//move.RunComponentFixed();
 	}
 
-	void Update ()
+	protected override void OnUpdate ()
 	{
 		if (input.restartScene)
 		{

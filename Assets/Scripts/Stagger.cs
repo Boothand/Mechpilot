@@ -15,9 +15,10 @@ public class Stagger : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
-		healthManager.OnGetHit -= GetHit;
+		base.OnStart();
+
 		healthManager.OnGetHit += GetHit;
 	}
 
@@ -33,9 +34,9 @@ public class Stagger : MechComponent
 	}
 
 	//For cancelling the stagger.
-	public void Stop()
+	public override void Stop()
 	{
-		StopAllCoroutines();
+		base.Stop();
 		staggering = false;
 	}
 

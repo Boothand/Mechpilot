@@ -10,17 +10,19 @@ public class Bar : MechComponent
 	protected Image img;
 	protected Color startColor;
 
-	//The axis to scale on
 	public enum Axis { X, Y }
 	[SerializeField] protected Axis axis;
+
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 	}
 
-	protected virtual void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		img = bar.GetComponent<Image>();
 
 		if (img)

@@ -19,8 +19,10 @@ public class SwordColorChanger : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Start neutral
 		TweenToNeutralColor();
 
@@ -108,7 +110,7 @@ public class SwordColorChanger : MechComponent
 		rnd.materials[2].SetColor("_EmissionColor", newColor);
 	}
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Turn red gradually when winding up:
 		if (arms.combatState == WeaponsOfficer.CombatState.Windup)

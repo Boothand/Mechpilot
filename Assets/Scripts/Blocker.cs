@@ -34,8 +34,10 @@ public class Blocker : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Callback from sword when it collides:
 		if (arms.getWeapon != null)
 			arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
@@ -80,9 +82,9 @@ public class Blocker : MechComponent
 	}
 
 	//For cancelling the block switch routine:
-	public void Stop()
+	public override void Stop()
 	{
-		StopAllCoroutines();
+		base.Stop();
 		blocking = false;
 	}
 
@@ -204,7 +206,7 @@ public class Blocker : MechComponent
 	}
 
 
-	void Update()
+	protected override void OnUpdate()
 	{
 		//Initiate the block
 		if (!blocking
@@ -216,7 +218,7 @@ public class Blocker : MechComponent
 			//Only drain stamina the first time you enter blocking, not when switching after.
 			if (!holdingBlockButton)
 			{
-				energyManager.SpendStamina(10f);
+				//energyManager.SpendStamina(10f);
 				holdingBlockButton = true;
 			}
 

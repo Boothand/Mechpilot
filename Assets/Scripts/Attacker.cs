@@ -43,8 +43,10 @@ public class Attacker : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		if (arms.getWeapon != null)
 		{
 			arms.getWeapon.OnCollisionEnterEvent += OnSwordCollision;
@@ -135,9 +137,9 @@ public class Attacker : MechComponent
 	}
 
 	//For aborting an attack.
-	public void Stop()
+	public override void Stop()
 	{
-		StopAllCoroutines();
+		base.Stop();
 	}
 
 	//Mainly initiates the attack animation and sets the retract state at the end
@@ -181,7 +183,7 @@ public class Attacker : MechComponent
 	}
 
 	//If we are in windup and release attack, start the attack sequence.
-	void Update()
+	protected override void OnUpdate()
 	{
 		if (arms.combatState == WeaponsOfficer.CombatState.Windup)
 		{

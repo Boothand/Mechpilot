@@ -18,22 +18,24 @@ public class Croucher : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Modify velocity before it is applied
-		pilot.move.ProcessVelocity += WalkSlower;
+		pilot.move.ProcessWorldMoveDir += WalkSlower;
 	}
 
 	void WalkSlower(ref Vector3 velocity)
 	{
 		if (crouching)
 		{
-			velocity *= 0.85f;
+			velocity *= 0.7f;
 		}
 	}
 
 	//Updates the animator's blend tree with a crouch variable, controlled by input.
-	void Update()
+	protected override void OnUpdate()
 	{
 		float crouchInput = Mathf.Clamp01(input.crouchAxis);	//0 - stand, 1 - crouch
 

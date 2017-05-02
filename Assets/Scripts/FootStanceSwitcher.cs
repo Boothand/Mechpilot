@@ -10,11 +10,6 @@ public class FootStanceSwitcher : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
-	{
-
-	}
-
 	string AnimFromDir(WeaponsOfficer.CombatDir dir)
 	{
 		switch (dir)

@@ -12,8 +12,10 @@ public class SwordClashParticles : MechComponent
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		//Callback when swords clash
 		arms.getWeapon.OnClashWithSword += PlayParticleEffect;
 	}

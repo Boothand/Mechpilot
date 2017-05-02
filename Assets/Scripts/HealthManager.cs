@@ -23,14 +23,18 @@ public class HealthManager : MechComponent
 	
 	public System.Action<Vector3> OnGetHit;
 
+	public System.Action OnDeadEvent;
+
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 	}
 
-	void Start()
+	protected override void OnStart()
 	{
+		base.OnStart();
+
 		health = startHealth;
 	}
 
@@ -75,7 +79,7 @@ public class HealthManager : MechComponent
 		//}
 
 		//If we die from the damage
-		if (health <= 0f)
+		if (!dead && health <= 0f)
 		{
 			Die();
 		}
@@ -99,6 +103,9 @@ public class HealthManager : MechComponent
 
 	public void Die()
 	{
+		if (OnDeadEvent != null)
+			OnDeadEvent();
+
 		dead = true;
 		StartCoroutine(DieRoutine());
 	}
