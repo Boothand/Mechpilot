@@ -43,8 +43,10 @@ public class MechMovement : MechComponent
 
 	//Sends a reference to a vector, so not a copy is changed, but the actual vector.
 	public delegate void VectorReference(ref Vector3 vec);
+	public delegate void VectorFloatReference(ref Vector3 vec, ref float num);
 	public event VectorReference ProcessVelocity;
 	public event VectorReference ProcessWorldMoveDir;
+	public event VectorFloatReference ProcessVelAndAcc;
 
 	protected override void OnAwake()
 	{
@@ -90,7 +92,8 @@ public class MechMovement : MechComponent
 		float accelerationSpeedToUse = accelerationSpeed;
 
 		//Send velocity to dash component for potential modification
-		pilot.dasher.ModifyVelAndAcc(ref velocity, ref accelerationSpeedToUse);
+		//pilot.dasher.ModifyVelAndAcc(ref velocity, ref accelerationSpeedToUse);
+		ProcessVelAndAcc(ref velocity, ref accelerationSpeedToUse);
 
 		//Run event for anyone to use to modify worldMoveDir before it is applied.
 		if (ProcessWorldMoveDir != null)
@@ -130,7 +133,7 @@ public class MechMovement : MechComponent
 		//Sync the animation movement speed to the animator.
 		if (moving)
 		{
-			animSpeed = velocityMagnitude / scaleFactor * animationSpeedFactor;
+			animSpeed = rb.velocity.magnitude / scaleFactor * animationSpeedFactor;
 		}
 
 		animator.SetFloat("MoveSpeed", animSpeed);
