@@ -59,8 +59,8 @@ public class BodyPart : Collidable
 		animator.SetFloat("XImpact", xImpact);
 		animator.SetFloat("YImpact", yImpact);
 
-		animator.CrossFadeInFixedTime("Impact Tree", 0.1f, 0);
-		animator.CrossFadeInFixedTime("Impact Tree", 0.1f, 1);
+		//animator.CrossFadeInFixedTime("Impact Tree", 0.1f, 0);
+		animator.CrossFadeInFixedTime("Impact Tree", 0.1f, 2);
 	}
 
 	//Takes damage, plays impact animation
