@@ -99,7 +99,7 @@ public class Kicker : MechComponent
 	{
 		if (input.kick
 			&& !kicking
-			&& energyManager.CanSpendStamina(staminaHitUsage))
+			&& energyManager.CanSpendStamina(staminaBaseUsage + staminaHitUsage))
 		{
 			StartCoroutine(KickRoutine());
 		}
