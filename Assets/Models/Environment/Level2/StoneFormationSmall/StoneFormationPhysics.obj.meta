@@ -32,6 +32,11 @@ ModelImporter:
     4300004: StoneFormationLo_StoneFormation_top_lo
     4300006: StoneFormationLo_StoneFormationBody3_lo
     4300008: StoneFormationLo_StoneFormationBottomLO
+    6400000: StoneFormation_body1_lo_StoneFormationLo
+    6400002: StoneFormationLo_StoneFormation_body2_lo
+    6400004: StoneFormationLo_StoneFormation_top_lo
+    6400006: StoneFormationLo_StoneFormationBody3_lo
+    6400008: StoneFormationLo_StoneFormationBottomLO
   materials:
     importMaterials: 1
     materialName: 0
@@ -58,7 +63,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
