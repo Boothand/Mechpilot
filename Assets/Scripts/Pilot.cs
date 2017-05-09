@@ -14,6 +14,7 @@ public class Pilot : MechComponent
 	public Run run { get; private set; }
 	public LockonIndicator lockonIndicator { get; private set; }
 	public Lockon lockOn { get; private set; }
+	public Kicker kicker { get; private set; }
 
 
 	protected override void OnAwake()
@@ -28,6 +29,7 @@ public class Pilot : MechComponent
 		run = transform.root.GetComponentInChildren<Run>();
 		lockonIndicator = transform.root.GetComponentInChildren<LockonIndicator>();
 		lockOn = transform.root.GetComponentInChildren<Lockon>();
+		kicker = transform.root.GetComponentInChildren<Kicker>();
 	}
 
 	protected override void OnFixedUpdate()

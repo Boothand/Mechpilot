@@ -29,7 +29,11 @@ public class Jumper : MechComponent
 		{
 			yield return null;
 		}
-		animator.CrossFadeInFixedTime("Land", 0.1f);
+
+		if (!pilot.kicker.kicking)
+		{
+			animator.CrossFadeInFixedTime("Land", 0.1f);
+		}
 
 		jumping = false;
 	}

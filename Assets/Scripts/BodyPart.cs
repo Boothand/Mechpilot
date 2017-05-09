@@ -42,25 +42,21 @@ public class BodyPart : Collidable
 		if (beingHit)
 		{
 			velocity = -mech.transform.forward * 1.5f;
-			animator.CrossFadeInFixedTime("Step Back From Hit", 0.3f);
+			//animator.CrossFadeInFixedTime("Step Back From Hit", 0.3f);
 		}
 	}
 
 	//Maps the impact blend tree in the animator and plays the impact state.
 	void SetImpactState(float xImpact, float yImpact)
 	{
-		if (bodyGroup == BodyGroup.Body)
-			yImpact = 0.37f;
-		if (bodyGroup == BodyGroup.Arms)
-			yImpact = -0.37f;
-		if (bodyGroup == BodyGroup.Legs)
-			yImpact = -1f;
+		if (bodyGroup == BodyGroup.Head)
+			yImpact = 1f;
 
 		animator.SetFloat("XImpact", xImpact);
 		animator.SetFloat("YImpact", yImpact);
 
 		animator.CrossFadeInFixedTime("Impact Tree", 0.1f, 0);
-		animator.CrossFadeInFixedTime("Impact Tree", 0.1f, 1);
+		animator.CrossFadeInFixedTime("Impact Tree", 0.1f, 2);
 	}
 
 	//Takes damage, plays impact animation
@@ -75,7 +71,7 @@ public class BodyPart : Collidable
 
 		float xImpact = /*swordMagnitude **/ -Mathf.Sign(localSwordVelocity.x);
 		//xImpact /= 65f;
-		float yImpact = 1f;
+		float yImpact = 0f;
 
 		SetImpactState(xImpact, yImpact);
 

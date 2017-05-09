@@ -20,6 +20,7 @@ public class Blocker : MechComponent
 	[SerializeField] float blockDuration = 0.75f;
 
 	[SerializeField] bool autoBlock;
+	[SerializeField] bool reinitiateRequired;
 	public bool blocking { get; private set; }
 	bool switchingBlockStance;
 	bool holdingBlockButton;
@@ -266,16 +267,19 @@ public class Blocker : MechComponent
 				blockStance = arms.stancePicker.stance;
 			}
 
-			//Check if the block stance has changed:
-			if (prevBlockStance != blockStance)
+			if (!reinitiateRequired)
 			{
-				//Enter the new block pose:
-				if (blockRoutine != null)
+				//Check if the block stance has changed:
+				if (prevBlockStance != blockStance)
 				{
-					StopCoroutine(blockRoutine);
-				}
+					//Enter the new block pose:
+					if (blockRoutine != null)
+					{
+						StopCoroutine(blockRoutine);
+					}
 
-				blockRoutine = StartCoroutine(BlockRoutine());
+					blockRoutine = StartCoroutine(BlockRoutine());
+				}
 			}
 		}
 	}

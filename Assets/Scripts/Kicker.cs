@@ -28,6 +28,15 @@ public class Kicker : MechComponent
 
 		//Callback when the foot trigger detects something valid.
 		kickCheck.OnTriggerEnterEvent += FootHitSomething;
+		pilot.move.ProcessVelocity += SlowDownOnKick;
+	}
+
+	void SlowDownOnKick(ref Vector3 velocity)
+	{
+		if (kicking)
+		{
+			velocity *= Time.deltaTime * 50f;
+		}
 	}
 
 	//If we hit someone's bodypart during the kick sequence,
@@ -90,7 +99,7 @@ public class Kicker : MechComponent
 	{
 		if (input.kick
 			&& !kicking
-			&& energyManager.CanSpendStamina(staminaHitUsage))
+			&& energyManager.CanSpendStamina(staminaBaseUsage + staminaHitUsage))
 		{
 			StartCoroutine(KickRoutine());
 		}
