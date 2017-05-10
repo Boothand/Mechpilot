@@ -13,9 +13,24 @@ public class Bar : MechComponent
 	public enum Axis { X, Y }
 	[SerializeField] protected Axis axis;
 
+	public Mech.PlayerIndex playerIndex;
 
 	protected override void OnAwake()
 	{
+
+		if (mech == null)
+		{
+			Mech[] mechs = FindObjectsOfType<Mech>();
+			for (int i = 0; i < mechs.Length; ++i)
+			{
+				if (mechs[i].playerIndex == playerIndex)
+				{
+					mech = mechs[i];
+					break;
+				}
+			}
+		}
+
 		base.OnAwake();
 	}
 
