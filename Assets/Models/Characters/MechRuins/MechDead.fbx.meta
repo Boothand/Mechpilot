@@ -328,6 +328,66 @@ ModelImporter:
     4300120: polySurface309
     4300122: polySurface308
     4300124: lower_torso_changed_stuffz:Mesh
+    6400000: lower_torso_changed_stuffz:Mesh
+    6400002: polySurface176
+    6400004: polySurface177
+    6400006: polySurface178
+    6400008: polySurface179
+    6400010: polySurface180
+    6400012: polySurface181
+    6400014: polySurface182
+    6400016: polySurface185
+    6400018: polySurface186
+    6400020: polySurface187
+    6400022: polySurface188
+    6400024: polySurface189
+    6400026: polySurface190
+    6400028: polySurface191
+    6400030: polySurface192
+    6400032: polySurface193
+    6400034: polySurface194
+    6400036: polySurface195
+    6400038: polySurface196
+    6400040: polySurface197
+    6400042: polySurface198
+    6400044: polySurface199
+    6400046: polySurface200
+    6400048: polySurface201
+    6400050: polySurface202
+    6400052: polySurface203
+    6400054: polySurface204
+    6400056: polySurface205
+    6400058: polySurface206
+    6400060: polySurface207
+    6400062: polySurface208
+    6400064: polySurface209
+    6400066: polySurface210
+    6400068: polySurface211
+    6400070: polySurface212
+    6400072: polySurface213
+    6400074: polySurface215
+    6400076: polySurface216
+    6400078: polySurface217
+    6400080: polySurface218
+    6400082: polySurface219
+    6400084: polySurface220
+    6400086: polySurface221
+    6400088: polySurface222
+    6400090: polySurface223
+    6400092: polySurface224
+    6400094: polySurface225
+    6400096: polySurface226
+    6400098: polySurface227
+    6400100: polySurface228
+    6400102: polySurface229
+    6400104: polySurface230
+    6400106: polySurface231
+    6400108: polySurface232
+    6400110: polySurface234
+    6400112: polySurface236
+    6400114: polySurface237
+    6400116: polySurface308
+    6400118: polySurface309
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -355,7 +415,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
