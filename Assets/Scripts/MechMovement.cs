@@ -95,7 +95,8 @@ public class MechMovement : MechComponent
 
 		//Send velocity to dash component for potential modification
 		//pilot.dasher.ModifyVelAndAcc(ref velocity, ref accelerationSpeedToUse);
-		ProcessVelAndAcc(ref velocity, ref accelerationSpeedToUse);
+		if (ProcessVelAndAcc != null)
+			ProcessVelAndAcc(ref velocity, ref accelerationSpeedToUse);
 
 		//Run event for anyone to use to modify worldMoveDir before it is applied.
 		if (ProcessWorldMoveDir != null)

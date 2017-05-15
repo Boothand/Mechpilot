@@ -22,6 +22,9 @@ ModelImporter:
     4300000: Stone1_StoneFormation_large
     4300002: StoneFormation_large_Stone2
     4300004: StoneFormation_large_Stone3
+    6400000: Stone1_StoneFormation_large
+    6400002: StoneFormation_large_Stone2
+    6400004: StoneFormation_large_Stone3
   materials:
     importMaterials: 1
     materialName: 0
@@ -48,7 +51,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
