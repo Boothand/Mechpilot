@@ -27,6 +27,8 @@ public class MechMovement : MechComponent
 	//Calculate the magnitude once, no need to compute it every time.
 	public float velocityMagnitude { get; private set; }
 
+	CapsuleCollider capsuleCol;
+
 	//Animation
 	float animForward, animSide;    //Interpolating values, sent to animator
 
@@ -52,7 +54,7 @@ public class MechMovement : MechComponent
 	{
 		base.OnAwake();
 
-		//capsuleCol = mech.GetComponent<CapsuleCollider>();
+		capsuleCol = mech.GetComponent<CapsuleCollider>();
 	}
 
 	Vector3 BuildVelocity() //Return value just for increased readability in the Update-loop

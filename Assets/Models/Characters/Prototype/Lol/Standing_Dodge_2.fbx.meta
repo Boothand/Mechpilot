@@ -71,6 +71,69 @@ ModelImporter:
     100126: Mech_handfix_Ref:upperarm_l
     100128: Mech_handfix_Ref:upperarm_r
     100130: //RootNode
+    100132: Mech_handfix_Ref:Mech_mesh:polySurface1
+    100134: Mech_handfix_Ref:polySurface176
+    100136: Mech_handfix_Ref:polySurface177
+    100138: Mech_handfix_Ref:polySurface178
+    100140: Mech_handfix_Ref:polySurface179
+    100142: Mech_handfix_Ref:polySurface180
+    100144: Mech_handfix_Ref:polySurface181
+    100146: Mech_handfix_Ref:polySurface182
+    100148: Mech_handfix_Ref:polySurface183
+    100150: Mech_handfix_Ref:polySurface184
+    100152: Mech_handfix_Ref:polySurface185
+    100154: Mech_handfix_Ref:polySurface186
+    100156: Mech_handfix_Ref:polySurface187
+    100158: Mech_handfix_Ref:polySurface188
+    100160: Mech_handfix_Ref:polySurface189
+    100162: Mech_handfix_Ref:polySurface190
+    100164: Mech_handfix_Ref:polySurface191
+    100166: Mech_handfix_Ref:polySurface192
+    100168: Mech_handfix_Ref:polySurface193
+    100170: Mech_handfix_Ref:polySurface194
+    100172: Mech_handfix_Ref:polySurface195
+    100174: Mech_handfix_Ref:polySurface196
+    100176: Mech_handfix_Ref:polySurface197
+    100178: Mech_handfix_Ref:polySurface198
+    100180: Mech_handfix_Ref:polySurface199
+    100182: Mech_handfix_Ref:polySurface200
+    100184: Mech_handfix_Ref:polySurface201
+    100186: Mech_handfix_Ref:polySurface202
+    100188: Mech_handfix_Ref:polySurface203
+    100190: Mech_handfix_Ref:polySurface204
+    100192: Mech_handfix_Ref:polySurface205
+    100194: Mech_handfix_Ref:polySurface206
+    100196: Mech_handfix_Ref:polySurface207
+    100198: Mech_handfix_Ref:polySurface208
+    100200: Mech_handfix_Ref:polySurface209
+    100202: Mech_handfix_Ref:polySurface210
+    100204: Mech_handfix_Ref:polySurface211
+    100206: Mech_handfix_Ref:polySurface212
+    100208: Mech_handfix_Ref:polySurface213
+    100210: Mech_handfix_Ref:polySurface214
+    100212: Mech_handfix_Ref:polySurface215
+    100214: Mech_handfix_Ref:polySurface216
+    100216: Mech_handfix_Ref:polySurface217
+    100218: Mech_handfix_Ref:polySurface218
+    100220: Mech_handfix_Ref:polySurface219
+    100222: Mech_handfix_Ref:polySurface220
+    100224: Mech_handfix_Ref:polySurface221
+    100226: Mech_handfix_Ref:polySurface222
+    100228: Mech_handfix_Ref:polySurface223
+    100230: Mech_handfix_Ref:polySurface224
+    100232: Mech_handfix_Ref:polySurface225
+    100234: Mech_handfix_Ref:polySurface226
+    100236: Mech_handfix_Ref:polySurface227
+    100238: Mech_handfix_Ref:polySurface228
+    100240: Mech_handfix_Ref:polySurface229
+    100242: Mech_handfix_Ref:polySurface230
+    100244: Mech_handfix_Ref:polySurface231
+    100246: Mech_handfix_Ref:polySurface232
+    100248: Mech_handfix_Ref:polySurface233
+    100250: Mech_handfix_Ref:polySurface234
+    100252: Mech_handfix_Ref:polySurface235
+    100254: Mech_handfix_Ref:Rig
+    100256: Mech_handfix_Ref:transform15
     400000: Mech_handfix_Ref:ball_l
     400002: Mech_handfix_Ref:ball_r
     400004: Mech_handfix_Ref:calf_l
@@ -137,9 +200,192 @@ ModelImporter:
     400126: Mech_handfix_Ref:upperarm_l
     400128: Mech_handfix_Ref:upperarm_r
     400130: //RootNode
+    400132: Mech_handfix_Ref:Mech_mesh:polySurface1
+    400134: Mech_handfix_Ref:polySurface176
+    400136: Mech_handfix_Ref:polySurface177
+    400138: Mech_handfix_Ref:polySurface178
+    400140: Mech_handfix_Ref:polySurface179
+    400142: Mech_handfix_Ref:polySurface180
+    400144: Mech_handfix_Ref:polySurface181
+    400146: Mech_handfix_Ref:polySurface182
+    400148: Mech_handfix_Ref:polySurface183
+    400150: Mech_handfix_Ref:polySurface184
+    400152: Mech_handfix_Ref:polySurface185
+    400154: Mech_handfix_Ref:polySurface186
+    400156: Mech_handfix_Ref:polySurface187
+    400158: Mech_handfix_Ref:polySurface188
+    400160: Mech_handfix_Ref:polySurface189
+    400162: Mech_handfix_Ref:polySurface190
+    400164: Mech_handfix_Ref:polySurface191
+    400166: Mech_handfix_Ref:polySurface192
+    400168: Mech_handfix_Ref:polySurface193
+    400170: Mech_handfix_Ref:polySurface194
+    400172: Mech_handfix_Ref:polySurface195
+    400174: Mech_handfix_Ref:polySurface196
+    400176: Mech_handfix_Ref:polySurface197
+    400178: Mech_handfix_Ref:polySurface198
+    400180: Mech_handfix_Ref:polySurface199
+    400182: Mech_handfix_Ref:polySurface200
+    400184: Mech_handfix_Ref:polySurface201
+    400186: Mech_handfix_Ref:polySurface202
+    400188: Mech_handfix_Ref:polySurface203
+    400190: Mech_handfix_Ref:polySurface204
+    400192: Mech_handfix_Ref:polySurface205
+    400194: Mech_handfix_Ref:polySurface206
+    400196: Mech_handfix_Ref:polySurface207
+    400198: Mech_handfix_Ref:polySurface208
+    400200: Mech_handfix_Ref:polySurface209
+    400202: Mech_handfix_Ref:polySurface210
+    400204: Mech_handfix_Ref:polySurface211
+    400206: Mech_handfix_Ref:polySurface212
+    400208: Mech_handfix_Ref:polySurface213
+    400210: Mech_handfix_Ref:polySurface214
+    400212: Mech_handfix_Ref:polySurface215
+    400214: Mech_handfix_Ref:polySurface216
+    400216: Mech_handfix_Ref:polySurface217
+    400218: Mech_handfix_Ref:polySurface218
+    400220: Mech_handfix_Ref:polySurface219
+    400222: Mech_handfix_Ref:polySurface220
+    400224: Mech_handfix_Ref:polySurface221
+    400226: Mech_handfix_Ref:polySurface222
+    400228: Mech_handfix_Ref:polySurface223
+    400230: Mech_handfix_Ref:polySurface224
+    400232: Mech_handfix_Ref:polySurface225
+    400234: Mech_handfix_Ref:polySurface226
+    400236: Mech_handfix_Ref:polySurface227
+    400238: Mech_handfix_Ref:polySurface228
+    400240: Mech_handfix_Ref:polySurface229
+    400242: Mech_handfix_Ref:polySurface230
+    400244: Mech_handfix_Ref:polySurface231
+    400246: Mech_handfix_Ref:polySurface232
+    400248: Mech_handfix_Ref:polySurface233
+    400250: Mech_handfix_Ref:polySurface234
+    400252: Mech_handfix_Ref:polySurface235
+    400254: Mech_handfix_Ref:Rig
+    400256: Mech_handfix_Ref:transform15
+    4300000: Mech_handfix_Ref:polySurface176
+    4300002: Mech_handfix_Ref:polySurface177
+    4300004: Mech_handfix_Ref:polySurface178
+    4300006: Mech_handfix_Ref:polySurface179
+    4300008: Mech_handfix_Ref:polySurface180
+    4300010: Mech_handfix_Ref:polySurface181
+    4300012: Mech_handfix_Ref:polySurface182
+    4300014: Mech_handfix_Ref:polySurface183
+    4300016: Mech_handfix_Ref:polySurface184
+    4300018: Mech_handfix_Ref:polySurface185
+    4300020: Mech_handfix_Ref:polySurface186
+    4300022: Mech_handfix_Ref:polySurface187
+    4300024: Mech_handfix_Ref:polySurface188
+    4300026: Mech_handfix_Ref:polySurface189
+    4300028: Mech_handfix_Ref:polySurface190
+    4300030: Mech_handfix_Ref:polySurface191
+    4300032: Mech_handfix_Ref:polySurface192
+    4300034: Mech_handfix_Ref:polySurface193
+    4300036: Mech_handfix_Ref:polySurface194
+    4300038: Mech_handfix_Ref:polySurface195
+    4300040: Mech_handfix_Ref:polySurface196
+    4300042: Mech_handfix_Ref:polySurface197
+    4300044: Mech_handfix_Ref:polySurface198
+    4300046: Mech_handfix_Ref:polySurface199
+    4300048: Mech_handfix_Ref:polySurface200
+    4300050: Mech_handfix_Ref:polySurface201
+    4300052: Mech_handfix_Ref:polySurface202
+    4300054: Mech_handfix_Ref:polySurface203
+    4300056: Mech_handfix_Ref:polySurface204
+    4300058: Mech_handfix_Ref:polySurface205
+    4300060: Mech_handfix_Ref:polySurface206
+    4300062: Mech_handfix_Ref:polySurface207
+    4300064: Mech_handfix_Ref:polySurface208
+    4300066: Mech_handfix_Ref:polySurface209
+    4300068: Mech_handfix_Ref:polySurface210
+    4300070: Mech_handfix_Ref:polySurface211
+    4300072: Mech_handfix_Ref:polySurface212
+    4300074: Mech_handfix_Ref:polySurface213
+    4300076: Mech_handfix_Ref:polySurface214
+    4300078: Mech_handfix_Ref:polySurface215
+    4300080: Mech_handfix_Ref:polySurface216
+    4300082: Mech_handfix_Ref:polySurface217
+    4300084: Mech_handfix_Ref:polySurface218
+    4300086: Mech_handfix_Ref:polySurface219
+    4300088: Mech_handfix_Ref:polySurface220
+    4300090: Mech_handfix_Ref:polySurface221
+    4300092: Mech_handfix_Ref:polySurface222
+    4300094: Mech_handfix_Ref:polySurface223
+    4300096: Mech_handfix_Ref:polySurface224
+    4300098: Mech_handfix_Ref:polySurface225
+    4300100: Mech_handfix_Ref:polySurface226
+    4300102: Mech_handfix_Ref:polySurface227
+    4300104: Mech_handfix_Ref:polySurface228
+    4300106: Mech_handfix_Ref:polySurface229
+    4300108: Mech_handfix_Ref:polySurface230
+    4300110: Mech_handfix_Ref:polySurface231
+    4300112: Mech_handfix_Ref:polySurface232
+    4300114: Mech_handfix_Ref:polySurface233
+    4300116: Mech_handfix_Ref:polySurface234
+    4300118: Mech_handfix_Ref:polySurface235
     7400000: Dodge Right
     7400002: Dodge Left
     9500000: //RootNode
+    13700000: Mech_handfix_Ref:polySurface176
+    13700002: Mech_handfix_Ref:polySurface177
+    13700004: Mech_handfix_Ref:polySurface178
+    13700006: Mech_handfix_Ref:polySurface179
+    13700008: Mech_handfix_Ref:polySurface180
+    13700010: Mech_handfix_Ref:polySurface181
+    13700012: Mech_handfix_Ref:polySurface182
+    13700014: Mech_handfix_Ref:polySurface183
+    13700016: Mech_handfix_Ref:polySurface184
+    13700018: Mech_handfix_Ref:polySurface185
+    13700020: Mech_handfix_Ref:polySurface186
+    13700022: Mech_handfix_Ref:polySurface187
+    13700024: Mech_handfix_Ref:polySurface188
+    13700026: Mech_handfix_Ref:polySurface189
+    13700028: Mech_handfix_Ref:polySurface190
+    13700030: Mech_handfix_Ref:polySurface191
+    13700032: Mech_handfix_Ref:polySurface192
+    13700034: Mech_handfix_Ref:polySurface193
+    13700036: Mech_handfix_Ref:polySurface194
+    13700038: Mech_handfix_Ref:polySurface195
+    13700040: Mech_handfix_Ref:polySurface196
+    13700042: Mech_handfix_Ref:polySurface197
+    13700044: Mech_handfix_Ref:polySurface198
+    13700046: Mech_handfix_Ref:polySurface199
+    13700048: Mech_handfix_Ref:polySurface200
+    13700050: Mech_handfix_Ref:polySurface201
+    13700052: Mech_handfix_Ref:polySurface202
+    13700054: Mech_handfix_Ref:polySurface203
+    13700056: Mech_handfix_Ref:polySurface204
+    13700058: Mech_handfix_Ref:polySurface205
+    13700060: Mech_handfix_Ref:polySurface206
+    13700062: Mech_handfix_Ref:polySurface207
+    13700064: Mech_handfix_Ref:polySurface208
+    13700066: Mech_handfix_Ref:polySurface209
+    13700068: Mech_handfix_Ref:polySurface210
+    13700070: Mech_handfix_Ref:polySurface211
+    13700072: Mech_handfix_Ref:polySurface212
+    13700074: Mech_handfix_Ref:polySurface213
+    13700076: Mech_handfix_Ref:polySurface214
+    13700078: Mech_handfix_Ref:polySurface215
+    13700080: Mech_handfix_Ref:polySurface216
+    13700082: Mech_handfix_Ref:polySurface217
+    13700084: Mech_handfix_Ref:polySurface218
+    13700086: Mech_handfix_Ref:polySurface219
+    13700088: Mech_handfix_Ref:polySurface220
+    13700090: Mech_handfix_Ref:polySurface221
+    13700092: Mech_handfix_Ref:polySurface222
+    13700094: Mech_handfix_Ref:polySurface223
+    13700096: Mech_handfix_Ref:polySurface224
+    13700098: Mech_handfix_Ref:polySurface225
+    13700100: Mech_handfix_Ref:polySurface226
+    13700102: Mech_handfix_Ref:polySurface227
+    13700104: Mech_handfix_Ref:polySurface228
+    13700106: Mech_handfix_Ref:polySurface229
+    13700108: Mech_handfix_Ref:polySurface230
+    13700110: Mech_handfix_Ref:polySurface231
+    13700112: Mech_handfix_Ref:polySurface232
+    13700114: Mech_handfix_Ref:polySurface233
+    13700116: Mech_handfix_Ref:polySurface234
+    13700118: Mech_handfix_Ref:polySurface235
   materials:
     importMaterials: 1
     materialName: 0
@@ -150,11 +396,14 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 'Copied Avatar Rig Configuration mis-match. Bone length
-      in copied configuration does not match position in animation file
-
-      Standing_Dodge_2'
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Mech_handfix_Ref:chest' has translation animation
+      that will be discarded.\n\t'Mech_handfix_Ref:upperarm_l' has translation animation
+      that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -327,8 +576,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Dodge Left
       takeName: Take 001
-      firstFrame: 28
-      lastFrame: 44
+      firstFrame: 34
+      lastFrame: 56
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -507,7 +756,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
-  copyAvatar: 1
+  copyAvatar: 0
   humanDescription:
     serializedVersion: 2
     human:
@@ -912,369 +1161,653 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Walk_Test(Clone)
+    - name: Standing_Dodge_2(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:Rig
+      parentName: Standing_Dodge_2(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: Mech_handfix_Ref:Game_engine
-      parentName: Walk_Test(Clone)
+      parentName: Mech_handfix_Ref:Rig
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 3, y: 3, z: 3}
     - name: Mech_handfix_Ref:Root
       parentName: Mech_handfix_Ref:Game_engine
-      position: {x: 0.0013749761, y: 0, z: -0.0026746667}
+      position: {x: -0, y: 0, z: -0.0026746667}
       rotation: {x: -0, y: -0, z: -0, w: 1}
       scale: {x: 1.4847845, y: 1.4847845, z: 1.4847845}
     - name: Mech_handfix_Ref:hips
       parentName: Mech_handfix_Ref:Root
-      position: {x: -0.0012654153, y: 0.08135758, z: 0.0030103633}
+      position: {x: -0.00033937115, y: 0.08204019, z: 0.002432638}
       rotation: {x: 0.0000000064576704, y: -1.5638068e-17, z: -0.0000000024216265,
         w: 1}
       scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
     - name: Mech_handfix_Ref:thigh_r
       parentName: Mech_handfix_Ref:hips
       position: {x: 0.01492696, y: -0.00080866803, z: -0.000827375}
-      rotation: {x: 0.00048860157, y: 0.07821014, z: 0.0018461761, w: 0.99693507}
-      scale: {x: 1, y: 1.0000001, z: 0.99999833}
+      rotation: {x: 0.000488616, y: 0.07821012, z: 0.0018461753, w: 0.99693507}
+      scale: {x: 1, y: 1.0000001, z: 0.9999974}
     - name: Mech_handfix_Ref:calf_r
       parentName: Mech_handfix_Ref:thigh_r
       position: {x: -0.0004518718, y: -0.033870507, z: 0.0006351192}
-      rotation: {x: -0.0000000098661985, y: -0.000000037252903, z: 0.000000025946065,
-        w: 1}
-      scale: {x: 1, y: 0.9999998, z: 1.0000007}
+      rotation: {x: 0.000000031781383, y: 0.000000052154064, z: -1.8189894e-11, w: 1}
+      scale: {x: 0.9999999, y: 1, z: 0.99999976}
     - name: Mech_handfix_Ref:foot_r
       parentName: Mech_handfix_Ref:calf_r
       position: {x: -1.110223e-18, y: -0.038456824, z: -0.0023424446}
-      rotation: {x: -0.0004885988, y: -0.07821008, z: -0.0018462011, w: 0.99693507}
-      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+      rotation: {x: -0.0004886518, y: -0.0782102, z: -0.0018461708, w: 0.99693507}
+      scale: {x: 1.0000005, y: 1, z: 1.0000001}
     - name: Mech_handfix_Ref:toes_r
       parentName: Mech_handfix_Ref:foot_r
       position: {x: -2.220446e-18, y: -0.007242143, z: 0.004004559}
-      rotation: {x: -5.820766e-11, y: -0.000000022351742, z: 6.693881e-10, w: 1}
-      scale: {x: 1.0000001, y: 1, z: 1.0000004}
+      rotation: {x: -8.1490725e-10, y: 0.000000044703484, z: 5.711627e-10, w: 1}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000001}
     - name: Mech_handfix_Ref:ball_r
       parentName: Mech_handfix_Ref:toes_r
       position: {x: 3.330669e-18, y: -0.004187438, z: 0.014562918}
-      rotation: {x: -0, y: -0, z: -1.3010426e-18, w: 1}
-      scale: {x: 1, y: 1.0000005, z: 0.9999998}
+      rotation: {x: -0, y: -0, z: -1.9081958e-17, w: 1}
+      scale: {x: 1.0000001, y: 1.0000002, z: 0.9999999}
     - name: Mech_handfix_Ref:thigh_l
       parentName: Mech_handfix_Ref:hips
       position: {x: -0.014248218, y: -0.00080866803, z: -0.000827375}
-      rotation: {x: -0.00000000645767, y: 0.00000001291534, z: 0.000000015336965,
+      rotation: {x: -0.0000000064576704, y: -0.00000001291534, z: 0.000000008879296,
         w: 1}
       scale: {x: 0.99999994, y: 0.99999994, z: 0.9999998}
     - name: Mech_handfix_Ref:calf_l
       parentName: Mech_handfix_Ref:thigh_l
       position: {x: 1.9984014e-17, y: -0.033870507, z: 0.00063511916}
-      rotation: {x: 0.000000001614417, y: -0, z: -0.000000012915339, w: 1}
-      scale: {x: 1.0000001, y: 0.99999994, z: 1}
+      rotation: {x: -4.0360426e-10, y: 0.00000002583068, z: -0.000000008475691, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
     - name: Mech_handfix_Ref:foot_l
       parentName: Mech_handfix_Ref:calf_l
       position: {x: -4.440892e-18, y: -0.038456824, z: -0.0023424446}
-      rotation: {x: -0.0000000016147131, y: -0.00000003874602, z: 6.255223e-17, w: 1}
-      scale: {x: 1, y: 1, z: 1.0000001}
+      rotation: {x: 4.0380171e-10, y: -0.000000038746016, z: 0.0000000020179227, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
     - name: Mech_handfix_Ref:toes_l
       parentName: Mech_handfix_Ref:foot_l
       position: {x: 2.220446e-18, y: -0.007242143, z: 0.004004559}
-      rotation: {x: 1.9717561e-13, y: -0, z: 4.973798e-14, w: 1}
-      scale: {x: 1, y: 1, z: 1.0000001}
+      rotation: {x: -1.9742541e-13, y: 0.000000038746016, z: 9.8587805e-14, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.99999994}
     - name: Mech_handfix_Ref:ball_l
       parentName: Mech_handfix_Ref:toes_l
       position: {x: 2.220446e-18, y: -0.004187438, z: 0.014562918}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -0, y: -0, z: 8.731845e-22, w: 1}
+      scale: {x: 1.0000002, y: 1, z: 1.0000001}
     - name: Mech_handfix_Ref:spine
       parentName: Mech_handfix_Ref:hips
-      position: {x: -7.771561e-18, y: 0.024787737, z: -3.7636918e-11}
-      rotation: {x: -0.000000008072088, y: 1.1728551e-17, z: 0.0000000024216265, w: 1}
-      scale: {x: 0.9999998, y: 0.9999998, z: 0.99999994}
+      position: {x: -5.835061e-18, y: 0.024787737, z: -3.7636925e-11}
+      rotation: {x: -0, y: -0, z: 1.00985486e-25, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: Mech_handfix_Ref:chest
       parentName: Mech_handfix_Ref:spine
-      position: {x: 2.2374208e-11, y: 0.01725488, z: -5.5511148e-18}
-      rotation: {x: -0, y: -4.0360434e-10, z: 1.2612574e-11, w: 1}
-      scale: {x: 0.9999998, y: 0.9999998, z: 1.0000001}
+      position: {x: -0.0010424735, y: 0.01704429, z: 0.0024771497}
+      rotation: {x: -0.000000009686506, y: 6.638036e-18, z: 0.00000000205586, w: 1}
+      scale: {x: 0.9999998, y: 0.99999994, z: 0.99999994}
     - name: Mech_handfix_Ref:neck_01
       parentName: Mech_handfix_Ref:chest
-      position: {x: -1.771755e-11, y: 0.015601763, z: 2.8734298e-11}
-      rotation: {x: 0.0000000012108132, y: 4.0360434e-10, z: -2.9009062e-10, w: 1}
-      scale: {x: 1.0000002, y: 1.0000002, z: 0.99999994}
+      position: {x: -1.771755e-11, y: 0.015601763, z: 2.8734294e-11}
+      rotation: {x: 0.0000000028252312, y: 3.436067e-19, z: -9.4594554e-11, w: 1}
+      scale: {x: 0.9999998, y: 1.0000001, z: 0.9999999}
     - name: Mech_handfix_Ref:head
       parentName: Mech_handfix_Ref:neck_01
-      position: {x: 1.3877787e-19, y: 0.0025859275, z: -2.7755575e-19}
-      rotation: {x: -0, y: -0, z: -4.8868947e-19, w: 1}
-      scale: {x: 0.9999996, y: 0.99999994, z: 1.0000001}
+      position: {x: 8.7291285e-17, y: 0.0025859275, z: -1.5792923e-16}
+      rotation: {x: -0, y: -0, z: -9.707684e-28, w: 1}
+      scale: {x: 1.0000004, y: 1, z: 1.0000004}
     - name: Mech_handfix_Ref:headtip
       parentName: Mech_handfix_Ref:head
       position: {x: 8.85958e-16, y: 0.0066989493, z: -2.8959498e-18}
       rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1.0000004, z: 0.99999994}
+      scale: {x: 0.99999994, y: 1, z: 1}
     - name: Mech_handfix_Ref:upperarm_r
       parentName: Mech_handfix_Ref:chest
-      position: {x: 0.026676055, y: 0.005, z: 3.330669e-18}
-      rotation: {x: 0.0000000016144175, y: 4.0360434e-10, z: -3.2792857e-10, w: 1}
-      scale: {x: 1.000001, y: 1.0000011, z: 0.99999994}
+      position: {x: 0.026676055, y: 0.005, z: 0}
+      rotation: {x: 0.000022084718, y: 0.003315513, z: 0.009740122, w: 0.9999471}
+      scale: {x: 1.0000001, y: 1.0000006, z: 1.0000013}
     - name: Mech_handfix_Ref:lowerarm_r
       parentName: Mech_handfix_Ref:upperarm_r
-      position: {x: 0.034270886, y: -0.00013830436, z: -0.000056548295}
-      rotation: {x: -0, y: -0, z: -6.5158594e-19, w: 1}
-      scale: {x: 1.0000008, y: 1.0000004, z: 1.0000001}
+      position: {x: 0.034264844, y: -0.0007560102, z: -0.0000565652}
+      rotation: {x: -0.000093601135, y: -0.008587495, z: -0.010897402, w: 0.99990374}
+      scale: {x: 0.9999996, y: 1.000002, z: 1.0000024}
     - name: Mech_handfix_Ref:hand_r
       parentName: Mech_handfix_Ref:lowerarm_r
       position: {x: 0.021553915, y: -1.1829604e-10, z: -5.902109e-11}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000005, y: 1.0000001, z: 0.99999994}
+      rotation: {x: 0.00052302436, y: 0.005806363, z: -0.17021812, w: 0.98538923}
+      scale: {x: 1.0000055, y: 0.99999875, z: 1.00001}
     - name: Mech_handfix_Ref:index_01_r
       parentName: Mech_handfix_Ref:hand_r
-      position: {x: 0.008463249, y: 3.1974422e-16, z: 0.0039449283}
-      rotation: {x: 9.469314e-12, y: -0.015015337, z: -1.1384024e-16, w: 0.9998873}
-      scale: {x: 1.0000007, y: 1.0000001, z: 1.0000001}
+      position: {x: 0.007565993, y: 0.004051747, z: 0.0027545213}
+      rotation: {x: -0.00004190177, y: -0.02007518, z: 0.1702607, w: 0.9851946}
+      scale: {x: 1.000006, y: 1.0000002, z: 1.0000072}
     - name: Mech_handfix_Ref:index_02_r
       parentName: Mech_handfix_Ref:index_01_r
-      position: {x: 0.003538368, y: 4.796163e-16, z: 1.110223e-18}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
+      position: {x: 0.005167744, y: 0.000003926956, z: 0.0000017322296}
+      rotation: {x: 0.0000000036379784, y: -1.6556533e-16, z: 0.000000033549437, w: 1}
+      scale: {x: 1.0000026, y: 0.9999998, z: 1.0000039}
     - name: Mech_handfix_Ref:index_03_r
       parentName: Mech_handfix_Ref:index_02_r
       position: {x: 0.001160169, y: 1.9539925e-16, z: 0.00001727613}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
+      rotation: {x: 8.7311484e-11, y: -1.4558378e-22, z: -0.00000004470348, w: 1}
+      scale: {x: 1.000002, y: 1.0000004, z: 1.0000031}
     - name: Mech_handfix_Ref:index_end_r
       parentName: Mech_handfix_Ref:index_03_r
-      position: {x: 0.002585435, y: 3.5527136e-17, z: 0.000005381195}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1, z: 0.99999994}
-    - name: Mech_handfix_Ref:middle_01_r
-      parentName: Mech_handfix_Ref:hand_r
-      position: {x: 0.00846324, y: 3.1974422e-16, z: 0.0016702579}
-      rotation: {x: 9.469314e-12, y: -0.015015337, z: -1.1384024e-16, w: 0.9998873}
-      scale: {x: 1.0000007, y: 1.0000001, z: 1.0000001}
-    - name: Mech_handfix_Ref:middle_02_r
-      parentName: Mech_handfix_Ref:middle_01_r
-      position: {x: 0.0035383767, y: 1.0746958e-14, z: 5.551115e-19}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
-    - name: Mech_handfix_Ref:middle_03_r
-      parentName: Mech_handfix_Ref:middle_02_r
-      position: {x: 0.001160169, y: -2.842171e-16, z: -0.00001727613}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
-    - name: Mech_handfix_Ref:middle_end_r
-      parentName: Mech_handfix_Ref:middle_03_r
-      position: {x: 0.002585435, y: 3.1974422e-16, z: 5.551115e-19}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1, z: 0.99999994}
-    - name: Mech_handfix_Ref:pinky_01_r
-      parentName: Mech_handfix_Ref:hand_r
-      position: {x: 0.008463249, y: -1.1829476e-10, z: -0.0026981377}
-      rotation: {x: 9.469314e-12, y: -0.015015337, z: -1.1384024e-16, w: 0.9998873}
-      scale: {x: 1.0000007, y: 1.0000001, z: 1.0000001}
-    - name: Mech_handfix_Ref:pinky_02_r
-      parentName: Mech_handfix_Ref:pinky_01_r
-      position: {x: 0.003538368, y: 8.704148e-16, z: -3.469447e-18}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
-    - name: Mech_handfix_Ref:pinky_03_r
-      parentName: Mech_handfix_Ref:pinky_02_r
-      position: {x: 0.001160169, y: 1.3145041e-15, z: 3.191891e-18}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
-    - name: Mech_handfix_Ref:pinky_end_r
-      parentName: Mech_handfix_Ref:pinky_03_r
-      position: {x: 0.002585435, y: 2.344791e-15, z: 2.0816681e-19}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1, z: 0.99999994}
-    - name: Mech_handfix_Ref:ring_01_r
-      parentName: Mech_handfix_Ref:hand_r
-      position: {x: 0.00846324, y: 1.0480505e-15, z: -0.0005527129}
-      rotation: {x: 9.469314e-12, y: -0.015015337, z: -1.1384024e-16, w: 0.9998873}
-      scale: {x: 1.0000007, y: 1.0000001, z: 1.0000001}
-    - name: Mech_handfix_Ref:ring_02_r
-      parentName: Mech_handfix_Ref:ring_01_r
-      position: {x: 0.0035383767, y: 6.750156e-16, z: 2.4980017e-18}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
-    - name: Mech_handfix_Ref:ring_03_r
-      parentName: Mech_handfix_Ref:ring_02_r
-      position: {x: 0.001160169, y: 5.3290704e-17, z: -2.4980017e-18}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
-    - name: Mech_handfix_Ref:ring_end_r
-      parentName: Mech_handfix_Ref:ring_03_r
-      position: {x: 0.002585435, y: 6.217249e-16, z: 3.8857806e-18}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1, z: 0.99999994}
+      position: {x: 0.003967936, y: 0.0000033319627, z: 0.0000068509657}
+      rotation: {x: -0, y: -0, z: 1.15555775e-32, w: 1}
+      scale: {x: 1.0000006, y: 0.99999946, z: 1.0000014}
     - name: Mech_handfix_Ref:thumb_01_r
       parentName: Mech_handfix_Ref:hand_r
-      position: {x: 0.002423124, y: 4.796163e-16, z: 0.0056112814}
-      rotation: {x: -1.395779e-10, y: 0.22132981, z: 8.3902154e-17, w: 0.97519904}
-      scale: {x: 1.0000007, y: 1.0000001, z: 1.0000001}
+      position: {x: 0.0050535724, y: 0.0023225355, z: 0.0039399937}
+      rotation: {x: -0.038754027, y: -0.4244069, z: 0.07439197, w: 0.9015779}
+      scale: {x: 1.0000005, y: 1.0000043, z: 1.0000029}
     - name: Mech_handfix_Ref:thumb_02_r
       parentName: Mech_handfix_Ref:thumb_01_r
-      position: {x: -0, y: 1.3677947e-15, z: 0.0034737894}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
+      position: {x: 0.004283642, y: -0.000000616666, z: 0.00019508795}
+      rotation: {x: -0.000038497146, y: -0.04298502, z: -0.00014367512, w: 0.9990758}
+      scale: {x: 1.0000019, y: 0.99999994, z: 1.0000036}
     - name: Mech_handfix_Ref:thumb_03_r
       parentName: Mech_handfix_Ref:thumb_02_r
-      position: {x: 0.000017278278, y: -1.1829553e-10, z: 0.0011746285}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
+      position: {x: 0.0005359825, y: 0.00000023377025, z: -0.00006554027}
+      rotation: {x: 0.000024327881, y: 0.029929306, z: 0.00022345313, w: 0.9995521}
+      scale: {x: 1.0000017, y: 1.0000007, z: 1.0000012}
     - name: Mech_handfix_Ref:thumb_end
       parentName: Mech_handfix_Ref:thumb_03_r
-      position: {x: -0.000039937753, y: 9.05942e-16, z: 0.0025984254}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1, z: 0.99999994}
+      position: {x: 0.0026936003, y: -0.0000018729528, z: 0.00005145062}
+      rotation: {x: -0.0000053025983, y: -0.0034216244, z: -0.00012458066, w: 0.9999942}
+      scale: {x: 1.0000008, y: 1.0000011, z: 1.0000014}
+    - name: Mech_handfix_Ref:ring_01_r
+      parentName: Mech_handfix_Ref:hand_r
+      position: {x: 0.007960908, y: 0.004057026, z: -0.0016809766}
+      rotation: {x: -0.0023919654, y: 0.05315496, z: 0.17532222, w: 0.9830722}
+      scale: {x: 1, y: 1.0000049, z: 0.99999726}
+    - name: Mech_handfix_Ref:ring_02_r
+      parentName: Mech_handfix_Ref:ring_01_r
+      position: {x: 0.0044499435, y: -0.000012048859, z: 0.0005343835}
+      rotation: {x: 0.000033234857, y: -0.05972203, z: -0.0013445476, w: 0.9982142}
+      scale: {x: 1.0000036, y: 0.99999845, z: 0.9999982}
+    - name: Mech_handfix_Ref:ring_03_r
+      parentName: Mech_handfix_Ref:ring_02_r
+      position: {x: 0.001166659, y: -0.00000057657934, z: -0.000020954834}
+      rotation: {x: -0.000019324516, y: 0.008979676, z: -0.0002468868, w: 0.99995965}
+      scale: {x: 0.99999994, y: 1.0000004, z: 0.99999887}
+    - name: Mech_handfix_Ref:ring_end_r
+      parentName: Mech_handfix_Ref:ring_03_r
+      position: {x: 0.0033884624, y: 0.0000018892762, z: 0.00017513456}
+      rotation: {x: 0.00005467022, y: -0.025816904, z: 0.00027991028, w: 0.99966663}
+      scale: {x: 1.0000012, y: 0.99999857, z: 1.000001}
+    - name: Mech_handfix_Ref:pinky_01_r
+      parentName: Mech_handfix_Ref:hand_r
+      position: {x: 0.006491285, y: 0.0040549147, z: -0.0031490528}
+      rotation: {x: 0.040474694, y: 0.042956248, z: 0.19711061, w: 0.9786031}
+      scale: {x: 0.99999875, y: 1.0000004, z: 0.99999833}
+    - name: Mech_handfix_Ref:pinky_02_r
+      parentName: Mech_handfix_Ref:pinky_01_r
+      position: {x: 0.0037970436, y: -0.000009997688, z: 0.00008174013}
+      rotation: {x: 0.0000099879535, y: -0.010761752, z: -0.0013161703, w: 0.9999413}
+      scale: {x: 1.0000006, y: 1.0000021, z: 1.0000018}
+    - name: Mech_handfix_Ref:pinky_03_r
+      parentName: Mech_handfix_Ref:pinky_02_r
+      position: {x: 0.00077978603, y: -0.0000010456771, z: 0.000016886604}
+      rotation: {x: 0.0000043475175, y: -0.0018444234, z: -0.000114172486, w: 0.99999833}
+      scale: {x: 1.0000001, y: 1.0000021, z: 0.99999946}
+    - name: Mech_handfix_Ref:pinky_end_r
+      parentName: Mech_handfix_Ref:pinky_03_r
+      position: {x: 0.0026306564, y: 0.0000002763236, z: 0.000012649791}
+      rotation: {x: 0.0000021643937, y: -0.0008773948, z: 0.00001918623, w: 0.9999997}
+      scale: {x: 1.0000008, y: 0.9999994, z: 1.0000006}
+    - name: Mech_handfix_Ref:middle_01_r
+      parentName: Mech_handfix_Ref:hand_r
+      position: {x: 0.0075659794, y: 0.0040539657, z: 0.00047985325}
+      rotation: {x: 0.012046416, y: -0.06292534, z: 0.17260568, w: 0.98290515}
+      scale: {x: 0.99999964, y: 1.0000024, z: 0.9999957}
+    - name: Mech_handfix_Ref:middle_02_r
+      parentName: Mech_handfix_Ref:middle_01_r
+      position: {x: 0.0057480386, y: -0.000015345007, z: -0.0005730008}
+      rotation: {x: -0.0000072434177, y: 0.049658474, z: -0.0013294913, w: 0.99876535}
+      scale: {x: 1.0000039, y: 1.0000023, z: 0.9999984}
+    - name: Mech_handfix_Ref:middle_03_r
+      parentName: Mech_handfix_Ref:middle_02_r
+      position: {x: 0.0011600404, y: -0.0000011009112, z: 0.000024404351}
+      rotation: {x: 0.0000027478961, y: -0.0017591079, z: -0.00007934874, w: 0.99999845}
+      scale: {x: 1.0000021, y: 1.0000029, z: 1.0000013}
+    - name: Mech_handfix_Ref:middle_end_r
+      parentName: Mech_handfix_Ref:middle_03_r
+      position: {x: 0.0044148904, y: 0.0000009871658, z: -0.0000031444663}
+      rotation: {x: -0.00000023739787, y: 0.00013851035, z: 0.000043481996, w: 1}
+      scale: {x: 0.99999994, y: 0.9999996, z: 0.9999996}
     - name: Mech_handfix_Ref:upperarm_l
       parentName: Mech_handfix_Ref:chest
       position: {x: -0.026676062, y: 0.0048398776, z: 0.00017316669}
-      rotation: {x: 0.0000000016144175, y: 4.0360434e-10, z: -3.2792857e-10, w: 1}
-      scale: {x: 1.000001, y: 1.0000011, z: 0.99999994}
+      rotation: {x: -0.000000022700696, y: -0.008215751, z: 0.00000001304194, w: 0.99996626}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1}
     - name: Mech_handfix_Ref:lowerarm_l
       parentName: Mech_handfix_Ref:upperarm_l
-      position: {x: -0.03431255, y: -9.7699626e-17, z: -1.110223e-18}
-      rotation: {x: -0, y: -0, z: -6.5158594e-19, w: 1}
-      scale: {x: 1.0000008, y: 1.0000004, z: 1.0000001}
+      position: {x: -0.03431255, y: -2.9696856e-16, z: -0.000000099999994}
+      rotation: {x: 0.000000012955138, y: 0.0016331794, z: 6.327812e-11, w: 0.9999987}
+      scale: {x: 0.99999887, y: 1.000001, z: 0.99999875}
     - name: Mech_handfix_Ref:hand_l
       parentName: Mech_handfix_Ref:lowerarm_l
-      position: {x: -0.021625634, y: -1.3766766e-16, z: -0.00035929563}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000005, y: 1.0000001, z: 0.99999994}
-    - name: Mech_handfix_Ref:index_01_l
-      parentName: Mech_handfix_Ref:hand_l
-      position: {x: -0.008381723, y: -0.00000038897548, z: 0.003901285}
-      rotation: {x: 0.0000012307181, y: 0.010793489, z: 0.0000096270405, w: 0.99994177}
-      scale: {x: 1.0000007, y: 1.0000001, z: 1.0000001}
-    - name: Mech_handfix_Ref:index_02_l
-      parentName: Mech_handfix_Ref:index_01_l
-      position: {x: -0.0035383767, y: 0.00000038897548, z: 0.000017278278}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
-    - name: Mech_handfix_Ref:index_03_l
-      parentName: Mech_handfix_Ref:index_02_l
-      position: {x: -0.0011100413, y: -1.4221572e-15, z: -0.0000027013427}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
-    - name: Mech_handfix_Ref:index_end_l
-      parentName: Mech_handfix_Ref:index_03_l
-      position: {x: -0.002635563, y: 3.6905546e-17, z: 2.580401e-19}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1, z: 0.99999994}
-    - name: Mech_handfix_Ref:middle_01_l
-      parentName: Mech_handfix_Ref:hand_l
-      position: {x: -0.008381723, y: -0.00000049454684, z: 0.0016266189}
-      rotation: {x: 0.0000018686255, y: 0.013354696, z: 0.000013693667, w: 0.99991083}
-      scale: {x: 1.0000007, y: 1.0000001, z: 1.0000001}
-    - name: Mech_handfix_Ref:middle_02_l
-      parentName: Mech_handfix_Ref:middle_01_l
-      position: {x: -0.0035383767, y: 0.00000049454684, z: -1.2611172e-18}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
-    - name: Mech_handfix_Ref:middle_03_l
-      parentName: Mech_handfix_Ref:middle_02_l
-      position: {x: -0.0011100413, y: -5.1998977e-16, z: -4.857226e-19}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
-    - name: Mech_handfix_Ref:middle_end_l
-      parentName: Mech_handfix_Ref:middle_03_l
-      position: {x: -0.002635563, y: -2.4513724e-15, z: -3.163567e-16}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1, z: 0.99999994}
+      position: {x: -0.021625634, y: 6.6042166e-17, z: 0.00048933126}
+      rotation: {x: 0.0039086626, y: 0.000000057043508, z: 0.17274031, w: 0.9849597}
+      scale: {x: 0.99999845, y: 1.0000019, z: 0.99999803}
     - name: Mech_handfix_Ref:ring_01_l
       parentName: Mech_handfix_Ref:hand_l
-      position: {x: -0.008381723, y: -0.0000005899659, z: -0.000596352}
-      rotation: {x: 0.000002272654, y: 0.013354696, z: 0.000015775573, w: 0.99991083}
-      scale: {x: 1.0000007, y: 1.0000001, z: 1.0000001}
+      position: {x: -0.007848333, y: 0.004057886, z: -0.0015638069}
+      rotation: {x: -0.00000013411042, y: 0.033065163, z: -0.17400013, w: 0.98419034}
+      scale: {x: 1.0000027, y: 1.0000018, z: 1.0000025}
     - name: Mech_handfix_Ref:ring_02_l
       parentName: Mech_handfix_Ref:ring_01_l
-      position: {x: -0.0035383767, y: 0.0000005899659, z: -1.2490008e-18}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
+      position: {x: -0.004673798, y: -5.022445e-18, z: -1.1692036e-17}
+      rotation: {x: 0.0000037404711, y: -0.040625688, z: 0.000040038485, w: 0.9991745}
+      scale: {x: 1.000001, y: 1.0000006, z: 0.9999994}
     - name: Mech_handfix_Ref:ring_03_l
       parentName: Mech_handfix_Ref:ring_02_l
-      position: {x: -0.0011100413, y: -1.083008e-15, z: -9.194034e-19}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
+      position: {x: -0.0010862574, y: -1.0752822e-17, z: 4.857226e-19}
+      rotation: {x: 0.00000007249809, y: 0.040763237, z: 0.0000014938029, w: 0.9991689}
+      scale: {x: 0.9999999, y: 0.9999998, z: 1.000001}
     - name: Mech_handfix_Ref:ring_end_l
       parentName: Mech_handfix_Ref:ring_03_l
-      position: {x: -0.002635563, y: -9.237055e-16, z: -8.3266725e-19}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1, z: 0.99999994}
+      position: {x: -0.0033012875, y: -9.237055e-16, z: -7.407269e-18}
+      rotation: {x: 0.0000000017346817, y: 0.021316834, z: 0.0000000016915718, w: 0.99977285}
+      scale: {x: 0.9999999, y: 1.0000008, z: 0.999999}
     - name: Mech_handfix_Ref:pinky_01_l
       parentName: Mech_handfix_Ref:hand_l
-      position: {x: -0.008381723, y: -0.0000004798462, z: -0.0027417769}
-      rotation: {x: 0.0000018181219, y: 0.013354696, z: 0.00001343343, w: 0.99991083}
-      scale: {x: 1.0000007, y: 1.0000001, z: 1.0000001}
+      position: {x: -0.006501824, y: 0.004057996, z: -0.0029925117}
+      rotation: {x: 0.00000009732319, y: 0.03306486, z: -0.17399643, w: 0.984191}
+      scale: {x: 1.0000023, y: 1.0000005, z: 1.0000005}
     - name: Mech_handfix_Ref:pinky_02_l
       parentName: Mech_handfix_Ref:pinky_01_l
-      position: {x: -0.0035383767, y: 0.0000004798462, z: -6.245004e-19}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
+      position: {x: -0.003567534, y: 1.2843721e-17, z: -3.0531133e-18}
+      rotation: {x: -0.0000007271683, y: 0.009922445, z: 0.00006723867, w: 0.9999508}
+      scale: {x: 1.0000005, y: 1.0000011, z: 1.0000002}
     - name: Mech_handfix_Ref:pinky_03_l
       parentName: Mech_handfix_Ref:pinky_02_l
-      position: {x: -0.0011100413, y: -8.4815066e-16, z: -5.20417e-19}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
+      position: {x: -0.0010012375, y: -3.1735383e-17, z: 8.3266725e-19}
+      rotation: {x: 0.000000022555295, y: -0.010589579, z: 0.000000015878483, w: 0.9999439}
+      scale: {x: 0.9999996, y: 1.0000002, z: 0.9999993}
     - name: Mech_handfix_Ref:pinky_end_l
       parentName: Mech_handfix_Ref:pinky_03_l
-      position: {x: -0.002635563, y: 1.0658141e-16, z: -9.020562e-19}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1, z: 0.99999994}
+      position: {x: -0.0025179118, y: 1.0658141e-16, z: -1.110223e-18}
+      rotation: {x: -0.0000000019067663, y: 0.20329638, z: -0.000000005382937, w: 0.97911733}
+      scale: {x: 0.99999857, y: 0.9999999, z: 0.9999999}
     - name: Mech_handfix_Ref:thumb_01_l
       parentName: Mech_handfix_Ref:hand_l
-      position: {x: -0.001968857, y: -0.00000046901843, z: 0.0058264644}
-      rotation: {x: 0.00004194122, y: -0.22020788, z: 0.000018452905, w: 0.97545296}
-      scale: {x: 1.0000007, y: 1.0000001, z: 1.0000001}
+      position: {x: -0.004896449, y: 0.0023360054, z: 0.00412375}
+      rotation: {x: -0.037160397, y: 0.45488244, z: -0.07202448, w: 0.88685596}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000007}
     - name: Mech_handfix_Ref:thumb_02_l
       parentName: Mech_handfix_Ref:thumb_01_l
-      position: {x: -0.000017278278, y: 0.00000025769123, z: 0.0032329883}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
+      position: {x: -0.00416576, y: -1.557744e-17, z: 1.4849232e-17}
+      rotation: {x: -0.00000061468927, y: 0.020427316, z: 0.000030913845, w: 0.9997914}
+      scale: {x: 1.0000007, y: 1, z: 1.0000014}
     - name: Mech_handfix_Ref:thumb_03_l
       parentName: Mech_handfix_Ref:thumb_02_l
-      position: {x: 0.000031855216, y: -3.0973933e-16, z: 0.0011649622}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
+      position: {x: -0.0008279798, y: -3.3343002e-17, z: 1.1370261e-17}
+      rotation: {x: -0.000000028279313, y: -0.04183691, z: -0.000000021849731, w: 0.99912447}
+      scale: {x: 1.0000018, y: 1, z: 1.000002}
     - name: Mech_handfix_Ref:thumb_end_l
       parentName: Mech_handfix_Ref:thumb_03_l
-      position: {x: 0.000008082538, y: 3.5527136e-17, z: 0.002580642}
-      rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1.0000004, y: 1, z: 0.99999994}
-    - name: Mech_handfix_Ref:Geo_grp
-      parentName: Walk_Test(Clone)
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Mech_handfix_Ref:Mech_geo
-      parentName: Mech_handfix_Ref:Geo_grp
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Mech_handfix_Ref:Mech_geo_MeshPart0
-      parentName: Mech_handfix_Ref:Mech_geo
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Mech_handfix_Ref:Mech_geo_MeshPart1
-      parentName: Mech_handfix_Ref:Mech_geo
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Mech_handfix_Ref:Mech_geo_MeshPart2
-      parentName: Mech_handfix_Ref:Mech_geo
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Mech_handfix_Ref:Mech_geo_MeshPart3
-      parentName: Mech_handfix_Ref:Mech_geo
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.002447475, y: -5.2409418e-14, z: -1.0127869e-17}
+      rotation: {x: -0.000000006809085, y: 0.9999441, z: 0.000000055154064, w: -0.010574109}
+      scale: {x: 1.0000029, y: 1.0000001, z: 1.000003}
+    - name: Mech_handfix_Ref:index_01_l
+      parentName: Mech_handfix_Ref:hand_l
+      position: {x: -0.007303787, y: 0.0040580872, z: 0.0028136685}
+      rotation: {x: -0.002674522, y: 0.03823244, z: -0.17301103, w: 0.9841739}
+      scale: {x: 1.0000055, y: 1.0000011, z: 1.0000051}
+    - name: Mech_handfix_Ref:index_02_l
+      parentName: Mech_handfix_Ref:index_01_l
+      position: {x: -0.0054627596, y: -6.0681933e-18, z: 7.424616e-18}
+      rotation: {x: 0.0000005933379, y: -0.01667767, z: 0.000035596175, w: 0.99986094}
+      scale: {x: 1.0000018, y: 1.0000012, z: 1.0000013}
+    - name: Mech_handfix_Ref:index_03_l
+      parentName: Mech_handfix_Ref:index_02_l
+      position: {x: -0.0011100445, y: 5.0266287e-19, z: -4.075516e-18}
+      rotation: {x: -0.000000002058016, y: 0.0012167757, z: -8.053478e-10, w: 0.9999993}
+      scale: {x: 0.9999981, y: 1.0000005, z: 0.9999983}
+    - name: Mech_handfix_Ref:index_end_l
+      parentName: Mech_handfix_Ref:index_03_l
+      position: {x: -0.003917157, y: 1.9141977e-17, z: -5.745568e-17}
+      rotation: {x: -0, y: -0, z: -1.973248e-17, w: 1}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000001}
+    - name: Mech_handfix_Ref:middle_01_l
+      parentName: Mech_handfix_Ref:hand_l
+      position: {x: -0.0074732457, y: 0.004057981, z: 0.0007711448}
+      rotation: {x: 0.0028138629, y: 0.027870875, z: -0.17529948, w: 0.98411655}
+      scale: {x: 1.0000031, y: 1.0000019, z: 1.0000019}
+    - name: Mech_handfix_Ref:middle_02_l
+      parentName: Mech_handfix_Ref:middle_01_l
+      position: {x: -0.0058548455, y: -4.8723205e-18, z: -2.2933043e-17}
+      rotation: {x: -0.00000067834395, y: 0.016039347, z: 0.00004223023, w: 0.9998714}
+      scale: {x: 0.9999976, y: 1.0000004, z: 0.9999983}
+    - name: Mech_handfix_Ref:middle_03_l
+      parentName: Mech_handfix_Ref:middle_02_l
+      position: {x: -0.0011100413, y: 3.566969e-18, z: 8.872407e-19}
+      rotation: {x: 0.0000000031821514, y: -0.010773897, z: -0.0000000064869163, w: 0.999942}
+      scale: {x: 1.0000007, y: 0.9999998, z: 1.0000005}
+    - name: Mech_handfix_Ref:middle_end_l
+      parentName: Mech_handfix_Ref:middle_03_l
+      position: {x: -0.004369317, y: -2.4513724e-15, z: -2.1163627e-18}
+      rotation: {x: -3.091789e-10, y: 0.010773893, z: 0.000000012912746, w: 0.999942}
+      scale: {x: 1, y: 1.0000004, z: 0.99999934}
     - name: Mech_handfix_Ref:Main_ctrl
-      parentName: Walk_Test(Clone)
+      parentName: Mech_handfix_Ref:Rig
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.3, y: 0.3, z: 0.3}
+    - name: Mech_handfix_Ref:Mech_mesh:polySurface1
+      parentName: Mech_handfix_Ref:Rig
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface176
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface177
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface178
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface179
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface180
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface181
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface182
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface183
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface184
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface185
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface186
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface187
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface188
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface189
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface190
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface191
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface192
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface193
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface194
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface195
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface196
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface197
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface198
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface199
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface200
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface201
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface202
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface203
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface204
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface205
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface206
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface207
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface208
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface209
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface210
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface211
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface212
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface213
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface214
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface215
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface216
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface217
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface218
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface219
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface220
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface221
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface222
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface223
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface224
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface225
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface226
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface227
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface228
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface229
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface230
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface231
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface232
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface233
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface234
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:polySurface235
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mech_handfix_Ref:transform15
+      parentName: Mech_handfix_Ref:Mech_mesh:polySurface1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5

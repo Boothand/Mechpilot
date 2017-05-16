@@ -7,18 +7,57 @@ using RewiredConsts;
 public class PlayerInput : AbstractInput
 {
 	//Rewired player components.
-	protected Player pilotPlayer;
-	protected Player armsPlayer;
+	protected Player player1;
+	protected Player player2;
 	[SerializeField] int pilotID = 0;
 	[SerializeField] int armsID = 1;
+
+	[SerializeField] bool noMainMenu;
+	
 
 	//Quick way to keep the mech from moving on its own..
 	[SerializeField] float deadzone = 0.01f;
 
-	void Awake()
+	protected override void OnAwake()
 	{
-		pilotPlayer = ReInput.players.GetPlayer(pilotID);
-		armsPlayer = ReInput.players.GetPlayer(armsID);
+		base.OnAwake();
+	}
+
+	protected override void OnStart()
+	{
+		base.OnStart();
+
+		
+
+		if (A_GlobalSettings.team1 != null &&
+			A_GlobalSettings.team2 != null)
+		{
+			if (mech.getTeam == Mech.TeamEnum.Team1)
+			{
+				print(transform.root.name);
+
+				player1 = ReInput.players.GetPlayer(A_GlobalSettings.team1.rewiredPlayer1);
+				player2 = ReInput.players.GetPlayer(A_GlobalSettings.team1.rewiredPlayer2);
+
+				//Debug.Log("Player1: " + A_GlobalSettings.team1.rewiredPlayer1 + ". Name: " + player1.descriptiveName);
+				//Debug.Log("Player2: " + A_GlobalSettings.team1.rewiredPlayer2 + ". Name: " + player2.descriptiveName);
+			}
+			else if (mech.getTeam == Mech.TeamEnum.Team2)
+			{
+				print(transform.root.name);
+
+				player1 = ReInput.players.GetPlayer(A_GlobalSettings.team2.rewiredPlayer1);
+				player2 = ReInput.players.GetPlayer(A_GlobalSettings.team2.rewiredPlayer2);
+				print(player1.descriptiveName);
+				print(player2.descriptiveName);
+			}
+		}
+		else
+		{
+			print("asd");
+			player1 = ReInput.players.GetPlayer(pilotID);
+			player2 = ReInput.players.GetPlayer(armsID);
+		}
 	}
 
 	//Takes a value, makes sure it's not within a threshold
@@ -38,48 +77,51 @@ public class PlayerInput : AbstractInput
 	
 	//Get input from Rewired's input manager every frame. This runs before all other script components.
 	//Use exported int consts from RewiredConsts because it's faster than string comparison.
-	void Update ()
+	protected override void OnUpdate ()
 	{
-		restartScene = pilotPlayer.GetButtonDown(Action.Restart_Scene) ||
-						armsPlayer.GetButtonDown(Action.Restart_Scene);
+		base.OnUpdate();
+
+
+		restartScene = player1.GetButtonDown(Action.Restart_Scene) ||
+						player2.GetButtonDown(Action.Restart_Scene);
 
 		//Pilot actions
-		moveHorz = pilotPlayer.GetAxis(Action.Move_Horizontal);
+		moveHorz = player1.GetAxis(Action.Move_Horizontal);
 		SetDeadZone(ref moveHorz, deadzone);
 
-		moveVert = pilotPlayer.GetAxis(Action.Move_Vertical);
+		moveVert = player1.GetAxis(Action.Move_Vertical);
 		SetDeadZone(ref moveVert, deadzone);
 
-		turnBodyHorz = pilotPlayer.GetAxis(Action.Turn_Body_Horz);
-		turnBodyVert = pilotPlayer.GetAxis(Action.Turn_Body_Vert);
+		turnBodyHorz = player1.GetAxis(Action.Turn_Body_Horz);
+		turnBodyVert = player1.GetAxis(Action.Turn_Body_Vert);
 
-		crouchAxis = pilotPlayer.GetAxis(Action.Crouch);
-		dash = pilotPlayer.GetButtonDown(Action.Dash);
-		dodge = pilotPlayer.GetButton(Action.Dodge);
-		kick = pilotPlayer.GetButtonDown(Action.Kick);
-		jump = pilotPlayer.GetButtonDown(Action.Jump);
-		run = pilotPlayer.GetButton(Action.Run);
-		lockOn = pilotPlayer.GetButton(Action.Lock_On);
+		crouchAxis = player1.GetAxis(Action.Crouch);
+		dash = player1.GetButtonDown(Action.Dash);
+		dodge = player1.GetButton(Action.Dodge);
+		kick = player1.GetButtonDown(Action.Kick);
+		jump = player1.GetButtonDown(Action.Jump);
+		run = player1.GetButton(Action.Run);
+		lockOn = player1.GetButton(Action.Lock_On);
 
 		//Pilot camera presets
-		camLeft = pilotPlayer.GetButtonDown(Action.Camera_Left);
-		camRight = pilotPlayer.GetButtonDown(Action.Camera_Right);
-		camBehind = pilotPlayer.GetButtonDown(Action.Camera_Behind);
-		camFP = pilotPlayer.GetButtonDown(Action.Camera_Firstperson);
+		camLeft = player1.GetButtonDown(Action.Camera_Left);
+		camRight = player1.GetButtonDown(Action.Camera_Right);
+		camBehind = player1.GetButtonDown(Action.Camera_Behind);
+		camFP = player1.GetButtonDown(Action.Camera_Firstperson);
 
 
 		//Weapons officer actions
 
 		//Used for changing direction/stance
-		lArmHorz = armsPlayer.GetAxis(Action.Move_Left_Arm_X);
-		lArmVert = armsPlayer.GetAxis(Action.Move_Left_Arm_Y);
-		rArmHorz = armsPlayer.GetAxis(Action.Move_Right_Arm_X);
-		rArmVert = armsPlayer.GetAxis(Action.Move_Right_Arm_Y);
+		lArmHorz = player2.GetAxis(Action.Move_Left_Arm_X);
+		lArmVert = player2.GetAxis(Action.Move_Left_Arm_Y);
+		rArmHorz = player2.GetAxis(Action.Move_Right_Arm_X);
+		rArmVert = player2.GetAxis(Action.Move_Right_Arm_Y);
 
-		rArmRot = armsPlayer.GetAxis(Action.Rotate_Hand);
+		rArmRot = player2.GetAxis(Action.Rotate_Hand);
 
-		attack = armsPlayer.GetButton(Action.Wind_Up_Attack);
-		block = armsPlayer.GetButton(Action.Block);
+		attack = player2.GetButton(Action.Wind_Up_Attack);
+		block = player2.GetButton(Action.Block);
 
 
 		//droneSide = armsPlayer.GetAxis("Scout Drone Horizontal");

@@ -7,6 +7,10 @@ public class Mech : MonoBehaviour
 	public Pilot pilot { get; private set; }
 	public WeaponsOfficer weaponsOfficer { get; private set; }
 	public Mech tempEnemy;
+	public enum TeamEnum { Team1, Team2 }
+
+	[SerializeField] TeamEnum team;
+	public TeamEnum getTeam { get { return team; } }
 
 	public enum PlayerIndex { One, Two }
 	public PlayerIndex playerIndex;
