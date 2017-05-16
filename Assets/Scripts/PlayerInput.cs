@@ -27,13 +27,10 @@ public class PlayerInput : AbstractInput
 	{
 		base.OnStart();
 
-		if (noMainMenu)
-		{
-			player1 = ReInput.players.GetPlayer(pilotID);
-			player2 = ReInput.players.GetPlayer(armsID);
-		}
+		
 
-		if (!noMainMenu)
+		if (A_GlobalSettings.team1 != null &&
+			A_GlobalSettings.team2 != null)
 		{
 			if (mech.getTeam == Mech.TeamEnum.Team1)
 			{
@@ -48,6 +45,11 @@ public class PlayerInput : AbstractInput
 				player1 = ReInput.players.GetPlayer(A_GlobalSettings.team2.rewiredPlayer1);
 				player2 = ReInput.players.GetPlayer(A_GlobalSettings.team2.rewiredPlayer2);
 			}
+		}
+		else
+		{
+			player1 = ReInput.players.GetPlayer(pilotID);
+			player2 = ReInput.players.GetPlayer(armsID);
 		}
 	}
 

@@ -92,7 +92,7 @@ public class Dodge : MechComponent
 			else if (input.moveVert > 0.3f)
 			{
 				dodgeDir = DodgeDir.Forward;
-				//animator.CrossFadeInFixedTime("Dodge Back", 0.15f);	//No anim for it yet
+				animator.CrossFadeInFixedTime("Dodge Down", 0.15f); //No anim for it yet
 			}
 		}
 
