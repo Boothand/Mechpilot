@@ -18,5 +18,8 @@ public static class A_GlobalSettings
 	{
 		team1 = newTeam1;
 		team2 = newTeam2;
+
+		Debug.Log("1: " + team1.rewiredPlayer1 + ", " + team1.rewiredPlayer2);
+		Debug.Log("2: " + team2.rewiredPlayer1 + ", " + team2.rewiredPlayer2);
 	}
 }

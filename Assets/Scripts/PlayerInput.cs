@@ -34,6 +34,8 @@ public class PlayerInput : AbstractInput
 		{
 			if (mech.getTeam == Mech.TeamEnum.Team1)
 			{
+				print(transform.root.name);
+
 				player1 = ReInput.players.GetPlayer(A_GlobalSettings.team1.rewiredPlayer1);
 				player2 = ReInput.players.GetPlayer(A_GlobalSettings.team1.rewiredPlayer2);
 
@@ -42,12 +44,17 @@ public class PlayerInput : AbstractInput
 			}
 			else if (mech.getTeam == Mech.TeamEnum.Team2)
 			{
+				print(transform.root.name);
+
 				player1 = ReInput.players.GetPlayer(A_GlobalSettings.team2.rewiredPlayer1);
 				player2 = ReInput.players.GetPlayer(A_GlobalSettings.team2.rewiredPlayer2);
+				print(player1.descriptiveName);
+				print(player2.descriptiveName);
 			}
 		}
 		else
 		{
+			print("asd");
 			player1 = ReInput.players.GetPlayer(pilotID);
 			player2 = ReInput.players.GetPlayer(armsID);
 		}
