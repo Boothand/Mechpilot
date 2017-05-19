@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Rewired;
 
-public class MPMatchMenu : MonoBehaviour
+public class MPMatchMenu : Menu
 {
 	[SerializeField] PlayerSelectionUI team1, team2;
 
