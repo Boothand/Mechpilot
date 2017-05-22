@@ -18,7 +18,7 @@ public class PrefabMister : MonoBehaviour
 
 		for (int i = 0; i < prefabs.Length; i++)
 		{
-			Transform currentObj = transform.FindChild(prefabs[i].name);
+			Transform currentObj = transform.Find(prefabs[i].name);
 			if (currentObj)
 			{
 				Debug.Log("Replaced " + currentObj.name + " with prefab.", this as Object);
