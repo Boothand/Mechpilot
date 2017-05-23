@@ -152,14 +152,48 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'Mech_handfix_Ref:thigh_l'
+      : position error = 22.207541 mm\n\t'Mech_handfix_Ref:calf_l' : position error
+      = 52.627277 mm\n\t'Mech_handfix_Ref:foot_l' : position error = 59.853630 mm\n\t'Mech_handfix_Ref:toes_l'
+      : position error = 12.856153 mm\n\t'Mech_handfix_Ref:spine' : position error
+      = 38.507900 mm\n\t'Mech_handfix_Ref:chest' : position error = 27.067093 mm\n\t'Mech_handfix_Ref:neck_01'
+      : position error = 24.237434 mm\n\t'Mech_handfix_Ref:head' : position error
+      = 4.017243 mm\n\t'Mech_handfix_Ref:headtip' : position error = 10.406852 mm\n\t'Mech_handfix_Ref:upperarm_r'
+      : position error = 42.163052 mm\n\t'Mech_handfix_Ref:lowerarm_r' : position
+      error = 53.240509 mm\n\t'Mech_handfix_Ref:hand_r' : position error = 33.484127
+      mm\n\t'Mech_handfix_Ref:index_01_r' : position error = 14.505872 mm\n\t'Mech_handfix_Ref:index_02_r'
+      : position error = 5.496868 mm\n\t'Mech_handfix_Ref:index_03_r' : position error
+      = 1.802526 mm\n\t'Mech_handfix_Ref:middle_01_r' : position error = 13.401291
+      mm\n\t'Mech_handfix_Ref:middle_02_r' : position error = 5.496879 mm\n\t'Mech_handfix_Ref:middle_03_r'
+      : position error = 1.802518 mm\n\t'Mech_handfix_Ref:pinky_01_r' : position error
+      = 13.799697 mm\n\t'Mech_handfix_Ref:pinky_02_r' : position error = 5.496869
+      mm\n\t'Mech_handfix_Ref:pinky_03_r' : position error = 1.802330 mm\n\t'Mech_handfix_Ref:ring_01_r'
+      : position error = 13.175704 mm\n\t'Mech_handfix_Ref:ring_02_r' : position error
+      = 5.496895 mm\n\t'Mech_handfix_Ref:ring_03_r' : position error = 1.802324 mm\n\t'Mech_handfix_Ref:thumb_01_r'
+      : position error = 12.367745 mm\n\t'Mech_handfix_Ref:thumb_02_r' : position
+      error = 5.396546 mm\n\t'Mech_handfix_Ref:thumb_03_r' : position error = 1.824990
+      mm\n\t'Mech_handfix_Ref:upperarm_l' : position error = 42.118824 mm\n\t'Mech_handfix_Ref:lowerarm_l'
+      : position error = 53.304741 mm\n\t'Mech_handfix_Ref:hand_l' : position error
+      = 33.604149 mm\n\t'Mech_handfix_Ref:index_01_l' : position error = 14.362434
+      mm\n\t'Mech_handfix_Ref:index_02_l' : position error = 5.496955 mm\n\t'Mech_handfix_Ref:index_03_l'
+      : position error = 1.724452 mm\n\t'Mech_handfix_Ref:middle_01_l' : position
+      error = 13.263988 mm\n\t'Mech_handfix_Ref:middle_02_l' : position error = 5.496892
+      mm\n\t'Mech_handfix_Ref:middle_03_l' : position error = 1.724461 mm\n\t'Mech_handfix_Ref:ring_01_l'
+      : position error = 13.053972 mm\n\t'Mech_handfix_Ref:ring_02_l' : position error
+      = 5.496878 mm\n\t'Mech_handfix_Ref:ring_03_l' : position error = 1.724447 mm\n\t'Mech_handfix_Ref:pinky_01_l'
+      : position error = 13.699994 mm\n\t'Mech_handfix_Ref:pinky_02_l' : position
+      error = 5.496884 mm\n\t'Mech_handfix_Ref:pinky_03_l' : position error = 1.724456
+      mm\n\t'Mech_handfix_Ref:thumb_01_l' : position error = 11.043941 mm\n\t'Mech_handfix_Ref:thumb_02_l'
+      : position error = 5.022538 mm\n\t'Mech_handfix_Ref:thumb_03_l' : position error
+      = 1.810451 mm\n"
     animationImportErrors: 
-    animationImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length
-      in copied configuration does not match position in animation file\nIdle_4\nClip
-      'Take 001' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Mech_handfix_Ref:hips'
-      has translation animation that will be discarded.\n\t'Mech_handfix_Ref:hips'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Mech_handfix_Ref:chest'
-      has translation animation that will be discarded.\n\t'Mech_handfix_Ref:upperarm_r'
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Mech_handfix_Ref:hips' has translation animation
+      that will be discarded.\n\t'Mech_handfix_Ref:hips' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'Mech_handfix_Ref:upperarm_r'
       has translation animation that will be discarded.\n\t'Mech_handfix_Ref:upperarm_l'
       has translation animation that will be discarded.\n"
     animationRetargetingWarnings: 
@@ -354,7 +388,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.47560984
+        functionName: PlayFootstep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.99268293
+        functionName: PlayFootstep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
