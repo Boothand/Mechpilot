@@ -12,7 +12,7 @@ public static class A_GlobalSettings
 {
 	public enum RoleSelection { Legs, Arms }
 	public static Team team1, team2;
-
+	public static bool useMultiMonitor;
 
 	public static void SetTeamInfo(Team newTeam1, Team newTeam2)
 	{

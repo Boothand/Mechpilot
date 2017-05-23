@@ -32,6 +32,20 @@ public class Pilot : MechComponent
 		kicker = transform.root.GetComponentInChildren<Kicker>();
 	}
 
+	protected override void OnStart()
+	{
+		base.OnStart();
+
+		input.enabled = false;
+
+		RoundManager.instance.OnRoundStarted += EnableInput;
+	}
+
+	void EnableInput()
+	{
+		input.enabled = true;
+	}
+
 	protected override void OnFixedUpdate()
 	{
 		//move.RunComponentFixed();

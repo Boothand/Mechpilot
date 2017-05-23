@@ -4,6 +4,10 @@ using UnityEngine.UI;
 
 public class StaminaBar : Bar
 {
+	bool energyWarning;
+	[SerializeField] TMPro.TMP_Text warningText;
+
+	Coroutine warningRoutine;
 
 	protected override void OnAwake()
 	{
@@ -16,7 +20,19 @@ public class StaminaBar : Bar
 		
 		//Run the base blink function when spending stamina.
 		energyManager.OnSpendStamina += Blink;
-	}	
+
+		if (warningText != null)
+			warningText.gameObject.SetActive(false);
+	}
+
+	IEnumerator DisplayBlinkingWarningRoutine()
+	{
+		while (true)
+		{
+			warningText.gameObject.SetActive(!warningText.gameObject.activeSelf);
+			yield return new WaitForSeconds(0.75f);
+		}
+	}
 
 	protected override void OnUpdate()
 	{
@@ -29,7 +45,6 @@ public class StaminaBar : Bar
 		{
 			case Axis.X:
 				staminaScale.x = Mathf.Lerp(staminaScale.x, targetScale, Time.deltaTime * 4f);
-
 				break;
 
 			case Axis.Y:
@@ -38,5 +53,31 @@ public class StaminaBar : Bar
 		}
 
 		bar.localScale = staminaScale;
+
+		//Initiating and stopping the blinking stamina warning
+		if (warningText != null)
+		{
+			if (!energyWarning)
+			{
+				if (energyManager.stamina < 20f)
+				{
+					energyWarning = true;
+					warningRoutine = StartCoroutine(DisplayBlinkingWarningRoutine());
+				}
+			}
+
+			if (energyWarning)
+			{
+				if (energyManager.stamina > 35f)
+				{
+					energyWarning = false;
+
+					if (warningRoutine != null)
+						StopCoroutine(warningRoutine);
+
+					warningText.gameObject.SetActive(false);
+				}
+			}
+		}
 	}
 }

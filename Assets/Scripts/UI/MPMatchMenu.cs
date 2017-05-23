@@ -7,6 +7,13 @@ public class MPMatchMenu : Menu
 {
 	[SerializeField] PlayerSelectionUI team1, team2;
 
+	protected override void Start()
+	{
+		base.Start();
+
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+	}
 
 	public void TestRumble(int controllerIndex)
 	{
@@ -23,6 +30,11 @@ public class MPMatchMenu : Menu
 	public void StartMatch()
 	{
 		A_GlobalSettings.SetTeamInfo(team1.team, team2.team);
+		RoundManager.mech1RoundWins = 0;
+		RoundManager.mech2RoundWins = 0;
+
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
 
 		SceneManager.LoadScene("DM1");
 	}

@@ -54,7 +54,6 @@ public class PlayerInput : AbstractInput
 		}
 		else
 		{
-			print("asd");
 			player1 = ReInput.players.GetPlayer(pilotID);
 			player2 = ReInput.players.GetPlayer(armsID);
 		}

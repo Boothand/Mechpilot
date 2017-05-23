@@ -22,6 +22,11 @@ public class FootstepSounds : MechComponent
 		}
 	}
 
+	public void PlayJumpSound()
+	{
+		mechSounds.PlaySwordSwingSound();
+	}
+
 	protected override void OnUpdate()
 	{
 		timeSinceLast += Time.deltaTime;
