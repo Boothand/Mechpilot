@@ -59,6 +59,8 @@ public class Kicker : MechComponent
 			BodyPart.BodyGroup group = bodypartIKicked.getBodyGroup;
 			bodypartIKicked.arms.healthManager.GetHit(group, Vector3.one * 0.06f, kickCheck.transform.position, 10);
 			dealingDamage = true;
+
+			bodypartIKicked.GetHitByFoot(kickCheck);
 		}
 	}
 	

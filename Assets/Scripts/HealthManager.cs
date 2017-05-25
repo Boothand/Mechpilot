@@ -106,6 +106,9 @@ public class HealthManager : MechComponent
 		if (OnDeadEvent != null)
 			OnDeadEvent();
 
+		//Other player wins
+		RoundManager.instance.EndRound(mech.tempEnemy);
+
 		dead = true;
 		StartCoroutine(DieRoutine());
 	}

@@ -84,7 +84,7 @@ public class BodyPart : Collidable
 		healthManager.takingDamage = false;
 	}
 
-	IEnumerator GetHitByFoot(KickCheck footKickingMe)
+	IEnumerator GetHitByFootRoutine(KickCheck footKickingMe)
 	{
 		beingHit = true;
 		//A bit different here since it uses a trigger volume.
@@ -99,6 +99,14 @@ public class BodyPart : Collidable
 
 		beingHit = false;
 		healthManager.takingDamage = false;
+	}
+
+	//Special case because the foot is a trigger..
+	public void GetHitByFoot(KickCheck footKickingMe)
+	{
+		healthManager.takingDamage = true;
+		StartCoroutine(GetHitByFootRoutine(footKickingMe));
+
 	}
 
 	protected override void RunCollisionEvent(Collision col)
@@ -121,6 +129,7 @@ public class BodyPart : Collidable
 		}
 
 		//Check if a foot is kicking us - NOTE: THIS NEVER RUNS..
+		/*
 		if (footKickingMe &&
 			footKickingMe.kicker.kicking &&
 			!healthManager.takingDamage)
@@ -128,5 +137,6 @@ public class BodyPart : Collidable
 			healthManager.takingDamage = true;
 			StartCoroutine(GetHitByFoot(footKickingMe));
 		}
+		*/
 	}
 }

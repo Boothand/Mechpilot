@@ -83,7 +83,8 @@ public class MechSounds : MechComponent
 	public void PlayFootStepSound()
 	{
 		singleSource.pitch = RandomPitch(1f, 0.02f);
-		singleSource.volume = 0.4f * mech.pilot.move.getVelocity.magnitude;
+		float volume = 0.4f * mech.pilot.move.getVelocity.magnitude;
+		singleSource.volume = Mathf.Clamp(volume, 0.15f, 1f);
 
 		AudioClip randomClip = footstepSounds[Random.Range(0, footstepSounds.Length)];
 		singleSource.PlayOneShot(randomClip);

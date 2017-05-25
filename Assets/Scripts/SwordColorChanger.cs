@@ -29,7 +29,7 @@ public class SwordColorChanger : MechComponent
 		arms.stancePicker.OnStanceBegin += TweenToNeutralColor;	//White
 		arms.retract.OnRetractBegin += TweenToNeutralColor;
 		arms.stagger.OnStaggerBegin += TweenToNeutralColor;
-		arms.blocker.OnBlockBegin += TweenToBlockColor;	//Blue
+		arms.blocker.OnBlockBegin += TweenToBlockColor; //Blue
 
 		//windup.OnWindupBegin -= TweenToAttackColor;
 		//windup.OnWindupBegin += TweenToAttackColor;

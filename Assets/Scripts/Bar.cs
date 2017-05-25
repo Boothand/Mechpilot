@@ -13,7 +13,9 @@ public class Bar : MechComponent
 	public enum Axis { X, Y }
 	[SerializeField] protected Axis axis;
 
-	public Mech.PlayerIndex playerIndex;
+	public Mech.TeamEnum team;
+
+	Coroutine blinkRoutineInstance;
 
 	protected override void OnAwake()
 	{
@@ -23,7 +25,7 @@ public class Bar : MechComponent
 			Mech[] mechs = FindObjectsOfType<Mech>();
 			for (int i = 0; i < mechs.Length; ++i)
 			{
-				if (mechs[i].playerIndex == playerIndex)
+				if (mechs[i].getTeam == team)
 				{
 					mech = mechs[i];
 					break;
@@ -47,10 +49,12 @@ public class Bar : MechComponent
 	//All bars should be able to blink/flash
 	protected void Blink(Vector3 location)
 	{
-		if (img)
+		if (img && RoundManager.instance.roundState != RoundManager.RoundState.Ended)
 		{
-			StopAllCoroutines();
-			StartCoroutine(BlinkRoutine());
+			if (blinkRoutineInstance != null)
+				StopCoroutine(blinkRoutineInstance);
+
+			blinkRoutineInstance = StartCoroutine(BlinkRoutine());
 		}
 	}
 
