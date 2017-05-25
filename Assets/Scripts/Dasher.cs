@@ -19,7 +19,7 @@ public class Dasher : MechComponent
 
 	void Start()
 	{
-		pilot.move.ProcessVelAndAcc += ModifyVelAndAcc;
+		pilot.movement.ProcessVelAndAcc += ModifyVelAndAcc;
 	}
 
 	IEnumerator DashRoutine(Vector3 origVel, System.Action<Vector3> velocity, System.Action<float> accelerationSpeed)

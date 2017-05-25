@@ -25,7 +25,7 @@ public class BodyPart : Collidable
 		base.OnStart();
 
 		//Modify velocity before it is applied
-		pilot.move.ProcessVelocity += MoveBackWhenHit;
+		pilot.movement.ProcessVelocity += MoveBackWhenHit;
 		dontStopOnDeath = true;
 	}
 
@@ -33,7 +33,7 @@ public class BodyPart : Collidable
 	{
 		base.OnDead();
 
-		pilot.move.ProcessVelocity -= MoveBackWhenHit;
+		pilot.movement.ProcessVelocity -= MoveBackWhenHit;
 	}
 
 	//Move backwards when getting hit.

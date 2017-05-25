@@ -53,13 +53,13 @@ public class Attacker : MechComponent
 		}
 		
 		//Function we implement to modify velocity before it is applied.
-		pilot.move.ProcessVelocity += TakeStepForward;
+		pilot.movement.ProcessVelocity += TakeStepForward;
 	}
 
 	void TakeStepForward(ref Vector3 velocity)
 	{
 		if (canTakeForwardStep
-			&& pilot.move.inputVec.z > forwardStickThreshold)
+			&& pilot.movement.inputVec.z > forwardStickThreshold)
 		{
 			velocity = mech.transform.forward * forwardMoveAmount;
 		}
@@ -160,7 +160,7 @@ public class Attacker : MechComponent
 		energyManager.SpendStamina(staminaAmount * attackStrength);
 
 		//Play animation on torso
-		animator.CrossFadeInFixedTime(AnimFromStance(dir, pilot.move.inputVec), blendTime, 1);
+		animator.CrossFadeInFixedTime(AnimFromStance(dir, pilot.movement.inputVec), blendTime, 1);
 
 		//Close the window where you can step forward in the attack
 		float stepWindow = 0.1f;

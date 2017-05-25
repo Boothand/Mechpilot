@@ -18,7 +18,7 @@ public class Run : MechComponent
 		base.OnStart();
 
 		//Modify velocity before it is applied.
-		pilot.move.ProcessWorldMoveDir += CheckRun;
+		pilot.movement.ProcessWorldMoveDir += CheckRun;
 	}
 
 	void CheckRun(ref Vector3 worldMoveDir)
@@ -30,7 +30,7 @@ public class Run : MechComponent
 			input.run &&
 			!inRunCooldown &&
 			!pilot.croucher.crouching &&
-			pilot.move.inputVecMagnitude > 0.2f
+			pilot.movement.inputVecMagnitude > 0.2f
 			//!lockOn.lockedOn &&
 			/*&& input.moveVert > 0.2f
 			&& Mathf.Abs(input.moveHorz) < 0.3f*/)
@@ -39,7 +39,7 @@ public class Run : MechComponent
 
 			float runMultiplierToUse = runMultiplier;
 
-			Vector3 localVelocity = mech.transform.InverseTransformDirection(pilot.move.getWorldMoveDir);
+			Vector3 localVelocity = mech.transform.InverseTransformDirection(pilot.movement.getWorldMoveDir);
 
 			if (Mathf.Abs(localVelocity.x) > 0.5f)   //Going sideways
 			{

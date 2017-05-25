@@ -34,7 +34,7 @@ public class MechRotation : MechComponent
 			float turnInput = Mathf.Clamp(input.turnBodyHorz, -1f, 1f);
 			angle += turnInput * Time.deltaTime * turnSpeed;
 
-			if (!turning && !pilot.move.moving)
+			if (!turning && !pilot.movement.moving)
 			{
 				animator.CrossFadeInFixedTime("Idle Switch R2L", 0.25f);
 			}

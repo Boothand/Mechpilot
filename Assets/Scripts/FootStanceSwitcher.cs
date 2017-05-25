@@ -36,7 +36,7 @@ public class FootStanceSwitcher : MechComponent
 	//Updates 'orientation' so animator knows which orientation stance (left/right) to transition to.
 	public void CheckSwitchStance(WeaponsOfficer.CombatDir prev, WeaponsOfficer.CombatDir current)
 	{
-		if (!pilot.move.moving)
+		if (!pilot.movement.moving)
 		{
 			string animToUse = AnimFromDir(current);
 

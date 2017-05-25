@@ -23,7 +23,7 @@ public class Croucher : MechComponent
 		base.OnStart();
 
 		//Modify velocity before it is applied
-		pilot.move.ProcessWorldMoveDir += WalkSlower;
+		pilot.movement.ProcessWorldMoveDir += WalkSlower;
 	}
 
 	void WalkSlower(ref Vector3 velocity)

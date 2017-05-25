@@ -6,7 +6,7 @@ public class Pilot : MechComponent
 {
 	//Auto-find references
 	public MechRotation headRotation { get; private set; }
-	public MechMovement move { get; private set; }
+	public MechMovement movement { get; private set; }
 	public Dasher dasher { get; private set; }
 	public Croucher croucher { get; private set; }
 	public Dodge dodger { get; private set; }
@@ -21,7 +21,7 @@ public class Pilot : MechComponent
 	{
 		base.OnAwake();
 		headRotation = mech.transform.root.GetComponentInChildren<MechRotation>();
-		move = mech.transform.root.GetComponentInChildren<MechMovement>();
+		movement = mech.transform.root.GetComponentInChildren<MechMovement>();
 		dasher = mech.transform.root.GetComponentInChildren<Dasher>();
 		croucher = mech.transform.root.GetComponentInChildren<Croucher>();
 		dodger = mech.transform.root.GetComponentInChildren<Dodge>();
@@ -38,7 +38,14 @@ public class Pilot : MechComponent
 
 		input.enabled = false;
 
-		RoundManager.instance.OnRoundStarted += EnableInput;
+		if (RoundManager.instance != null)
+		{
+			RoundManager.instance.OnRoundStarted += EnableInput;
+		}
+		else
+		{
+			EnableInput();
+		}
 	}
 
 	void EnableInput()

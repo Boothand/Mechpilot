@@ -19,7 +19,7 @@ public class Dodge : MechComponent
 		base.OnStart();
 
 		//Modify velocity before it is applied.
-		pilot.move.ProcessVelocity += DodgeVelocityModification;
+		pilot.movement.ProcessVelocity += DodgeVelocityModification;
 	}
 
 	//bool SlashOnWayBack(DodgeDir dir)
