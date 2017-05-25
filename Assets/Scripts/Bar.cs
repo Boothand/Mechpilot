@@ -19,10 +19,12 @@ public class Bar : MechComponent
 
 	protected override void OnAwake()
 	{
-
 		if (mech == null)
 		{
+
 			Mech[] mechs = FindObjectsOfType<Mech>();
+
+			print(mechs.Length);
 			for (int i = 0; i < mechs.Length; ++i)
 			{
 				if (mechs[i].getTeam == team)

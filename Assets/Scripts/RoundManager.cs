@@ -79,7 +79,7 @@ public class RoundManager : MonoBehaviour
 			yield return null;
 		}
 
-		countdownText.text = "GO!";
+		countdownText.text = "Fight!";
 		AudioSource.PlayClipAtPoint(go, Mech.mech1.transform.position, 1f);
 
 		roundState = RoundState.Started;
