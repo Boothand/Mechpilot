@@ -2,8 +2,11 @@
 //using System.Collections;
 
 //Base class for fully aware mech components. It provides a path to any other component on the mech.
-public class MechComponent : ManagedMechBehaviour
+public class MechComponent : MonoBehaviour
 {
+	[Header("Auto References")]
+	[SerializeField] protected Mech mech;
+
 	[SerializeField] protected bool dontStopOnDeath;
 	//Components common for both pilot and weapons officer:
 	protected Animator animator;
@@ -27,14 +30,37 @@ public class MechComponent : ManagedMechBehaviour
 
 	protected float scaleFactor { get; private set; }
 
-	protected override void OnAwake()
+	protected virtual void Awake()
+	{
+		//Auto-get references if on the same component - otherwise assign in inspector
+		
+		
+		
+		//engineer = mech.transform.root.GetComponentInChildren<Engineer>();
+		
+		scaleFactor = transform.root.localScale.y;
+
+		OnAwake();
+	}
+
+	protected virtual void OnAwake()
 	{
 		if (!mech)
 		{
-			Debug.LogWarning("No mech assigned on " + transform.name, this as Object);
-			return;
+			mech = transform.root.GetComponentInChildren<Mech>();
+
+			if (!mech)
+			{
+				Debug.LogWarning("No mech assigned on " + transform.name, this as Object);
+				return;
+			}
 		}
 
+		InitializeComponents();
+	}
+
+	void InitializeComponents()
+	{
 		animator = mech.GetComponent<Animator>();
 		hierarchy = mech.GetComponent<BodyHierarchy>();
 		rb = mech.GetComponent<Rigidbody>();
@@ -48,11 +74,6 @@ public class MechComponent : ManagedMechBehaviour
 
 		pilot = mech.transform.root.GetComponentInChildren<Pilot>();
 		arms = mech.transform.root.GetComponentInChildren<WeaponsOfficer>();
-		//engineer = mech.transform.root.GetComponentInChildren<Engineer>();
-		
-		scaleFactor = transform.root.localScale.y;
-		
-		base.OnAwake();
 	}
 
 	protected virtual void Start()

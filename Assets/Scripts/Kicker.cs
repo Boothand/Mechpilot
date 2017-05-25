@@ -18,8 +18,8 @@ public class Kicker : MechComponent
 
 	protected override void OnAwake()
 	{
-		kickCheck = mech.transform.GetComponentInChildren<KickCheck>();
 		base.OnAwake();
+		kickCheck = mech.transform.GetComponentInChildren<KickCheck>();
 	}
 
 	protected override void OnStart()
